@@ -19,3 +19,13 @@ jQuery ($) ->
             source.removeLines previousRow, previousRow
             source.insertLines currentRow, [previousLine]
         editor.focus()
+
+    $('#switchDown').click () ->
+        source = editor.getSession().getDocument()
+        currentRow = editor.getCursorPosition().row
+        maxRow = source.getLength()
+        if currentRow < maxRow - 1
+            currentLine = source.getLine currentRow
+            source.removeLines currentRow, currentRow
+            source.insertLines currentRow + 1, [currentLine]
+        editor.focus()
