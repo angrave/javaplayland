@@ -1,4 +1,4 @@
-# In coffeescript jQuery ($) -> set the onReady function and let's one use $ without
+# In coffeescript jQuery ($) -> set the onReady function and lets one use $ without
 # fear of naming conflicts.
 jQuery ($) ->
     levelOne = "go(15);\nturnRight();\ngo(5);"
@@ -32,6 +32,7 @@ class GameEditor
         $('#switchUp').click @button @switchUp
         $('#switchDown').click @button @switchDown
         $('#deleteLine').click @button @deleteLine
+        $('#insertLine').click @button @insertLine
         $('#resetText').click @button @resetText
         return
 
@@ -55,6 +56,13 @@ class GameEditor
     deleteLine: (text, currentRow) ->
         text.removeLines currentRow, currentRow
         @editor.gotoLine currentRow, 0, false
+        return
+
+    insertLine: (text, currentRow) ->
+        insertField = $('#lineToInsert')
+        toInsert = insertField.val()
+        insertField.val('')
+        text.insertLines currentRow, [toInsert]
         return
 
     resetText: (text, currentRow) ->
