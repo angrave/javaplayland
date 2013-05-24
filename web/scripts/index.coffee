@@ -8,17 +8,19 @@ jQuery ($) ->
     editor.setValue levelOne
     editor.clearSelection
     editor.gotoLine 0, 0, false
+    editor.setReadOnly true
     editor.focus()
 
     $('#switchUp').click ->
+        source = editor.getSession().getDocument()
         currentRow = editor.getCursorPosition().row
         if currentRow > 0
-            source = editor.getSession().getDocument()
             previousRow = currentRow - 1
             previousLine = source.getLine previousRow
             source.removeLines previousRow, previousRow
             source.insertLines currentRow, [previousLine]
         editor.focus()
+        return
 
     $('#switchDown').click ->
         source = editor.getSession().getDocument()
@@ -30,3 +32,11 @@ jQuery ($) ->
             source.removeLines nextRow, nextRow
             source.insertLines currentRow, [nextLine]
         editor.focus()
+        return
+
+    $('#deleteLine').click ->
+        source = editor.getSession().getDocument()
+        currentRow = editor.getCursorPosition().row
+        source.removeLines currentRow, currentRow
+        return
+    return
