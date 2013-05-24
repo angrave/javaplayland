@@ -6,37 +6,36 @@ jQuery ($) ->
     editor.setTheme "ace/theme/monokai"
     editor.getSession().setMode "ace/mode/java"
     editor.setValue levelOne
-    editor.clearSelection
+    editor.clearSelection()
     editor.gotoLine 0, 0, false
     editor.setReadOnly true
     editor.focus()
 
-    $('#switchUp').click ->
-        source = editor.getSession().getDocument()
+    button = (func) -> ->
+        # This is a wrapper for the functions which are tied to buttons.
+        text = editor.getSession().getDocument()
         currentRow = editor.getCursorPosition().row
+        func.call @, text, currentRow
+        editor.focus()
+
+    $('#switchUp').click button (text, currentRow) ->
         if currentRow > 0
             previousRow = currentRow - 1
-            previousLine = source.getLine previousRow
-            source.removeLines previousRow, previousRow
-            source.insertLines currentRow, [previousLine]
-        editor.focus()
+            previousLine = text.getLine previousRow
+            text.removeLines previousRow, previousRow
+            text.insertLines currentRow, [previousLine]
         return
 
-    $('#switchDown').click ->
-        source = editor.getSession().getDocument()
-        maxRow = source.getLength()
-        currentRow = editor.getCursorPosition().row
+    $('#switchDown').click button (text, currentRow) ->
+        maxRow = text.getLength()
         if currentRow < maxRow - 1
             nextRow = currentRow + 1
-            nextLine = source.getLine nextRow
-            source.removeLines nextRow, nextRow
-            source.insertLines currentRow, [nextLine]
-        editor.focus()
+            nextLine = text.getLine nextRow
+            text.removeLines nextRow, nextRow
+            text.insertLines currentRow, [nextLine]
         return
 
-    $('#deleteLine').click ->
-        source = editor.getSession().getDocument()
-        currentRow = editor.getCursorPosition().row
-        source.removeLines currentRow, currentRow
+    $('#deleteLine').click button (text, currentRow) ->
+        text.removeLines currentRow, currentRow
         return
     return
