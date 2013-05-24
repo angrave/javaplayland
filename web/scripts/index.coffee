@@ -27,10 +27,11 @@ class GameEditor
     setUpInsertCommands: ->
         selector = $('#commandToInsert')
         for command of @commands
-            selector.append($("<option/>", {
-                value: command,
-                text: command
-                }))
+            selector.append $ "<option/>",
+                {
+                    value: command,
+                    text: command
+                }
         return
 
     displaySelectInputFields: (event) ->
@@ -39,7 +40,7 @@ class GameEditor
         inputsDiv = $('#insertInputs')
         inputsDiv.empty()
         for i in [1..numberOfInputs] by 1
-            inputsDiv.append('<input type="text" size="5">')
+            inputsDiv.append("<input id='#{i}' type='text' size='5'>")
         return
 
     button: (func) ->
@@ -85,9 +86,16 @@ class GameEditor
         return
 
     insertLine: (text, currentRow) ->
-        insertField = $('#lineToInsert')
-        toInsert = insertField.val()
-        insertField.val('')
+        command = $('#commandToInsert').find(':selected').text()
+        numberOfInputs = @commands[command]
+        inputs = []
+        inputsDiv = $('#insertInputs')
+        for i in [1..numberOfInputs] by 1
+            inputs[i - 1] = inputsDiv.find("##{1}").val()
+
+        # Possibly do some input sanitizing here.
+
+        toInsert = "#{command}(#{inputs.join()});"
         text.insertLines currentRow, [toInsert]
         return
 
