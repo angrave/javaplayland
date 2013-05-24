@@ -8,6 +8,8 @@ if [ ! -d vendor/doppio ]; then
 	popd
 fi
 cd vendor/doppio
-make test -j4
+make library
 cd ../..
+mkdir -p web/scripts/doppio/
+cp -r vendor/doppio/build/library/*compressed* web/scripts/doppio/
 
