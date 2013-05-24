@@ -1,0 +1,4 @@
+
+http://www.digital-web.com/articles/scope_in_javascript/
+http://coffeescript.org/#operators
+
