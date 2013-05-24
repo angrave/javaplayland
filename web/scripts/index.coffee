@@ -3,11 +3,15 @@
 jQuery ($) ->
     levelOne = "go(15);\nturnRight();\ngo(5);"
     # That string will at one point live somewhere different, but this is just for testing.
-    new GameEditor levelOne
+    commands = {
+        go: 1,
+        turnRight: 0
+    }
+    new GameEditor levelOne, commands
     return
 
 class GameEditor
-    constructor: (@codeText) ->
+    constructor: (@codeText, @commands) ->
         @editor = ace.edit "editor"
         @editor.setTheme "ace/theme/monokai"
         @editor.getSession().setMode "ace/mode/java"
@@ -17,7 +21,26 @@ class GameEditor
         @editor.setReadOnly true
         @editor.focus()
 
-        @addClickEventListeners()
+        @setUpInsertCommands()
+        @addButtonEventListeners()
+
+    setUpInsertCommands: ->
+        selector = $('#commandToInsert')
+        for command of @commands
+            selector.append($("<option/>", {
+                value: command,
+                text: command
+                }))
+        return
+
+    displaySelectInputFields: (event) ->
+        selectedOption = event.target.options[event.target.selectedIndex].text
+        numberOfInputs = @commands[selectedOption]
+        inputsDiv = $('#insertInputs')
+        inputsDiv.empty()
+        for i in [1..numberOfInputs] by 1
+            inputsDiv.append('<input type="text" size="5">')
+        return
 
     button: (func) ->
         # This is a wrapper for the functions which are tied to buttons.
@@ -28,12 +51,15 @@ class GameEditor
             func.call gameEditor, text, currentRow
             gameEditor.editor.focus()
 
-    addClickEventListeners: ->
+    addButtonEventListeners: ->
         $('#switchUp').click @button @switchUp
         $('#switchDown').click @button @switchDown
         $('#deleteLine').click @button @deleteLine
         $('#insertLine').click @button @insertLine
         $('#resetText').click @button @resetText
+        selector = $('#commandToInsert')
+        selector.change @displaySelectInputFields.bind @
+        selector.change()
         return
 
     switchUp: (text, currentRow) ->
