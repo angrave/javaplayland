@@ -1,3 +1,11 @@
+# In coffeescript jQuery ($) -> set the onReady function and let's one use $ without
+# fear of naming conflicts.
+jQuery ($) ->
+    levelOne = "go(15);\nturnRight();\ngo(5);"
+    # That string will at one point live somewhere different, but this is just for testing.
+    new GameEditor levelOne
+    return
+
 class GameEditor
     constructor: (@codeText) ->
         @editor = ace.edit "editor"
@@ -25,6 +33,7 @@ class GameEditor
         $('#switchDown').click @button @switchDown
         $('#deleteLine').click @button @deleteLine
         $('#resetText').click @button @resetText
+        return
 
     switchUp: (text, currentRow) ->
         if currentRow > 0
@@ -45,16 +54,9 @@ class GameEditor
 
     deleteLine: (text, currentRow) ->
         text.removeLines currentRow, currentRow
+        @editor.gotoLine currentRow, 0, false
         return
 
     resetText: (text, currentRow) ->
         text.setValue @codeText
         return
-
-
-jQuery ($) ->
-    levelOne = "go(15);\nturnRight();\ngo(5);"
-    # That string will at one point live somewhere different, but this is just for testing.
-    new GameEditor levelOne
-
-    return
