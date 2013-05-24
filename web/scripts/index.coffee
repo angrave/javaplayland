@@ -10,7 +10,7 @@ jQuery ($) ->
     editor.gotoLine 0, 0, false
     editor.focus()
 
-    $('#switchUp').click () ->
+    $('#switchUp').click ->
         currentRow = editor.getCursorPosition().row
         if currentRow > 0
             source = editor.getSession().getDocument()
@@ -20,12 +20,13 @@ jQuery ($) ->
             source.insertLines currentRow, [previousLine]
         editor.focus()
 
-    $('#switchDown').click () ->
+    $('#switchDown').click ->
         source = editor.getSession().getDocument()
-        currentRow = editor.getCursorPosition().row
         maxRow = source.getLength()
+        currentRow = editor.getCursorPosition().row
         if currentRow < maxRow - 1
-            currentLine = source.getLine currentRow
-            source.removeLines currentRow, currentRow
-            source.insertLines currentRow + 1, [currentLine]
+            nextRow = currentRow + 1
+            nextLine = source.getLine nextRow
+            source.removeLines nextRow, nextRow
+            source.insertLines currentRow, [nextLine]
         editor.focus()
