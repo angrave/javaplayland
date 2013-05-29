@@ -13,7 +13,7 @@ jQuery ($) ->
 class GameEditor
     constructor: (@codeText, @commands) ->
         @editor = ace.edit "editor"
-        @editor.setTheme "ace/theme/monokai"
+        @editor.setTheme "ace/theme/chrome"
         @editor.getSession().setMode "ace/mode/java"
         @editor.setValue @codeText
         @editor.clearSelection()
