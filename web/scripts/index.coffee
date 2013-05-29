@@ -1,4 +1,4 @@
-# In coffeescript jQuery ($) -> set the onReady function and lets one use $ without
+# In coffeescript jQuery ($) -> sets the onReady function and lets one use $ without
 # fear of naming conflicts.
 jQuery ($) ->
     levelOne = "go(15);\nturnRight();\ngo(5);"
@@ -23,18 +23,15 @@ class GameEditor
     constructor: (@codeText, @commands) ->
         @editor = ace.edit "editor"
         @editSession = @editor.getSession()
-        # @undoManager = @editSession.getUndoManager()
-
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
         @editor.setReadOnly true
+
         @resetText()
         @editor.focus()
 
         @setUpInsertCommands()
         @addButtonEventListeners()
-
-        # @undoManager.reset()
 
     getCommandFromLine: (line) ->
         re = /^(.+)\(/
@@ -56,7 +53,9 @@ class GameEditor
 
     UpdateCommandsStatus: ->
         ###
-        Creates and fills the commands remaining field above the editor.
+        Updates the commands-remaining field above the editor.
+        At some point in the future this should be made to be not just text,
+        but for now it is functional.
         ###
         statusField = $('#commandStatus')
         statusField.html()
@@ -68,8 +67,8 @@ class GameEditor
 
     displaySelectInputFields: (event) ->
         ###
-        An even triggered when the Selector for the insert button is changed.
-        It creates a number of input fields equal to the number of inputs to the
+        An function to be run when the value of the Selector for the insert button is changed.
+        It creates a number of input fields equal to the number of inputs of the newly
         selected command.
         ###
         selectedOption = event.target.options[event.target.selectedIndex].text
@@ -121,6 +120,7 @@ class GameEditor
         command = $('#commandToInsert').find(':selected').text()
         if @commands[command]['used'] < @commands[command]['maxUses']
             @commands[command]['used']++
+
             numberOfInputs = @commands[command]['inputs']
             inputs = []
             inputsDiv = $('#insertInputs')
@@ -139,7 +139,7 @@ class GameEditor
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
         for command of @commands
-            @commands[command]['used']=@commands[command]['usedAtStart']
+            @commands[command]['used']= @commands[command]['usedAtStart']
         @UpdateCommandsStatus()
         return
 
@@ -157,7 +157,7 @@ class GameEditor
     usesCurrentRow: (func) ->
         ###
         This is a wrapper for the functions which need to know the current row.
-        It figures out the current row and passes it to the function.
+        It retrieves the current row and passes it to the function.
         ###
         gameEditor = @
         return ->
@@ -169,7 +169,7 @@ class GameEditor
     usesCurrentPosition: (func) ->
         ###
         This is a wrapper for the functions which need to know the cursor's row and column
-        It figures out the current row and column and passes them to the function.
+        It retrieves the current row and the current column and passes them to the function.
         ###
         gameEditor = @
         return ->
