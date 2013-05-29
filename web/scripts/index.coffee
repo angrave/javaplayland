@@ -4,8 +4,16 @@ jQuery ($) ->
     levelOne = "go(15);\nturnRight();\ngo(5);"
     # That string will at one point live somewhere different, but this is just for testing.
     commands = {
-        go: 1,
-        turnRight: 0
+        go: {
+            inputs: 1,
+            maxUses: 3,
+            usedAtStart: 2
+        },
+        turnRight: {
+            inputs: 0,
+            maxUses: 2,
+            usedAtStart: 1
+        }
     }
     editor = new GameEditor levelOne, commands
     window.Editor = editor # For testing only, puts editor in global namespace.
@@ -19,16 +27,18 @@ class GameEditor
 
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
-        @editor.setValue @codeText
-        @editor.clearSelection()
-        @editor.gotoLine 0, 0, false
         @editor.setReadOnly true
+        @resetText()
         @editor.focus()
 
         @setUpInsertCommands()
         @addButtonEventListeners()
 
         # @undoManager.reset()
+
+    getCommandFromLine: (line) ->
+        re = /^(.+)\(/
+        re.exec(line)[1]
 
     setUpInsertCommands: ->
         ###
@@ -44,6 +54,18 @@ class GameEditor
                 }
         return
 
+    UpdateCommandsStatus: ->
+        ###
+        Creates and fills the commands remaining field above the editor.
+        ###
+        statusField = $('#commandStatus')
+        statusField.html()
+        string = ""
+        for command of @commands
+            string += "#{command}: #{@commands[command]['maxUses'] - @commands[command]['used']} "
+        statusField.html string
+        return
+
     displaySelectInputFields: (event) ->
         ###
         An even triggered when the Selector for the insert button is changed.
@@ -51,7 +73,7 @@ class GameEditor
         selected command.
         ###
         selectedOption = event.target.options[event.target.selectedIndex].text
-        numberOfInputs = @commands[selectedOption]
+        numberOfInputs = @commands[selectedOption]['inputs']
         inputsDiv = $('#insertInputs')
         inputsDiv.empty()
         for i in [1..numberOfInputs] by 1
@@ -84,27 +106,41 @@ class GameEditor
         return
 
     deleteLine: (text, currentRow) ->
-        text.removeLines currentRow, currentRow
+        line = text.getLine currentRow
+        if line != ""
+            command = @getCommandFromLine line
+            @commands[command]['used']--
+            @UpdateCommandsStatus()
+            if text.getLength() == 1
+                text.insertLines currentRow + 1, ["\n"]
+                text.removeNewLine currentRow
+            text.removeLines currentRow, currentRow
         return
 
     insertLine: (text, currentRow) ->
         command = $('#commandToInsert').find(':selected').text()
-        numberOfInputs = @commands[command]
-        inputs = []
-        inputsDiv = $('#insertInputs')
-        for i in [1..numberOfInputs] by 1
-            inputs[i - 1] = inputsDiv.find("##{1}").val()
+        if @commands[command]['used'] < @commands[command]['maxUses']
+            @commands[command]['used']++
+            numberOfInputs = @commands[command]['inputs']
+            inputs = []
+            inputsDiv = $('#insertInputs')
+            for i in [1..numberOfInputs] by 1
+                inputs[i - 1] = inputsDiv.find("##{1}").val()
 
-        # Possibly do some input sanitizing here.
+            # Possibly do some input sanitizing here.
 
-        toInsert = "#{command}(#{inputs.join()});"
-        text.insertLines currentRow, [toInsert]
+            toInsert = "#{command}(#{inputs.join()});"
+            text.insertLines currentRow, [toInsert]
+            @UpdateCommandsStatus()
         return
 
     resetText: ->
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
+        for command of @commands
+            @commands[command]['used']=@commands[command]['usedAtStart']
+        @UpdateCommandsStatus()
         return
 
     button: (func) ->
