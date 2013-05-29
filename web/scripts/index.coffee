@@ -7,14 +7,18 @@ jQuery ($) ->
         go: 1,
         turnRight: 0
     }
-    new GameEditor levelOne, commands
+    editor = new GameEditor levelOne, commands
+    window.Editor = editor # For testing only, puts editor in global namespace.
     return
 
 class GameEditor
     constructor: (@codeText, @commands) ->
         @editor = ace.edit "editor"
+        @editSession = @editor.getSession()
+        # @undoManager = @editSession.getUndoManager()
+
         @editor.setTheme "ace/theme/chrome"
-        @editor.getSession().setMode "ace/mode/java"
+        @editSession.setMode "ace/mode/java"
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
@@ -24,7 +28,13 @@ class GameEditor
         @setUpInsertCommands()
         @addButtonEventListeners()
 
+        # @undoManager.reset()
+
     setUpInsertCommands: ->
+        ###
+        Adds an option to the Selector for the insert button for each command
+        this game has.
+        ###
         selector = $('#commandToInsert')
         for command of @commands
             selector.append $ "<option/>",
@@ -35,6 +45,11 @@ class GameEditor
         return
 
     displaySelectInputFields: (event) ->
+        ###
+        An even triggered when the Selector for the insert button is changed.
+        It creates a number of input fields equal to the number of inputs to the
+        selected command.
+        ###
         selectedOption = event.target.options[event.target.selectedIndex].text
         numberOfInputs = @commands[selectedOption]
         inputsDiv = $('#insertInputs')
@@ -43,46 +58,33 @@ class GameEditor
             inputsDiv.append("<input id='#{i}' type='text' size='5'>")
         return
 
-    button: (func) ->
-        # This is a wrapper for the functions which are tied to buttons.
-        gameEditor = @
-        return ->
-            text = gameEditor.editor.getSession().getDocument()
-            currentRow = gameEditor.editor.getCursorPosition().row
-            func.call gameEditor, text, currentRow
-            gameEditor.editor.focus()
-
     addButtonEventListeners: ->
-        $('#switchUp').click @button @switchUp
-        $('#switchDown').click @button @switchDown
-        $('#deleteLine').click @button @deleteLine
-        $('#insertLine').click @button @insertLine
+        $('#switchUp').click @button @usesCurrentPosition @switchUp
+        $('#switchDown').click @button @usesCurrentPosition @switchDown
+        $('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
+        $('#insertLine').click @button @editsText @usesCurrentRow @insertLine
         $('#resetText').click @button @resetText
         selector = $('#commandToInsert')
         selector.change @displaySelectInputFields.bind @
         selector.change()
         return
 
-    switchUp: (text, currentRow) ->
+
+    switchUp: (currentRow, currentColumn) ->
         if currentRow > 0
-            previousRow = currentRow - 1
-            previousLine = text.getLine previousRow
-            text.removeLines previousRow, previousRow
-            text.insertLines currentRow, [previousLine]
+            @editSession.moveLinesUp(currentRow, currentRow)
+            @editor.gotoLine currentRow, currentColumn, false
         return
 
-    switchDown: (text, currentRow) ->
-        maxRow = text.getLength()
+    switchDown: (currentRow, currentColumn) ->
+        maxRow = @editSession.getLength()
         if currentRow < maxRow - 1
-            nextRow = currentRow + 1
-            nextLine = text.getLine nextRow
-            text.removeLines nextRow, nextRow
-            text.insertLines currentRow, [nextLine]
+            @editSession.moveLinesDown(currentRow, currentRow)
+            @editor.gotoLine currentRow + 2, currentColumn, false
         return
 
     deleteLine: (text, currentRow) ->
         text.removeLines currentRow, currentRow
-        @editor.gotoLine currentRow, 0, false
         return
 
     insertLine: (text, currentRow) ->
@@ -99,6 +101,56 @@ class GameEditor
         text.insertLines currentRow, [toInsert]
         return
 
-    resetText: (text, currentRow) ->
-        text.setValue @codeText
+    resetText: ->
+        @editor.setValue @codeText
+        @editor.clearSelection()
+        @editor.gotoLine 0, 0, false
         return
+
+    button: (func) ->
+        ###
+        This is a wrapper for the functions which are tied to buttons.
+        It restores focus to the editor after the button has been pressed.
+        ###
+        gameEditor = @
+        return ->
+            func.call gameEditor
+            gameEditor.editor.focus()
+            return
+
+    usesCurrentRow: (func) ->
+        ###
+        This is a wrapper for the functions which need to know the current row.
+        It figures out the current row and passes it to the function.
+        ###
+        gameEditor = @
+        return ->
+            currentRow = gameEditor.editor.getCursorPosition().row
+            arguments[arguments.length++] = currentRow
+            func.apply gameEditor, arguments
+            return
+
+    usesCurrentPosition: (func) ->
+        ###
+        This is a wrapper for the functions which need to know the cursor's row and column
+        It figures out the current row and column and passes them to the function.
+        ###
+        gameEditor = @
+        return ->
+            cursorPosition = gameEditor.editor.getCursorPosition()
+            arguments[arguments.length++] = cursorPosition.row
+            arguments[arguments.length++] = cursorPosition.column
+            func.apply gameEditor, arguments
+            return
+
+    editsText: (func) ->
+        ###
+        This is a wrapper for functions which edit the text in the editor directly.
+        It gets a reference to the text and passes it to the function.
+        ###
+        gameEditor = @
+        return ->
+            text = gameEditor.editSession.getDocument()
+            arguments[arguments.length++] = text
+            func.apply gameEditor, arguments
+            return
