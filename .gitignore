@@ -1,3 +1,4 @@
 vendor/
 web/scripts/index.js
 web/scripts/*.map
+web/scripts/playerCodeEditor.js
