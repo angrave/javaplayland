@@ -132,6 +132,10 @@ class root.PlayerCodeEditor
 
             toInsert = "#{command}(#{inputs.join()});"
             text.insertLines currentRow, [toInsert]
+
+            if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
+                text.removeNewLine currentRow
+
             @UpdateCommandsStatus()
         return
 
