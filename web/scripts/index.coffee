@@ -15,11 +15,11 @@ jQuery ($) ->
             usedAtStart: 1
         }
     }
-    editor = new GameEditor levelOne, commands
+    editor = new PlayerCodeEditor levelOne, commands
     window.Editor = editor # For testing only, puts editor in global namespace.
     return
 
-class GameEditor
+class PlayerCodeEditor
     constructor: (@codeText, @commands) ->
         @editor = ace.edit "editor"
         @editSession = @editor.getSession()
@@ -35,7 +35,7 @@ class GameEditor
 
     getCommandFromLine: (line) ->
         re = /^(.+)\(/
-        re.exec(line)[1]
+        return re.exec(line)[1]
 
     setUpInsertCommands: ->
         ###
@@ -148,10 +148,10 @@ class GameEditor
         This is a wrapper for the functions which are tied to buttons.
         It restores focus to the editor after the button has been pressed.
         ###
-        gameEditor = @
+        playerCodeEditor = @
         return ->
-            func.call gameEditor
-            gameEditor.editor.focus()
+            func.call playerCodeEditor
+            playerCodeEditor.editor.focus()
             return
 
     usesCurrentRow: (func) ->
@@ -159,11 +159,11 @@ class GameEditor
         This is a wrapper for the functions which need to know the current row.
         It retrieves the current row and passes it to the function.
         ###
-        gameEditor = @
+        playerCodeEditor = @
         return ->
-            currentRow = gameEditor.editor.getCursorPosition().row
+            currentRow = playerCodeEditor.editor.getCursorPosition().row
             arguments[arguments.length++] = currentRow
-            func.apply gameEditor, arguments
+            func.apply playerCodeEditor, arguments
             return
 
     usesCurrentPosition: (func) ->
@@ -171,12 +171,12 @@ class GameEditor
         This is a wrapper for the functions which need to know the cursor's row and column
         It retrieves the current row and the current column and passes them to the function.
         ###
-        gameEditor = @
+        playerCodeEditor = @
         return ->
-            cursorPosition = gameEditor.editor.getCursorPosition()
+            cursorPosition = playerCodeEditor.editor.getCursorPosition()
             arguments[arguments.length++] = cursorPosition.row
             arguments[arguments.length++] = cursorPosition.column
-            func.apply gameEditor, arguments
+            func.apply playerCodeEditor, arguments
             return
 
     editsText: (func) ->
@@ -184,9 +184,9 @@ class GameEditor
         This is a wrapper for functions which edit the text in the editor directly.
         It gets a reference to the text and passes it to the function.
         ###
-        gameEditor = @
+        playerCodeEditor = @
         return ->
-            text = gameEditor.editSession.getDocument()
+            text = playerCodeEditor.editSession.getDocument()
             arguments[arguments.length++] = text
-            func.apply gameEditor, arguments
+            func.apply playerCodeEditor, arguments
             return
