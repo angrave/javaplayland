@@ -90,21 +90,20 @@ class PlayerCodeEditor
         selector.change()
         return
 
-
-    switchUp: (currentRow, currentColumn) ->
+    switchUp: ({currentRow, currentColumn}) ->
         if currentRow > 0
             @editSession.moveLinesUp(currentRow, currentRow)
             @editor.gotoLine currentRow, currentColumn, false
         return
 
-    switchDown: (currentRow, currentColumn) ->
+    switchDown: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
         if currentRow < maxRow - 1
             @editSession.moveLinesDown(currentRow, currentRow)
             @editor.gotoLine currentRow + 2, currentColumn, false
         return
 
-    deleteLine: (text, currentRow) ->
+    deleteLine: ({text, currentRow}) ->
         line = text.getLine currentRow
         if line != ""
             command = @getCommandFromLine line
@@ -116,7 +115,7 @@ class PlayerCodeEditor
             text.removeLines currentRow, currentRow
         return
 
-    insertLine: (text, currentRow) ->
+    insertLine: ({text, currentRow}) ->
         command = $('#commandToInsert').find(':selected').text()
         if @commands[command]['used'] < @commands[command]['maxUses']
             @commands[command]['used']++
@@ -162,7 +161,8 @@ class PlayerCodeEditor
         playerCodeEditor = @
         return ->
             currentRow = playerCodeEditor.editor.getCursorPosition().row
-            arguments[arguments.length++] = currentRow
+            @addNamedArguments arguments, {currentRow: currentRow}
+
             func.apply playerCodeEditor, arguments
             return
 
@@ -174,8 +174,11 @@ class PlayerCodeEditor
         playerCodeEditor = @
         return ->
             cursorPosition = playerCodeEditor.editor.getCursorPosition()
-            arguments[arguments.length++] = cursorPosition.row
-            arguments[arguments.length++] = cursorPosition.column
+            @addNamedArguments arguments, {
+                currentRow: cursorPosition.row,
+                currentColumn: cursorPosition.column
+            }
+
             func.apply playerCodeEditor, arguments
             return
 
@@ -187,6 +190,45 @@ class PlayerCodeEditor
         playerCodeEditor = @
         return ->
             text = playerCodeEditor.editSession.getDocument()
-            arguments[arguments.length++] = text
+            @addNamedArguments arguments, {text: text}
+
             func.apply playerCodeEditor, arguments
             return
+
+    addNamedArguments: (originalArguments, argumentDictionary) ->
+        ###
+        Adds the named arguments to the original arguments.
+        Makes changes to originalArguments, returns nothing.
+        ###
+        if originalArguments.length == 0
+            originalArguments[originalArguments.length++] = \
+                @createNamedArguments argumentDictionary
+        else
+            for argument of originalArguments
+                if @detectNamedArguments originalArguments[argument]
+                    $.extend true, originalArguments[argument],
+                        argumentDictionary
+                    break
+        return
+
+    createNamedArguments: (argumentDictionary) ->
+        ###
+        Takes in an object of key-value pairs,
+        returns an object of the Named Arguments format.
+        ###
+        argumentDictionary['namedArgumentsFlag'] = true
+        return argumentDictionary
+
+    detectNamedArguments: (argument) ->
+        ###
+        Returns whether or not the argument is of the namedArguments format.
+        ###
+        if argument == null
+            return false
+        if typeof argument != 'object'
+            return false
+        if not ('namedArgumentsFlag' of argument)
+            return false
+        if argument['namedArgumentsFlag'] != true
+            return false
+        return true
