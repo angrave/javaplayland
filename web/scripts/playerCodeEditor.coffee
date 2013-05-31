@@ -27,7 +27,7 @@ class root.PlayerCodeEditor
         @resetText()
         @editor.focus()
 
-        @enableKeyBoardShortcuts()
+        @enableKeyboardShortcuts()
         @setUpInsertCommands()
         @addButtonEventListeners()
 
@@ -35,7 +35,7 @@ class root.PlayerCodeEditor
         re = /^(.+)\(/
         return re.exec(line)[1]
 
-    enableKeyBoardShortcuts: ->
+    enableKeyboardShortcuts: ->
         @editor.commands.commands.movelinesup['readOnly'] = true
         @editor.commands.commands.movelinesdown['readOnly'] = true
 
