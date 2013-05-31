@@ -15,13 +15,13 @@ jQuery ($) ->
             usedAtStart: 1
         }
     }
-    editor = new PlayerCodeEditor levelOne, commands
+    editor = new PlayerCodeEditor "editor", levelOne, commands
     window.Editor = editor # For testing only, puts editor in global namespace.
     return
 
 class PlayerCodeEditor
-    constructor: (@codeText, @commands) ->
-        @editor = ace.edit "editor"
+    constructor: (@editorDivId, @codeText, @commands) ->
+        @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
