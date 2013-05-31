@@ -111,10 +111,10 @@ class root.PlayerCodeEditor
             command = @getCommandFromLine line
             @commands[command]['used']--
             @UpdateCommandsStatus()
-            if text.getLength() == 1
-                text.insertLines currentRow + 1, ["\n"]
-                text.removeNewLine currentRow
-            text.removeLines currentRow, currentRow
+        if text.getLength() == 1
+            text.insertLines currentRow + 1, ["\n"]
+            text.removeNewLine currentRow
+        text.removeLines currentRow, currentRow
         return
 
     insertLine: ({text, currentRow}) ->
