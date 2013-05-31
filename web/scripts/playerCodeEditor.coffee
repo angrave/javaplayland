@@ -1,6 +1,22 @@
 root = exports ? this
 
 class root.PlayerCodeEditor
+    ###
+    Creates and provides functionality for an Ace editor representing player's code.
+    Also provides functionality to several buttons it expects to be on the html page
+    that interact with the player's code.
+
+    Expects the following from the html page:
+        A div with id of "commandStatus"
+        A div with id of "insertInputs"
+        A div with id equal that passed in as the div where the ace editor will be.
+        Buttons with the ids of:
+            switchUp
+            switchDown
+            deleteLine
+            resetText
+        A selector with id of "commandToInsert"
+    ###
     constructor: (@editorDivId, @codeText, @commands) ->
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
@@ -48,7 +64,7 @@ class root.PlayerCodeEditor
 
     displaySelectInputFields: (event) ->
         ###
-        An function to be run when the value of the Selector for the insert button is changed.
+        A function to be run when the value of the Selector for the insert button is changed.
         It creates a number of input fields equal to the number of inputs of the newly
         selected command.
         ###
