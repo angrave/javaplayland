@@ -1,6 +1,4 @@
-root = exports ? this
-
-class root.PlayerCodeEditor
+class window.PlayerCodeEditor
     ###
     Creates and provides functionality for an Ace editor representing player's code.
     Also provides functionality to several buttons it expects to be on the html page
@@ -38,6 +36,7 @@ class root.PlayerCodeEditor
     enableKeyboardShortcuts: ->
         @editor.commands.commands.movelinesup['readOnly'] = true
         @editor.commands.commands.movelinesdown['readOnly'] = true
+        return
 
     setUpInsertCommands: ->
         ###
@@ -126,7 +125,7 @@ class root.PlayerCodeEditor
             inputs = []
             inputsDiv = jQuery('#insertInputs')
             for i in [1..numberOfInputs] by 1
-                inputs[i - 1] = inputsDiv.find("##{1}").val()
+                inputs[i - 1] = inputsDiv.find("##{i}").val()
 
             # Possibly do some input sanitizing here.
 

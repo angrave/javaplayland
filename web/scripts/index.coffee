@@ -13,6 +13,11 @@ jQuery ($) ->
             inputs: 0,
             maxUses: 2,
             usedAtStart: 1
+        },
+        turn: {
+            inputs: 2,
+            maxUses: 3,
+            usedAtStart: 0
         }
     }
     editor = new PlayerCodeEditor "editor", levelOne, commands
