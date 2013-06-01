@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doppio Test</title>
+  <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type="text/css" href="css/style.css">
+</head>
+<body>
+<div id='progress-container'>
+  <div id='progress-box'>
+    <div id='progress' class='progress progress-striped active' style='background:#ccc'>
+      <div class='bar' style='width:0%'></div>
+    </div>
+    <div id='preloading-file'></div>
+  </div>
+</div>
+
+<div id='overlay'>
+</div>
+
+<div id='main'>
+  <header class='page-header'>
+  <h1 id='title' style='float:left;' class='bitter'>PLayland</h1>
+    <!-- File upload button strategy credit goes davist11: https://gist.github.com/645816 -->
+    <span class="file-wrapper" style='margin: 8px 0 3px 0;float:right;'>
+      <input type="file" name="file" id="file" multiple />
+      <span class="button">Upload Files...</span>
+    </span>
+    <h1>&nbsp;</h1>
+  </header>
+  <div id='ide' style='display:none'>
+    <div id='source'></div>
+    <!-- the Ace editor affects document flow weirdly, hence this hack -->
+    <div style='height:70%'></div>
+    <form class='form-inline' style='margin: 8px 0 3px 0;'>
+      <label for='filename' class='control-label'>Save As:</label>
+      <input type='text' id='filename' class='input-xlarge'/>
+      <button id='save_btn' class='btn btn-mini btn-primary'>Save &amp; Close</button>
+      <button id='close_btn' class='btn btn-mini btn-primary'>Close Without Saving</button>
+    </form>
+  </div>
+
+  <div id='console'><div id="consoleUnderlay"><img src="browser/coffee.png"/></div></div>
+</div>
+<!-- doppio compressed already contains 
+	vendor/_.js \
+	vendor/gLong.js \
+	browser/util.coffee \
+	browser/node.coffee \
+	src/logging.coffee \
+	src/exceptions.coffee \
+	src/util.coffee \
+	src/java_object.coffee \
+	src/opcodes.coffee \
+	src/attributes.coffee \
+	src/ConstantPool.coffee \
+	src/disassembler.coffee \
+	src/ClassData.coffee \
+	src/natives.coffee \
+	src/methods.coffee \
+	src/runtime.coffee \
+	src/ClassLoader.coffee \
+	src/jvm.coffee \
+	src/testing.coffee \
+	browser/untar.coffee
+
+Need to add - 
+vendor/jquery.console.js \
+browser/frontend.coffee
+and ace files (see setup)
+
+-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="scripts/doppio/uncompressed.js"></script>
+<script type="text/javascript" src="scripts/jquery.console.js"></script>
+<script type="text/javascript" src="scripts/doppio-hackedconsole.js"></script>
+
+<script type="text/javascript" src="scripts/doppio/ace-combined.js"></script>
+
+</body>
+</html>
