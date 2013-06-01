@@ -1,6 +1,7 @@
 *.js
 *.map
 .DS_Store
+node_modules
 vendor/
 web/scripts/index.js
 web/scripts/*.map
