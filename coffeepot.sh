@@ -1,2 +1,3 @@
-coffee --compile --map --watch --output web/scripts/ web/scripts/
+cd web;
+coffee --compile --map --watch --lint --output scripts/ scripts/
 
