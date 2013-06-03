@@ -142,7 +142,7 @@ class window.PlayerCodeEditor
         ###
         playerCodeEditor = @
         return ->
-            if arguments.length != 0 and playerCodeEditor.detectNamedArgument[0]
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
                 func.apply playerCodeEditor, arguments
             else
                 func.call playerCodeEditor
