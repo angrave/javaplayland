@@ -45,11 +45,17 @@ class window.PlayerCodeEditor
                 if i != numberOfInputs
                     underscoresForInputs += ', '
 
+            line = "#{command}(#{underscoresForInputs})"
+            codeEditor = @
             button = jQuery '<button>', {
                 id: command,
-                text: "#{command}(#{underscoresForInputs})",
+                text: line,
                 click: (event) ->
-                    alert "test"
+                    (codeEditor.button codeEditor.usesCurrentRow \
+                        codeEditor.editsText codeEditor.insertLine)
+                    .call(codeEditor,
+                            codeEditor.createNamedArguments({line: line}))
+                    return
             }
             buttons.push button.get 0
         buttonField.append buttons
@@ -106,21 +112,13 @@ class window.PlayerCodeEditor
         re = /^(.+)\(/
         return re.exec(line)[1]
 
-    insertLine: ({text, currentRow}) ->
-        command = jQuery('#commandToInsert').find(':selected').text()
+    insertLine: ({text, line, currentRow}) ->
+        command = @getCommandFromLine(line)
         if @commands[command]['used'] < @commands[command]['maxUses']
             @commands[command]['used']++
 
-            numberOfInputs = @commands[command]['inputs']
-            inputs = []
             inputsDiv = jQuery('#insertButtons')
-            for i in [1..numberOfInputs] by 1
-                inputs[i - 1] = inputsDiv.find("##{i}").val()
-
-            # Possibly do some input sanitizing here.
-
-            toInsert = "#{command}(#{inputs.join()});"
-            text.insertLines currentRow, [toInsert]
+            text.insertLines currentRow, [text]
 
             if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
                 text.removeNewLine currentRow
@@ -144,7 +142,7 @@ class window.PlayerCodeEditor
         ###
         playerCodeEditor = @
         return ->
-            func.call playerCodeEditor
+            func.apply playerCodeEditor, arguments
             playerCodeEditor.editor.focus()
             return
 
