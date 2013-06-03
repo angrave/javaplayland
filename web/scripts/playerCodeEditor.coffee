@@ -6,7 +6,7 @@ class window.PlayerCodeEditor
 
     Expects the following from the html page:
         A field with id of "commandStatus"
-        A field with id of "insertInputs"
+        A field with id of "insertButtons"
         A div with id equal that passed in as the div where the ace editor will be.
         Buttons with the ids of:
             switchUp
@@ -26,7 +26,7 @@ class window.PlayerCodeEditor
         @editor.focus()
 
         @enableKeyboardShortcuts()
-        @setUpInsertCommands()
+        @setUpInsertButtons()
         @addButtonEventListeners()
 
     enableKeyboardShortcuts: ->
@@ -34,19 +34,27 @@ class window.PlayerCodeEditor
         @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
-    setUpInsertCommands: ->
-        ###
-        Adds an option to the Selector for the insert button for each command
-        this game has.
-        ###
-        selector = jQuery('#commandToInsert')
+    setUpInsertButtons: ->
+        buttonField = jQuery('#insertButtons')
+        buttons = []
         for command of @commands
-            selector.append jQuery "<option/>",
-                {
-                    value: command,
-                    text: command
-                }
+            numberOfInputs = @commands[command]['inputs']
+            underscoresForInputs = ""
+            for i in [1..numberOfInputs] by 1
+                underscoresForInputs += '__'
+                if i != numberOfInputs
+                    underscoresForInputs += ', '
+
+            button = jQuery '<button>', {
+                id: command,
+                text: "#{command}(#{underscoresForInputs})",
+                click: (event) ->
+                    alert "test"
+            }
+            buttons.push button.get 0
+        buttonField.append buttons
         return
+
 
     UpdateCommandsStatus: ->
         ###
@@ -62,29 +70,11 @@ class window.PlayerCodeEditor
         statusField.html string
         return
 
-    displaySelectInputFields: (event) ->
-        ###
-        A function to be run when the value of the Selector for the insert button is changed.
-        It creates a number of input fields equal to the number of inputs of the newly
-        selected command.
-        ###
-        selectedOption = event.target.options[event.target.selectedIndex].text
-        numberOfInputs = @commands[selectedOption]['inputs']
-        inputsDiv = jQuery('#insertInputs')
-        inputsDiv.empty()
-        for i in [1..numberOfInputs] by 1
-            inputsDiv.append("<input id='#{i}' type='text' size='5'>")
-        return
-
     addButtonEventListeners: ->
         jQuery('#switchUp').click @button @usesCurrentPosition @switchUp
         jQuery('#switchDown').click @button @usesCurrentPosition @switchDown
         jQuery('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
-        jQuery('#insertLine').click @button @editsText @usesCurrentRow @insertLine
         jQuery('#resetText').click @button @resetText
-        selector = jQuery('#commandToInsert')
-        selector.change @displaySelectInputFields.bind @
-        selector.change()
         return
 
     switchUp: ({currentRow, currentColumn}) ->
@@ -123,7 +113,7 @@ class window.PlayerCodeEditor
 
             numberOfInputs = @commands[command]['inputs']
             inputs = []
-            inputsDiv = jQuery('#insertInputs')
+            inputsDiv = jQuery('#insertButtons')
             for i in [1..numberOfInputs] by 1
                 inputs[i - 1] = inputsDiv.find("##{i}").val()
 
