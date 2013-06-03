@@ -5,8 +5,8 @@ class window.PlayerCodeEditor
     that interact with the player's code.
 
     Expects the following from the html page:
-        A div with id of "commandStatus"
-        A div with id of "insertInputs"
+        A field with id of "commandStatus"
+        A field with id of "insertInputs"
         A div with id equal that passed in as the div where the ace editor will be.
         Buttons with the ids of:
             switchUp
@@ -28,10 +28,6 @@ class window.PlayerCodeEditor
         @enableKeyboardShortcuts()
         @setUpInsertCommands()
         @addButtonEventListeners()
-
-    getCommandFromLine: (line) ->
-        re = /^(.+)\(/
-        return re.exec(line)[1]
 
     enableKeyboardShortcuts: ->
         @editor.commands.commands.movelinesup['readOnly'] = true
@@ -115,6 +111,10 @@ class window.PlayerCodeEditor
             text.removeNewLine currentRow
         text.removeLines currentRow, currentRow
         return
+
+    getCommandFromLine: (line) ->
+        re = /^(.+)\(/
+        return re.exec(line)[1]
 
     insertLine: ({text, currentRow}) ->
         command = jQuery('#commandToInsert').find(':selected').text()
