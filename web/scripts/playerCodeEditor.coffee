@@ -142,7 +142,10 @@ class window.PlayerCodeEditor
         ###
         playerCodeEditor = @
         return ->
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
             playerCodeEditor.editor.focus()
             return false
 
@@ -197,11 +200,16 @@ class window.PlayerCodeEditor
             originalArguments[originalArguments.length++] = \
                 @createNamedArguments argumentDictionary
         else
+            argumentFound = false
             for argument of originalArguments
-                if @detectNamedArguments originalArguments[argument]
+                if @detectNamedArgument originalArguments[argument]
                     jQuery.extend true, originalArguments[argument],
                         argumentDictionary
+                    argumentFound = true
                     break
+            if not argumentFound
+                originalArguments[originalArguments.length++] = \
+                    @createNamedArguments argumentDictionary
         return
 
     createNamedArguments: (argumentDictionary) ->
@@ -212,7 +220,7 @@ class window.PlayerCodeEditor
         argumentDictionary['namedArgumentsFlag'] = true
         return argumentDictionary
 
-    detectNamedArguments: (argument) ->
+    detectNamedArgument: (argument) ->
         ###
         Returns whether or not the argument is of the namedArguments format.
         ###
