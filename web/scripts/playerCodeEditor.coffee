@@ -20,18 +20,15 @@ class window.PlayerCodeEditor
         @editSession = @editor.getSession()
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
-        @editor.setReadOnly true
 
         @resetText()
         @editor.focus()
 
-        @enableKeyboardShortcuts()
+        # @enableKeyboardShortcuts()
         @setUpInsertButtons()
         @addButtonEventListeners()
 
     enableKeyboardShortcuts: ->
-        @editor.commands.commands.movelinesup['readOnly'] = true
-        @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
     setUpInsertButtons: ->
@@ -49,12 +46,13 @@ class window.PlayerCodeEditor
             codeEditor = @
             button = jQuery '<button>', {
                 id: command,
-                text: line,
+                value: line,
+                text: "#{line}: #{@commands[command]['maxUses'] - @commands[command]['used']} ",
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.editsText codeEditor.insertLine)
                     .call(codeEditor,
-                            codeEditor.createNamedArguments({line: e.currentTarget.innerHTML}))
+                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
                     return false
             }
             buttons.push button.get 0
