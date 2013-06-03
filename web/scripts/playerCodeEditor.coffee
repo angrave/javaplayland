@@ -50,12 +50,12 @@ class window.PlayerCodeEditor
             button = jQuery '<button>', {
                 id: command,
                 text: line,
-                click: (event) ->
+                click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.editsText codeEditor.insertLine)
                     .call(codeEditor,
-                            codeEditor.createNamedArguments({line: line}))
-                    return
+                            codeEditor.createNamedArguments({line: e.currentTarget.innerHTML}))
+                    return false
             }
             buttons.push button.get 0
         buttonField.append buttons
@@ -144,7 +144,7 @@ class window.PlayerCodeEditor
         return ->
             func.apply playerCodeEditor, arguments
             playerCodeEditor.editor.focus()
-            return
+            return false
 
     usesCurrentRow: (func) ->
         ###
@@ -157,7 +157,7 @@ class window.PlayerCodeEditor
             @addNamedArguments arguments, {currentRow: currentRow}
 
             func.apply playerCodeEditor, arguments
-            return
+            return false
 
     usesCurrentPosition: (func) ->
         ###
@@ -173,7 +173,7 @@ class window.PlayerCodeEditor
             }
 
             func.apply playerCodeEditor, arguments
-            return
+            return false
 
     editsText: (func) ->
         ###
@@ -186,7 +186,7 @@ class window.PlayerCodeEditor
             @addNamedArguments arguments, {text: text}
 
             func.apply playerCodeEditor, arguments
-            return
+            return false
 
     addNamedArguments: (originalArguments, argumentDictionary) ->
         ###
