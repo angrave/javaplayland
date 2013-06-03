@@ -118,10 +118,10 @@ class window.PlayerCodeEditor
             @commands[command]['used']++
 
             inputsDiv = jQuery('#insertButtons')
-            text.insertLines currentRow, [text]
+            text.insertLines currentRow, [line]
 
-            if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
-                text.removeNewLine currentRow
+            # if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
+            #     text.removeNewLine currentRow
 
             @UpdateCommandsStatus()
         return
