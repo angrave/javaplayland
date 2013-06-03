@@ -19,7 +19,7 @@ fi
 COFFEEC=coffee
 
 mkdir -p vendor
-if [ ! -d vendor/doppio ]; then 
+if [ ! -d vendor/doppio ]; then
 	git clone git://github.com/angrave/doppio.git vendor/doppio
 	pushd .
 	cd vendor/doppio
@@ -34,8 +34,12 @@ mkdir -p web/browser
 DOPPIO=$(cd vendor/doppio;pwd)
 LISTINGS=$(cd web/browser;pwd)/listings.json
 
+#Copy coffee.png
+cp "$DOPPIO/browser/coffee.png" web/browser/
+cp "$DOPPIO/browser/coffee.svg" web/browser/
+
 pushd .
-cd $DOPPIO; 
+cd $DOPPIO;
 make library
 popd
 
@@ -57,4 +61,4 @@ rm web/browser/listings.json
 pushd .
 cd web
 $COFFEEC $DOPPIO/tools/gen_dir_listings.coffee > "$LISTINGS"
-popd 
+popd
