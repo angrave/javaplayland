@@ -5,7 +5,6 @@ class window.PlayerCodeEditor
     that interact with the player's code.
 
     Expects the following from the html page:
-        A field with id of "commandStatus"
         A field with id of "insertButtons"
         A div with id equal that passed in as the div where the ace editor will be.
         Buttons with the ids of:
@@ -16,6 +15,10 @@ class window.PlayerCodeEditor
         A selector with id of "commandToInsert"
     ###
     constructor: (@editorDivId, @codeText, @commands) ->
+        ###
+            Sets internal variables, the default text and buttons
+            and their event handlers.
+        ###
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
         @editor.setTheme "ace/theme/chrome"
@@ -24,30 +27,33 @@ class window.PlayerCodeEditor
         @resetText()
         @editor.focus()
 
-        # @enableKeyboardShortcuts()
         @setUpInsertButtons()
         @addButtonEventListeners()
 
     enableKeyboardShortcuts: ->
+        ###
+            Currently does nothing.
+            It used to be that the text was in read-only mode.
+            Now that it is not the two shortcuts this used to enable
+            are enabled by default.
+        ###
         return
 
     setUpInsertButtons: ->
+        ###
+            Inserts a button for each command of the game to the html field
+            with the id of 'insertButtons'.
+        ###
         buttonField = jQuery('#insertButtons')
         buttons = []
         for command of @commands
-            numberOfInputs = @commands[command]['inputs']
-            underscoresForInputs = ""
-            for i in [1..numberOfInputs] by 1
-                underscoresForInputs += '__'
-                if i != numberOfInputs
-                    underscoresForInputs += ', '
-
-            line = "#{command}(#{underscoresForInputs})"
+            line = @createBlankFunctionHeader(command)
+            usesRemaining = @commands[command]['maxUses'] - @commands[command]['used']
             codeEditor = @
             button = jQuery '<button>', {
                 id: command,
                 value: line,
-                text: "#{line}: #{@commands[command]['maxUses'] - @commands[command]['used']} ",
+                text: "#{line}: #{usesRemaining}",
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.editsText codeEditor.insertLine)
@@ -62,17 +68,24 @@ class window.PlayerCodeEditor
 
     UpdateCommandsStatus: ->
         ###
-        Updates the commands-remaining field above the editor.
-        At some point in the future this should be made to be not just text,
-        but for now it is functional.
+            Updates the number of commands remaining for each command.
         ###
-        statusField = jQuery('#commandStatus')
-        statusField.html()
-        string = ""
+        buttonField = jQuery('#insertButtons')
         for command of @commands
-            string += "#{command}: #{@commands[command]['maxUses'] - @commands[command]['used']} "
-        statusField.html string
+            button = buttonField.find("##{command}")
+            line = @createBlankFunctionHeader(command)
+            usesRemaining = @commands[command]['maxUses'] - @commands[command]['used']
+            button.text("#{line}: #{usesRemaining}")
         return
+
+    createBlankFunctionHeader: (command) ->
+        numberOfInputs = @commands[command]['inputs']
+        underscoresForInputs = ""
+        for i in [1..numberOfInputs] by 1
+            underscoresForInputs += '__'
+            if i != numberOfInputs
+                underscoresForInputs += ', '
+        return "#{command}(#{underscoresForInputs})"
 
     addButtonEventListeners: ->
         jQuery('#switchUp').click @button @usesCurrentPosition @switchUp
@@ -135,8 +148,8 @@ class window.PlayerCodeEditor
 
     button: (func) ->
         ###
-        This is a wrapper for the functions which are tied to buttons.
-        It restores focus to the editor after the button has been pressed.
+            This is a wrapper for the functions which are tied to buttons.
+            It restores focus to the editor after the button has been pressed.
         ###
         playerCodeEditor = @
         return ->
@@ -149,8 +162,8 @@ class window.PlayerCodeEditor
 
     usesCurrentRow: (func) ->
         ###
-        This is a wrapper for the functions which need to know the current row.
-        It retrieves the current row and passes it to the function.
+            This is a wrapper for the functions which need to know the current row.
+            It retrieves the current row and passes it to the function.
         ###
         playerCodeEditor = @
         return ->
@@ -162,8 +175,8 @@ class window.PlayerCodeEditor
 
     usesCurrentPosition: (func) ->
         ###
-        This is a wrapper for the functions which need to know the cursor's row and column
-        It retrieves the current row and the current column and passes them to the function.
+            This is a wrapper for the functions which need to know the cursor's row and column
+            It retrieves the current row and the current column and passes them to the function.
         ###
         playerCodeEditor = @
         return ->
@@ -178,8 +191,8 @@ class window.PlayerCodeEditor
 
     editsText: (func) ->
         ###
-        This is a wrapper for functions which edit the text in the editor directly.
-        It gets a reference to the text and passes it to the function.
+            This is a wrapper for functions which edit the text in the editor directly.
+            It gets a reference to the text and passes it to the function.
         ###
         playerCodeEditor = @
         return ->
@@ -191,8 +204,8 @@ class window.PlayerCodeEditor
 
     addNamedArguments: (originalArguments, argumentDictionary) ->
         ###
-        Adds the named arguments to the original arguments.
-        Makes changes to originalArguments, returns nothing.
+            Adds the named arguments to the original arguments.
+            Makes changes to originalArguments, returns nothing.
         ###
         if originalArguments.length == 0
             originalArguments[originalArguments.length++] = \
@@ -212,15 +225,15 @@ class window.PlayerCodeEditor
 
     createNamedArguments: (argumentDictionary) ->
         ###
-        Takes in an object of key-value pairs,
-        returns an object of the Named Arguments format.
+            Takes in an object of key-value pairs,
+            returns an object of the Named Arguments format.
         ###
         argumentDictionary['namedArgumentsFlag'] = true
         return argumentDictionary
 
     detectNamedArgument: (argument) ->
         ###
-        Returns whether or not the argument is of the namedArguments format.
+            Returns whether or not the argument is of the namedArguments format.
         ###
         if argument == null
             return false
