@@ -11,7 +11,7 @@ class window.PlayerCodeEditor
             switchUp
             switchDown
             deleteLine
-            resetText
+            resetState
         A selector with id of "commandToInsert"
     ###
     constructor: (@editorDivId, @codeText, @commands) ->
@@ -24,18 +24,19 @@ class window.PlayerCodeEditor
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
 
-        @resetText()
+        @resetState()
         @editor.focus()
 
         @setUpInsertButtons()
-        @addButtonEventListeners()
+        @addEventListeners()
+        @enableKeyboardShortcuts()
 
     enableKeyboardShortcuts: ->
         ###
             Currently does nothing.
             It used to be that the text was in read-only mode.
             Now that it is not the two shortcuts this used to enable
-            are enabled by default.
+            are enabled by default by ace.
         ###
         return
 
@@ -48,7 +49,7 @@ class window.PlayerCodeEditor
         buttons = []
         for command of @commands
             line = @createBlankFunctionHeader(command)
-            usesRemaining = @commands[command]['maxUses'] - @commands[command]['used']
+            usesRemaining = @commands[command]['usesRemaining']
             codeEditor = @
             button = jQuery '<button>', {
                 id: command,
@@ -65,19 +66,6 @@ class window.PlayerCodeEditor
         buttonField.append buttons
         return
 
-
-    UpdateCommandsStatus: ->
-        ###
-            Updates the number of commands remaining for each command.
-        ###
-        buttonField = jQuery('#insertButtons')
-        for command of @commands
-            button = buttonField.find("##{command}")
-            line = @createBlankFunctionHeader(command)
-            usesRemaining = @commands[command]['maxUses'] - @commands[command]['used']
-            button.text("#{line}: #{usesRemaining}")
-        return
-
     createBlankFunctionHeader: (command) ->
         numberOfInputs = @commands[command]['inputs']
         underscoresForInputs = ""
@@ -87,11 +75,33 @@ class window.PlayerCodeEditor
                 underscoresForInputs += ', '
         return "#{command}(#{underscoresForInputs})"
 
-    addButtonEventListeners: ->
+    addEventListeners: ->
         jQuery('#switchUp').click @button @usesCurrentPosition @switchUp
         jQuery('#switchDown').click @button @usesCurrentPosition @switchDown
         jQuery('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
-        jQuery('#resetText').click @button @resetText
+        jQuery('#resetState').click @button @resetState
+        @editor.on 'change', @onTextChange.bind @
+        return
+
+    onTextChange: (changeEvent) ->
+        ###
+            This function is triggered after the text in the ace editor is changed.
+        ###
+        startRow = changeEvent.data.range.start.row
+        text = @editSession.getLine startRow
+        # alert "Text Left:\n#{text}"
+        return true
+
+    UpdateCommandsStatus: ->
+        ###
+            Updates the number of commands remaining for each command.
+        ###
+        buttonField = jQuery('#insertButtons')
+        for command of @commands
+            button = buttonField.find("##{command}")
+            line = @createBlankFunctionHeader(command)
+            usesRemaining = @commands[command]['usesRemaining']
+            button.text("#{line}: #{usesRemaining}")
         return
 
     switchUp: ({currentRow, currentColumn}) ->
@@ -111,7 +121,7 @@ class window.PlayerCodeEditor
         line = text.getLine currentRow
         if line != ""
             command = @getCommandFromLine line
-            @commands[command]['used']--
+            @commands[command]['usesRemaining']++
             @UpdateCommandsStatus()
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
@@ -125,8 +135,8 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         command = @getCommandFromLine(line)
-        if @commands[command]['used'] < @commands[command]['maxUses']
-            @commands[command]['used']++
+        if @commands[command]['usesRemaining'] > 0
+            @commands[command]['usesRemaining']--
 
             inputsDiv = jQuery('#insertButtons')
             text.insertLines currentRow, [line]
@@ -137,12 +147,17 @@ class window.PlayerCodeEditor
             @UpdateCommandsStatus()
         return
 
-    resetText: ->
+    resetState: ->
+        ###
+            Resets the text displayed in the editor,
+            the commands used counts, and other internal variables.
+        ###
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
         for command of @commands
-            @commands[command]['used']= @commands[command]['usedAtStart']
+            @commands[command]['usesRemaining'] = \
+                @commands[command]['maxUses'] - @commands[command]['usedAtStart']
         @UpdateCommandsStatus()
         return
 
