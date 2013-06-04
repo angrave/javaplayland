@@ -24,6 +24,7 @@ class window.PlayerCodeEditor
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
 
+        @buildNeededRegex()
         @resetState()
         @editor.focus()
 
@@ -38,6 +39,19 @@ class window.PlayerCodeEditor
             Now that it is not the two shortcuts this used to enable
             are enabled by default by ace.
         ###
+        return
+
+    buildNeededRegex: ->
+        for command of @commands
+            numberOfInputs = @commands[command]['inputs']
+            innerRegex = ""
+            for i in [1..numberOfInputs] by 1
+                innerRegex += ".+"
+                if i != numberOfInputs
+                    innerRegex += ","
+
+            re = "^#{command}\\((#{innerRegex})\\)"
+            @commands[command]['regex'] = RegExp re
         return
 
     setUpInsertButtons: ->
@@ -91,6 +105,59 @@ class window.PlayerCodeEditor
         text = @editSession.getLine startRow
         # alert "Text Left:\n#{text}"
         return true
+
+    scanText: ->
+        ###
+        ###
+        for command of @commands
+            @commands[command]['usesRemaining'] = @commands[command]['maxUses']
+
+        text = @editor.getValue()
+        currentLine = 0
+        while text != ""
+            alert "Processing: \n#{text}"
+            result = null
+            for command of @commands
+                result = @commands[command]['regex'].exec text
+                if result != null
+                    @commands[command]['usesRemaining']--
+                    alert "Found: \n#{result[0]}"
+                    @processMatch command, result[1]
+                    break
+
+            if result == null
+                result = /^\n/.exec text
+                if result != null
+                    currentLine++
+
+            if result == null
+                result = /^;/.exec text
+
+            if result == null
+                text = text.substring 1
+                alert "Unrecognized"
+            else
+                text = text.substring result[0].length
+        return
+
+    processMatch: (command, innerText) ->
+        alert "Inner Process: \n#{innerText}"
+        if typeof innerText == "undefined" or innerText == null or innerText == ""
+            return
+        for command of @commands
+            result = @commands[command]['regex'].exec innerText
+            if result != null
+                @commands[command]['usesRemaining']--
+                alert "Found: \n#{result[0]}"
+                @processMatch command, result[1]
+
+            if result == null
+                result = /^,/.exec text
+
+            if result == null
+                alert "Unrecognized"
+
+        return
 
     UpdateCommandsStatus: ->
         ###
@@ -155,9 +222,7 @@ class window.PlayerCodeEditor
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
-        for command of @commands
-            @commands[command]['usesRemaining'] = \
-                @commands[command]['maxUses'] - @commands[command]['usedAtStart']
+        @scanText()
         @UpdateCommandsStatus()
         return
 
