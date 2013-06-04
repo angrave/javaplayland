@@ -50,7 +50,7 @@ class window.PlayerCodeEditor
                 if i != numberOfInputs
                     innerRegex += ","
 
-            re = "^#{command}\\((#{innerRegex})\\)"
+            re = "^#{command}\\((#{innerRegex})\\)(?:,|.|$)"
             @commands[command]['regex'] = RegExp re
         return
 
@@ -101,10 +101,15 @@ class window.PlayerCodeEditor
         ###
             This function is triggered after the text in the ace editor is changed.
         ###
-        startRow = changeEvent.data.range.start.row
-        text = @editSession.getLine startRow
-        # alert "Text Left:\n#{text}"
+        if @scanTextID
+            window.clearTimeout @scanTextID
+            delete @scanTextID
+        @scanTextID = window.setTimeout @scanTextCallback.bind(@), 1500
         return true
+
+    scanTextCallback: ->
+        @scanText()
+        @UpdateCommandsStatus()
 
     scanText: ->
         ###
@@ -144,15 +149,22 @@ class window.PlayerCodeEditor
         alert "Inner Process: \n#{innerText}"
         if typeof innerText == "undefined" or innerText == null or innerText == ""
             return
-        for command of @commands
-            result = @commands[command]['regex'].exec innerText
-            if result != null
-                @commands[command]['usesRemaining']--
-                alert "Found: \n#{result[0]}"
-                @processMatch command, result[1]
+        while innerText != ""
+            for command of @commands
+                result = @commands[command]['regex'].exec innerText
+                if result != null
+                    @commands[command]['usesRemaining']--
+                    alert "Found: \n#{result[0]}"
+                    @processMatch command, result[1]
+                    break
 
             if result == null
                 result = /^,/.exec innerText
+
+            if result == null
+                innerText = innerText.substring 1
+            else
+                innerText = innerText.substring result[0].length
 
         return
 
@@ -160,12 +172,15 @@ class window.PlayerCodeEditor
         ###
             Updates the number of commands remaining for each command.
         ###
-        buttonField = jQuery('#insertButtons')
+        buttonField = jQuery '#insertButtons'
         for command of @commands
-            button = buttonField.find("##{command}")
-            line = @createBlankFunctionHeader(command)
+            button = buttonField.find "##{command}"
+            line = @createBlankFunctionHeader command
             usesRemaining = @commands[command]['usesRemaining']
-            button.text("#{line}: #{usesRemaining}")
+            if usesRemaining <= 0
+                button.attr 'disabled', true
+
+            button.text "#{line}: #{usesRemaining}"
         return
 
     switchUp: ({currentRow, currentColumn}) ->
@@ -183,32 +198,19 @@ class window.PlayerCodeEditor
 
     deleteLine: ({text, currentRow}) ->
         line = text.getLine currentRow
-        if line != ""
-            command = @getCommandFromLine line
-            @commands[command]['usesRemaining']++
-            @UpdateCommandsStatus()
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
         text.removeLines currentRow, currentRow
         return
 
-    getCommandFromLine: (line) ->
-        re = /^(.+)\(/
-        return re.exec(line)[1]
-
     insertLine: ({text, line, currentRow}) ->
-        command = @getCommandFromLine(line)
-        if @commands[command]['usesRemaining'] > 0
-            @commands[command]['usesRemaining']--
+        inputsDiv = jQuery('#insertButtons')
+        text.insertLines currentRow, [line]
 
-            inputsDiv = jQuery('#insertButtons')
-            text.insertLines currentRow, [line]
+        if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
+            text.removeNewLine currentRow
 
-            if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
-                text.removeNewLine currentRow
-
-            @UpdateCommandsStatus()
         return
 
     resetState: ->
