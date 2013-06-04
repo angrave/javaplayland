@@ -152,10 +152,7 @@ class window.PlayerCodeEditor
                 @processMatch command, result[1]
 
             if result == null
-                result = /^,/.exec text
-
-            if result == null
-                alert "Unrecognized"
+                result = /^,/.exec innerText
 
         return
 
