@@ -265,9 +265,12 @@ class window.PlayerCodeEditor
         for command of @commands
             button = buttonField.find "##{command}"
             line = @createBlankFunctionHeader command
+
             usesRemaining = @commands[command]['usesRemaining']
             if usesRemaining <= 0
                 button.attr 'disabled', true
+            else
+                button.attr 'disabled', false
 
             button.text "#{line}: #{usesRemaining}"
         return
