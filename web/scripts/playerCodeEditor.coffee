@@ -42,6 +42,9 @@ class window.PlayerCodeEditor
         return
 
     buildNeededParsers: ->
+        ###
+            Builds the parsers needed by the scanText function.
+        ###
         for command of @commands
             @commands[command]['parser'] = {
                 'exec': @buildParser command
