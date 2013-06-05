@@ -44,12 +44,12 @@ class window.PlayerCodeEditor
     buildNeededParsers: ->
         for command of @commands
             @commands[command]['parser'] = {
-                'exec': @buildParsers command
+                'exec': @buildParser command
                 }
 
         return
 
-    buildParsers: (command) ->
+    buildParser: (command) ->
         ###
             Creates a parser that will recognize the command.
             It will return an object of the form
@@ -73,6 +73,8 @@ class window.PlayerCodeEditor
             # reasonForNoMatch = ""
             continueMatch = true
             while continueMatch
+                if textIndex > text.length
+                    continueMatch = false
                 switch state
                     when "beforeCommand"
                         switch text.charAt textIndex
@@ -121,6 +123,10 @@ class window.PlayerCodeEditor
                                     # We have finished consuming the command parameters
                                     innerEndIndex = textIndex - 1
                                     continueMatch = false
+                            when '\n'
+                                # We got to the end of the line before finishing parameter parsing.
+                                innerEndIndex = textIndex
+                                continueMatch = false
                 textIndex++
             if not commandMatch
                 # return {'0': null, '1': null, 'reason': reasonForNoMatch}
