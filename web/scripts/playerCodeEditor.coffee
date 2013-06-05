@@ -209,7 +209,7 @@ class window.PlayerCodeEditor
                     break
 
             if result == null
-                result = /^\n/.exec text
+                result = /^\s+/.exec text
                 if result != null
                     currentLine++
 
@@ -217,8 +217,13 @@ class window.PlayerCodeEditor
                 result = /^;/.exec text
 
             if result == null
-                text = text.substring 1
+                # We do not recognize this line, ignore it.
+                result = /^.*\n/.exec text
                 # alert "Unrecognized"
+
+            if result == null
+                # None of our regexes returned, eat the first character and continue
+                text = text.substring 1
             else
                 text = text.substring result[0].length
         return
