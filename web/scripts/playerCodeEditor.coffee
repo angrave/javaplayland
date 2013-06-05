@@ -24,7 +24,7 @@ class window.PlayerCodeEditor
         @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
 
-        @buildNeededRegex()
+        @buildNeededParsers()
         @resetState()
         @editor.focus()
 
@@ -41,18 +41,96 @@ class window.PlayerCodeEditor
         ###
         return
 
-    buildNeededRegex: ->
+    buildNeededParsers: ->
         for command of @commands
-            numberOfInputs = @commands[command]['inputs']
-            innerRegex = ""
-            for i in [1..numberOfInputs] by 1
-                innerRegex += ".+"
-                if i != numberOfInputs
-                    innerRegex += ","
+            @commands[command]['parser'] = {
+                'exec': @buildParsers command
+                }
 
-            re = "^#{command}\\((#{innerRegex})\\)(?:,|.|$)"
-            @commands[command]['regex'] = RegExp re
         return
+
+    buildParsers: (command) ->
+        ###
+            Creates a parser that will recognize the command.
+            It will return an object of the form
+            {
+                '0': The matched string.
+                '1': The inner parameters of the command.
+            }
+            or it will return null.
+            The form of the return object is so that
+            it will act somewhat like a RegExp object.
+        ###
+        return (text) ->
+            textIndex = 0
+            commandIndex = 0
+            innerStartIndex = null
+            innerEndIndex = null
+            state = "beforeCommand"
+            openParenthesis = 0
+            commandMatched = null
+
+            # reasonForNoMatch = ""
+            continueMatch = true
+            while continueMatch
+                switch state
+                    when "beforeCommand"
+                        switch text.charAt textIndex
+                            when ' '
+                                # do nothing special, continue parsing
+                                break
+                            when command.charAt commandIndex
+                                # We have now reached the command
+                                state = "atCommand"
+                                commandIndex++
+                            else
+                                # reasonForNoMatch = 'First character does not match'
+                                commandMatch = false
+                                continueMatch = false
+                    when "atCommand"
+                        switch text.charAt textIndex
+                            when ' '
+                                if commandIndex != command.length
+                                    # reasonForNoMatch = 'The command name is too short to match'
+                                    commandMatch = false
+                                    continueMatch = false
+                            when '('
+                                if commandIndex == command.length
+                                    # The name of the command matches
+                                    commandMatch = true
+                                    innerStartIndex = textIndex + 1
+                                    openParenthesis = 1
+                                    state = "insideCommand"
+                                else
+                                    # reasonForNoMatch = 'The command name is too short to match'
+                                    commandMatch = false
+                                    continueMatch = false
+                            when command.charAt commandIndex
+                                commandIndex++
+                            else
+                                # reasonForNoMatch = 'The command's name does not match our command's name'
+                                commandMatch = false
+                                continueMatch = false
+                    when "insideCommand"
+                        switch text.charAt textIndex
+                            when '('
+                                openParenthesis++
+                            when ')'
+                                openParenthesis--
+                                if openParenthesis == 0
+                                    # We have finished consuming the command parameters
+                                    innerEndIndex = textIndex - 1
+                                    continueMatch = false
+                textIndex++
+            if not commandMatch
+                # return {'0': null, '1': null, 'reason': reasonForNoMatch}
+                return null
+            return {
+                '0': text.substring(0, textIndex),
+                '1': text.substring(innerStartIndex, innerEndIndex + 1),
+                'reason': ""
+            }
+
 
     setUpInsertButtons: ->
         ###
@@ -104,7 +182,7 @@ class window.PlayerCodeEditor
         if @scanTextID
             window.clearTimeout @scanTextID
             delete @scanTextID
-        @scanTextID = window.setTimeout @scanTextCallback.bind(@), 1500
+        @scanTextID = window.setTimeout @scanTextCallback.bind(@), 750
         return true
 
     scanTextCallback: ->
@@ -120,13 +198,13 @@ class window.PlayerCodeEditor
         text = @editor.getValue()
         currentLine = 0
         while text != ""
-            alert "Processing: \n#{text}"
+            # alert "Processing: \n#{text}"
             result = null
             for command of @commands
-                result = @commands[command]['regex'].exec text
+                result = @commands[command]['parser'].exec text
                 if result != null
                     @commands[command]['usesRemaining']--
-                    alert "Found: \n#{result[0]}"
+                    # alert "Found: \n#{result[0]}"
                     @processMatch command, result[1]
                     break
 
@@ -140,21 +218,21 @@ class window.PlayerCodeEditor
 
             if result == null
                 text = text.substring 1
-                alert "Unrecognized"
+                # alert "Unrecognized"
             else
                 text = text.substring result[0].length
         return
 
     processMatch: (command, innerText) ->
-        alert "Inner Process: \n#{innerText}"
+        # alert "Inner Process: \n#{innerText}"
         if typeof innerText == "undefined" or innerText == null or innerText == ""
             return
         while innerText != ""
             for command of @commands
-                result = @commands[command]['regex'].exec innerText
+                result = @commands[command]['parser'].exec innerText
                 if result != null
                     @commands[command]['usesRemaining']--
-                    alert "Found: \n#{result[0]}"
+                    # alert "Found: \n#{result[0]}"
                     @processMatch command, result[1]
                     break
 
