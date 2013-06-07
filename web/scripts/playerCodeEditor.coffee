@@ -21,8 +21,8 @@ class window.PlayerCodeEditor
         ###
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
-        @editor.setTheme "ace/theme/chrome"
         @editSession.setMode "ace/mode/java"
+        @editSession.setUseSoftTabs true
 
         @buildNeededParsers()
         @resetState()
