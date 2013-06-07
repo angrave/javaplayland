@@ -21,15 +21,16 @@ class window.PlayerCodeEditor
         ###
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
+        # javaMode = require("ace/mode/java").Mode
+        # @editMode = new javaMode()
+        # @editSession.setMode @editMode
         @editSession.setMode "ace/mode/java"
         @editSession.setUseSoftTabs true
 
-        # mode = @editSession.getMode()
         codePrefix = "class StudentCode {\n    public static void main(String[] args) {\n"
         codeSuffix = "\n    }\n}"
         unless @codeText.startsWith codePrefix
             @codeText = codePrefix + @codeText
-        unless @codeText.endsWith codeSuffix
             @codeText = @codeText + codeSuffix
 
         @buildNeededParsers()
@@ -309,6 +310,10 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         inputsDiv = jQuery('#insertButtons')
+
+        # nextLineIndent = @editMode.getNextLineIndent()
+        # line = nextLineIndent + line
+
         text.insertLines currentRow + 1, [line]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
