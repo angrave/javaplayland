@@ -19,17 +19,18 @@ class window.PlayerCodeEditor
             Sets internal variables, the default text and buttons
             and their event handlers.
         ###
+        @editor = ace.edit @editorDivId
+        @editSession = @editor.getSession()
+        @editSession.setMode "ace/mode/java"
+        @editSession.setUseSoftTabs true
+
+        # mode = @editSession.getMode()
         codePrefix = "class StudentCode {\n    public static void main(String[] args) {\n"
         codeSuffix = "\n    }\n}"
         unless @codeText.startsWith codePrefix
             @codeText = codePrefix + @codeText
         unless @codeText.endsWith codeSuffix
             @codeText = @codeText + codeSuffix
-
-        @editor = ace.edit @editorDivId
-        @editSession = @editor.getSession()
-        @editSession.setMode "ace/mode/java"
-        @editSession.setUseSoftTabs true
 
         @buildNeededParsers()
         @resetState()
@@ -308,10 +309,12 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         inputsDiv = jQuery('#insertButtons')
-        text.insertLines currentRow, [line]
+        text.insertLines currentRow + 1, [line]
 
-        if text.getLength() == 2 and text.getLine(currentRow + 1) == ""
+        if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow
+
+        @editor.gotoLine currentRow + 2, 0, false
 
         return
 
