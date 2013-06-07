@@ -11,6 +11,8 @@ class window.DoppioApi
         I know Lawrence is working on a more general api, but I can't find it right now
         so I am just hacking this together to see if I can
         get it to work.
+    IMPORTANT:
+        WORK IN PROGRESS DOES NOT WORK AT THE MOMENT DO NOT RUN
     ###
     constructor: () ->
         # This bit assumes document is ready:
