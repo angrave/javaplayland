@@ -310,7 +310,7 @@ class window.PlayerCodeEditor
 
         nextLineIndent = @editSession.getMode().getNextLineIndent(
             @editSession.getState(currentRow),
-            text.getLine currentRow,
+            text.getLine(currentRow),
             @editSession.getTabString())
         line = nextLineIndent + line
 
