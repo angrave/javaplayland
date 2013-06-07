@@ -14,7 +14,7 @@ class window.PlayerCodeEditor
             resetState
         A selector with id of "commandToInsert"
     ###
-    constructor: (@editorDivId, @codeText, @commands) ->
+    constructor: (@editorDivId, codeText, @commands) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -24,11 +24,23 @@ class window.PlayerCodeEditor
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
 
-        codePrefix = "class StudentCode {\n    public static void main(String[] args) {\n"
-        codeSuffix = "\n    }\n}"
-        unless @codeText.startsWith codePrefix
-            @codeText = codePrefix + @codeText
+        codePrefix = """
+            import static GameCommands.*;
+
+            class StudentCode {
+                public static void main(String[] args) {\n
+                """
+        codeSuffix = '    }\n}'
+        unless codeText.startsWith codePrefix
+            tab = @editSession.getTabString()
+            tab += tab
+            @codeText = codePrefix
+            for line in codeText.split '\n'
+                @codeText += tab + line + '\n'
             @codeText = @codeText + codeSuffix
+        else
+            @codeText = codeText
+
 
         @buildNeededParsers()
         @setUpInsertButtons()
