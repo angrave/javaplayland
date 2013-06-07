@@ -19,6 +19,13 @@ class window.PlayerCodeEditor
             Sets internal variables, the default text and buttons
             and their event handlers.
         ###
+        codePrefix = "class StudentCode {\n    public static void main(String[] args) {\n"
+        codeSuffix = "\n    }\n}"
+        unless @codeText.startsWith codePrefix
+            @codeText = codePrefix + @codeText
+        unless @codeText.endsWith codeSuffix
+            @codeText = @codeText + codeSuffix
+
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
         @editSession.setMode "ace/mode/java"
