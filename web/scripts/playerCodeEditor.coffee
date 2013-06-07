@@ -21,10 +21,7 @@ class window.PlayerCodeEditor
         ###
         @editor = ace.edit @editorDivId
         @editSession = @editor.getSession()
-        # javaMode = require("ace/mode/java").Mode
-        # @editMode = new javaMode()
-        # @editSession.setMode @editMode
-        @editSession.setMode "ace/mode/java"
+        @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
 
         codePrefix = "class StudentCode {\n    public static void main(String[] args) {\n"
@@ -34,12 +31,12 @@ class window.PlayerCodeEditor
             @codeText = @codeText + codeSuffix
 
         @buildNeededParsers()
-        @resetState()
-        @editor.focus()
-
         @setUpInsertButtons()
         @addEventListeners()
         @enableKeyboardShortcuts()
+
+        @resetState()
+        @editor.focus()
 
     enableKeyboardShortcuts: ->
         ###
@@ -311,8 +308,11 @@ class window.PlayerCodeEditor
     insertLine: ({text, line, currentRow}) ->
         inputsDiv = jQuery('#insertButtons')
 
-        # nextLineIndent = @editMode.getNextLineIndent()
-        # line = nextLineIndent + line
+        nextLineIndent = @editSession.getMode().getNextLineIndent(
+            @editSession.getState(currentRow),
+            text.getLine currentRow,
+            @editSession.getTabString())
+        line = nextLineIndent + line
 
         text.insertLines currentRow + 1, [line]
 

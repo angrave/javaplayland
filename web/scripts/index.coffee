@@ -17,6 +17,7 @@ jQuery ($) ->
             maxUses: 3
         }
     }
+
     editor = new PlayerCodeEditor "editor", levelOne, commands
     window.Editor = editor # For testing only, puts editor in global namespace.
     return
