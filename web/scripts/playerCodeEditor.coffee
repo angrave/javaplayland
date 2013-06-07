@@ -25,7 +25,7 @@ class window.PlayerCodeEditor
         @editSession.setUseSoftTabs true
 
         codePrefix = """
-            import static GameCommands.*;
+            import static Game.*;
 
             class StudentCode {
                 public static void main(String[] args) {\n
