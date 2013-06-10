@@ -33,7 +33,7 @@ this.initGame = (w,h,d,us) ->
 	$(lyr2).attr("height",h)
 	$(lyr2).css("z-index","2")
 
-	imgar = ["../img/pn1.png","../img/pn2.png","../img/pe1.png","../img/pe2.png","../img/ps1.png","../img/ps2.png","../img/pw1.png","../img/pw2.png"]
+	imgar = ["img/pn1.png","img/pn2.png","img/pe1.png","img/pe2.png","img/ps1.png","img/ps2.png","img/pw1.png","img/pw2.png"]
 
 	prot = new charObj(imgar,2,150,150)
 	
