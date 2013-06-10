@@ -17,22 +17,19 @@
 
 </head>
 <body>
-    <span id="commandStatus"></span>
-
     <div id="editor"></div>
 
     <div id="buttons">
         <button id="switchUp">Up</button>
         <button id="switchDown">Down</button>
         <button id="deleteLine">Delete</button>
-        <button id="resetText">Reset</button>
+        <button id="resetState">Reset</button>
         <br />
-        <button id="insertLine">Insert</button>
-        <select id="commandToInsert"></select>
-        <span id="insertInputs"></span>
+        <div id="insertButtons"></div>
     </div>
 
-    <script src="scripts/ace/ace.js" type="text/javascript"></script>
+    <script src="scripts/ace/src/ace.js" type="text/javascript"></script>
+    <script src="scripts/ace/src/mode-java.js" type="text/javascript"></script>
     <script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
     <script src="scripts/playerCodeEditor.js" type="text/javascript"></script>
     <script src="scripts/index.js" type="text/javascript"></script>
