@@ -31,6 +31,8 @@ class window.PlayerCodeEditor
                 public static void main(String[] args) {\n
                 """
         codeSuffix = '    }\n}'
+        @codePrefixLength = codePrefix.split('\n').length - 1
+        @codeSuffixLength = codeSuffix.split('\n').length
         unless codeText.startsWith codePrefix
             tab = @editSession.getTabString()
             tab += tab
@@ -306,12 +308,11 @@ class window.PlayerCodeEditor
                 button.attr 'disabled', true
             else
                 button.attr 'disabled', false
-
             button.text "#{line}: #{usesRemaining}"
         return
 
     switchUp: ({currentRow, currentColumn}) ->
-        if @editor.getReadOnly() or currentRow - 1 <= 3
+        if @editor.getReadOnly() or currentRow - 1 < @codePrefixLength
             return
         if currentRow > 0
             @editSession.moveLinesUp(currentRow, currentRow)
@@ -320,7 +321,7 @@ class window.PlayerCodeEditor
 
     switchDown: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
-        if @editor.getReadOnly() or currentRow + 1 >= maxRow - 2
+        if @editor.getReadOnly() or currentRow + 1 >= maxRow - @codeSuffixLength
             return
         if currentRow < maxRow - 1
             @editSession.moveLinesDown(currentRow, currentRow)
@@ -329,7 +330,7 @@ class window.PlayerCodeEditor
 
     deleteLine: ({text, currentRow}) ->
         maxRow = @editSession.getLength()
-        if @editor.getReadOnly() or currentRow >= maxRow - 2
+        if @editor.getReadOnly() or currentRow >= maxRow - @codeSuffixLength
             return
         line = text.getLine currentRow
         if text.getLength() == 1
@@ -340,7 +341,7 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        if currentRow + 1 <= 3 or currentRow + 1 >= maxRow - 2
+        if currentRow + 1 <= 3 or currentRow + 1 >= maxRow - @codeSuffixLength
             return
         inputsDiv = jQuery('#insertButtons')
 
