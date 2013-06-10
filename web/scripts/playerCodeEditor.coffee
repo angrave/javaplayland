@@ -25,9 +25,7 @@ class window.PlayerCodeEditor
         @editSession.setUseSoftTabs true
 
         codePrefix = """
-            import static Game.*;
-
-            class StudentCode {
+            public class Student {
                 public static void main(String[] args) {\n
                 """
         codeSuffix = '    }\n}'
@@ -51,6 +49,9 @@ class window.PlayerCodeEditor
 
         @resetState()
         @editor.focus()
+
+    getStudentCode: ->
+        return @editor.getValue()
 
     enableKeyboardShortcuts: ->
         ###
@@ -212,7 +213,7 @@ class window.PlayerCodeEditor
         ###
         currentRow = currentSelection.getCursor().row
         maxRow = currentSelection.session.getLength()
-        if currentRow <= 3 or currentRow >= maxRow - 2
+        if currentRow < @codePrefixLength or currentRow >= maxRow - @codeSuffixLength
             @editor.setReadOnly true
         else
             @editor.setReadOnly false
