@@ -311,6 +311,8 @@ class window.PlayerCodeEditor
         return
 
     switchUp: ({currentRow, currentColumn}) ->
+        if @editor.getReadOnly() or currentRow - 1 <= 3
+            return
         if currentRow > 0
             @editSession.moveLinesUp(currentRow, currentRow)
             @editor.gotoLine currentRow, currentColumn, false
@@ -318,12 +320,17 @@ class window.PlayerCodeEditor
 
     switchDown: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
+        if @editor.getReadOnly() or currentRow + 1 >= maxRow - 2
+            return
         if currentRow < maxRow - 1
             @editSession.moveLinesDown(currentRow, currentRow)
             @editor.gotoLine currentRow + 2, currentColumn, false
         return
 
     deleteLine: ({text, currentRow}) ->
+        maxRow = @editSession.getLength()
+        if @editor.getReadOnly() or currentRow >= maxRow - 2
+            return
         line = text.getLine currentRow
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
@@ -332,6 +339,9 @@ class window.PlayerCodeEditor
         return
 
     insertLine: ({text, line, currentRow}) ->
+        maxRow = @editSession.getLength()
+        if currentRow + 1 <= 3 or currentRow + 1 >= maxRow - 2
+            return
         inputsDiv = jQuery('#insertButtons')
 
         nextLineIndent = @editSession.getMode().getNextLineIndent(
@@ -372,6 +382,7 @@ class window.PlayerCodeEditor
                 func.apply playerCodeEditor, arguments
             else
                 func.call playerCodeEditor
+
             playerCodeEditor.editor.focus()
             return false
 
@@ -385,7 +396,10 @@ class window.PlayerCodeEditor
             currentRow = playerCodeEditor.editor.getCursorPosition().row
             @addNamedArguments arguments, {currentRow: currentRow}
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
             return false
 
     usesCurrentPosition: (func) ->
@@ -401,7 +415,10 @@ class window.PlayerCodeEditor
                 currentColumn: cursorPosition.column
             }
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
             return false
 
     editsText: (func) ->
@@ -414,7 +431,11 @@ class window.PlayerCodeEditor
             text = playerCodeEditor.editSession.getDocument()
             @addNamedArguments arguments, {text: text}
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
+
             return false
 
     addNamedArguments: (originalArguments, argumentDictionary) ->
