@@ -169,7 +169,7 @@ class window.PlayerCodeEditor
         buttonField = jQuery('#insertButtons')
         buttons = []
         for command of @commands
-            line = @createBlankFunctionHeader(command)
+            line = @createBlankFunctionHeader(command) + ';'
             usesRemaining = @commands[command]['usesRemaining']
             codeEditor = @
             button = jQuery '<button>', {
@@ -341,7 +341,8 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - @codeSuffixLength
+        # if currentRow + 1 < @codePrefixLength # or currentRow + 1 >= maxRow - @codeSuffixLength
+        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
         inputsDiv = jQuery('#insertButtons')
 
