@@ -26,5 +26,7 @@ jQuery ($) ->
 
 runStudentCode = (doppio, editor) ->
     return ->
-        doppio.compileAndRun editor.getStudentCode()
+        code = editor.getStudentCode()
+        console.log "Code: #{code}"
+        doppio.compileAndRun code
         return

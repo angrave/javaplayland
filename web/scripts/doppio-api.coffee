@@ -6,9 +6,6 @@ class window.DoppioApi
         Do not call the constructor until the document is ready.
     ###
     constructor: () ->
-        @stdout = null
-        @user_input = null
-        @bs_cl = null
         @load_mini_rt()
         return
 
@@ -47,47 +44,48 @@ class window.DoppioApi
 
     compileAndRun: (studentCode) ->
         fname = "Student.java"
-        cname = fname.slice(0,-5)
+        cname = fname.slice 0, -5
         console.log cname
         @saveFile fname, studentCode
-        msg = '' ;
-        @stdout = (str) ->
-            msg += str
+        stdout = (str) ->
             console.log str
-            # $('#messages').text msg
+
         stdin = -> "\n"
-        class_args = [ fname ]
+
+        class_args = [fname]
         exec_finish_cb = ->
             console.log 'Done'
+
         compile_finished_cb  = ->
             if msg.length ==0
-                @exec @stdout, stdin, cname, class_args, exec_finish_cb
-        @compile @stdout, fname, compile_finished_cb
+                @exec stdout, stdin, cname, class_args, exec_finish_cb
+
+        @compile stdout, fname, compile_finished_cb
 
     saveFile: (fname, contents) ->
         contents += '\n' unless contents[contents.length-1] == '\n'
         node.fs.writeFileSync(fname, contents)
         console.log("File saved as '#{fname}'.")
 
-    compile: (stdout, fname,finish_cb) ->
+    compile: (stdout, fname, finish_cb) ->
         console.log "Compiling #{fname} ..."
-        start_compile=(new Date).getTime()
+        start_compile = (new Date).getTime()
         jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
-        @user_input = (resume) -> resume ''
-        @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
-        rs = new runtime.RuntimeState(stdout, @user_input, @bs_cl)
+        user_input = (resume) -> resume ''
+        bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
+        rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
         args = [ fname ]
         my_cb = ->
-            end_compile=(new Date).getTime()
+            end_compile = (new Date).getTime()
             console.log "javac took a total of #{end_compile-start_compile}ms."
             console.log 'Compilation complete'
             finish_cb()
         jvm.run_class rs, 'classes/util/Javac', args, my_cb
         return
 
-    exec: (stdout,stdin, class_name,class_args, finish_cb) ->
+    exec: (stdout, stdin, class_name, class_args, finish_cb) ->
         console.log "Running #{class_name}"
-        @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
-        rs = new runtime.RuntimeState(stdout, stdin, @bs_cl)
+        bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
+        rs = new runtime.RuntimeState(stdout, stdin, bs_cl)
         jvm.run_class(rs, class_name, class_args, finish_cb)
         return
