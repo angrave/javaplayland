@@ -47,26 +47,29 @@ load_mini_rt = ->
 
 compileAndRun = ->
     fname = "Student.java"
-    cname = util.int_classname(fname.slice(0,-5)).substring 1
-    contents = $('editor').getSession().getValue()
+    cname = fname.slice(0,-5)
+    console.log cname
+    contents = editor.getSession().getValue()
     root.saveFile fname, contents
     msg = '' ; 
     stdout = (str) -> 
         msg += str
-        console.log msg
+        console.log str
+        $('#messages').text msg
     stdin = -> "\n"
     class_args = [ fname ]
     exec_finish_cb = ->
          console.log 'Done'
     compile_finished_cb  = ->
-        root.exec stdout, stdin, cname, class_args, exec_finish_cb
+        if msg.length ==0
+            root.exec stdout, stdin, cname, class_args, exec_finish_cb
     root.compile stdout, fname, compile_finished_cb
 
 init_editor = ->
     editor = ace.edit('source')
     JavaMode = require("ace/mode/java").Mode
     editor.getSession().setMode(new JavaMode)
-    editor.getSession().setValue ("public class Student {\npublic static void main(String[]args) {\nSystem.out.println(args);}\n}")
+    editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Args=\"+args[0]);\n  }\n}")
     
 root.preload = ->
     load_mini_rt()
@@ -76,34 +79,36 @@ root.preload = ->
         e.preventDefault()
 
 $(document).ready ->
-    editor = $('#editor')
     root.preload()
     
-
+    
 root.saveFile = (fname,contents) ->
     contents += '\n' unless contents[contents.length-1] == '\n'
     node.fs.writeFileSync(fname, contents)
     console.log("File saved as '#{fname}'.")
 
 root.compile = (stdout, fname,finish_cb) -> 
-    $('#messages').html 'Compiling'
+    $('#messages').text "Compiling #{fname} ..."
     start_compile=(new Date).getTime()
     jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
     user_input = (resume) -> resume ''
     bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
     rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
+    args = [ fname ]
     my_cb = ->
         end_compile=(new Date).getTime()
         console.log "javac took a total of #{end_compile-start_compile}ms."
-        $('#messages').html 'Compiling complete'
+        $('#messages').text 'Compilation complete'
         finish_cb()
     jvm.run_class rs, 'classes/util/Javac', args, my_cb  
     return
 
-root.exec = (stdout,stdin, classname,class_args, finish_cb) ->
+root.exec = (stdout,stdin, class_name,class_args, finish_cb) ->
+    $('#messages').text "Running #{class_name}"
     bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
     rs = new runtime.RuntimeState(stdout, stdin, bs_cl)
     jvm.run_class(rs, class_name, class_args, finish_cb)
+    $('#messages').text ''
     return
 
 root.abortjvm = ->
