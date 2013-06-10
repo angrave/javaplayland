@@ -31,6 +31,8 @@ class window.PlayerCodeEditor
                 public static void main(String[] args) {\n
                 """
         codeSuffix = '    }\n}'
+        @codePrefixLength = codePrefix.split('\n').length - 1
+        @codeSuffixLength = codeSuffix.split('\n').length
         unless codeText.startsWith codePrefix
             tab = @editSession.getTabString()
             tab += tab
@@ -167,7 +169,7 @@ class window.PlayerCodeEditor
         buttonField = jQuery('#insertButtons')
         buttons = []
         for command of @commands
-            line = @createBlankFunctionHeader(command)
+            line = @createBlankFunctionHeader(command) + ';'
             usesRemaining = @commands[command]['usesRemaining']
             codeEditor = @
             button = jQuery '<button>', {
@@ -200,6 +202,20 @@ class window.PlayerCodeEditor
         jQuery('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
         jQuery('#resetState').click @button @resetState
         @editor.on 'change', @onTextChange.bind @
+        @editSession.getSelection().on 'changeCursor', @onCursorChange.bind @
+        return
+
+    onCursorChange: (changeEvent, currentSelection) ->
+        ###
+            This function is triggered whenever the cursor moves.
+            We use this to effectively make a range of lines uneditable.
+        ###
+        currentRow = currentSelection.getCursor().row
+        maxRow = currentSelection.session.getLength()
+        if currentRow <= 3 or currentRow >= maxRow - 2
+            @editor.setReadOnly true
+        else
+            @editor.setReadOnly false
         return
 
     onTextChange: (changeEvent) ->
@@ -292,11 +308,12 @@ class window.PlayerCodeEditor
                 button.attr 'disabled', true
             else
                 button.attr 'disabled', false
-
             button.text "#{line}: #{usesRemaining}"
         return
 
     switchUp: ({currentRow, currentColumn}) ->
+        if @editor.getReadOnly() or currentRow - 1 < @codePrefixLength
+            return
         if currentRow > 0
             @editSession.moveLinesUp(currentRow, currentRow)
             @editor.gotoLine currentRow, currentColumn, false
@@ -304,12 +321,17 @@ class window.PlayerCodeEditor
 
     switchDown: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
+        if @editor.getReadOnly() or currentRow + 1 >= maxRow - @codeSuffixLength
+            return
         if currentRow < maxRow - 1
             @editSession.moveLinesDown(currentRow, currentRow)
             @editor.gotoLine currentRow + 2, currentColumn, false
         return
 
     deleteLine: ({text, currentRow}) ->
+        maxRow = @editSession.getLength()
+        if @editor.getReadOnly() or currentRow >= maxRow - @codeSuffixLength
+            return
         line = text.getLine currentRow
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
@@ -318,6 +340,10 @@ class window.PlayerCodeEditor
         return
 
     insertLine: ({text, line, currentRow}) ->
+        maxRow = @editSession.getLength()
+        # if currentRow + 1 < @codePrefixLength # or currentRow + 1 >= maxRow - @codeSuffixLength
+        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
+            return
         inputsDiv = jQuery('#insertButtons')
 
         nextLineIndent = @editSession.getMode().getNextLineIndent(
@@ -358,6 +384,7 @@ class window.PlayerCodeEditor
                 func.apply playerCodeEditor, arguments
             else
                 func.call playerCodeEditor
+
             playerCodeEditor.editor.focus()
             return false
 
@@ -371,7 +398,10 @@ class window.PlayerCodeEditor
             currentRow = playerCodeEditor.editor.getCursorPosition().row
             @addNamedArguments arguments, {currentRow: currentRow}
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
             return false
 
     usesCurrentPosition: (func) ->
@@ -387,7 +417,10 @@ class window.PlayerCodeEditor
                 currentColumn: cursorPosition.column
             }
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
             return false
 
     editsText: (func) ->
@@ -400,7 +433,11 @@ class window.PlayerCodeEditor
             text = playerCodeEditor.editSession.getDocument()
             @addNamedArguments arguments, {text: text}
 
-            func.apply playerCodeEditor, arguments
+            if arguments.length != 0 and playerCodeEditor.detectNamedArgument arguments[0]
+                func.apply playerCodeEditor, arguments
+            else
+                func.call playerCodeEditor
+
             return false
 
     addNamedArguments: (originalArguments, argumentDictionary) ->
