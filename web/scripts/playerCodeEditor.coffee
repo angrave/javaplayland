@@ -200,6 +200,20 @@ class window.PlayerCodeEditor
         jQuery('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
         jQuery('#resetState').click @button @resetState
         @editor.on 'change', @onTextChange.bind @
+        @editSession.getSelection().on 'changeCursor', @onCursorChange.bind @
+        return
+
+    onCursorChange: (changeEvent, currentSelection) ->
+        ###
+            This function is triggered whenever the cursor moves.
+            We use this to effectively make a range of lines uneditable.
+        ###
+        currentRow = currentSelection.getCursor().row
+        maxRow = currentSelection.session.getLength()
+        if currentRow <= 3 or currentRow >= maxRow - 2
+            @editor.setReadOnly true
+        else
+            @editor.setReadOnly false
         return
 
     onTextChange: (changeEvent) ->
