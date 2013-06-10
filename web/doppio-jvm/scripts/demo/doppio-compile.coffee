@@ -26,7 +26,7 @@ read_classfile = (cls, cb, failure_cb) ->
 
 load_mini_rt = ->
     try
-        data = node.fs.readFileSync("/home/doppio/mini-rt.tar")
+        data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
     catch e
         console.error e
     if ! data?
@@ -51,8 +51,8 @@ compileAndRun = ->
     console.log cname
     contents = editor.getSession().getValue()
     root.saveFile fname, contents
-    msg = '' ; 
-    stdout = (str) -> 
+    msg = '' ;
+    stdout = (str) ->
         msg += str
         console.log str
         $('#messages').text msg
@@ -70,7 +70,7 @@ init_editor = ->
     JavaMode = require("ace/mode/java").Mode
     editor.getSession().setMode(new JavaMode)
     editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Args=\"+args[0]);\n  }\n}")
-    
+
 root.preload = ->
     load_mini_rt()
     init_editor()
@@ -80,14 +80,14 @@ root.preload = ->
 
 $(document).ready ->
     root.preload()
-    
-    
+
+
 root.saveFile = (fname,contents) ->
     contents += '\n' unless contents[contents.length-1] == '\n'
     node.fs.writeFileSync(fname, contents)
     console.log("File saved as '#{fname}'.")
 
-root.compile = (stdout, fname,finish_cb) -> 
+root.compile = (stdout, fname,finish_cb) ->
     $('#messages').text "Compiling #{fname} ..."
     start_compile=(new Date).getTime()
     jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
@@ -100,7 +100,7 @@ root.compile = (stdout, fname,finish_cb) ->
         console.log "javac took a total of #{end_compile-start_compile}ms."
         $('#messages').text 'Compilation complete'
         finish_cb()
-    jvm.run_class rs, 'classes/util/Javac', args, my_cb  
+    jvm.run_class rs, 'classes/util/Javac', args, my_cb
     return
 
 root.exec = (stdout,stdin, class_name,class_args, finish_cb) ->
