@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Remove old soft links
+rm -rf web/vendor
+rm -rf web/classes
+
 git submodule update --init --recursive
 
 PKGMGR=""
@@ -27,34 +31,41 @@ if [ ! -d vendor/doppio ]; then
 	popd
 fi
 
-mkdir -p web/scripts/doppio/
-mkdir -p web/browser
+DOPPIO_SRC=$(cd vendor/doppio;pwd)
+DOPPIO_WEB=$(cd web;pwd)/doppio-jvm
 
-
-DOPPIO=$(cd vendor/doppio;pwd)
-LISTINGS=$(cd web/browser;pwd)/listings.json
+DOPPIO_JVM=$DOPPIO_WEB/scripts/jvm
+DOPPIO_DEMO=$DOPPIO_WEB/scripts/demo
+DOPPIO_CUSTOM=$DOPPIO_WEB/scripts/custom
+DOPPIO_CLASSES=$DOPPIO_WEB/classes
+DOPPIO_LISTINGS=$DOPPIO_WEB/listings.json
 
 pushd .
-cd $DOPPIO; 
+cd "$DOPPIO_SRC"; 
 make library
 popd
 
+mkdir -p "$DOPPIO_JVM" "$DOPPIO_CUSTOM" "$DOPPIO_DEMO"
+ln -sfn $(cd $DOPPIO_SRC/classes;pwd) "$DOPPIO_CLASSES"
+ln -sfn $(cd $DOPPIO_SRC/vendor;pwd) "$DOPPIO_SRC/vendor"
+
 # Copy doppio JVM
-cp -r $DOPPIO/build/library/*compressed* web/scripts/doppio/
+cp -r $DOPPIO_SRC/build/library/*compressed* "$DOPPIO_JVM"
 
-ln -sfn $(cd $DOPPIO/classes;pwd) web/classes
-ln -sfn $(cd $DOPPIO/vendor;pwd) web/vendor
+#Todo vendor stuff?
 
-for src in $DOPPIO/vendor/ace/src-min/{ace.js,mode-java.js,theme-twilight.js} ; do \
+for src in $DOPPIO_SRC/vendor/ace/src-min/{ace.js,mode-java.js,theme-twilight.js} ; do \
 	cat ${src}; \
 	echo ";"; \
-done > web/scripts/doppio/ace-combined.js
+done > "$DOPPIO_DEMO/ace-combined.js"
 
-# listings contains a list of server-side runtime classes available for download
-##Cannot just use Doppio's ln -sfn $(cd $DOPPIO/build/release/browser;pwd)/listings.json web/browser/listings.json
-
-rm web/browser/listings.json
 pushd .
+# compile relative to webroot so that maps are correct
 cd web
-$COFFEEC $DOPPIO/tools/gen_dir_listings.coffee > "$LISTINGS"
+coffee --compile --map --lint --output $(cd $DOPPIO_JVM/..;pwd) $(cd $DOPPIO_JVM/..;pwd)
+# Doppio listing needs to be relative to Doppio root
+cd "$DOPPIO_WEB"
+$COFFEEC "$DOPPIO_SRC/tools/gen_dir_listings.coffee" > "$DOPPIO_LISTINGS"
 popd 
+
+cp "$DOPPIO_SRC/build/release/browser/mini-rt.tar" "$DOPPIO_DEMO"
