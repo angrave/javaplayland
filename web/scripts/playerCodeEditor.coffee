@@ -341,7 +341,7 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        if currentRow + 1 <= 3 or currentRow + 1 >= maxRow - @codeSuffixLength
+        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - @codeSuffixLength
             return
         inputsDiv = jQuery('#insertButtons')
 
