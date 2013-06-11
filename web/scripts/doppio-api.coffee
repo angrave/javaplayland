@@ -47,7 +47,9 @@ class window.DoppioApi
         cname = fname.slice 0, -5
         console.log cname
         @saveFile fname, studentCode
+        msg = ''
         stdout = (str) ->
+            msg += str
             console.log str
             return str
 
@@ -58,9 +60,9 @@ class window.DoppioApi
             console.log 'Done'
             return
 
-        compile_finished_cb  = ->
+        compile_finished_cb = ->
             console.log "Compilation Finished"
-            if msg.length ==0
+            if msg.length == 0
                 @exec stdout, stdin, cname, class_args, exec_finish_cb
 
         @compile stdout, fname, compile_finished_cb
