@@ -26,7 +26,7 @@ read_classfile = (cls, cb, failure_cb) ->
 
 load_mini_rt = ->
     try
-        data = node.fs.readFileSync("/home/doppio/mini-rt.tar")
+        data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
     catch e
         console.error e
     if ! data?
