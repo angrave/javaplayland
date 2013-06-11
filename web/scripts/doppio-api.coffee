@@ -49,14 +49,17 @@ class window.DoppioApi
         @saveFile fname, studentCode
         stdout = (str) ->
             console.log str
+            return str
 
         stdin = -> "\n"
 
         class_args = [fname]
         exec_finish_cb = ->
             console.log 'Done'
+            return
 
         compile_finished_cb  = ->
+            console.log "Compilation Finished"
             if msg.length ==0
                 @exec stdout, stdin, cname, class_args, exec_finish_cb
 

@@ -12,7 +12,7 @@ bs_cl = null
 
 preload = ->
   try
-    data = node.fs.readFileSync("/home/doppio/mini-rt.tar")
+    data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
   catch e
     console.error e
 
