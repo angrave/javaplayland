@@ -18,7 +18,7 @@ class window.DoppioApi
                 data = util.bytestr_to_array node.fs.readFileSync(fullpath)
             catch e
                 data = null
-            return cb(data) if data?
+            return cb(data) if data != null
         failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
 
     load_mini_rt: ->
@@ -26,12 +26,12 @@ class window.DoppioApi
             data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
         catch e
             console.error e
-        if ! data?
+        if data == null
             throw new Error "No mini-rt data"
 
         file_count = 0
         done = false
-        start_untar = (new Date).getTime()
+        start_untar = (new Date()).getTime()
         writeOneFile = (percent, path, file) ->
             base_dir = 'vendor/classes/'
             [base, ext] = path.split '.'
@@ -39,7 +39,7 @@ class window.DoppioApi
             cls = base.substr base_dir.length
             node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
         untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
-        end_untar = (new Date).getTime()
+        end_untar = (new Date()).getTime()
         console.log "Untarring took a total of #{end_untar-start_untar}ms."
 
     compileAndRun: (studentCode) ->
@@ -69,14 +69,14 @@ class window.DoppioApi
 
     compile: (stdout, fname, finish_cb) ->
         console.log "Compiling #{fname} ..."
-        start_compile = (new Date).getTime()
+        start_compile = (new Date()).getTime()
         jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
         user_input = (resume) -> resume ''
         bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
         args = [ fname ]
         my_cb = ->
-            end_compile = (new Date).getTime()
+            end_compile = (new Date()).getTime()
             console.log "javac took a total of #{end_compile-start_compile}ms."
             console.log 'Compilation complete'
             finish_cb()

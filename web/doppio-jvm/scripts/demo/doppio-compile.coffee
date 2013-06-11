@@ -20,7 +20,7 @@ read_classfile = (cls, cb, failure_cb) ->
       data = util.bytestr_to_array node.fs.readFileSync(fullpath)
     catch e
       data = null
-    return cb(data) if data?
+    return cb(data) if data != null
 
   failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
 
@@ -29,12 +29,12 @@ load_mini_rt = ->
         data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
     catch e
         console.error e
-    if ! data?
+    if data == null
         throw new Error "No mini-rt data"
 
     file_count = 0
     done = false
-    start_untar = (new Date).getTime()
+    start_untar = (new Date()).getTime()
     writeOneFile = (percent, path, file) ->
       base_dir = 'vendor/classes/'
       [base,ext] = path.split('.')
@@ -42,7 +42,7 @@ load_mini_rt = ->
       cls = base.substr(base_dir.length)
       node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
     untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
-    end_untar = (new Date).getTime()
+    end_untar = (new Date()).getTime()
     console.log "Untarring took a total of #{end_untar-start_untar}ms."
 
 compileAndRun = ->
@@ -68,7 +68,7 @@ compileAndRun = ->
 init_editor = ->
     editor = ace.edit('source')
     JavaMode = require("ace/mode/java").Mode
-    editor.getSession().setMode(new JavaMode)
+    editor.getSession().setMode(new JavaMode())
     editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Args=\"+args[0]);\n  }\n}")
 
 root.preload = ->
@@ -89,14 +89,14 @@ root.saveFile = (fname,contents) ->
 
 root.compile = (stdout, fname,finish_cb) ->
     $('#messages').text "Compiling #{fname} ..."
-    start_compile=(new Date).getTime()
+    start_compile=(new Date()).getTime()
     jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
     user_input = (resume) -> resume ''
     bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
     rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
     args = [ fname ]
     my_cb = ->
-        end_compile=(new Date).getTime()
+        end_compile=(new Date()).getTime()
         console.log "javac took a total of #{end_compile-start_compile}ms."
         $('#messages').text 'Compilation complete'
         finish_cb()
