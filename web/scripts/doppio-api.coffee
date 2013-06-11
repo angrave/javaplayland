@@ -65,7 +65,7 @@ class window.DoppioApi
             if msg.length == 0
                 @exec stdout, stdin, cname, class_args, exec_finish_cb
 
-        @compile stdout, fname, compile_finished_cb
+        @compile stdout, fname, compile_finished_cb.bind @
 
     saveFile: (fname, contents) ->
         contents += '\n' unless contents[contents.length-1] == '\n'
