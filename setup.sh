@@ -9,8 +9,6 @@ fi
 rm -rf web/vendor
 rm -rf web/classes
 
-git submodule update --init --recursive
-
 PKGMGR=""
 if [ "$PLATFORM" = "Darwin" ]; then
     if command -v brew; then
@@ -35,6 +33,12 @@ if [ ! -d vendor/doppio ]; then
 	./tools/setup.sh
 	popd
 fi
+
+
+
+git submodule update --init --recursive
+# remove zi (bad symlink upsets coffee compiler)
+#rm -rf vendor/doppio/vendor/java_home/lib/zi
 
 DOPPIO_SRC=$(cd vendor/doppio;pwd)
 DOPPIO_WEB=$(cd web;pwd)/doppio-jvm

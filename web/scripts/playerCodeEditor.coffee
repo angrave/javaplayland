@@ -1,3 +1,7 @@
+String.prototype.startsWith ?= (str) ->
+    return @lastIndexOf(str, 0) == 0    
+
+
 class window.PlayerCodeEditor
     ###
     Creates and provides functionality for an Ace editor representing player's code.
