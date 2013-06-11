@@ -56,7 +56,7 @@ popd
 
 mkdir -p "$DOPPIO_JVM" "$DOPPIO_CUSTOM" "$DOPPIO_DEMO"
 ln -sfn $(cd $DOPPIO_SRC/classes;pwd) "$DOPPIO_CLASSES"
-ln -sfn $(cd $DOPPIO_SRC/vendor;pwd) "$DOPPIO_SRC/vendor"
+ln -sfn $(cd $DOPPIO_SRC/vendor;pwd) "$DOPPIO_WEB/vendor"
 
 # Copy doppio JVM
 cp -r $DOPPIO_SRC/build/library/*compressed* "$DOPPIO_JVM"
