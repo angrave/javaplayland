@@ -35,6 +35,7 @@ class window.PlayerCodeEditor
         codeSuffix = '    }\n}'
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length
+        codeText = new String codeText
         unless codeText.startsWith codePrefix
             tab = @editSession.getTabString()
             tab += tab
