@@ -89,11 +89,15 @@ root.drawGameMap = ->
         #!! Assumes name,description do not contain html
         entry=$("<div id='select#{game}'>#{descriptions[game].name},#{descriptions[game].description}</div>")
         info = player.games[game]
+        
         if info
             entry.append(info.hiscore) if  info.hiscore
             entry.append(" Passed! ") if  info.passed 
             entry.append("Stars = #{info.stars}")  if info.stars
-        entry.click( ->alert("You clicked #{game}") ) if root.canPlay game
+        if root.canPlay game
+            entry.click( -> root.startGame(game) )
+        else
+            entry.css('background-color','gray')
         entry.appendTo(mapDiv)
           
     mapDiv.empty()
@@ -109,18 +113,19 @@ root.startGame = (game) ->
     gamediv.empty()
     #Todo FADE IN
     
+    description = root.getGameDescriptions()[game]
     gameconfig = {}
     env = {
         key: game
-        description : root.getGameDescriptions()[game]
-        gamediv : gameDiv
+        description : description
+        gamediv : gamediv
         player : root.getPlayer()
         codeland : this
         config : gameconfig 
     }
     
-    managerString  = gameDescription.manager ?= 'GameManager'
+    managerString  = description?.manager ?= 'GameManager'
 
-    @currentGame = new this[managerString](env)
+    @currentGame = new window[managerString](env)
 
     @currentGame.startGame()
