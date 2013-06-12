@@ -20,6 +20,7 @@ class window.GameManager
                 startingText: """
                         go(15);
                         turnRight();
+                        turn(__, __);
                         go(2);
                         """
             }
@@ -86,12 +87,44 @@ class window.GameManager
         return
 
     onEditorClick: (inBounds, clickEvent) ->
+        ###
+            When the editor is clicked, we may or may not
+            want to pop up a div for students to enter
+            parameters into.
+        ###
         if @parameterPopUp == undefined
-            @parameterPopUp = jQuery('div#parameter-pop-up')
+            @parameterPopUp = jQuery('#parameter-pop-up')
 
         if inBounds
             row = clickEvent.$pos.row
-            rowLength = clickEvent.editor.getSession().getLine(row).length
+            line = clickEvent.editor.getSession().getLine row
+            rowLength = line.length
+            if rowLength == 0
+                @parameterPopUp.hide()
+                return
+
+            command = @interpretor.identifyCommand line
+            if command == null
+                @parameterPopUp.hide()
+                return
+
+            numberOfInputs = @commands[command]['inputs']
+            if numberOfInputs == 0
+                @parameterPopUp.hide()
+                return
+
+            @parameterPopUp.empty()
+            @parameterPopUp.append '('
+            for i in [1..numberOfInputs] by 1
+                @parameterPopUp.append "<input id='#{i}' type='text' size='5'>"
+                if i != numberOfInputs
+                    @parameterPopUp.append ','
+            @parameterPopUp.append ')'
+            button = jQuery '<button>', {
+                id: 'editLine',
+                text: 'Edit'
+            }
+            @parameterPopUp.append button.get 0
 
             @parameterPopUp.css 'top', row * 11 + 51
             @parameterPopUp.css 'left', rowLength * 6 + 70
@@ -102,7 +135,7 @@ class window.GameManager
 
     onEditorCursorMove: (cursorEvent) ->
         if @parameterPopUp == undefined
-            @parameterPopUp = jQuery('div#parameter-pop-up')
+            @parameterPopUp = jQuery('#parameter-pop-up')
 
         @parameterPopUp.hide()
 
@@ -160,6 +193,13 @@ class CodeInterpreter
                 'exec': @buildParser command
                 }
         return
+
+    identifyCommand: (line) ->
+        for command of @commands
+            found = @commands[command]['parser'].exec line
+            if found != null
+                return command
+        return null
 
     scanText: (text) ->
         ###
