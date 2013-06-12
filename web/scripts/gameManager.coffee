@@ -64,6 +64,8 @@ class window.GameManager
         return
 
     addEventListeners: ->
+        ###
+        ###
         ed = @editor
         jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
         jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
@@ -110,6 +112,10 @@ class window.GameManager
         return
 
     createBlankFunctionHeader: (command) ->
+        ###
+            Creates a function header with __ for parameters.
+            eg go(__)
+        ###
         numberOfInputs = @commands[command]['inputs']
         underscoresForInputs = ""
         for i in [1..numberOfInputs] by 1
@@ -121,7 +127,11 @@ class window.GameManager
 
 
 class CodeInterpreter
+    ###
+    ###
     constructor: (@commands) ->
+        ###
+        ###
         @buildNeededParsers()
         return
 
@@ -176,6 +186,8 @@ class CodeInterpreter
         return usesRemaining
 
     processMatch: (command, innerText, usesRemaining) ->
+        ###
+        ###
         if typeof innerText == "undefined" or innerText == null or innerText == ""
             return
         while innerText != ""
