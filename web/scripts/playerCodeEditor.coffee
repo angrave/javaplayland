@@ -1,5 +1,5 @@
 String.prototype.startsWith ?= (str) ->
-    return @lastIndexOf(str, 0) == 0    
+    return @lastIndexOf(str, 0) == 0
 
 
 class window.PlayerCodeEditor
@@ -27,15 +27,17 @@ class window.PlayerCodeEditor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
+        @editor.setReadOnly true
 
         codePrefix = """
             public class Student {
                 public static void main(String[] args) {\n
                 """
         codeSuffix = '    }\n}'
+
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length
-        codeText = new String codeText
+
         unless codeText.startsWith codePrefix
             tab = @editSession.getTabString()
             tab += tab
@@ -46,10 +48,6 @@ class window.PlayerCodeEditor
         else
             @codeText = codeText
 
-
-        @buildNeededParsers()
-        @setUpInsertButtons()
-        @addEventListeners()
         @enableKeyboardShortcuts()
 
         @resetState()
@@ -60,265 +58,20 @@ class window.PlayerCodeEditor
 
     enableKeyboardShortcuts: ->
         ###
-            Currently does nothing.
-            It used to be that the text was in read-only mode.
-            Now that it is not the two shortcuts this used to enable
-            are enabled by default by ace.
+            Not currently enabled as we do not have the gameBuilder
+            listening to document change.
         ###
+        # @editor.commands.commands.movelinesup['readOnly'] = true
+        # @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
-    buildNeededParsers: ->
-        ###
-            Builds the parsers needed by the scanText function.
-        ###
-        for command of @commands
-            @commands[command]['parser'] = {
-                'exec': @buildParser command
-                }
-
-        return
-
-    buildParser: (command) ->
-        ###
-            Creates a parser that will recognize the command.
-            It will return an object of the form
-            {
-                '0': The matched string.
-                '1': The inner parameters of the command.
-            }
-            or it will return null.
-            The form of the return object is so that
-            it will act somewhat like a RegExp object.
-        ###
-        return (text) ->
-            textIndex = 0
-            commandIndex = 0
-            innerStartIndex = null
-            innerEndIndex = null
-            state = "beforeCommand"
-            openParenthesis = 0
-            commandMatched = null
-
-            # reasonForNoMatch = ""
-            continueMatch = true
-            while continueMatch
-                if textIndex > text.length
-                    continueMatch = false
-                switch state
-                    when "beforeCommand"
-                        switch text.charAt textIndex
-                            when ' '
-                                # do nothing special, continue parsing
-                                break
-                            when command.charAt commandIndex
-                                # We have now reached the command
-                                state = "atCommand"
-                                commandIndex++
-                            else
-                                # reasonForNoMatch = 'First character does not match'
-                                commandMatch = false
-                                continueMatch = false
-                    when "atCommand"
-                        switch text.charAt textIndex
-                            when ' '
-                                if commandIndex != command.length
-                                    # reasonForNoMatch = 'The command name is too short to match'
-                                    commandMatch = false
-                                    continueMatch = false
-                            when '('
-                                if commandIndex == command.length
-                                    # The name of the command matches
-                                    commandMatch = true
-                                    innerStartIndex = textIndex + 1
-                                    openParenthesis = 1
-                                    state = "insideCommand"
-                                else
-                                    # reasonForNoMatch = 'The command name is too short to match'
-                                    commandMatch = false
-                                    continueMatch = false
-                            when command.charAt commandIndex
-                                commandIndex++
-                            else
-                                # reasonForNoMatch = 'The command's name does not match our command's name'
-                                commandMatch = false
-                                continueMatch = false
-                    when "insideCommand"
-                        switch text.charAt textIndex
-                            when '('
-                                openParenthesis++
-                            when ')'
-                                openParenthesis--
-                                if openParenthesis == 0
-                                    # We have finished consuming the command parameters
-                                    innerEndIndex = textIndex - 1
-                                    continueMatch = false
-                            when '\n'
-                                # We got to the end of the line before finishing parameter parsing.
-                                innerEndIndex = textIndex
-                                continueMatch = false
-                textIndex++
-            if not commandMatch
-                # return {'0': null, '1': null, 'reason': reasonForNoMatch}
-                return null
-            return {
-                '0': text.substring(0, textIndex),
-                '1': text.substring(innerStartIndex, innerEndIndex + 1),
-                'reason': ""
-            }
-
-
-    setUpInsertButtons: ->
-        ###
-            Inserts a button for each command of the game to the html field
-            with the id of 'insertButtons'.
-        ###
-        buttonField = jQuery('#insertButtons')
-        buttons = []
-        for command of @commands
-            line = @createBlankFunctionHeader(command) + ';'
-            usesRemaining = @commands[command]['usesRemaining']
-            codeEditor = @
-            button = jQuery '<button>', {
-                id: command,
-                value: line,
-                text: "#{line}: #{usesRemaining}",
-                click: (e) ->
-                    (codeEditor.button codeEditor.usesCurrentRow \
-                        codeEditor.editsText codeEditor.insertLine)
-                    .call(codeEditor,
-                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
-                    return false
-            }
-            buttons.push button.get 0
-        buttonField.append buttons
-        return
-
-    createBlankFunctionHeader: (command) ->
-        numberOfInputs = @commands[command]['inputs']
-        underscoresForInputs = ""
-        for i in [1..numberOfInputs] by 1
-            underscoresForInputs += '__'
-            if i != numberOfInputs
-                underscoresForInputs += ', '
-        return "#{command}(#{underscoresForInputs})"
-
-    addEventListeners: ->
-        jQuery('#switchUp').click @button @usesCurrentPosition @switchUp
-        jQuery('#switchDown').click @button @usesCurrentPosition @switchDown
-        jQuery('#deleteLine').click @button @editsText @usesCurrentRow @deleteLine
-        jQuery('#resetState').click @button @resetState
-        @editor.on 'change', @onTextChange.bind @
-        @editSession.getSelection().on 'changeCursor', @onCursorChange.bind @
-        return
-
-    onCursorChange: (changeEvent, currentSelection) ->
-        ###
-            This function is triggered whenever the cursor moves.
-            We use this to effectively make a range of lines uneditable.
-        ###
-        currentRow = currentSelection.getCursor().row
-        maxRow = currentSelection.session.getLength()
-        if currentRow < @codePrefixLength or currentRow >= maxRow - @codeSuffixLength
-            @editor.setReadOnly true
-        else
-            @editor.setReadOnly false
-        return
-
-    onTextChange: (changeEvent) ->
-        ###
-            This function is triggered after the text in the ace editor is changed.
-        ###
-        if @scanTextID
-            window.clearTimeout @scanTextID
-            delete @scanTextID
-        @scanTextID = window.setTimeout @scanTextCallback.bind(@), 750
-        return true
-
-    scanTextCallback: ->
-        @scanText()
-        @UpdateCommandsStatus()
-
-    scanText: ->
-        ###
-        ###
-        for command of @commands
-            @commands[command]['usesRemaining'] = @commands[command]['maxUses']
-
-        text = @editor.getValue()
-        currentLine = 0
-        while text != ""
-            # alert "Processing: \n#{text}"
-            result = null
-            for command of @commands
-                result = @commands[command]['parser'].exec text
-                if result != null
-                    @commands[command]['usesRemaining']--
-                    # alert "Found: \n#{result[0]}"
-                    @processMatch command, result[1]
-                    break
-
-            if result == null
-                result = /^\s+/.exec text
-                if result != null
-                    currentLine++
-
-            if result == null
-                result = /^;/.exec text
-
-            if result == null
-                # We do not recognize this line, ignore it.
-                result = /^.*\n/.exec text
-                # alert "Unrecognized"
-
-            if result == null
-                # None of our regexes returned, eat the first character and continue
-                text = text.substring 1
-            else
-                text = text.substring result[0].length
-        return
-
-    processMatch: (command, innerText) ->
-        # alert "Inner Process: \n#{innerText}"
-        if typeof innerText == "undefined" or innerText == null or innerText == ""
-            return
-        while innerText != ""
-            for command of @commands
-                result = @commands[command]['parser'].exec innerText
-                if result != null
-                    @commands[command]['usesRemaining']--
-                    # alert "Found: \n#{result[0]}"
-                    @processMatch command, result[1]
-                    break
-
-            if result == null
-                result = /^,/.exec innerText
-
-            if result == null
-                innerText = innerText.substring 1
-            else
-                innerText = innerText.substring result[0].length
-
-        return
-
-    UpdateCommandsStatus: ->
-        ###
-            Updates the number of commands remaining for each command.
-        ###
-        buttonField = jQuery '#insertButtons'
-        for command of @commands
-            button = buttonField.find "##{command}"
-            line = @createBlankFunctionHeader command
-
-            usesRemaining = @commands[command]['usesRemaining']
-            if usesRemaining <= 0
-                button.attr 'disabled', true
-            else
-                button.attr 'disabled', false
-            button.text "#{line}: #{usesRemaining}"
+    onChangeListener: (callback) ->
+        @editor.on 'change', callback
         return
 
     switchUp: ({currentRow, currentColumn}) ->
-        if @editor.getReadOnly() or currentRow - 1 < @codePrefixLength
+        maxRow = @editSession.getLength()
+        if currentRow - 1 < @codePrefixLength or currentRow >= maxRow - @codeSuffixLength
             return
         if currentRow > 0
             @editSession.moveLinesUp(currentRow, currentRow)
@@ -327,7 +80,7 @@ class window.PlayerCodeEditor
 
     switchDown: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
-        if @editor.getReadOnly() or currentRow + 1 >= maxRow - @codeSuffixLength
+        if currentRow + 1 >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         if currentRow < maxRow - 1
             @editSession.moveLinesDown(currentRow, currentRow)
@@ -336,7 +89,7 @@ class window.PlayerCodeEditor
 
     deleteLine: ({text, currentRow}) ->
         maxRow = @editSession.getLength()
-        if @editor.getReadOnly() or currentRow >= maxRow - @codeSuffixLength
+        if currentRow >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         line = text.getLine currentRow
         if text.getLength() == 1
@@ -347,10 +100,8 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        # if currentRow + 1 < @codePrefixLength # or currentRow + 1 >= maxRow - @codeSuffixLength
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
-        inputsDiv = jQuery('#insertButtons')
 
         nextLineIndent = @editSession.getMode().getNextLineIndent(
             @editSession.getState(currentRow),
@@ -375,8 +126,6 @@ class window.PlayerCodeEditor
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
-        @scanText()
-        @UpdateCommandsStatus()
         return
 
     button: (func) ->
