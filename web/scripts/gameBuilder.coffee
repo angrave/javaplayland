@@ -73,9 +73,20 @@ class window.GameBuilder
         return
 
     onStudentCodeChange: ->
+        ###
+            When the student code changes, run it through the
+            interpreter
+        ###
         remaining = @scanText()
         @UpdateCommandsStatus remaining
         return
+
+    onEditorInsertLine: (command) ->
+        ###
+            When a line is to be inserted, open up a div
+            to let students enter the parameters.
+        ###
+
 
     scanText: ->
         text = @editor.getStudentCode()
