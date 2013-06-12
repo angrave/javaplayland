@@ -1,6 +1,6 @@
-class window.GameBuilder
+class window.GameManager
     constructor: () ->
-        # This data will be passed to the GameBuilder in the future.
+        # This data will be passed to the GameManager in the future.
         data = {
             editor: {
                 commands: {
