@@ -69,6 +69,20 @@ class window.PlayerCodeEditor
         @editor.on 'change', callback
         return
 
+    onClickListener: (callback) ->
+        @editor.on 'click', ((clickEvent) ->
+            inBounds = true
+            if clickEvent.$pos.row < @codePrefixLength or\
+               clickEvent.$pos.row >= @editSession.getLength() - @codeSuffixLength
+                inBounds = false
+            return callback inBounds, clickEvent
+            ).bind @
+        return
+
+    onCursorMoveListener: (callback) ->
+        @editSession.getSelection().on 'changeCursor', callback
+        return
+
     switchUp: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
         if currentRow - 1 < @codePrefixLength or currentRow >= maxRow - @codeSuffixLength
@@ -103,19 +117,19 @@ class window.PlayerCodeEditor
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
+        printLine = (@createBlankFunctionHeader line) + ';'
         nextLineIndent = @editSession.getMode().getNextLineIndent(
             @editSession.getState(currentRow),
             text.getLine(currentRow),
             @editSession.getTabString())
-        line = nextLineIndent + line
+        printLine = nextLineIndent + printLine
 
-        text.insertLines currentRow + 1, [line]
+        text.insertLines currentRow + 1, [printLine]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow
 
         @editor.gotoLine currentRow + 2, 0, false
-
         return
 
     resetState: ->
@@ -127,6 +141,21 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
         return
+
+
+
+    createBlankFunctionHeader: (command) ->
+        ###
+            Creates a function header with __ for parameters.
+            eg go(__)
+        ###
+        numberOfInputs = @commands[command]['inputs']
+        underscoresForInputs = ""
+        for i in [1..numberOfInputs] by 1
+            underscoresForInputs += '__'
+            if i != numberOfInputs
+                underscoresForInputs += ', '
+        return "#{command}(#{underscoresForInputs})"
 
     button: (func) ->
         ###

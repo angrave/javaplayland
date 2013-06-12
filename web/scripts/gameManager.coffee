@@ -50,7 +50,7 @@ class window.GameManager
             codeEditor = @editor
             button = jQuery '<button>', {
                 id: command,
-                value: line,
+                value: command,
                 text: "#{line}: #{usesRemaining}",
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
@@ -72,6 +72,8 @@ class window.GameManager
         jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
         jQuery('#resetState').click ed.button ed.resetState
         ed.onChangeListener @onStudentCodeChange.bind @
+        ed.onClickListener @onEditorClick.bind @
+        ed.onCursorMoveListener @onEditorCursorMove.bind @
         return
 
     onStudentCodeChange: ->
@@ -83,12 +85,26 @@ class window.GameManager
         @UpdateCommandsStatus remaining
         return
 
-    onEditorInsertLine: (command) ->
-        ###
-            When a line is to be inserted, open up a div
-            to let students enter the parameters.
-        ###
+    onEditorClick: (inBounds, clickEvent) ->
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('div#parameter-pop-up')
 
+        if inBounds
+            row = clickEvent.$pos.row
+            rowLength = clickEvent.editor.getSession().getLine(row).length
+
+            @parameterPopUp.css 'top', row * 11 + 51
+            @parameterPopUp.css 'left', rowLength * 6 + 70
+            @parameterPopUp.show()
+        else
+            @parameterPopUp.hide()
+        return
+
+    onEditorCursorMove: (cursorEvent) ->
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('div#parameter-pop-up')
+
+        @parameterPopUp.hide()
 
     scanText: ->
         text = @editor.getStudentCode()
