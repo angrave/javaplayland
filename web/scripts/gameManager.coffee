@@ -122,7 +122,8 @@ class window.GameManager
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
-                text: 'Edit'
+                text: 'Edit',
+                click: @popUpEditLine.bind(@, row, command)
             }
             @parameterPopUp.append button.get 0
 
@@ -131,6 +132,23 @@ class window.GameManager
             @parameterPopUp.show()
         else
             @parameterPopUp.hide()
+        return
+
+    popUpEditLine: (row, command) ->
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('#parameter-pop-up')
+
+        line = "#{command}("
+        for i in [1..@commands[command]['inputs']] by 1
+            line += jQuery("#parameter-pop-up ##{i}").val()
+            if i != @commands[command]['inputs']
+                line += ', '
+        line += ');'
+
+        ed = @editor
+        (ed.button ed.editsText ed.editLine).call(ed,
+            ed.createNamedArguments {newLine: line, editRow: row})
+        @parameterPopUp.hide()
         return
 
     onEditorCursorMove: (cursorEvent) ->

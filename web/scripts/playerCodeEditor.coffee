@@ -132,6 +132,21 @@ class window.PlayerCodeEditor
         @editor.gotoLine currentRow + 2, 0, false
         return
 
+    editLine: ({text, editRow, newLine}) ->
+        maxRow = @editSession.getLength()
+        if editRow + 1 < @codePrefixLength or editRow + 1 >= maxRow - (@codeSuffixLength - 1)
+            return
+        thisLineIndent = @editSession.getMode().getNextLineIndent(
+            @editSession.getState(editRow - 1),
+            text.getLine(editRow - 1),
+            @editSession.getTabString())
+
+        printLIne = thisLineIndent + newLine
+        text.insertLines editRow, [printLIne]
+        text.removeLines editRow + 1, editRow + 1
+
+        return
+
     resetState: ->
         ###
             Resets the text displayed in the editor,
