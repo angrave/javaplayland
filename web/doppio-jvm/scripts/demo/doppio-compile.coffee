@@ -86,7 +86,8 @@ root.preload = ->
         console.log 'abort button clicked'
         if root.rs
             $('#messages').text 'Stopping ...'
-            root.rs.async_abort() 
+            cb =-> $('#messages').text 'Stopped'
+            root.rs.async_abort(cb) 
         else
             console.log 'but nothing to do'
         e.preventDefault()
