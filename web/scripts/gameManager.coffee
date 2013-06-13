@@ -170,8 +170,18 @@ class window.GameManager
             }
             @parameterPopUp.append button.get 0
 
-            @parameterPopUp.css 'top', row * 11 + 51
-            @parameterPopUp.css 'left', rowLength * 6 + 70
+            editorOffset = jQuery('#ace-editor').offset()
+            gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
+                @editor.editor.renderer.$gutterLayer.$padding.left
+            # console.log """
+            #     Row: #{row}, rowLength: #{rowLength}
+            #     Offset Top: #{editorOffset.top}, left: #{editorOffset.left}
+            #     Multiplier Row: #{12}, rowLength: #{4}
+            #     gutterOffset: #{gutterOffset}
+            #     Total Top: #{row * 12 + editorOffset.top}, Left: #{rowLength * 4 + gutterOffset + editorOffset.left}
+            # """
+            @parameterPopUp.css 'top', row * 12 + editorOffset.top
+            @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
             @parameterPopUp.show()
         else
             @parameterPopUp.hide()
