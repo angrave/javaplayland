@@ -110,6 +110,8 @@ root.getGameDescriptions = ->
     @gameDescriptions ?= {
         sequence1 : _sequence1
         sequence2 : _sequence2
+        sequence3 : _sequence3
+        sequence4 : _sequence4
     }
 root.getGameSequence = ->
     return @gameSequence if @gameSequence 
