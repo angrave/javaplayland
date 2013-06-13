@@ -67,7 +67,7 @@ class window.GameManager
 
         @editor = new PlayerCodeEditor 'ace-editor', \
             @config.startingText, @commands
-        @interpretor = new CodeInterpreter @commands
+        @interpreter = new CodeInterpreter @commands
 
         @addEventListeners()
         @onStudentCodeChange()
@@ -117,6 +117,11 @@ class window.GameManager
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
         ed.onCursorMoveListener @onEditorCursorMove
+        jQuery('#compileAndRun').click @runStudentCode
+        return
+
+    runStudentCode: =>
+        @interpreter.executeCommands @
         return
 
     onStudentCodeChange: =>
@@ -145,7 +150,7 @@ class window.GameManager
                 @parameterPopUp.hide()
                 return
 
-            command = @interpretor.identifyCommand line
+            command = @interpreter.identifyCommand line
             if command == null
                 @parameterPopUp.hide()
                 return
@@ -173,13 +178,6 @@ class window.GameManager
             editorOffset = jQuery('#ace-editor').offset()
             gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
                 @editor.editor.renderer.$gutterLayer.$padding.left
-            # console.log """
-            #     Row: #{row}, rowLength: #{rowLength}
-            #     Offset Top: #{editorOffset.top}, left: #{editorOffset.left}
-            #     Multiplier Row: #{12}, rowLength: #{4}
-            #     gutterOffset: #{gutterOffset}
-            #     Total Top: #{row * 12 + editorOffset.top}, Left: #{rowLength * 4 + gutterOffset + editorOffset.left}
-            # """
             @parameterPopUp.css 'top', row * 12 + editorOffset.top
             @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
             @parameterPopUp.show()
@@ -212,7 +210,7 @@ class window.GameManager
 
     scanText: ->
         text = @editor.getStudentCode()
-        return @interpretor.scanText text
+        return @interpreter.scanText text
 
     UpdateCommandsStatus: (remaining) ->
         ###
@@ -244,6 +242,14 @@ class window.GameManager
                 underscoresForInputs += ', '
         return "#{command}(#{underscoresForInputs})"
 
+    go: (steps) =>
+        alert "Going #{steps} steps!"
+
+    turnRight: =>
+        alert "Turning Right!"
+
+    turn: (direction, steps) =>
+        alert "Going #{steps} steps #{direction}!"
 
 
 class CodeInterpreter
@@ -272,6 +278,11 @@ class CodeInterpreter
                 return command
         return null
 
+    executeCommands: (gameManager) ->
+        for commandCard in @commandStack
+            gameManager[commandCard.command].apply gameManager, commandCard.parameters
+        return
+
     scanText: (text) ->
         ###
             Scans the selected text and returns a dictionary
@@ -279,6 +290,7 @@ class CodeInterpreter
             interpretor was constructed, how many uses they have
             remaining.
         ###
+        @commandStack = []
         usesRemaining = {}
         for command of @commands
             usesRemaining[command] = @commands[command]['maxUses']
@@ -290,13 +302,15 @@ class CodeInterpreter
                 result = @commands[command]['parser'].exec text
                 if result != null
                     usesRemaining[command]--
-                    @processMatch command, result[1], usesRemaining
+                    parameters = @processCommand command, result[1], usesRemaining
+                    @commandStack.push {command: command, parameters: parameters}
                     break
 
             if result == null
                 result = /^\s+/.exec text
                 if result != null
-                    currentLine++
+                    if result[0].indexOf('\n') != -1
+                        currentLine++
 
             if result == null
                 result = /^;/.exec text
@@ -304,6 +318,8 @@ class CodeInterpreter
             if result == null
                 # We do not recognize this line, ignore it.
                 result = /^.*\n/.exec text
+                if result != null
+                    currentLine++
 
             if result == null
                 # None of our regexes returned, eat the first character and continue
@@ -312,28 +328,43 @@ class CodeInterpreter
                 text = text.substring result[0].length
         return usesRemaining
 
-    processMatch: (command, innerText, usesRemaining) ->
+    processCommand: (command, innerText, usesRemaining) ->
         ###
+            Processes a found command.
         ###
         if typeof innerText == "undefined" or innerText == null or innerText == ""
-            return
+            return []
+        parameters = []
         while innerText != ""
-            for command of @commands
-                result = @commands[command]['parser'].exec innerText
-                if result != null
-                    usesRemaining[command]--
-                    @processMatch command, result[1]
-                    break
+            result = null
+            # for command of @commands
+                # result = @commands[command]['parser'].exec innerText
+                # if result != null
+                #     usesRemaining[command]--
+                #     @processCommand command, result[1]
+                #     break
 
             if result == null
-                result = /^,/.exec innerText
+                # Remove leading whitespace
+                result = /^\s/.exec innerText
+
+            if result == null
+                # Match a String
+                result = /^(?:".*?")|(?:'.*?')/.exec innerText
+                if result != null
+                    parameters.push result[0]
+
+            if result == null
+                # Match until a ,
+                result = /^(?:[^,]+)/.exec innerText
+                if result != null
+                    parameters.push result[0]
 
             if result == null
                 innerText = innerText.substring 1
             else
                 innerText = innerText.substring result[0].length
-
-        return
+        return parameters
 
     buildParser: (command) ->
         ###
