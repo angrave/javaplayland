@@ -15,26 +15,12 @@ class window.PlayerCodeEditor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
-        @editor.setReadOnly true
-
-        # codePrefix = """
-        #     public class Student {
-        #         public static void main(String[] args) {\n
-        #         """
-        # codeSuffix = '    }\n}'
+        @editor.setReadOnly false
 
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length
 
-        unless codeText.startsWith codePrefix
-            tab = @editSession.getTabString()
-            tab += tab
-            @codeText = codePrefix
-            for line in codeText.split '\n'
-                @codeText += tab + line + '\n'
-            @codeText = @codeText + codeSuffix
-        else
-            @codeText = codeText
+        @codeText = @codePrefix + codeText + '\n' + @codeSuffix
 
         @enableKeyboardShortcuts()
 
@@ -106,11 +92,11 @@ class window.PlayerCodeEditor
             return
 
         printLine = (@createBlankFunctionHeader line) + ';'
-        nextLineIndent = @editSession.getMode().getNextLineIndent(
-            @editSession.getState(currentRow),
-            text.getLine(currentRow),
-            @editSession.getTabString())
-        printLine = nextLineIndent + printLine
+        # nextLineIndent = @editSession.getMode().getNextLineIndent(
+        #     @editSession.getState(currentRow),
+        #     text.getLine(currentRow),
+        #     @editSession.getTabString())
+        # printLine = nextLineIndent + printLine
 
         text.insertLines currentRow + 1, [printLine]
 
@@ -124,13 +110,13 @@ class window.PlayerCodeEditor
         maxRow = @editSession.getLength()
         if editRow + 1 < @codePrefixLength or editRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
-        thisLineIndent = @editSession.getMode().getNextLineIndent(
-            @editSession.getState(editRow - 1),
-            text.getLine(editRow - 1),
-            @editSession.getTabString())
+        # thisLineIndent = @editSession.getMode().getNextLineIndent(
+        #     @editSession.getState(editRow - 1),
+        #     text.getLine(editRow - 1),
+        #     @editSession.getTabString())
 
-        printLIne = thisLineIndent + newLine
-        text.insertLines editRow, [printLIne]
+        # printLine = thisLineIndent + newLine
+        text.insertLines editRow, [newLine]
         text.removeLines editRow + 1, editRow + 1
 
         return
@@ -143,9 +129,35 @@ class window.PlayerCodeEditor
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
+        @reIndentCode()
         return
 
+    reIndentCode: ->
+        position = @editor.getCursorPosition()
+        text = @editSession.getDocument()
+        mode = @editSession.getMode()
+        for currentRow in [0...@editSession.getLength()] by 1
+            if currentRow == 0
+                continue
 
+            thisLineIndent = mode.getNextLineIndent(
+                @editSession.getState(currentRow - 1),
+                @editSession.getLine(currentRow - 1),
+                @editSession.getTabString())
+
+            thisLine = @editSession.getLine currentRow
+            currentIndent = /^\s*/.exec(thisLine)[0]
+            if currentIndent != thisLineIndent
+                thisLine = thisLineIndent + thisLine.trim()
+
+            text.insertLines currentRow, [thisLine]
+            text.removeLines currentRow + 1, currentRow + 1
+
+            mode.autoOutdent(
+                @editSession.getState(currentRow),
+                @editSession, currentRow)
+        @editor.moveCursorToPosition position
+        return
 
     createBlankFunctionHeader: (command) ->
         ###
@@ -172,6 +184,7 @@ class window.PlayerCodeEditor
             else
                 func.call playerCodeEditor
 
+            playerCodeEditor.reIndentCode()
             playerCodeEditor.editor.focus()
             return false
 

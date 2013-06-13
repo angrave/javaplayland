@@ -6,7 +6,9 @@ class window.GameManager
             @config.startingText = """
                 go(15);
                 turnRight();
+                if (true) {
                 turn(__, __);
+                }
                 go(2);
                 """
         if not @config.commands?
@@ -27,6 +29,15 @@ class window.GameManager
 
         if not @config.buttons?
             @config.buttons = ['switchUp', 'switchDown', 'deleteLine', 'insertButtons']
+
+        if not @config.codePrefix?
+            @config.codePrefix = """
+                public class Student {
+                public static void main(String[] args) {\n
+                """
+
+        if not @config.codeSuffix?
+            @config.codeSuffix = '}\n}'
 
         @commands = @config.commands
         @setUpGame()
@@ -61,14 +72,15 @@ class window.GameManager
             buttonField.append '<br />'
             buttonField.append '<button id="compileAndRun">GO</button>'
             gameDiv.append buttonField.get 0
-            @setUpInsertButtons()
+
 
         gameDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
 
         @editor = new PlayerCodeEditor 'ace-editor', \
-            @config.startingText, @commands, '', ''
+            @config.startingText, @commands, @config.codePrefix, @config.codeSuffix
         @interpreter = new CodeInterpreter @commands
 
+        @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
 
@@ -111,8 +123,7 @@ class window.GameManager
         if $.inArray('deleteLine', @config.buttons) != -1
             jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
 
-        if $.inArray('resetState', @config.buttons) != -1
-            jQuery('#resetState').click ed.button ed.resetState
+        jQuery('#resetState').click ed.button ed.resetState
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
