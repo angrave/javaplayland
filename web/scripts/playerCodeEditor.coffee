@@ -32,8 +32,8 @@ class window.PlayerCodeEditor
 
     enableKeyboardShortcuts: ->
         ###
-            Not currently enabled as we do not have the gameBuilder
-            listening to document change.
+            Not currently enabled as it would be difficult to prevent
+            keyboard shortcuts from changing uneditable areas.
         ###
         # @editor.commands.commands.movelinesup['readOnly'] = true
         # @editor.commands.commands.movelinesdown['readOnly'] = true
