@@ -1,9 +1,16 @@
 class window.GameManager
-    constructor: () ->
-        # This data will be passed to the GameManager in the future.
-        data = {
-            editor: {
-                commands: {
+    constructor: (@environment) ->
+        @config = @environment.config
+
+        if not @config.startingText?
+            @config.startingText = """
+                go(15);
+                turnRight();
+                turn(__, __);
+                go(2);
+                """
+        if not @config.commands?
+            @config.commands = {
                     go: {
                         inputs: 1,
                         maxUses: 3
@@ -16,22 +23,49 @@ class window.GameManager
                         inputs: 2,
                         maxUses: 3
                     }
-                },
-                startingText: """
-                        go(15);
-                        turnRight();
-                        turn(__, __);
-                        go(2);
-                        """
-            }
-        }
+                }
 
-        @commands = data.editor.commands
-        @htmlDivs = {
-            editDiv: "editor"
-        }
-        @editor = new PlayerCodeEditor @htmlDivs.editDiv, \
-            data.editor.startingText, @commands
+        if not @config.buttons?
+            @config.buttons = ['switchUp', 'switchDown', 'deleteLine', 'insertButtons']
+
+        @commands = @config.commands
+        @setUpGame()
+
+    setUpGame: ->
+        ###
+            Sets up everything for the game to run.
+        ###
+        gameDiv = jQuery "##{@environment.gamediv}"
+        gameDiv.append '<div id="ace-editor"></div>'
+
+        if @config.buttons.length != 0
+            buttonField = jQuery('<div>', {
+                id: 'buttons'})
+
+            if $.inArray('switchUp', @config.buttons) != -1
+                buttonField.append '<button id="switchUp">Up</button>'
+
+            if $.inArray('switchDown', @config.buttons) != -1
+                buttonField.append '<button id="switchDown">Down</button>'
+
+            if $.inArray('deleteLine', @config.buttons) != -1
+                buttonField.append '<button id="deleteLine">Delete</button>'
+
+            buttonField.append '<button id="resetState">Reset</button>'
+
+            if $.inArray('insertButtons', @config.buttons) != -1
+                buttonField.append '<br />'
+                buttonField.append jQuery('<div>', {
+                    id: 'insertButtons'}).get(0)
+
+            buttonField.append '<br />'
+            buttonField.append '<button id="compileAndRun">GO</button>'
+            gameDiv.append buttonField.get 0
+
+        gameDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
+        @editor = new PlayerCodeEditor 'ace-editor', \
+            @config.startingText, @commands
         @interpretor = new CodeInterpreter @commands
 
         @setUpInsertButtons()
@@ -116,13 +150,14 @@ class window.GameManager
             @parameterPopUp.empty()
             @parameterPopUp.append '('
             for i in [1..numberOfInputs] by 1
-                @parameterPopUp.append "<input id='#{i}' type='text' size='5'>"
+                @parameterPopUp.append "<input id='#{i}' type='text' size='5' class='pop-up-inside'>"
                 if i != numberOfInputs
                     @parameterPopUp.append ','
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
                 text: 'Edit',
+                class: 'pop-up-inside',
                 click: @popUpEditLine.bind(@, row, command)
             }
             @parameterPopUp.append button.get 0

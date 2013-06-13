@@ -4,19 +4,7 @@ String.prototype.startsWith ?= (str) ->
 
 class window.PlayerCodeEditor
     ###
-    Creates and provides functionality for an Ace editor representing player's code.
-    Also provides functionality to several buttons it expects to be on the html page
-    that interact with the player's code.
-
-    Expects the following from the html page:
-        A field with id of "insertButtons"
-        A div with id equal that passed in as the div where the ace editor will be.
-        Buttons with the ids of:
-            switchUp
-            switchDown
-            deleteLine
-            resetState
-        A selector with id of "commandToInsert"
+        Creates and provides functionality for an Ace editor representing player's code.
     ###
     constructor: (@editorDivId, codeText, @commands) ->
         ###
