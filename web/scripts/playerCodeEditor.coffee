@@ -6,7 +6,7 @@ class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, codeText, @commands) ->
+    constructor: (@editorDivId, codeText, @commands, @codePrefix, @codeSuffix) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -17,11 +17,11 @@ class window.PlayerCodeEditor
         @editSession.setUseSoftTabs true
         @editor.setReadOnly true
 
-        codePrefix = """
-            public class Student {
-                public static void main(String[] args) {\n
-                """
-        codeSuffix = '    }\n}'
+        # codePrefix = """
+        #     public class Student {
+        #         public static void main(String[] args) {\n
+        #         """
+        # codeSuffix = '    }\n}'
 
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length

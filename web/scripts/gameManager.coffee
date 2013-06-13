@@ -66,7 +66,7 @@ class window.GameManager
         gameDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
 
         @editor = new PlayerCodeEditor 'ace-editor', \
-            @config.startingText, @commands
+            @config.startingText, @commands, '', ''
         @interpreter = new CodeInterpreter @commands
 
         @addEventListeners()
