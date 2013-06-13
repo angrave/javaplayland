@@ -18,7 +18,8 @@ root.load = (key) ->
 root.store = (key,val) ->
     throw new Error("Value must exist") unless val ?
     root.setString(key, jQuery.toJSON(val) )
-  
+
+#Updates the player data  
 root.storeGameCompletionData = (key,data) ->
     throw new Error("Cannot be null") unless val? && data?
     p = root.getPlayer()
@@ -40,14 +41,76 @@ root.getPlayer = ->
         }
     }
 
+deepcopy = (src) -> $.extend(true, {},src)
+
+
+_sequence1 = {
+    name : 'Code Sequence Puzzle #1'
+    description : 'Find the correct sequence of code lines'
+    task : 'Re-order existing code that only uses a small set of statements'
+    tags : 'intro'
+    editor : {
+        buttons : ['switchUp','switchDown']
+        commands : {
+            go : { inputs:0, maxUses:8 }
+            turnRight : { inputs:0, maxUses:1 }
+        }
+    }
+    code : {
+        prefix: ''
+        postfix: ''
+        show: false
+        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();\n'
+    }
+    game : {
+        startpos : [1,1]
+        targetpos : [3,7]
+    }
+    help : [ 'Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle',
+    'Use up, down reset and test buttons to fix your code!','The reset button changes the code back to the original version']
+    dyk : [ 'Computer programs contain many <em>statement</em>s.','Most of the time we need to write a ; after each statement','When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.','Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!']
+}
+
+
+_sequence2= deepcopy _sequence1 
+_sequence2.name = 'Code Sequence Puzzle #2'
+_sequence2.game = { startpos: [6,7], targetpos: [5,5]}
+_sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:0, maxUses:4 }}
+_sequence2.code.initial = 'go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();'
+_sequence2.depends = ['sequence1']
+_sequence2.help = ['Perhaps if you go a bit too far you can end at the target square?' ]
+_sequence2.dyk = [ 'When the Java compiler reads our program is looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
+
+
+_sequence3= deepcopy _sequence2
+_sequence3.name = 'Code Sequence Puzzle #3'
+_sequence3.editor.buttons = ['delete']
+_sequence2.editor.commands = {go : { inputs:0, maxUses:3 },goNorth : { inputs:0, maxUses:2 }, turnLeft : { inputs:0, maxUses:6 }, turnRight: { inputs:0, maxUses:2 }}
+_sequence3.code.initial = 'turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();'
+_sequence2.game = { startpos: [7,3], targetpos: [5,2]}
+_sequence3.depends = ['sequence1']
+_sequence3.help = ['Time to debug this code!','This code has too many statements. Delete the unnecessary statements.']
+_sequence3.dyk = ['When your code runs but does not work correctly you have a bug in your code!','Finding the cause and fixing the problem is called \'Debugging\'',]
+_sequence2.depends = ['sequence1']
+
+_sequence4= deepcopy _sequence3
+_sequence4.name = 'Code Sequence Puzzle #4'
+#goEast4.goSouth1.goWest2.
+_sequence4.editor.buttons = ['switchUp','switchDown' , 'delete','mysteryA', 'mysteryB', 'mysteryC']
+_sequence4.game = { startpos: [2,4], targetpos: [6,8]}
+_sequence4.editor.commands = {mysteryA : { inputs:0, maxUses:5 }, mysteryB : { inputs:0, maxUses:5 }, mysteryC : { inputs:0, maxUses:5 }}
+_sequence4.code.initial = ''
+_sequence4.depends = ['sequence3']
+_sequence4.help = ['Time to play! Write some test programs to discover out what each mystery function does']
+_sequence4.dyk = []
+
+
 
 root.getGameDescriptions = ->
     @gameDescriptions ?= {
-        java1a : { name : 'Blurp one' , description : 'Blurpy Java1a is great' }
-        java3a : { name : 'Blurp three' , description : 'Blurpy Java3a is cool' , depends : [ 'java2a'] }    
-        java2a : { name : 'Blurp two' , description : 'Blurpy Java2a is fantastic' , depends : [ 'java1a'] }    
+        sequence1 : _sequence1
+        sequence2 : _sequence2
     }
-    
 root.getGameSequence = ->
     return @gameSequence if @gameSequence 
     @gameSequence = []
