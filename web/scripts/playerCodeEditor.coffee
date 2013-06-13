@@ -58,13 +58,13 @@ class window.PlayerCodeEditor
         return
 
     onClickListener: (callback) ->
-        @editor.on 'click', ((clickEvent) ->
+        @editor.on 'click', ((clickEvent) =>
             inBounds = true
             if clickEvent.$pos.row < @codePrefixLength or\
                clickEvent.$pos.row >= @editSession.getLength() - @codeSuffixLength
                 inBounds = false
             return callback inBounds, clickEvent
-            ).bind @
+            )
         return
 
     onCursorMoveListener: (callback) ->

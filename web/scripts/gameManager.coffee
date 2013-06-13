@@ -61,6 +61,7 @@ class window.GameManager
             buttonField.append '<br />'
             buttonField.append '<button id="compileAndRun">GO</button>'
             gameDiv.append buttonField.get 0
+            @setUpInsertButtons()
 
         gameDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
 
@@ -68,7 +69,6 @@ class window.GameManager
             @config.startingText, @commands
         @interpretor = new CodeInterpreter @commands
 
-        @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
 
@@ -102,16 +102,24 @@ class window.GameManager
         ###
         ###
         ed = @editor
-        jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
-        jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
-        jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
-        jQuery('#resetState').click ed.button ed.resetState
-        ed.onChangeListener @onStudentCodeChange.bind @
-        ed.onClickListener @onEditorClick.bind @
-        ed.onCursorMoveListener @onEditorCursorMove.bind @
+        if $.inArray('switchUp', @config.buttons) != -1
+            jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
+
+        if $.inArray('switchDown', @config.buttons) != -1
+            jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
+
+        if $.inArray('deleteLine', @config.buttons) != -1
+            jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
+
+        if $.inArray('resetState', @config.buttons) != -1
+            jQuery('#resetState').click ed.button ed.resetState
+
+        ed.onChangeListener @onStudentCodeChange
+        ed.onClickListener @onEditorClick
+        ed.onCursorMoveListener @onEditorCursorMove
         return
 
-    onStudentCodeChange: ->
+    onStudentCodeChange: =>
         ###
             When the student code changes, run it through the
             interpreter
@@ -120,7 +128,7 @@ class window.GameManager
         @UpdateCommandsStatus remaining
         return
 
-    onEditorClick: (inBounds, clickEvent) ->
+    onEditorClick: (inBounds, clickEvent) =>
         ###
             When the editor is clicked, we may or may not
             want to pop up a div for students to enter
@@ -186,7 +194,7 @@ class window.GameManager
         @parameterPopUp.hide()
         return
 
-    onEditorCursorMove: (cursorEvent) ->
+    onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
