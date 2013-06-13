@@ -105,7 +105,6 @@ _sequence4.help = ['Time to play! Write some test programs to discover out what 
 _sequence4.dyk = []
 
 
-
 root.getGameDescriptions = ->
     @gameDescriptions ?= {
         sequence1 : _sequence1
