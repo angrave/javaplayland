@@ -4,7 +4,7 @@ log : (mesg) ->  console.log mesg if debugging
 
 class window.GameManager
     constructor: (@environment) ->
-        @config = @environment.config
+        @config = @environment.description
         if not @config.editor?
             @config.editor = {}
         if not @config.code?
@@ -52,12 +52,15 @@ class window.GameManager
         ###
             Sets up everything for the game to run.
         ###
-        gameDiv = jQuery "##{@environment.gamediv}"
+        gameDiv = jQuery @environment.gamediv
         gameDiv.append "<div id=\"#{@editorDiv}\"></div>"
         gameDiv.append '<button id="compileAndRun">Go</button>'
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
         @interpreter = new CodeInterpreter @config.editor.commands
+        return
+
+    startGame: ->
         return
 
     addEventListeners: ->
@@ -85,19 +88,18 @@ class MapGameState
         return
 
     move: (steps) =>
-            # Bits are more fun that lookup tables or a switch
-            # sign is positive 1 for North00, East01, and -1 for South10, West11
-            [sign, isEastOrWest] = [1  - (gameState.direction &2), gameState.direction &1]
-            x += sign if isEastOrWest
-            y += sign unless isEastOrWest
-            #Use recursion to move one square at a time
-            _go( steps -1) if steps>0
+        # Bits are more fun that lookup tables or a switch
+        # sign is positive 1 for North00, East01, and -1 for South10, West11
+        [sign, isEastOrWest] = [1  - (gameState.direction &2), gameState.direction &1]
+        x += sign if isEastOrWest
+        y += sign unless isEastOrWest
+        #Use recursion to move one square at a time
+        _go( steps -1) if steps>0
 
 
 class MapGameCommands
     constructor: (@gameState) ->
-
-
+        return
 
     go: (steps) =>
         steps = 1 if steps is undefined #Correct syntax??

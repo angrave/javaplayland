@@ -5,21 +5,20 @@ root = exports ? this.codeland = {}
 deepcopy = (src) -> $.extend(true, {},src)
 
 #IE Support ....
-console ?= {}
-console.log ?= ->
-
-
-
+# if not console?
+#     console = {}
+if console.log == null
+    console.log = -> return
 
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
 
 root.setString = (key,value) -> localStorage.setItem key value
- 
-root.load = (key) -> 
+
+root.load = (key) ->
     val = root.getString key
     return null unless val?
-    result = jQuery.parseJSON (val) 
+    result = jQuery.parseJSON (val)
     return result if result?
     throw new Error("Could not parse "+val)
 
@@ -27,7 +26,7 @@ root.store = (key,val) ->
     throw new Error("Value must exist") unless val ?
     root.setString(key, jQuery.toJSON(val) )
 
-#Updates the player data  
+#Updates the player data
 root.storeGameCompletionData = (key,data) ->
     throw new Error("Cannot be null") unless val? && data?
     updatePlayer( (p)-> p.games[key] = data )
@@ -35,7 +34,7 @@ root.storeGameCompletionData = (key,data) ->
 root.getGame = ->
     return getPlayer().currentGame
 
-       
+
 root.getPlayer = ->
     @currentPlayer ?= root.load("CurrentPlayer")
     @currentPlayer ?= {
@@ -87,7 +86,7 @@ _sequence1 = {
 }
 
 
-_sequence2= deepcopy _sequence1 
+_sequence2= deepcopy _sequence1
 _sequence2.name = 'Code Sequence Puzzle #2'
 _sequence2.game = { startpos: [6,7], targetpos: [5,5]}
 _sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:0, maxUses:4 }}
@@ -128,7 +127,7 @@ root.getGameDescriptions = ->
         sequence4 : _sequence4
     }
 root.getGameSequence = ->
-    return @gameSequence if @gameSequence 
+    return @gameSequence if @gameSequence
     @gameSequence = []
     games = root.getGameDescriptions()
     addGame = (name) =>
@@ -139,46 +138,46 @@ root.getGameSequence = ->
         return
     addGame(g) for g,ignore of games
     return @gameSequence
-    
+
 
 root.canPlay = (game) ->
 
     player = root.getPlayer()
     #If already completed then no need to check dependencies
     return true if player?.games[game]?.passed
-    
+
     depends = root.getGameDescriptions()[game]?.depends
     return true unless depends
     passCount = 0
     # Count number of dependencies that have completed
     #( (g)-> passCount++ if player?.games[g]?.passed )(g) for g in depends
-    
-    passCount++ for g in depends when player?.games[g]?.passed 
+
+    passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
 
 
- # FRONTEND UI   
+ # FRONTEND UI
 root.drawGameMap = ->
     mapDiv = $('#mapdiv')
     gameSequence = root.getGameSequence()
     player = root.getPlayer()
     descriptions = root.getGameDescriptions()
-    
+
     addGameToMap = (game) ->
         #!! Assumes name,description do not contain html
         entry=$("<div id='select#{game}'>#{descriptions[game].name},#{descriptions[game].description}</div>")
         info = player.games[game]
-        
+
         if info
             entry.append(info.hiscore) if  info.hiscore
-            entry.append(" Passed! ") if  info.passed 
+            entry.append(" Passed! ") if  info.passed
             entry.append("Stars = #{info.stars}")  if info.stars
         if root.canPlay game
             entry.click( -> root.startGame(game) )
         else
             entry.css('background-color','gray')
         entry.appendTo(mapDiv)
-          
+
     mapDiv.empty()
     addGameToMap game for game in gameSequence
     #TODO FADE IN
@@ -187,22 +186,22 @@ root.drawGameMap = ->
 root.startGame = (game) ->
     console.log("Starting #{game}")
     @currentGame.finishGame() if @currentGame
-        
+
     gamediv = $('#gamediv')
     gamediv.empty()
     #Todo FADE IN
-    
+
     description = root.getGameDescriptions()[game]
-    gameconfig = {}
+    # gameconfig = {}
     env = {
         key: game
         description : description
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        config : gameconfig 
+        # config : gameconfig
     }
-    
+
     managerString  = description?.manager ?= 'GameManager'
 
     @currentGame = new window[managerString](env)

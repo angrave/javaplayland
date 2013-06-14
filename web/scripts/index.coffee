@@ -3,7 +3,7 @@
 jQuery ($) ->
     env = {
         gamediv: 'gameDiv'
-        config: {}
+        description: {}
     }
     manager = new GameManager(env)
     window.Manager = manager
