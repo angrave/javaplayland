@@ -90,12 +90,18 @@ class window.GameManager
         return
 
 class MapGameState
+    #<--DIRECTIONS-->
+    #       ^
+    #       0
+    #   < 3 4 1 >
+    #       2
+    #       v
     constructor: (@config, @gameVisual, characterLoadconfig) ->
         # @config ?= { x: 4, y: 4, direction: 0, maxX:9, maxY:9, traps: [[2,4],[9,9]], targets: [[5,5]], targetCount : 0}
         @protagonist = {
             x: @config.startpos[0],
             y: @config.startpos[1],
-            dir: if @config.direction? then @config.direction else 0b01,
+            dir: if @config.direction? then @config.direction else 1,
             index: 0
         }
         @target = {
