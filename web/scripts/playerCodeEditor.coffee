@@ -1,19 +1,213 @@
 String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
-# class window.EditorManager
-#     ###
-#         Manages the code editor.
-#     ###
-#     constructor: (@editorDivId) ->
+class window.EditorManager
+    ###
+        Manages the code editor.
+    ###
+    constructor: (@editorDivId, @editorConfig, @codeConfig) ->
+        @commands = @editorConfig.commands
+        @setUpEditor()
+        return
+
+    getStudentCode: ->
+        return @editor.getStudentCode()
+
+    setUpEditor: ->
+        ###
+            Builds the HTML for, and sets up the functionality of,
+            the player code editor.
+        ###
+        editorDiv = jQuery "##{@editorDivId}"
+        editorDiv.append '<div id="ace-editor"></div>'
+
+        if @editorConfig.buttons.length != 0
+            buttonField = jQuery('<div>', {
+                id: 'buttons'})
+
+            if $.inArray('switchUp', @editorConfig.buttons) != -1
+                buttonField.append '<button id="switchUp">Up</button>'
+
+            if $.inArray('switchDown', @editorConfig.buttons) != -1
+                buttonField.append '<button id="switchDown">Down</button>'
+
+            if $.inArray('deleteLine', @editorConfig.buttons) != -1
+                buttonField.append '<button id="deleteLine">Delete</button>'
+
+            buttonField.append '<button id="resetState">Reset</button>'
+
+            if $.inArray('insertButtons', @editorConfig.buttons) != -1
+                buttonField.append '<br />'
+                buttonField.append jQuery('<div>', {
+                    id: 'insertButtons'}).get(0)
+
+            buttonField.append '<br />'
+            editorDiv.append buttonField.get 0
+
+        editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
+        @editor = new PlayerCodeEditor 'ace-editor', \
+            @commands, @codeConfig.initial, @codeConfig.prefix, @codeConfig.postfix
+        @interpreter = new CodeInterpreter @commands
+
+        @setUpInsertButtons()
+        @addEventListeners()
+        @onStudentCodeChange()
+
+    setUpInsertButtons: ->
+        ###
+            Inserts a button for each command of the game to the html field
+            with the id of 'insertButtons'.
+        ###
+        if $.inArray('insertButtons', @editorConfig.buttons) == -1
+            return
+
+        buttonField = jQuery('#insertButtons')
+        buttons = []
+        for command of @commands
+            line = @editor.createBlankFunctionHeader(command) + ';'
+            usesRemaining = @commands[command]['usesRemaining']
+            codeEditor = @editor
+            button = jQuery '<button>', {
+                id: command,
+                value: command,
+                text: "#{line}: #{usesRemaining}",
+                click: (e) ->
+                    (codeEditor.button codeEditor.usesCurrentRow \
+                        codeEditor.usesTextDocument codeEditor.insertLine)
+                    .call(codeEditor,
+                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
+                    return false
+            }
+            buttons.push button.get 0
+        buttonField.append buttons
+        return
+
+    addEventListeners: ->
+        ed = @editor
+        if $.inArray('switchUp', @editorConfig.buttons) != -1
+            jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
+
+        if $.inArray('switchDown', @editorConfig.buttons) != -1
+            jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
+
+        if $.inArray('deleteLine', @editorConfig.buttons) != -1
+            jQuery('#deleteLine').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
+        jQuery('#resetState').click ed.button ed.resetState
+
+        ed.onChangeListener @onStudentCodeChange
+        ed.onClickListener @onEditorClick
+        ed.onCursorMoveListener @onEditorCursorMove
+        return
+
+    onStudentCodeChange: =>
+        ###
+            When the student code changes, run it through the
+            interpreter to figure out commands remaining.
+        ###
+        remaining = @interpreter.scanText @editor.getStudentCode()
+        @UpdateCommandsStatus remaining
+        return
+
+    UpdateCommandsStatus: (remaining) ->
+        ###
+            Updates the number of commands remaining for each command.
+        ###
+        buttonField = jQuery '#insertButtons'
+        for command of @commands
+            button = buttonField.find "##{command}"
+            line = @editor.createBlankFunctionHeader command
+
+            usesRemaining = remaining[command]
+            if usesRemaining <= 0
+                button.attr 'disabled', true
+            else
+                button.attr 'disabled', false
+            button.text "#{line}: #{usesRemaining}"
+        return
+
+    onEditorCursorMove: (cursorEvent) =>
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('#parameter-pop-up')
+
+        @parameterPopUp.hide()
+
+    onEditorClick: (inBounds, clickEvent) =>
+        ###
+            When the editor is clicked, we may or may not
+            want to pop up a div for students to enter
+            parameters into.
+        ###
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('#parameter-pop-up')
+
+        if inBounds
+            row = clickEvent.$pos.row
+            line = clickEvent.editor.getSession().getLine row
+            rowLength = line.length
+            if rowLength == 0
+                @parameterPopUp.hide()
+                return
+
+            command = @interpreter.identifyCommand line
+            if command == null
+                @parameterPopUp.hide()
+                return
+
+            numberOfInputs = @commands[command]['inputs']
+            if numberOfInputs == 0
+                @parameterPopUp.hide()
+                return
+
+            @parameterPopUp.empty()
+            @parameterPopUp.append '('
+            for i in [1..numberOfInputs] by 1
+                @parameterPopUp.append "<input id='#{i}' type='text' size='5' class='pop-up-inside'>"
+                if i != numberOfInputs
+                    @parameterPopUp.append ','
+            @parameterPopUp.append ')'
+            button = jQuery '<button>', {
+                id: 'editLine',
+                text: 'Edit',
+                class: 'pop-up-inside',
+                click: @popUpEditLine.bind(@, row, command)
+            }
+            @parameterPopUp.append button.get 0
+
+            editorOffset = jQuery('#ace-editor').offset()
+            gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
+                @editor.editor.renderer.$gutterLayer.$padding.left
+            @parameterPopUp.css 'top', row * 12 + editorOffset.top
+            @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
+
+            @parameterPopUp.show()
+        else
+            @parameterPopUp.hide()
+        return
+
+    popUpEditLine: (row, command) ->
+        if @parameterPopUp == undefined
+            @parameterPopUp = jQuery('#parameter-pop-up')
+
+        line = "#{command}("
+        for i in [1..@commands[command]['inputs']] by 1
+            line += jQuery("#parameter-pop-up ##{i}").val()
+            if i != @commands[command]['inputs']
+                line += ', '
+        line += ');'
+
+        ed = @editor
+        (ed.button ed.usesTextDocument ed.editLine).call(ed,
+            ed.createNamedArguments {newLine: line, editRow: row})
+        @parameterPopUp.hide()
+        return
 
 
-
-class window.PlayerCodeEditor
+class PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, codeText, @commands, @codePrefix, @codeSuffix) ->
+    constructor: (@editorDivId, @commands, codeText, @codePrefix, @codeSuffix) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -99,12 +293,6 @@ class window.PlayerCodeEditor
             return
 
         printLine = (@createBlankFunctionHeader line) + ';'
-        # nextLineIndent = @editSession.getMode().getNextLineIndent(
-        #     @editSession.getState(currentRow),
-        #     text.getLine(currentRow),
-        #     @editSession.getTabString())
-        # printLine = nextLineIndent + printLine
-
         text.insertLines currentRow + 1, [printLine]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
@@ -117,15 +305,11 @@ class window.PlayerCodeEditor
         maxRow = @editSession.getLength()
         if editRow + 1 < @codePrefixLength or editRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
-        # thisLineIndent = @editSession.getMode().getNextLineIndent(
-        #     @editSession.getState(editRow - 1),
-        #     text.getLine(editRow - 1),
-        #     @editSession.getTabString())
 
-        # printLine = thisLineIndent + newLine
+        position = @editor.getCursorPosition()
         text.insertLines editRow, [newLine]
         text.removeLines editRow + 1, editRow + 1
-
+        @editor.moveCursorToPosition position
         return
 
     resetState: ->
@@ -164,6 +348,7 @@ class window.PlayerCodeEditor
                 @editSession.getState(currentRow),
                 @editSession, currentRow)
         @editor.moveCursorToPosition position
+        @editor.clearSelection()
         return
 
     createBlankFunctionHeader: (command) ->
@@ -230,7 +415,7 @@ class window.PlayerCodeEditor
                 func.call playerCodeEditor
             return false
 
-    editsText: (func) ->
+    usesTextDocument: (func) ->
         ###
             This is a wrapper for functions which edit the text in the editor directly.
             It gets a reference to the text and passes it to the function.
