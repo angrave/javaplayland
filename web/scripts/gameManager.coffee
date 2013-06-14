@@ -52,15 +52,29 @@ class window.GameManager
         ###
             Sets up everything for the game to run.
         ###
-        gameDiv = jQuery @environment.gamediv
-        gameDiv.append "<div id=\"#{@editorDiv}\"></div>"
-        gameDiv.append '<button id="compileAndRun">Go</button>'
+        @gameDiv = jQuery @environment.gamediv
+        @gameDiv.append "<div id=\"#{@editorDiv}\" class=\"codeEditor\"></div>"
+        @gameDiv.append '<button id="compileAndRun">Go</button>'
+        @gameDiv.append "<div id=\"#{@visualDiv}\" class=\"gameVisual\"></div>"
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
         @interpreter = new CodeInterpreter @config.editor.commands
+
+        @environment.visualMaster.container.id = @visualDiv
+        @visual = new GameVisual @environment.visualMaster, @environment.frameRate
         return
 
     startGame: ->
+        @config.visual.characters.protagonist.x = @config.game.startpos[0] - 1
+        @config.visual.characters.protagonist.y = @config.game.startpos[1] - 1
+        @visual.startGame @config.visual
+        return
+
+    finishGame: ->
+        @codeEditor = null
+        @interpreter = null
+        @visual = null
+        @gameDiv.empty()
         return
 
     addEventListeners: ->

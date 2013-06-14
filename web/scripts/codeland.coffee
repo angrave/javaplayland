@@ -74,11 +74,35 @@ _sequence1 = {
         prefix: ''
         postfix: ''
         show: false
-        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();\n'
+        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();'
     }
     game : {
-        startpos : [1,1]
-        targetpos : [3,7]
+        startpos : [1, 1]
+        targetpos : [3, 7]
+    }
+    visual : {
+        gameType: "grid",
+        grid: {
+            gridUnit: 30,
+            border: 30,
+            gridX: 10,
+            gridY: 10
+        },
+        animation: {
+            length: 30,
+            pixMoveRate: 1
+        },
+        characters: {
+            protagonist: {
+                imgSet: 0,
+                # x: 0,
+                # y: 0,
+                xOff: 2,
+                yOff: 2,
+                xSize: 26,
+                ySize: 26
+            }
+        }
     }
     help : [ 'Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle',
     'Use up, down reset and test buttons to fix your code!','The reset button changes the code back to the original version']
@@ -93,7 +117,7 @@ _sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:
 _sequence2.code.initial = 'go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();'
 _sequence2.depends = ['sequence1']
 _sequence2.help = ['Perhaps if you go a bit too far you can end at the target square?' ]
-_sequence2.dyk = [ 'When the Java compiler reads our program is looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
+_sequence2.dyk = [ 'When the Java compiler reads our program it looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
 
 
 _sequence3= deepcopy _sequence2
@@ -185,6 +209,23 @@ root.drawGameMap = ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
+    if not @visualMaster
+        @visualMaster = {
+            container: {
+                width: 360,
+                height: 360
+                # id: "gbox"
+            },
+            preLoading: {
+                protagonist: [
+                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
+                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
+                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
+                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
+                ]
+            }
+        }
+        @visualFrameRate = 17
     @currentGame.finishGame() if @currentGame
 
     gamediv = $('#gamediv')
@@ -192,14 +233,14 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
-    # gameconfig = {}
     env = {
         key: game
         description : description
+        visualMaster: @visualMaster
+        frameRate: @frameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        # config : gameconfig
     }
 
     managerString  = description?.manager ?= 'GameManager'
