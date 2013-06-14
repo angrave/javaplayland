@@ -1,6 +1,13 @@
 String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
+# class window.EditorManager
+#     ###
+#         Manages the code editor.
+#     ###
+#     constructor: (@editorDivId) ->
+
+
 
 class window.PlayerCodeEditor
     ###
