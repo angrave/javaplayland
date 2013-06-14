@@ -53,9 +53,9 @@ class window.GameManager
             Sets up everything for the game to run.
         ###
         @gameDiv = jQuery @environment.gamediv
-        @gameDiv.append "<div id=\"#{@editorDiv}\" class=\"codeEditor\"></div>"
+        @gameDiv.append "<div id=\"#{@editorDiv}\" class=\"code_editor\"></div>"
         @gameDiv.append '<button id="compileAndRun">Go</button>'
-        @gameDiv.append "<div id=\"#{@visualDiv}\" class=\"gameVisual\"></div>"
+        @gameDiv.append "<div id=\"#{@visualDiv}\" class=\"game_visual\"></div>"
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
         @interpreter = new CodeInterpreter @config.editor.commands
