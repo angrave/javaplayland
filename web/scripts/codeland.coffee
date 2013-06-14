@@ -237,7 +237,7 @@ root.startGame = (game) ->
         key: game
         description : description
         visualMaster: @visualMaster
-        frameRate: @frameRate
+        frameRate: @visualFrameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
