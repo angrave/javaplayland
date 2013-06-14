@@ -130,9 +130,9 @@ class window.GameVisual
 
 		current: (anticker) ->
 			num = 0
-			if (anticker % (2*ar)) >= ar
+			if (anticker % (2 * ar)) >= ar
 				num = 1
-			num = num + (2*@dir)
+			num = num + (2 * @dir)
 			return @animarray[num]
 
 		dirFace: (dir) ->
@@ -148,9 +148,9 @@ class window.GameVisual
 
 		ppo: () ->
 			if queue.length == 1
-				queue.splice(0,1,4)
+				queue.splice(0, 1, 4)
 			else
-				queue.splice(0,1)
+				queue.splice(0, 1)
 
 	getFrame: (config) ->
 		this.chckMv(config)
