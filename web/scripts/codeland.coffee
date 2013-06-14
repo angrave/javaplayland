@@ -2,6 +2,14 @@
 # things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
 
+deepcopy = (src) -> $.extend(true, {},src)
+
+#IE Support ....
+console ?= {}
+console.log ?= ->
+
+
+
 
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
@@ -22,15 +30,19 @@ root.store = (key,val) ->
 #Updates the player data  
 root.storeGameCompletionData = (key,data) ->
     throw new Error("Cannot be null") unless val? && data?
-    p = root.getPlayer()
-    p.games[key] = data
-    root.store("PlayerData",p)
-    
+    updatePlayer( (p)-> p.games[key] = data )
+
+root.getGame = ->
+    return getPlayer().currentGame
+
+       
 root.getPlayer = ->
     @currentPlayer ?= root.load("CurrentPlayer")
     @currentPlayer ?= {
-        first : 'Jim'
-        last : 'Jam'
+        id : +(new Date())
+        currentGame : ''
+        first : ''
+        last : ''
         avator : 'generic'
         games : {
             java1a : {
@@ -41,7 +53,10 @@ root.getPlayer = ->
         }
     }
 
-deepcopy = (src) -> $.extend(true, {},src)
+root.updatePlayer = (callback) ->
+    p  = root.getPlayer()
+    callback(p)
+    root.store("CurrentPlayer", player)
 
 
 _sequence1 = {
