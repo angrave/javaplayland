@@ -99,7 +99,7 @@ class window.GameVisual
 	#the direction that they were facing at the time the function is run
 	###
 	gridMove: (char, dist) ->
-		for i in [1...dist]
+		for i in [1..dist] by 1
 			objArray[char].newMove(objArray[char].dir)
 		return
 
@@ -135,7 +135,9 @@ class window.GameVisual
 			num = num + (2*@dir)
 			return @animarray[num]
 
-		dirFace: (@dir) ->
+		dirFace: (dir) ->
+			@dir = dir
+			return
 
 		newMove: (d) ->
 			queue[queue.length] = d

@@ -20,9 +20,9 @@ class window.CodeInterpreter
                 return command
         return null
 
-    executeCommands: (gameManager) ->
+    executeCommands: (commandMap) ->
         for commandCard in @commandStack
-            gameManager[commandCard.command].apply gameManager, commandCard.parameters
+            commandMap[commandCard.command].apply commandMap, commandCard.parameters
         return
 
     scanText: (text) ->
