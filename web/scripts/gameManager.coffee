@@ -1,9 +1,18 @@
 class window.GameManager
-    constructor: () ->
-        # This data will be passed to the GameManager in the future.
-        data = {
-            editor: {
-                commands: {
+    constructor: (@environment) ->
+        @config = @environment.config
+
+        if not @config.startingText?
+            @config.startingText = """
+                go(15);
+                turnRight();
+                if (true) {
+                turn(__, __);
+                }
+                go(2);
+                """
+        if not @config.commands?
+            @config.commands = {
                     go: {
                         inputs: 1,
                         maxUses: 3
@@ -16,23 +25,60 @@ class window.GameManager
                         inputs: 2,
                         maxUses: 3
                     }
-                },
-                startingText: """
-                        go(15);
-                        turnRight();
-                        turn(__, __);
-                        go(2);
-                        """
-            }
-        }
+                }
 
-        @commands = data.editor.commands
-        @htmlDivs = {
-            editDiv: "editor"
-        }
-        @editor = new PlayerCodeEditor @htmlDivs.editDiv, \
-            data.editor.startingText, @commands
-        @interpretor = new CodeInterpreter @commands
+        if not @config.buttons?
+            @config.buttons = ['switchUp', 'switchDown', 'deleteLine', 'insertButtons']
+
+        if not @config.codePrefix?
+            @config.codePrefix = """
+                public class Student {
+                public static void main(String[] args) {\n
+                """
+
+        if not @config.codeSuffix?
+            @config.codeSuffix = '}\n}'
+
+        @commands = @config.commands
+        @setUpGame()
+
+    setUpGame: ->
+        ###
+            Sets up everything for the game to run.
+        ###
+        gameDiv = jQuery "##{@environment.gamediv}"
+        gameDiv.append '<div id="ace-editor"></div>'
+
+        if @config.buttons.length != 0
+            buttonField = jQuery('<div>', {
+                id: 'buttons'})
+
+            if $.inArray('switchUp', @config.buttons) != -1
+                buttonField.append '<button id="switchUp">Up</button>'
+
+            if $.inArray('switchDown', @config.buttons) != -1
+                buttonField.append '<button id="switchDown">Down</button>'
+
+            if $.inArray('deleteLine', @config.buttons) != -1
+                buttonField.append '<button id="deleteLine">Delete</button>'
+
+            buttonField.append '<button id="resetState">Reset</button>'
+
+            if $.inArray('insertButtons', @config.buttons) != -1
+                buttonField.append '<br />'
+                buttonField.append jQuery('<div>', {
+                    id: 'insertButtons'}).get(0)
+
+            buttonField.append '<br />'
+            buttonField.append '<button id="compileAndRun">GO</button>'
+            gameDiv.append buttonField.get 0
+
+
+        gameDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
+        @editor = new PlayerCodeEditor 'ace-editor', \
+            @config.startingText, @commands, @config.codePrefix, @config.codeSuffix
+        @interpreter = new CodeInterpreter @commands
 
         @setUpInsertButtons()
         @addEventListeners()
@@ -68,16 +114,28 @@ class window.GameManager
         ###
         ###
         ed = @editor
-        jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
-        jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
-        jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
+        if $.inArray('switchUp', @config.buttons) != -1
+            jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
+
+        if $.inArray('switchDown', @config.buttons) != -1
+            jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
+
+        if $.inArray('deleteLine', @config.buttons) != -1
+            jQuery('#deleteLine').click ed.button ed.editsText ed.usesCurrentRow ed.deleteLine
+
         jQuery('#resetState').click ed.button ed.resetState
-        ed.onChangeListener @onStudentCodeChange.bind @
-        ed.onClickListener @onEditorClick.bind @
-        ed.onCursorMoveListener @onEditorCursorMove.bind @
+
+        ed.onChangeListener @onStudentCodeChange
+        ed.onClickListener @onEditorClick
+        ed.onCursorMoveListener @onEditorCursorMove
+        jQuery('#compileAndRun').click @runStudentCode
         return
 
-    onStudentCodeChange: ->
+    runStudentCode: =>
+        @interpreter.executeCommands @
+        return
+
+    onStudentCodeChange: =>
         ###
             When the student code changes, run it through the
             interpreter
@@ -86,7 +144,7 @@ class window.GameManager
         @UpdateCommandsStatus remaining
         return
 
-    onEditorClick: (inBounds, clickEvent) ->
+    onEditorClick: (inBounds, clickEvent) =>
         ###
             When the editor is clicked, we may or may not
             want to pop up a div for students to enter
@@ -103,7 +161,7 @@ class window.GameManager
                 @parameterPopUp.hide()
                 return
 
-            command = @interpretor.identifyCommand line
+            command = @interpreter.identifyCommand line
             if command == null
                 @parameterPopUp.hide()
                 return
@@ -116,19 +174,23 @@ class window.GameManager
             @parameterPopUp.empty()
             @parameterPopUp.append '('
             for i in [1..numberOfInputs] by 1
-                @parameterPopUp.append "<input id='#{i}' type='text' size='5'>"
+                @parameterPopUp.append "<input id='#{i}' type='text' size='5' class='pop-up-inside'>"
                 if i != numberOfInputs
                     @parameterPopUp.append ','
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
                 text: 'Edit',
+                class: 'pop-up-inside',
                 click: @popUpEditLine.bind(@, row, command)
             }
             @parameterPopUp.append button.get 0
 
-            @parameterPopUp.css 'top', row * 11 + 51
-            @parameterPopUp.css 'left', rowLength * 6 + 70
+            editorOffset = jQuery('#ace-editor').offset()
+            gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
+                @editor.editor.renderer.$gutterLayer.$padding.left
+            @parameterPopUp.css 'top', row * 12 + editorOffset.top
+            @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
             @parameterPopUp.show()
         else
             @parameterPopUp.hide()
@@ -151,7 +213,7 @@ class window.GameManager
         @parameterPopUp.hide()
         return
 
-    onEditorCursorMove: (cursorEvent) ->
+    onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
@@ -159,7 +221,7 @@ class window.GameManager
 
     scanText: ->
         text = @editor.getStudentCode()
-        return @interpretor.scanText text
+        return @interpreter.scanText text
 
     UpdateCommandsStatus: (remaining) ->
         ###
@@ -191,6 +253,14 @@ class window.GameManager
                 underscoresForInputs += ', '
         return "#{command}(#{underscoresForInputs})"
 
+    go: (steps) =>
+        alert "Going #{steps} steps!"
+
+    turnRight: =>
+        alert "Turning Right!"
+
+    turn: (direction, steps) =>
+        alert "Going #{steps} steps #{direction}!"
 
 
 class CodeInterpreter
@@ -219,6 +289,11 @@ class CodeInterpreter
                 return command
         return null
 
+    executeCommands: (gameManager) ->
+        for commandCard in @commandStack
+            gameManager[commandCard.command].apply gameManager, commandCard.parameters
+        return
+
     scanText: (text) ->
         ###
             Scans the selected text and returns a dictionary
@@ -226,6 +301,7 @@ class CodeInterpreter
             interpretor was constructed, how many uses they have
             remaining.
         ###
+        @commandStack = []
         usesRemaining = {}
         for command of @commands
             usesRemaining[command] = @commands[command]['maxUses']
@@ -237,13 +313,15 @@ class CodeInterpreter
                 result = @commands[command]['parser'].exec text
                 if result != null
                     usesRemaining[command]--
-                    @processMatch command, result[1], usesRemaining
+                    parameters = @processCommand command, result[1], usesRemaining
+                    @commandStack.push {command: command, parameters: parameters}
                     break
 
             if result == null
                 result = /^\s+/.exec text
                 if result != null
-                    currentLine++
+                    if result[0].indexOf('\n') != -1
+                        currentLine++
 
             if result == null
                 result = /^;/.exec text
@@ -251,6 +329,8 @@ class CodeInterpreter
             if result == null
                 # We do not recognize this line, ignore it.
                 result = /^.*\n/.exec text
+                if result != null
+                    currentLine++
 
             if result == null
                 # None of our regexes returned, eat the first character and continue
@@ -259,28 +339,43 @@ class CodeInterpreter
                 text = text.substring result[0].length
         return usesRemaining
 
-    processMatch: (command, innerText, usesRemaining) ->
+    processCommand: (command, innerText, usesRemaining) ->
         ###
+            Processes a found command.
         ###
         if typeof innerText == "undefined" or innerText == null or innerText == ""
-            return
+            return []
+        parameters = []
         while innerText != ""
-            for command of @commands
-                result = @commands[command]['parser'].exec innerText
-                if result != null
-                    usesRemaining[command]--
-                    @processMatch command, result[1]
-                    break
+            result = null
+            # for command of @commands
+                # result = @commands[command]['parser'].exec innerText
+                # if result != null
+                #     usesRemaining[command]--
+                #     @processCommand command, result[1]
+                #     break
 
             if result == null
-                result = /^,/.exec innerText
+                # Remove leading whitespace
+                result = /^\s/.exec innerText
+
+            if result == null
+                # Match a String
+                result = /^(?:".*?")|(?:'.*?')/.exec innerText
+                if result != null
+                    parameters.push result[0]
+
+            if result == null
+                # Match until a ,
+                result = /^(?:[^,]+)/.exec innerText
+                if result != null
+                    parameters.push result[0]
 
             if result == null
                 innerText = innerText.substring 1
             else
                 innerText = innerText.substring result[0].length
-
-        return
+        return parameters
 
     buildParser: (command) ->
         ###

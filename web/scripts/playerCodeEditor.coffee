@@ -4,21 +4,9 @@ String.prototype.startsWith ?= (str) ->
 
 class window.PlayerCodeEditor
     ###
-    Creates and provides functionality for an Ace editor representing player's code.
-    Also provides functionality to several buttons it expects to be on the html page
-    that interact with the player's code.
-
-    Expects the following from the html page:
-        A field with id of "insertButtons"
-        A div with id equal that passed in as the div where the ace editor will be.
-        Buttons with the ids of:
-            switchUp
-            switchDown
-            deleteLine
-            resetState
-        A selector with id of "commandToInsert"
+        Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, codeText, @commands) ->
+    constructor: (@editorDivId, codeText, @commands, @codePrefix, @codeSuffix) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -27,26 +15,12 @@ class window.PlayerCodeEditor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
-        @editor.setReadOnly true
-
-        codePrefix = """
-            public class Student {
-                public static void main(String[] args) {\n
-                """
-        codeSuffix = '    }\n}'
+        @editor.setReadOnly false
 
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length
 
-        unless codeText.startsWith codePrefix
-            tab = @editSession.getTabString()
-            tab += tab
-            @codeText = codePrefix
-            for line in codeText.split '\n'
-                @codeText += tab + line + '\n'
-            @codeText = @codeText + codeSuffix
-        else
-            @codeText = codeText
+        @codeText = @codePrefix + codeText + '\n' + @codeSuffix
 
         @enableKeyboardShortcuts()
 
@@ -58,8 +32,8 @@ class window.PlayerCodeEditor
 
     enableKeyboardShortcuts: ->
         ###
-            Not currently enabled as we do not have the gameBuilder
-            listening to document change.
+            Not currently enabled as it would be difficult to prevent
+            keyboard shortcuts from changing uneditable areas.
         ###
         # @editor.commands.commands.movelinesup['readOnly'] = true
         # @editor.commands.commands.movelinesdown['readOnly'] = true
@@ -70,13 +44,13 @@ class window.PlayerCodeEditor
         return
 
     onClickListener: (callback) ->
-        @editor.on 'click', ((clickEvent) ->
+        @editor.on 'click', ((clickEvent) =>
             inBounds = true
             if clickEvent.$pos.row < @codePrefixLength or\
                clickEvent.$pos.row >= @editSession.getLength() - @codeSuffixLength
                 inBounds = false
             return callback inBounds, clickEvent
-            ).bind @
+            )
         return
 
     onCursorMoveListener: (callback) ->
@@ -118,11 +92,11 @@ class window.PlayerCodeEditor
             return
 
         printLine = (@createBlankFunctionHeader line) + ';'
-        nextLineIndent = @editSession.getMode().getNextLineIndent(
-            @editSession.getState(currentRow),
-            text.getLine(currentRow),
-            @editSession.getTabString())
-        printLine = nextLineIndent + printLine
+        # nextLineIndent = @editSession.getMode().getNextLineIndent(
+        #     @editSession.getState(currentRow),
+        #     text.getLine(currentRow),
+        #     @editSession.getTabString())
+        # printLine = nextLineIndent + printLine
 
         text.insertLines currentRow + 1, [printLine]
 
@@ -136,13 +110,13 @@ class window.PlayerCodeEditor
         maxRow = @editSession.getLength()
         if editRow + 1 < @codePrefixLength or editRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
-        thisLineIndent = @editSession.getMode().getNextLineIndent(
-            @editSession.getState(editRow - 1),
-            text.getLine(editRow - 1),
-            @editSession.getTabString())
+        # thisLineIndent = @editSession.getMode().getNextLineIndent(
+        #     @editSession.getState(editRow - 1),
+        #     text.getLine(editRow - 1),
+        #     @editSession.getTabString())
 
-        printLIne = thisLineIndent + newLine
-        text.insertLines editRow, [printLIne]
+        # printLine = thisLineIndent + newLine
+        text.insertLines editRow, [newLine]
         text.removeLines editRow + 1, editRow + 1
 
         return
@@ -155,9 +129,35 @@ class window.PlayerCodeEditor
         @editor.setValue @codeText
         @editor.clearSelection()
         @editor.gotoLine 0, 0, false
+        @reIndentCode()
         return
 
+    reIndentCode: ->
+        position = @editor.getCursorPosition()
+        text = @editSession.getDocument()
+        mode = @editSession.getMode()
+        for currentRow in [0...@editSession.getLength()] by 1
+            if currentRow == 0
+                continue
 
+            thisLineIndent = mode.getNextLineIndent(
+                @editSession.getState(currentRow - 1),
+                @editSession.getLine(currentRow - 1),
+                @editSession.getTabString())
+
+            thisLine = @editSession.getLine currentRow
+            currentIndent = /^\s*/.exec(thisLine)[0]
+            if currentIndent != thisLineIndent
+                thisLine = thisLineIndent + thisLine.trim()
+
+            text.insertLines currentRow, [thisLine]
+            text.removeLines currentRow + 1, currentRow + 1
+
+            mode.autoOutdent(
+                @editSession.getState(currentRow),
+                @editSession, currentRow)
+        @editor.moveCursorToPosition position
+        return
 
     createBlankFunctionHeader: (command) ->
         ###
@@ -184,6 +184,7 @@ class window.PlayerCodeEditor
             else
                 func.call playerCodeEditor
 
+            playerCodeEditor.reIndentCode()
             playerCodeEditor.editor.focus()
             return false
 
