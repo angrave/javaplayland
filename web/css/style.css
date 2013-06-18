@@ -5,6 +5,10 @@
     width: 40%;
 }
 
+.game_visual {
+    float: right;
+}
+
 .pop-up-container {
     border-radius: 5px;
     position: absolute;

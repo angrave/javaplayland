@@ -2,16 +2,23 @@
 # things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
 
+deepcopy = (src) -> $.extend(true, {},src)
+
+#IE Support ....
+# if not console?
+#     console = {}
+if console.log == null
+    console.log = -> return
 
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
 
 root.setString = (key,value) -> localStorage.setItem key value
- 
-root.load = (key) -> 
+
+root.load = (key) ->
     val = root.getString key
     return null unless val?
-    result = jQuery.parseJSON (val) 
+    result = jQuery.parseJSON (val)
     return result if result?
     throw new Error("Could not parse "+val)
 
@@ -19,18 +26,24 @@ root.store = (key,val) ->
     throw new Error("Value must exist") unless val ?
     root.setString(key, jQuery.toJSON(val) )
 
-#Updates the player data  
-root.storeGameCompletionData = (key,data) ->
-    throw new Error("Cannot be null") unless val? && data?
-    p = root.getPlayer()
-    p.games[key] = data
-    root.store("PlayerData",p)
-    
+#Updates the player data
+root.storeGameCompletionData = (key, data) ->
+    throw new Error("Cannot be null") unless key? && data?
+    root.updatePlayer( (p)-> p.games[key] = data )
+    root.drawGameMap()
+    return
+
+root.getGame = ->
+    return getPlayer().currentGame
+
+
 root.getPlayer = ->
     @currentPlayer ?= root.load("CurrentPlayer")
     @currentPlayer ?= {
-        first : 'Jim'
-        last : 'Jam'
+        id : +(new Date())
+        currentGame : ''
+        first : ''
+        last : ''
         avator : 'generic'
         games : {
             java1a : {
@@ -41,7 +54,11 @@ root.getPlayer = ->
         }
     }
 
-deepcopy = (src) -> $.extend(true, {},src)
+root.updatePlayer = (callback) ->
+    player  = root.getPlayer()
+    callback(player)
+    root.store("CurrentPlayer", player)
+    return
 
 
 _sequence1 = {
@@ -60,12 +77,16 @@ _sequence1 = {
         prefix: ''
         postfix: ''
         show: false
-        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();\n'
+        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();'
     }
     events: {
         victory: [3,7]
     }
-    visual: {
+    game : {
+        startpos : [1, 1]
+        targetpos : [3, 5]
+    }
+    visual : {
         gameType: "grid",
         grid: {
             gridUnit: 30,
@@ -80,8 +101,8 @@ _sequence1 = {
         characters: {
             protagonist: {
                 imgSet: 0,
-                x: 1,
-                y: 1,
+                # x: 0,
+                # y: 0,
                 xOff: 2,
                 yOff: 2,
                 xSize: 26,
@@ -95,14 +116,14 @@ _sequence1 = {
 }
 
 
-_sequence2= deepcopy _sequence1 
+_sequence2= deepcopy _sequence1
 _sequence2.name = 'Code Sequence Puzzle #2'
 _sequence2.game = { startpos: [6,7], targetpos: [5,5]}
 _sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:0, maxUses:4 }}
 _sequence2.code.initial = 'go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();'
 _sequence2.depends = ['sequence1']
 _sequence2.help = ['Perhaps if you go a bit too far you can end at the target square?' ]
-_sequence2.dyk = [ 'When the Java compiler reads our program is looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
+_sequence2.dyk = [ 'When the Java compiler reads our program it looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
 
 
 _sequence3= deepcopy _sequence2
@@ -136,7 +157,7 @@ root.getGameDescriptions = ->
         sequence4 : _sequence4
     }
 root.getGameSequence = ->
-    return @gameSequence if @gameSequence 
+    return @gameSequence if @gameSequence
     @gameSequence = []
     games = root.getGameDescriptions()
     addGame = (name) =>
@@ -147,58 +168,73 @@ root.getGameSequence = ->
         return
     addGame(g) for g,ignore of games
     return @gameSequence
-    
+
 
 root.canPlay = (game) ->
-
     player = root.getPlayer()
     #If already completed then no need to check dependencies
     return true if player?.games[game]?.passed
-    
+
     depends = root.getGameDescriptions()[game]?.depends
     return true unless depends
     passCount = 0
     # Count number of dependencies that have completed
     #( (g)-> passCount++ if player?.games[g]?.passed )(g) for g in depends
-    
-    passCount++ for g in depends when player?.games[g]?.passed 
+
+    passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
 
 
- # FRONTEND UI   
+ # FRONTEND UI
 root.drawGameMap = ->
     mapDiv = $('#mapdiv')
+    mapDiv.empty()
     gameSequence = root.getGameSequence()
     player = root.getPlayer()
     descriptions = root.getGameDescriptions()
     sel = new gameSelector(mapDiv,false)
     addGameToMap = (game) ->
         sel.buildDiv(game,descriptions[game],player.games[game],root.canPlay(game))
-          
-    mapDiv.empty()
     addGameToMap game for game in gameSequence
     #TODO FADE IN
     return
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
+    if not @visualMaster
+        @visualMaster = {
+            container: {
+                width: 360,
+                height: 360
+                # id: "gbox"
+            },
+            preLoading: {
+                protagonist: [
+                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
+                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
+                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
+                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
+                ]
+            }
+        }
+        @visualFrameRate = 17
     @currentGame.finishGame() if @currentGame
-        
+
     gamediv = $('#gamediv')
     gamediv.empty()
     #Todo FADE IN
-    
+
     description = root.getGameDescriptions()[game]
-    gameconfig = {}
     env = {
         key: game
         description : description
+        visualMaster: @visualMaster
+        frameRate: @visualFrameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        config : gameconfig 
     }
-    
+
     managerString  = description?.manager ?= 'GameManager'
 
     @currentGame = new window[managerString](env)

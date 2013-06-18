@@ -13,7 +13,7 @@ class window.GameVisual
 
 	###
 	#gameVisual constructor accepts a master configuration and ms.  The configuration object will primarily contain image pathing information so the images
-	#can be preloaded.  The int will determine the length of time before a new frame is drawn and swapped, optimal values seem to reside in 15-17 milliseconds 
+	#can be preloaded.  The int will determine the length of time before a new frame is drawn and swapped, optimal values seem to reside in 15-17 milliseconds
 	###
 	constructor: (config,fl) ->
 		frameLength = fl
@@ -25,10 +25,10 @@ class window.GameVisual
 	#These canvas elements are stacked ontop of eachother in the div.  Need to resolve the issue concerning a loading screen.
 	###
 	initContainer: (w,h,d) ->
-		obj = $("##{d}") 
+		obj = $("##{d}")
 		obj.width w
 		obj.height h
-		lyr1 = document.createElement("canvas")  
+		lyr1 = document.createElement("canvas")
 		#required to make tmp a direct reference to the canvas element, as opposed to a jquery object, otherwise getContext will not resolve
 		lyr2 = document.createElement("canvas")
 
@@ -83,9 +83,9 @@ class window.GameVisual
 		frameClock = setInterval this.coffeederp(config),frameLength
 		return
 
-	
+
 	#drawText = () ->
-	
+
 	#drawShape = () ->
 	###
 	#charFace accepts an index and a direction.  The index will be equivalent to a character id and will reference the character object inside the
@@ -95,7 +95,7 @@ class window.GameVisual
 		objArray[char].dirFace(direction)
 		return
 	###
-	#gridMove accepts an index and a distance.  For the given character, gridMove will add dist number of move commands to that characters move queue in 
+	#gridMove accepts an index and a distance.  For the given character, gridMove will add dist number of move commands to that characters move queue in
 	#the direction that they were facing at the time the function is run
 	###
 	gridMove: (char, dist) ->
@@ -116,11 +116,11 @@ class window.GameVisual
 	#charObj is a class representing the characters that can move around the canvas.  It keeps track of the direction the character is facing,
 	#the x and y coordinate in pixels, an array of the image objects pertaining to the character, the appropriate image for different frames,
 	#and a queue of directions, each of which is eaten and interpreted as a singular move in the direction as follows, where 4 is stationary
-	# 		^
+	#       ^
 	#       0
 	#   < 3 4 1 >
-	#		2
-	#		v
+	#       2
+	#       v
 	#More documenation to be added when the code is more concrete and permanent
 	###
 	class charObj
@@ -130,9 +130,9 @@ class window.GameVisual
 
 		current: (anticker) ->
 			num = 0
-			if (anticker % (2*ar)) >= ar
+			if (anticker % (2 * ar)) >= ar
 				num = 1
-			num = num + (2*@dir)
+			num = num + (2 * @dir)
 			return @animarray[num]
 
 		imFace: (@dir) ->
@@ -148,9 +148,9 @@ class window.GameVisual
 
 		ppo: () ->
 			if queue.length == 1
-				queue.splice(0,1,4)
+				queue.splice(0, 1, 4)
 			else
-				queue.splice(0,1)
+				queue.splice(0, 1)
 
 	getFrame: (config) ->
 		this.chckMv(config)
@@ -194,17 +194,17 @@ class window.GameVisual
 	swapFrames: (f1,f2) ->
 		$(f1).css("z-index","3")
 		$(f2).css("z-index","2")
-		return 
+		return
 
 	###
 
 	###
 	drawGrid: (tmp,config) ->
 		grid = tmp.getContext("2d")
-		
+
 		grid.fillStyle = "#FFFFFF"
 		grid.fillRect(0,0,1000,1000)
-		
+
 		grid.beginPath()
 		this.drawVLine ps,grid,config.border,config.gridUnit,config.gridX for ps in [config.border..config.gridUnit*(config.gridX+1)] by config.gridUnit
 		this.drawHLine ps,grid,config.border,config.gridUnit,config.gridY for ps in [config.border..config.gridUnit*(config.gridY+1)] by config.gridUnit
