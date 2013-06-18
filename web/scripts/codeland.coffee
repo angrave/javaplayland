@@ -194,7 +194,8 @@ root.drawGameMap = ->
     descriptions = root.getGameDescriptions()
     sel = new gameSelector(mapDiv,false)
     addGameToMap = (game) ->
-        sel.buildDiv(game,descriptions[game],player.games[game],root.canPlay(game))
+        console.log "Game: #{game}"
+        sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
     #TODO FADE IN
     return

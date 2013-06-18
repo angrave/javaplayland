@@ -2,10 +2,10 @@ class window.gameSelector
 	cont = null
 	constructor: (@div, @dis) ->
 		cont = @div
-		cont.css(height:'422px',overflow:'auto',position:'relative')
+		cont.css (height:'422px', overflow:'auto',position:'relative')
 		return
 
-	buildDiv: (game,desc,player,canPlay) ->
+	buildDiv: (game, desc, player, canPlay, codeland) ->
 			tmp1 = document.createElement("div")
 			$(tmp1).css({width:'50%',height:'46%','border-style':'double','border-width':'medium','margin-bottom':'1%',position:'relative',left:'25%'})
 			$(tmp1).attr("id","select#{game}")
@@ -16,7 +16,7 @@ class window.gameSelector
 			@buildAn(tmp1,canPlay)
 			@buildScore(tmp1,player)
 			@buildInfo(tmp1,desc)
-			@canPlay(tmp1,canPlay)
+			@canPlay(tmp1,canPlay, codeland, game)
 
 	buildAn: (con,canPlay) ->
 		tmp2 = document.createElement("img")
@@ -45,20 +45,21 @@ class window.gameSelector
 		$(tmp).append(tmp2)
 		$(tmp).append(tmp3)
 
-		if player.passed is true
+		if player?.passed is true
 			$(tmp1).text("Status:  Complete")
 		else
 			$(tmp1).text("Status:  Incomplete")
 
-		$(tmp2).text("Hi-Score:  #{player.hiscore}")
+		$(tmp2).text("Hi-Score:  #{player?.hiscore}")
 
 		if @dis
-			$(tmp3).text("Stars: #{player.stars}")
+			$(tmp3).text("Stars: #{player?.stars}")
 		else
-			for ns in [1..player.stars]
+			for ns in [1..player?.stars]
 				$(tmp3).append("<img src='img/star.png' width='20%' height='20%'></img>")
-			for es in [player.stars...3]
+			for es in [player?.stars...3]
 				$(tmp3).append("<img src='img/stare.png' width='20%' height='20%'></img>")
+		return
 
 	buildInfo: (con,desc) ->
 		tmp = document.createElement("div")
@@ -75,9 +76,9 @@ class window.gameSelector
 		$(tmp2).text("Description:  #{desc.description}")
 
 
-	canPlay: (con,cp) ->
+	canPlay: (con, cp, codeland, game) ->
 		if cp
-			$(con).click( -> root.startGame(game) )
+			$(con).click( -> codeland.startGame(game) )
 		else
 			ovr = document.createElement("div")
 			$(con).prepend(ovr)
