@@ -1,6 +1,71 @@
 "use strict"
 # things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
+@UIcont = null
+
+root.initialize = (@UIcont) ->
+    player = root.getPlayer()
+    root.drawGameMap(player)
+
+root.reference = () ->
+
+ # FRONTEND UI
+root.drawGameMap = (player) ->
+    descriptions = root.getGameDescriptions()
+    mapDiv = $(@UIcont)
+    mapDiv.empty()
+    gameSequence = root.getGameSequence()
+    sel = new gameSelector(mapDiv,false)
+    addGameToMap = (game) ->
+        console.log "Game: #{game}"
+        sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
+    addGameToMap game for game in gameSequence
+    #TODO FADE IN
+    return
+
+root.startGame = (game) ->
+    console.log("Starting #{game}")
+    if not @visualMaster
+        @visualMaster = {
+            container: {
+                width: 360,
+                height: 360
+                # id: "gbox"
+            },
+            preLoading: {
+                protagonist: [
+                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
+                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
+                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
+                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
+                ]
+            }
+        }
+        @visualFrameRate = 17
+    @currentGame.finishGame() if @currentGame
+
+    gamediv = $(@UIcont)
+    gamediv.empty()
+    #Todo FADE IN
+
+    description = root.getGameDescriptions()[game]
+    env = {
+        key: game
+        description : description
+        visualMaster: @visualMaster
+        frameRate: @visualFrameRate
+        gamediv : gamediv
+        player : root.getPlayer()
+        codeland : this
+    }
+
+    managerString  = description?.manager ?= 'GameManager'
+
+    alert managerString
+
+   # @currentGame = new window[managerString](env)
+
+    #@currentGame.startGame()
 
 deepcopy = (src) -> $.extend(true, {},src)
 
@@ -185,20 +250,7 @@ root.canPlay = (game) ->
     return passCount == depends.length
 
 
- # FRONTEND UI
-root.drawGameMap = ->
-    mapDiv = $('#mapdiv')
-    mapDiv.empty()
-    gameSequence = root.getGameSequence()
-    player = root.getPlayer()
-    descriptions = root.getGameDescriptions()
-    sel = new gameSelector(mapDiv,false)
-    addGameToMap = (game) ->
-        console.log "Game: #{game}"
-        sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
-    addGameToMap game for game in gameSequence
-    #TODO FADE IN
-    return
+
 
 root.startGame = (game) ->
     console.log("Starting #{game}")

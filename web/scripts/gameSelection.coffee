@@ -1,8 +1,10 @@
 class window.gameSelector
 	cont = null
 	constructor: (@div, @dis) ->
-		cont = @div
-		cont.css (height:'422px', overflow:'auto',position:'relative')
+		tmp = document.createElement("div")
+		cont = $(tmp)
+		$(tmp).css(height:'100%', overflow:'auto',position:'relative')
+		$(@div).append(tmp)
 		return
 
 	buildDiv: (game, desc, player, canPlay, codeland) ->
