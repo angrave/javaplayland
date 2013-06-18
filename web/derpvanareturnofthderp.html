@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title> Java Play Land -- Learning Java the Fun way </title>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type = "text/javascript" src = "scripts/gameSelection.js"></script>
+
+</head>
+<body>
+<div id="gbox"></div>
+
+</body>
+<script type = "text/javascript">$(document).ready(function(){
+var player,game,_sequence1;
+
+player = {
+      first: 'Jim',
+      last: 'Jam',
+      avator: 'generic',
+      games: {
+        java1a: {
+          hiscore: 20,
+          stars: 1,
+          passed: true
+        }
+      }
+    };
+
+_sequence1 = {
+    name: 'Code Sequence Puzzle #1',
+    description: 'Find the correct sequence of code lines',
+    task: 'Re-order existing code that only uses a small set of statements',
+    tags: 'intro',
+    editor: {
+      buttons: ['switchUp', 'switchDown'],
+      commands: {
+        go: {
+          inputs: 0,
+          maxUses: 8
+        },
+        turnRight: {
+          inputs: 0,
+          maxUses: 1
+        }
+      }
+    },
+    code: {
+      prefix: '',
+      postfix: '',
+      show: false,
+      initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();\n'
+    },
+    events: {
+      victory: [3, 7]
+    },
+    visual: {
+      gameType: "grid",
+      grid: {
+        gridUnit: 30,
+        border: 30,
+        gridX: 10,
+        gridY: 10
+      },
+      animation: {
+        length: 30,
+        pixMoveRate: 1
+      },
+      characters: {
+        protagonist: {
+          imgSet: 0,
+          x: 1,
+          y: 1,
+          xOff: 2,
+          yOff: 2,
+          xSize: 26,
+          ySize: 26
+        }
+      }
+    },
+    help: ['Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle', 'Use up, down reset and test buttons to fix your code!', 'The reset button changes the code back to the original version'],
+    dyk: ['Computer programs contain many <em>statement</em>s.', 'Most of the time we need to write a ; after each statement', 'When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.', 'Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!']
+  };
+
+derp = new gameSelector("gbox",false);
+game = _sequence1;
+derp.buildDiv("java1a",_sequence1,player.games["java1a"],true);
+derp.buildDiv("java1a",_sequence1,player.games["java1a"],true);
+derp.buildDiv("java1a",_sequence1,player.games["java1a"],true);
+derp.buildDiv("java1a",_sequence1,player.games["java1a"],false);
+
+
+
+}); </script>
+</html>

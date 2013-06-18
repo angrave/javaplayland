@@ -78,20 +78,6 @@ class window.GameVisual
 		ar = config.animation.length
 		for key,set of config.characters
 			tmp = new charObj(imgArray[set.imgSet],1,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
-			tmp.newMove(1)
-			tmp.newMove(1)
-			tmp.newMove(1)
-			tmp.newMove(1)
-			tmp.newMove(2)
-			tmp.newMove(2)
-			tmp.newMove(2)
-			tmp.newMove(2)
-			tmp.newMove(2)
-			tmp.newMove(3)
-			tmp.newMove(3)
-			tmp.newMove(0)
-			tmp.newMove(0)
-			tmp.newMove(2)
 			objArray[objArray.length] = tmp
 
 		frameClock = setInterval this.coffeederp(config),frameLength
@@ -114,7 +100,7 @@ class window.GameVisual
 	###
 	gridMove: (char, dist) ->
 		for i in [1...dist]
-			objArray[char].newMove(objArray[char].dir)
+			objArray[char].newMove(objArray[char].ldir)
 		return
 
 	###
@@ -149,7 +135,9 @@ class window.GameVisual
 			num = num + (2*@dir)
 			return @animarray[num]
 
-		dirFace: (@dir) ->
+		imFace: (@dir) ->
+
+		dirFace: (@ldir) ->
 
 		newMove: (d) ->
 			queue[queue.length] = d
