@@ -30,6 +30,7 @@ root.store = (key,val) ->
 root.storeGameCompletionData = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
     root.updatePlayer( (p)-> p.games[key] = data )
+    root.drawGameMap()
     return
 
 root.getGame = ->
@@ -167,7 +168,6 @@ root.getGameSequence = ->
 
 
 root.canPlay = (game) ->
-
     player = root.getPlayer()
     #If already completed then no need to check dependencies
     return true if player?.games[game]?.passed
@@ -185,6 +185,7 @@ root.canPlay = (game) ->
  # FRONTEND UI
 root.drawGameMap = ->
     mapDiv = $('#mapdiv')
+    mapDiv.empty()
     gameSequence = root.getGameSequence()
     player = root.getPlayer()
     descriptions = root.getGameDescriptions()
@@ -203,6 +204,7 @@ root.drawGameMap = ->
         else
             entry.css('background-color','gray')
         entry.appendTo(mapDiv)
+        return
 
     mapDiv.empty()
     addGameToMap game for game in gameSequence
