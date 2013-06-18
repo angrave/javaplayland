@@ -69,8 +69,25 @@ class window.GameManager
         @config.visual.characters.protagonist.x = @config.game.startpos[0] - 1
         @config.visual.characters.protagonist.y = @config.game.startpos[1] - 1
         @visual.startGame @config.visual
-        @gameState = new MapGameState @config.game, @visual, @config.visual.characters
+        @gameState = new MapGameState this, @visual, @config.visual.characters
         @commandMap = new MapGameCommands @gameState
+        return
+
+    gameWon: (score, stars) ->
+        player = @environment.player
+        if player.games[@environment.key]?
+            if @player.games[@environment.key].hiscore? > score
+                score = @player.games[@environment.key].hiscore
+
+            if @player.games[@environment.key].stars? > stars
+                stars = @player.games[@environment.key].stars
+
+        @environment.codeland.storeGameCompletionData @environment.key, {
+            hiscore : score,
+            stars : stars,
+            passed : true
+        }
+        @finishGame()
         return
 
     finishGame: ->
@@ -96,8 +113,11 @@ class MapGameState
     #   < 3 4 1 >
     #       2
     #       v
-    constructor: (@config, @gameVisual, characterLoadconfig) ->
+    constructor: (@gameManager, @gameVisual, characterLoadconfig) ->
         # @config ?= { x: 4, y: 4, direction: 0, maxX:9, maxY:9, traps: [[2,4],[9,9]], targets: [[5,5]], targetCount : 0}
+        @config = @gameManager.config.game
+        @score = 0
+        @stars = 0
         @protagonist = {
             x: @config.startpos[0],
             y: @config.startpos[1],
@@ -111,16 +131,9 @@ class MapGameState
         @gameVisual.charFace @protagonist.index, @protagonist.dir
         return
 
-    # checkLocationOrThrow: ->
-    #     @badLocation = true unless (0<= gameState.x <= gameState.maxX && 0 <= gameState.y <= gameState.maxY)
-    #     if not gameState.traps
-    #         return
-
-    #     for [badx, bady] in gameState.traps
-    #         if (gameState.x == badx && gameState.y == bady)
-    #             @badLocation = true
-    #     throw new BadLocation() if @badLocation
-    #     return
+    gameWon: ->
+        @gameManager.gameWon @score, @stars
+        return
 
     move: (steps) ->
         # Bits are more fun that lookup tables or a switch
@@ -129,8 +142,9 @@ class MapGameState
         @protagonist.x += sign if isEastOrWest
         @protagonist.y += sign unless isEastOrWest
 
-        if @protagonist.x == @target.x and @protagonist.y == @target.y
-            alert "Victory" # Do something else here.
+        log "X: #{@protagonist.x}, Y: #{@protagonist.y * -1}"
+        if @protagonist.x == @target.x and @protagonist.y * -1 == @target.y
+            @gameWon()
         @gameVisual.gridMove @protagonist.index, steps
         return
 
