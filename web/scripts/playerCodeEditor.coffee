@@ -34,8 +34,6 @@ class window.EditorManager
             if $.inArray('deleteLine', @editorConfig.buttons) != -1
                 buttonField.append '<button id="deleteLine">Delete</button>'
 
-            buttonField.append '<button id="resetState">Reset</button>'
-
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
                 buttonField.append '<br />'
                 buttonField.append jQuery('<div>', {
@@ -93,11 +91,15 @@ class window.EditorManager
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
             jQuery('#deleteLine').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
-        jQuery('#resetState').click ed.button ed.resetState
+
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
         ed.onCursorMoveListener @onEditorCursorMove
+        return
+
+    resetEditor: =>
+        (@editor.button @editor.resetState)()
         return
 
     onStudentCodeChange: =>

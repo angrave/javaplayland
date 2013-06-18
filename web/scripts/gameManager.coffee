@@ -55,6 +55,7 @@ class window.GameManager
         @gameDiv = jQuery @environment.gamediv
         @gameDiv.append "<div id=\"#{@editorDiv}\" class=\"code_editor\"></div>"
         @gameDiv.append '<button id="compileAndRun">Go</button>'
+        @gameDiv.append '<button id="resetState">Reset</button>'
         @gameDiv.append "<div id=\"#{@visualDiv}\" class=\"game_visual\"></div>"
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
@@ -100,6 +101,12 @@ class window.GameManager
 
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
+        jQuery('#resetState').click @reset
+        return
+
+    reset: =>
+        @codeEditor.resetEditor()
+        @visual.startGame @config.visual
         return
 
     runStudentCode: =>
