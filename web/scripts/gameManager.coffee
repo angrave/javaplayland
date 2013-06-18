@@ -74,6 +74,7 @@ class window.GameManager
         return
 
     gameWon: (score, stars) ->
+        log "Game Won: #{@environment.key}"
         player = @environment.player
         if player.games[@environment.key]?
             if @player.games[@environment.key].hiscore? > score
@@ -142,7 +143,6 @@ class MapGameState
         @protagonist.x += sign if isEastOrWest
         @protagonist.y += sign unless isEastOrWest
 
-        log "X: #{@protagonist.x}, Y: #{@protagonist.y * -1}"
         if @protagonist.x == @target.x and @protagonist.y * -1 == @target.y
             @gameWon()
         @gameVisual.gridMove @protagonist.index, steps
