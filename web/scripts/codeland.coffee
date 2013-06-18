@@ -27,9 +27,10 @@ root.store = (key,val) ->
     root.setString(key, jQuery.toJSON(val) )
 
 #Updates the player data
-root.storeGameCompletionData = (key,data) ->
-    throw new Error("Cannot be null") unless val? && data?
-    updatePlayer( (p)-> p.games[key] = data )
+root.storeGameCompletionData = (key, data) ->
+    throw new Error("Cannot be null") unless key? && data?
+    root.updatePlayer( (p)-> p.games[key] = data )
+    return
 
 root.getGame = ->
     return getPlayer().currentGame
@@ -53,9 +54,10 @@ root.getPlayer = ->
     }
 
 root.updatePlayer = (callback) ->
-    p  = root.getPlayer()
-    callback(p)
+    player  = root.getPlayer()
+    callback(player)
     root.store("CurrentPlayer", player)
+    return
 
 
 _sequence1 = {
@@ -78,7 +80,7 @@ _sequence1 = {
     }
     game : {
         startpos : [1, 1]
-        targetpos : [3, 7]
+        targetpos : [3, 5]
     }
     visual : {
         gameType: "grid",
