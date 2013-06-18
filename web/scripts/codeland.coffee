@@ -62,9 +62,32 @@ _sequence1 = {
         show: false
         initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();\n'
     }
-    game : {
-        startpos : [1,1]
-        targetpos : [3,7]
+    events: {
+        victory: [3,7]
+    }
+    visual: {
+        gameType: "grid",
+        grid: {
+            gridUnit: 30,
+            border: 30,
+            gridX: 10,
+            gridY: 10
+        },
+        animation: {
+            length: 30,
+            pixMoveRate: 1
+        },
+        characters: {
+            protagonist: {
+                imgSet: 0,
+                x: 1,
+                y: 1,
+                xOff: 2,
+                yOff: 2,
+                xSize: 26,
+                ySize: 26
+            }
+        }
     }
     help : [ 'Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle',
     'Use up, down reset and test buttons to fix your code!','The reset button changes the code back to the original version']
@@ -148,21 +171,9 @@ root.drawGameMap = ->
     gameSequence = root.getGameSequence()
     player = root.getPlayer()
     descriptions = root.getGameDescriptions()
-    
+    sel = new gameSelector(mapDiv,false)
     addGameToMap = (game) ->
-        #!! Assumes name,description do not contain html
-        entry=$("<div id='select#{game}'>#{descriptions[game].name},#{descriptions[game].description}</div>")
-        info = player.games[game]
-        
-        if info
-            entry.append(info.hiscore) if  info.hiscore
-            entry.append(" Passed! ") if  info.passed 
-            entry.append("Stars = #{info.stars}")  if info.stars
-        if root.canPlay game
-            entry.click( -> root.startGame(game) )
-        else
-            entry.css('background-color','gray')
-        entry.appendTo(mapDiv)
+        sel.buildDiv(game,descriptions[game],player.games[game],root.canPlay(game))
           
     mapDiv.empty()
     addGameToMap game for game in gameSequence
