@@ -79,6 +79,9 @@ _sequence1 = {
         show: false
         initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();'
     }
+    events: {
+        victory: [3,7]
+    }
     game : {
         startpos : [1, 1]
         targetpos : [3, 5]
@@ -189,24 +192,9 @@ root.drawGameMap = ->
     gameSequence = root.getGameSequence()
     player = root.getPlayer()
     descriptions = root.getGameDescriptions()
-
+    sel = new gameSelector(mapDiv,false)
     addGameToMap = (game) ->
-        #!! Assumes name,description do not contain html
-        entry=$("<div id='select#{game}'>#{descriptions[game].name},#{descriptions[game].description}</div>")
-        info = player.games[game]
-
-        if info
-            entry.append(info.hiscore) if  info.hiscore
-            entry.append(" Passed! ") if  info.passed
-            entry.append("Stars = #{info.stars}")  if info.stars
-        if root.canPlay game
-            entry.click( -> root.startGame(game) )
-        else
-            entry.css('background-color','gray')
-        entry.appendTo(mapDiv)
-        return
-
-    mapDiv.empty()
+        sel.buildDiv(game,descriptions[game],player.games[game],root.canPlay(game))
     addGameToMap game for game in gameSequence
     #TODO FADE IN
     return

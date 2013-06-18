@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title> Java Play Land -- Learning Java the Fun way </title>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type = "text/javascript" src = "scripts/gameSelection.js"></script>
+<script type = "text/javascript" src = "scripts/referenceUI.js"></script>
+
+</head>
+<body><script type = "text/javascript">
+	$("body").css({height:'100%',width:'100%','overflow':'hidden','margin':'0','padding':'0'})
+	$("html").css({height:'100%',width:'100%','margin':'0','padding':'0'})
+
+
+	header = document.createElement("div")
+	title = document.createElement("img")
+	body = document.createElement("div")
+	footer = document.createElement("div")
+	container = document.createElement("div")
+
+	$("body").append(header)
+	$("body").append(body)
+	$("body").append(footer)
+	
+	$(header).append(title)
+	$(body).append(container)
+
+
+	$(header).css({height:'20%'})
+	$(body).css({height:'60%',width:'100%','background-color':'#000000'})
+	$(footer).css({height:'20%'})
+
+	$(container).attr("id","UI")
+	$(container).css({height:'85%',width:'85%','background-color':'#FFFFFF','position':'relative',left:'7.5%',top:'7.5%'})
+
+	$(title).attr("src","img/headert.png")
+	$(title).css({'position':'relative',height:'80%',width:'80%','top':'30%','left':'10%'})
+
+	//InitFloat()
+
+
+</script></body>
+</html>
