@@ -1,8 +1,9 @@
 class window.gameSelector
 	cont = null
-	constructor: (@div,@dis) ->
-		cont = $("##{div}") 
+	constructor: (@div, @dis) ->
+		cont = @div
 		cont.css(height:'422px',overflow:'auto',position:'relative')
+		return
 
 	buildDiv: (game,desc,player,canPlay) ->
 			tmp1 = document.createElement("div")
@@ -43,7 +44,7 @@ class window.gameSelector
 		$(tmp).append(tmp1)
 		$(tmp).append(tmp2)
 		$(tmp).append(tmp3)
-		
+
 		if player.passed is true
 			$(tmp1).text("Status:  Complete")
 		else
@@ -72,7 +73,7 @@ class window.gameSelector
 
 		$(tmp1).text("Name:  #{desc.name}")
 		$(tmp2).text("Description:  #{desc.description}")
-		
+
 
 	canPlay: (con,cp) ->
 		if cp
