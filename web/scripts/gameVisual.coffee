@@ -111,7 +111,7 @@ class window.GameVisual
 
 	###
 	#pixMove accepts a character index and an x and y coordinate referencing pixels.  This is a more powerful function than gridMove allowing for freer movement
-	#for potential use in other gametypes.  Can break things if used in improper conjunction with gridMove.  
+	#for potential use in other gametypes.  Can break things if used in improper conjunction with gridMove.
 	###
 	pixMove: (char,x,y) ->
 		objArray[char].absPos(x,y)
@@ -143,7 +143,7 @@ class window.GameVisual
 			if (anticker % (2 * ar)) >= ar
 				num = 1
 			num = num + (2 * @dir)
-			console.log("dir="+@dir)
+			# console.log("dir="+@dir)
 			return @animarray[num]
 
 		imFace: (@dir) ->
