@@ -26,8 +26,10 @@ class window.GameVisual
 	###
 	initContainer: (w,h,d) ->
 		obj = $("##{d}")
-		obj.width w
-		obj.height h
+
+		gh = obj.height()
+		gw = obj.width()
+
 		lyr1 = document.createElement("canvas")
 		#required to make tmp a direct reference to the canvas element, as opposed to a jquery object, otherwise getContext will not resolve
 		lyr2 = document.createElement("canvas")
@@ -35,16 +37,16 @@ class window.GameVisual
 		obj.prepend(lyr1)
 		$(lyr1).text("Your browser does not support Canvas") #this text is shown if canvas is not supported
 		$(lyr1).css("position","absolute")
-		$(lyr1).attr("width",w)
-		$(lyr1).attr("height",h)
-		$(lyr1).css("z-index","3")
+		$(lyr1).attr("width",gw)
+		$(lyr1).attr("height",gh)
+		$(lyr1).css({"z-index":"3"})
 
 		obj.prepend(lyr2)
 		$(lyr2).text("Your browser does not support Canvas")
 		$(lyr2).css("position","absolute")
-		$(lyr2).attr("width",w)
-		$(lyr2).attr("height",h)
-		$(lyr2).css("z-index","2")
+		$(lyr2).attr("width",gw)
+		$(lyr2).attr("height",gh)
+		$(lyr2).css({"z-index":"2"})
 
 		return
 
@@ -76,6 +78,10 @@ class window.GameVisual
 	###
 	startGame: (config) =>
 		ar = config.animation.length
+		if objArray.length > 0
+			objArray.splice(0,objArray.length)
+		if frameClock
+			clearInterval(frameClock)
 		for key,set of config.characters
 			tmp = new charObj(imgArray[set.imgSet],1,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
 			objArray[objArray.length] = tmp
@@ -84,9 +90,10 @@ class window.GameVisual
 		return
 
 
-	#drawText = () ->
+	drawText = () ->
 
-	#drawShape = () ->
+	drawShape = () ->
+
 	###
 	#charFace accepts an index and a direction.  The index will be equivalent to a character id and will reference the character object inside the
 	#objArray member for which to alter the direction of
@@ -105,9 +112,10 @@ class window.GameVisual
 
 	###
 	#pixMove accepts a character index and an x and y coordinate referencing pixels.  This is a more powerful function than gridMove allowing for freer movement
-	#for potential use in other gametypes.  NOT YET IMPLEMENTED
+	#for potential use in other gametypes.  Can break things if used in improper conjunction with gridMove.  
 	###
 	pixMove: (char,x,y) ->
+		objArray[char].absPos(x,y)
 
 	changeState: (char,state) ->
 
@@ -128,11 +136,14 @@ class window.GameVisual
 		state = 0
 		constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
 
+		absPos: (@xpos,@ypos) ->
+
 		current: (anticker) ->
 			num = 0
 			if (anticker % (2 * ar)) >= ar
 				num = 1
 			num = num + (2 * @dir)
+			console.log("dir="+@dir)
 			return @animarray[num]
 
 		imFace: (@dir) ->
@@ -177,16 +188,16 @@ class window.GameVisual
 	chckMv: (config) ->
 		for obj in objArray
 			if obj.moveDir(0) == 0
-				obj.dirFace(0)
+				obj.imFace(0)
 				obj.ypos = obj.ypos - config.animation.pixMoveRate
 			if obj.moveDir(0) == 1
-				obj.dirFace(1)
+				obj.imFace(1)
 				obj.xpos = obj.xpos + config.animation.pixMoveRate
 			if obj.moveDir(0) == 2
-				obj.dirFace(2)
+				obj.imFace(2)
 				obj.ypos = obj.ypos + config.animation.pixMoveRate
 			if obj.moveDir(0) == 3
-				obj.dirFace(3)
+				obj.imFace(3)
 				obj.xpos = obj.xpos - config.animation.pixMoveRate
 		if ticker % (config.grid.gridUnit / config.animation.pixMoveRate) == 0
 			obj.ppo()

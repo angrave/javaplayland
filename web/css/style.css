@@ -1,8 +1,8 @@
 .ace_editor {
     position: relative !important;
     border: 1px solid lightgray;
-    height: 200px;
-    width: 40%;
+    height: 80%;
+    width: 100%;
 }
 
 .game_visual {
