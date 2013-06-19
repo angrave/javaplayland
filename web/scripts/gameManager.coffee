@@ -1,6 +1,7 @@
 debugging = true
 log = (mesg) ->  console.log mesg if debugging
-
+if not deepcopy?
+    deepcopy = (src) -> $.extend(true, {},src)
 
 class window.GameManager
     constructor: (@environment) ->
@@ -78,6 +79,8 @@ class window.GameManager
 
     reset: =>
         @codeEditor.resetEditor()
+        @gameState = new MapGameState this, @visual, @config.visual.characters
+        @commandMap = new MapGameCommands @gameState
         @visual.startGame @config.visual
         return
 
@@ -155,7 +158,7 @@ class MapGameState
     #       v
     constructor: (@gameManager, @gameVisual, characterLoadconfig) ->
         # @config ?= { x: 4, y: 4, direction: 0, maxX:9, maxY:9, traps: [[2,4],[9,9]], targets: [[5,5]], targetCount : 0}
-        @config = @gameManager.config.game
+        @config = deepcopy @gameManager.config.game
         @score = 0
         @stars = 0
         @protagonist = {
@@ -188,14 +191,16 @@ class MapGameState
         return
 
     turnRight: ->
-        @turn (@protagonist.dir + 1) % 4
+        @turn ((@protagonist.dir + 1) % 4)
         return
 
     turnLeft: ->
-        @turn (@protagonist.dir + 3) % 4
+        @turn ((@protagonist.dir + 3) % 4)
         return
 
     turn: (dir) ->
+        if dir == 4
+            alert "Danger, Mr Robinson Dir is 4!"
         @protagonist.dir = dir
         @gameVisual.charFace @protagonist.index, @protagonist.dir
         return
