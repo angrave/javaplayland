@@ -90,13 +90,13 @@ root.load = (key) ->
 
 root.store = (key,val) ->
     throw new Error("Value must exist") unless val ?
-    root.setString(key, jQuery.toJSON(val) )
+    root.setString key, jQuery.toJSON(val)
 
 #Updates the player data
 root.storeGameCompletionData = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
-    root.updatePlayer( (p)-> p.games[key] = data )
-    root.drawGameMap()
+    root.updatePlayer((p)-> p.games[key] = data)
+    root.drawGameMap root.getPlayer()
     return
 
 root.getGame = ->
