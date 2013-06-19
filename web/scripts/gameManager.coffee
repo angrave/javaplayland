@@ -5,44 +5,7 @@ log = (mesg) ->  console.log mesg if debugging
 class window.GameManager
     constructor: (@environment) ->
         @config = @environment.description
-        if not @config.editor?
-            @config.editor = {}
-        if not @config.code?
-            @config.code = {}
-
-        if not @config.editor.buttons?
-            @config.editor.buttons = ['switchUp', 'switchDown',
-                'deleteLine', 'insertButtons']
-        if not @config.editor.commands?
-            @config.editor.commands = {
-                    go: {
-                        inputs: 1,
-                        maxUses: 3
-                    },
-                    turnRight: {
-                        inputs: 0,
-                        maxUses: 2
-                    },
-                    turn: {
-                        inputs: 2,
-                        maxUses: 3
-                    }
-                }
-
-        if not @config.code.prefix?
-            @config.code.prefix = """
-                public class Student {
-                public static void main(String[] args) {\n
-                """
-        if not @config.code.initial?
-            @config.code.initial = """
-                go(15);
-                turnRight();
-                turn(__, __);
-                go(2);
-                """
-        if not @config.code.postfix?
-            @config.code.postfix = '}\n}'
+        @loadDefaultsIfUndefined()
 
         @editorDiv = 'codeEditor'
         @visualDiv = 'gameVisual'
@@ -112,6 +75,66 @@ class window.GameManager
     runStudentCode: =>
         @interpreter.scanText @codeEditor.getStudentCode()
         @interpreter.executeCommands @commandMap
+        return
+
+    loadDefaultsIfUndefined: ->
+        if not @config.editor?
+            @config.editor = {}
+        if not @config.code?
+            @config.code = {}
+
+        if not @config.editor.buttons?
+            @config.editor.buttons = ['switchUp', 'switchDown',
+                'deleteLine', 'insertButtons']
+        if not @config.editor.commands?
+            @config.editor.commands = {
+                    go: {
+                        inputs: 1,
+                        maxUses: 3
+                    },
+                    turnRight: {
+                        inputs: 0,
+                        maxUses: 2
+                    },
+                    turn: {
+                        inputs: 2,
+                        maxUses: 3
+                    }
+                }
+
+        if not @config.code.prefix?
+            @config.code.prefix = """
+                public class Student {
+                public static void main(String[] args) {\n
+                """
+        if not @config.code.initial?
+            @config.code.initial = """
+                go(15);
+                turnRight();
+                turn(__, __);
+                go(2);
+                """
+        if not @config.code.postfix?
+            @config.code.postfix = '}\n}'
+
+        if not @environment.visualMaster?
+            @environment.visualMaster = {}
+
+        if not @environment.visualMaster.container?
+            @environment.visualMaster.container = {
+                width: 360,
+                height: 360
+            }
+
+        if not @environment.visualMaster.preLoading?
+            @environment.visualMaster.preLoading = {
+                protagonist: [
+                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
+                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
+                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
+                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
+                ]
+            }
         return
 
 class MapGameState
