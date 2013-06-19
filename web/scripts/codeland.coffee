@@ -40,6 +40,7 @@ root.startGame = (game) ->
                     "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
                     "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
                 ]
+                vicflag: ["img/vicflag1.png","img/vicflag2.png"]
             }
         }
         @visualFrameRate = 17
@@ -168,6 +169,15 @@ _sequence1 = {
                 imgSet: 0,
                 # x: 0,
                 # y: 0,
+                xOff: 2,
+                yOff: 2,
+                xSize: 26,
+                ySize: 26
+            }
+            gflag: {
+                imgSet: 1,
+                x: 5,
+                y: 5,
                 xOff: 2,
                 yOff: 2,
                 xSize: 26,

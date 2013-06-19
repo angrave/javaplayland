@@ -164,7 +164,7 @@ class MapGameState
         @protagonist = {
             x: @config.startpos[0],
             y: @config.startpos[1],
-            dir: if @config.direction? then @config.direction else 1,
+            dir: if @config.direction? then @config.direction else 0,
             index: 0
         }
         @target = {

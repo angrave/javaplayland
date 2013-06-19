@@ -57,11 +57,13 @@ class window.GameVisual
 	initResources: (config) ->
 		tmp = []
 		for key,imgar of config
+			tmp = []
 			for fi in imgar
 				imgo = new Image()
 				imgo.src = fi
 				tmp[tmp.length] = imgo
 			imgArray[imgArray.length] = tmp
+		#alert imgArray[0][1].src
 		return
 
 	coffeederp: (config) =>
@@ -82,9 +84,8 @@ class window.GameVisual
 		if frameClock
 			clearInterval(frameClock)
 		for key,set of config.characters
-			tmp = new charObj(imgArray[set.imgSet],1,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
+			tmp = new charObj(imgArray[set.imgSet],0,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
 			objArray[objArray.length] = tmp
-
 		frameClock = setInterval this.coffeederp(config),frameLength
 		return
 
@@ -131,10 +132,11 @@ class window.GameVisual
 	#More documenation to be added when the code is more concrete and permanent
 	###
 	class charObj
-		queue = [4]
-		state = 0
+
 		constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
 			@ldir = @dir
+			@queue = [4]
+			@state = 0
 
 		absPos: (@xpos,@ypos) ->
 
@@ -143,7 +145,7 @@ class window.GameVisual
 			if (anticker % (2 * ar)) >= ar
 				num = 1
 			num = num + (2 * @dir)
-			# console.log("dir="+@dir)
+
 			return @animarray[num]
 
 		imFace: (@dir) ->
@@ -151,17 +153,17 @@ class window.GameVisual
 		dirFace: (@ldir) ->
 
 		newMove: (d) ->
-			queue[queue.length] = d
+			@queue[@queue.length] = d
 			return
 
 		moveDir: (n) ->
-			return queue[n]
+			return @queue[n]
 
 		ppo: () ->
-			if queue.length == 1
-				queue.splice(0, 1, 4)
+			if @queue.length == 1
+				@queue.splice(0, 1, 4)
 			else
-				queue.splice(0, 1)
+				@queue.splice(0, 1)
 
 	getFrame: (config) ->
 		this.chckMv(config)
