@@ -2,7 +2,7 @@
 # fear of naming conflicts.
 jQuery ($) ->
     env = {
-        gamediv: 'gameDiv'
+        gamediv: $('#gameDiv')
         description: {}
     }
     manager = new GameManager(env)
