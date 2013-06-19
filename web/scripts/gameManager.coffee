@@ -202,6 +202,7 @@ class MapGameState
         if dir == 4
             alert "Danger, Mr Robinson Dir is 4!"
         @protagonist.dir = dir
+        alert @protagonist.dir
         @gameVisual.charFace @protagonist.index, @protagonist.dir
         return
 

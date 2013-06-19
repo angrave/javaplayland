@@ -78,8 +78,7 @@ class window.GameVisual
 	###
 	startGame: (config) =>
 		ar = config.animation.length
-		if objArray.length > 0
-			objArray.splice(0,objArray.length)
+		objArray = []
 		if frameClock
 			clearInterval(frameClock)
 		for key,set of config.characters
@@ -135,6 +134,7 @@ class window.GameVisual
 		queue = [4]
 		state = 0
 		constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
+			@ldir = @dir
 
 		absPos: (@xpos,@ypos) ->
 
