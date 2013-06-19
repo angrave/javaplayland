@@ -42,10 +42,12 @@ root.startGame = (game) ->
             }
         }
         @visualFrameRate = 17
+
     @currentGame.finishGame() if @currentGame
 
     gamediv = $(@UIcont)
-    gamediv.empty()
+    tmp1 = document.getElementById("gameSelection")
+    @UIcont.removeChild(tmp1)
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
@@ -61,11 +63,9 @@ root.startGame = (game) ->
 
     managerString  = description?.manager ?= 'GameManager'
 
-    alert managerString
+    @currentGame = new window[managerString](env)
 
-   # @currentGame = new window[managerString](env)
-
-    #@currentGame.startGame()
+    @currentGame.startGame()
 
 deepcopy = (src) -> $.extend(true, {},src)
 
@@ -248,48 +248,3 @@ root.canPlay = (game) ->
 
     passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
-
-
-
-
-root.startGame = (game) ->
-    console.log("Starting #{game}")
-    if not @visualMaster
-        @visualMaster = {
-            container: {
-                width: 360,
-                height: 360
-                # id: "gbox"
-            },
-            preLoading: {
-                protagonist: [
-                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
-                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
-                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
-                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
-                ]
-            }
-        }
-        @visualFrameRate = 17
-    @currentGame.finishGame() if @currentGame
-
-    gamediv = $('#gamediv')
-    gamediv.empty()
-    #Todo FADE IN
-
-    description = root.getGameDescriptions()[game]
-    env = {
-        key: game
-        description : description
-        visualMaster: @visualMaster
-        frameRate: @visualFrameRate
-        gamediv : gamediv
-        player : root.getPlayer()
-        codeland : this
-    }
-
-    managerString  = description?.manager ?= 'GameManager'
-
-    @currentGame = new window[managerString](env)
-
-    @currentGame.startGame()

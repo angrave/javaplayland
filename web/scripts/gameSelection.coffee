@@ -4,8 +4,11 @@ class window.gameSelector
 		tmp = document.createElement("div")
 		cont = $(tmp)
 		$(tmp).css(height:'100%', overflow:'auto',position:'relative')
+		$(tmp).attr("id","gameSelection")
 		$(@div).append(tmp)
 		return
+
+	destroy: () ->
 
 	buildDiv: (game, desc, player, canPlay, codeland) ->
 			tmp1 = document.createElement("div")
