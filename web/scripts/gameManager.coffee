@@ -178,16 +178,34 @@ class MapGameState
         @gameManager.gameWon @score, @stars
         return
 
+    checkEvent: (playerX, playerY) ->
+        log "Checking: X: #{playerX}, Y: #{playerY}"
+        canMove = true
+        if playerX < 1 or playerX > @gameManager.config.visual.gridX + 1\
+          or playerY < (-1 * @gameManager.config.visual.gridY + 1) or playerY > 1
+            # Player is out of bounds of grid.
+            canMove = false
+            log "Out of bounds!"
+        log "canMove: #{canMove}"
+        return canMove
+
     move: (steps) ->
         # Bits are more fun that lookup tables or a switch
         # sign is positive 1 for North00, East01, and -1 for South10, West11
         [sign, isEastOrWest] = [1  - (@protagonist.dir & 2), @protagonist.dir & 1]
-        @protagonist.x += sign if isEastOrWest
-        @protagonist.y += sign unless isEastOrWest
+        if isEastOrWest
+            newx = @protagonist.x + sign
+            newy = @protagonist.y
+        unless isEastOrWest
+            newx = @protagonist.x
+            newy = @protagonist.y + sign
 
-        if @protagonist.x == @target.x and @protagonist.y * -1 == @target.y
-            @gameWon()
-        @gameVisual.gridMove @protagonist.index, steps
+        updatePlayerPosition = @checkEvent(newx, newy)
+        if updatePlayerPosition
+            @protagonist.x = newx
+            @protagonist.y = newy
+            @gameVisual.gridMove @protagonist.index, steps
+
         return
 
     turnRight: ->
@@ -199,10 +217,7 @@ class MapGameState
         return
 
     turn: (dir) ->
-        if dir == 4
-            alert "Danger, Mr Robinson Dir is 4!"
         @protagonist.dir = dir
-        alert @protagonist.dir
         @gameVisual.charFace @protagonist.index, @protagonist.dir
         return
 
@@ -212,11 +227,11 @@ class MapGameCommands
 
     go: (steps) =>
         steps = 1 if steps is undefined
-        log "Go #{steps} steps."
+        # log "Go #{steps} steps."
         @gameState.move steps
 
     turn: (dir) =>
-        log "turn '#{dir}'"
+        # log "turn '#{dir}'"
         return if dir is undefined
         d = $.inArray(dir, ['N','E','S','W'])
         if d >= 0
@@ -230,17 +245,17 @@ class MapGameCommands
         return
 
     turnRight: =>
-        log "turnRight"
+        # log "turnRight"
         @gameState.turnRight()
         return
 
     turnLeft: =>
-        log "turnLeft"
+        # log "turnLeft"
         @gameState.turnLeft()
         return
 
     turnAndGo: (direction, steps) =>
-        log "turnAndGo #{direction} #{steps}"
+        # log "turnAndGo #{direction} #{steps}"
         @turn direction
         @go steps
         return
