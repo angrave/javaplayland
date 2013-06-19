@@ -1,9 +1,10 @@
 "use strict"
 # things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
-@UIcont = null
+root.UIcont = null
 
-root.initialize = (@UIcont) ->
+root.initialize = (UIcont) ->
+    root.UIcont = UIcont
     player = root.getPlayer()
     root.drawGameMap(player)
 
@@ -12,7 +13,7 @@ root.reference = () ->
  # FRONTEND UI
 root.drawGameMap = (player) ->
     descriptions = root.getGameDescriptions()
-    mapDiv = $(@UIcont)
+    mapDiv = $(root.UIcont)
     mapDiv.empty()
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv,false)
@@ -44,7 +45,7 @@ root.startGame = (game) ->
         @visualFrameRate = 17
     @currentGame.finishGame() if @currentGame
 
-    gamediv = $(@UIcont)
+    gamediv = $(root.UIcont)
     gamediv.empty()
     #Todo FADE IN
 
