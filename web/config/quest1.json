@@ -1,0 +1,391 @@
+{
+  "sequence1": {
+    "name": "Code Sequence Puzzle #1",
+    "description": "Find the correct sequence of code lines",
+    "task": "Re-order existing code that only uses a small set of statements",
+    "tags": "intro",
+    "editor": {
+      "freeformEditting": false,
+      "buttons": [
+        "switchUp",
+        "switchDown"
+      ],
+      "commands": {
+        "go": {
+          "inputs": 0,
+          "maxUses": 8
+        },
+        "turnRight": {
+          "inputs": 0,
+          "maxUses": 1
+        }
+      }
+    },
+    "code": {
+      "prefix": "",
+      "postfix": "",
+      "show": false,
+      "initial": "go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();"
+    },
+    "events": {
+      "victory": [
+        7,
+        5
+      ]
+    },
+    "game": {
+      "startpos": [
+        1,
+        1
+      ],
+      "targetpos": [
+        5,
+        5
+      ],
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "index": 0
+        }
+      }
+    },
+    "visual": {
+      "gameType": "grid",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 10,
+        "gridY": 10
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "imgSet": 0,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        },
+        "gflag": {
+          "dir": 0,
+          "imgSet": 1,
+          "x": 7,
+          "y": 5,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        }
+      }
+    },
+    "help": [
+      "Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle",
+      "Use up, down reset and test buttons to fix your code!",
+      "The reset button changes the code back to the original version"
+    ],
+    "dyk": [
+      "Computer programs contain many <em>statement</em>s.",
+      "Most of the time we need to write a ; after each statement",
+      "When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.",
+      "Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!"
+    ],
+    "depends": []
+  },
+  "sequence2": {
+    "name": "Code Sequence Puzzle #2",
+    "description": "Find the correct sequence of code lines",
+    "task": "Re-order existing code that only uses a small set of statements",
+    "tags": "intro",
+    "editor": {
+      "freeformEditting": false,
+      "buttons": [
+        "switchUp",
+        "switchDown"
+      ],
+      "commands": {
+        "go": {
+          "inputs": 0,
+          "maxUses": 7
+        },
+        "turnLeft": {
+          "inputs": 0,
+          "maxUses": 4
+        }
+      }
+    },
+    "code": {
+      "prefix": "",
+      "postfix": "",
+      "show": false,
+      "initial": "go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();"
+    },
+    "events": {
+      "victory": [
+        7,
+        5
+      ]
+    },
+    "game": {
+      "startpos": [
+        6,
+        7
+      ],
+      "targetpos": [
+        5,
+        5
+      ],
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "index": 0
+        }
+      }
+    },
+    "visual": {
+      "gameType": "grid",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 10,
+        "gridY": 10
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "imgSet": 0,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        },
+        "gflag": {
+          "dir": 0,
+          "imgSet": 1,
+          "x": 7,
+          "y": 5,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        }
+      }
+    },
+    "help": [
+      "Perhaps if you go a bit too far you can end at the target square?"
+    ],
+    "dyk": [
+      "When the Java compiler reads our program it looks for semicolons",
+      "So we could write our entire program on just one line but that would be very difficult for people to read!"
+    ],
+    "depends": [
+      "sequence1"
+    ]
+  },
+  "sequence3": {
+    "name": "Code Sequence Puzzle #3",
+    "description": "Find the correct sequence of code lines",
+    "task": "Re-order existing code that only uses a small set of statements",
+    "tags": "intro",
+    "editor": {
+      "freeformEditting": false,
+      "buttons": [
+        "deleteLine"
+      ],
+      "commands": {
+        "go": {
+          "inputs": 0,
+          "maxUses": 3
+        },
+        "goNorth": {
+          "inputs": 0,
+          "maxUses": 2
+        },
+        "turnLeft": {
+          "inputs": 0,
+          "maxUses": 6
+        },
+        "turnRight": {
+          "inputs": 0,
+          "maxUses": 2
+        }
+      }
+    },
+    "code": {
+      "prefix": "",
+      "postfix": "",
+      "show": false,
+      "initial": "turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();"
+    },
+    "events": {
+      "victory": [
+        7,
+        5
+      ]
+    },
+    "game": {
+      "startpos": [
+        7,
+        3
+      ],
+      "targetpos": [
+        5,
+        2
+      ],
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "index": 0
+        }
+      }
+    },
+    "visual": {
+      "gameType": "grid",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 10,
+        "gridY": 10
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "imgSet": 0,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        },
+        "gflag": {
+          "dir": 0,
+          "imgSet": 1,
+          "x": 7,
+          "y": 5,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        }
+      }
+    },
+    "help": [
+      "Time to debug this code!",
+      "This code has too many statements. Delete the unnecessary statements."
+    ],
+    "dyk": [
+      "When your code runs but does not work correctly you have a bug in your code!",
+      "Finding the cause and fixing the problem is called 'Debugging'"
+    ],
+    "depends": [
+      "sequence1"
+    ]
+  },
+  "sequence4": {
+    "name": "Code Sequence Puzzle #4",
+    "description": "Find the correct sequence of code lines",
+    "task": "Re-order existing code that only uses a small set of statements",
+    "tags": "intro",
+    "editor": {
+      "freeformEditting": false,
+      "buttons": [
+        "switchUp",
+        "switchDown",
+        "deleteLine",
+        "insertButtons"
+      ],
+      "commands": {
+        "mysteryA": {
+          "inputs": 0,
+          "maxUses": 5
+        },
+        "mysteryB": {
+          "inputs": 0,
+          "maxUses": 5
+        },
+        "mysteryC": {
+          "inputs": 0,
+          "maxUses": 5
+        }
+      }
+    },
+    "code": {
+      "prefix": "",
+      "postfix": "",
+      "show": false,
+      "initial": ""
+    },
+    "events": {
+      "victory": [
+        7,
+        5
+      ]
+    },
+    "game": {
+      "startpos": [
+        2,
+        4
+      ],
+      "targetpos": [
+        6,
+        8
+      ],
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "index": 0
+        }
+      }
+    },
+    "visual": {
+      "gameType": "grid",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 10,
+        "gridY": 10
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": {
+        "protagonist": {
+          "dir": 1,
+          "imgSet": 0,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        },
+        "gflag": {
+          "dir": 0,
+          "imgSet": 1,
+          "x": 7,
+          "y": 5,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26
+        }
+      }
+    },
+    "help": [
+      "Time to play! Write some test programs to discover out what each mystery function does"
+    ],
+    "dyk": [],
+    "depends": [
+      "sequence3"
+    ]
+  }
+}
