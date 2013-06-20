@@ -5,7 +5,7 @@ class window.gameSelector
 		cont = $(tmp)
 		$(tmp).css(height:'100%', overflow:'auto',position:'relative')
 		$(tmp).attr("id","gameSelection")
-		$(@div).append(tmp)
+		@div.append(tmp)
 		return
 
 	destroy: () ->
