@@ -68,6 +68,8 @@ class window.GameVisual
 
 	coffeederp: (config) =>
 		return =>
+			for i in [0..objArray[0].queue.length]
+				out = out + ":" + objArray[0].queue[i]
 			if ticker == 2*config.animation.length
 				ticker = 0
 			ticker++
@@ -81,12 +83,9 @@ class window.GameVisual
 	startGame: (config) =>
 		ar = config.animation.length
 		objArray = []
-		if frameClock
-			clearInterval(frameClock)
 		for key,set of config.characters
-			tmp = new charObj(imgArray[set.imgSet],0,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
+			tmp = new charObj(imgArray[set.imgSet],set.dir,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
 			objArray[objArray.length] = tmp
-		frameClock = setInterval this.coffeederp(config),frameLength
 		return
 
 
@@ -101,14 +100,6 @@ class window.GameVisual
 	charFace: (char, direction) ->
 		objArray[char].dirFace(direction)
 		return
-	###
-	#gridMove accepts an index and a distance.  For the given character, gridMove will add dist number of move commands to that characters move queue in
-	#the direction that they were facing at the time the function is run
-	###
-	gridMove: (char, dist) ->
-		for i in [1..dist] by 1
-			objArray[char].newMove(objArray[char].ldir)
-		return
 
 	###
 	#pixMove accepts a character index and an x and y coordinate referencing pixels.  This is a more powerful function than gridMove allowing for freer movement
@@ -118,7 +109,7 @@ class window.GameVisual
 		objArray[char].absPos(x,y)
 
 	changeState: (char,state) ->
-
+		objArray[char].chngState(state)
 
 	###
 	#charObj is a class representing the characters that can move around the canvas.  It keeps track of the direction the character is facing,
@@ -132,11 +123,9 @@ class window.GameVisual
 	#More documenation to be added when the code is more concrete and permanent
 	###
 	class charObj
-
 		constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
 			@ldir = @dir
-			@queue = [4]
-			@state = 0
+			@state = 4
 
 		absPos: (@xpos,@ypos) ->
 
@@ -152,18 +141,11 @@ class window.GameVisual
 
 		dirFace: (@ldir) ->
 
-		newMove: (d) ->
-			@queue[@queue.length] = d
-			return
+		chngState: (act) ->
+			@state = act
 
-		moveDir: (n) ->
-			return @queue[n]
-
-		ppo: () ->
-			if @queue.length == 1
-				@queue.splice(0, 1, 4)
-			else
-				@queue.splice(0, 1)
+		state: () ->
+			return @state
 
 	getFrame: (config) ->
 		this.chckMv(config)
@@ -189,20 +171,18 @@ class window.GameVisual
 
 	chckMv: (config) ->
 		for obj in objArray
-			if obj.moveDir(0) == 0
+			if obj.state() == 0
 				obj.imFace(0)
 				obj.ypos = obj.ypos - config.animation.pixMoveRate
-			if obj.moveDir(0) == 1
+			if obj.state() == 1
 				obj.imFace(1)
 				obj.xpos = obj.xpos + config.animation.pixMoveRate
-			if obj.moveDir(0) == 2
+			if obj.state() == 2
 				obj.imFace(2)
 				obj.ypos = obj.ypos + config.animation.pixMoveRate
-			if obj.moveDir(0) == 3
+			if obj.state() == 3
 				obj.imFace(3)
 				obj.xpos = obj.xpos - config.animation.pixMoveRate
-		if ticker % (config.grid.gridUnit / config.animation.pixMoveRate) == 0
-			obj.ppo()
 
 	swapFrames: (f1,f2) ->
 		$(f1).css("z-index","3")
