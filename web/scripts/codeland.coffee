@@ -16,7 +16,7 @@ root.drawGameMap = (player) ->
     mapDiv = $(root.UIcont)
     mapDiv.empty()
     gameSequence = root.getGameSequence()
-    sel = new gameSelector(mapDiv,false)
+    sel = new gameSelector(mapDiv, false)
     addGameToMap = (game) ->
         console.log "Game: #{game}"
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
@@ -49,6 +49,7 @@ root.startGame = (game) ->
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
     root.UIcont.removeChild(tmp1)
+
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
