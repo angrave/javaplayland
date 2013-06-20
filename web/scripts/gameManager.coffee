@@ -43,7 +43,7 @@ class window.GameManager
         @config.visual.characters.protagonist.x = @config.game.startpos[0]
         @config.visual.characters.protagonist.y = @config.game.startpos[1]
         @visual.startGame @config.visual
-        @gameState = new MapGameState this, @visual, @config.visual.characters
+        @gameState = new MapGameState this, @visual, @config.game.characters
         @commandMap = new MapGameCommands @gameState
         return
 
@@ -159,7 +159,7 @@ class MapGameState
     #   < 3 4 1 >
     #       2
     #       v
-    constructor: (@gameManager, @gameVisual, characterLoadconfig) ->
+    constructor: (@gameManager, @visual, characterLoadconfig) ->
         @config = deepcopy @gameManager.config.game
         @score = 0
         @stars = 0
@@ -173,8 +173,7 @@ class MapGameState
             x: @config.targetpos[0]
             y: @config.targetpos[1]
         }
-        @otherCharacters = characterLoadconfig[2..]
-        @gameVisual.charFace @protagonist.index, @protagonist.dir
+        @visual.charFace @protagonist.index, @protagonist.dir
         @clockHandle = setInterval @clock(), 17
         return
 
@@ -185,7 +184,7 @@ class MapGameState
             if @tick % 30 == 0
                 # Update Game State
                 placeholder = true
-            @gameVisual.coffederp @gameManager.config.visual
+            @visual.getFrame @gameManager.config.visual, @tick
             return
 
     gameWon: ->
@@ -212,7 +211,7 @@ class MapGameState
         if updatePlayerPosition
             @protagonist.x = newx
             @protagonist.y = newy
-            @gameVisual.gridMove @protagonist.index, steps
+            @visual.changeState @protagonist.index, steps
 
         return
 
@@ -239,7 +238,7 @@ class MapGameState
 
     turn: (dir) ->
         @protagonist.dir = dir
-        @gameVisual.charFace @protagonist.index, @protagonist.dir
+        @visual.charFace @protagonist.index, @protagonist.dir
         return
 
 class MapGameCommands

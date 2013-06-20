@@ -63,18 +63,7 @@ class window.GameVisual
 				imgo.src = fi
 				tmp[tmp.length] = imgo
 			imgArray[imgArray.length] = tmp
-		#alert imgArray[0][1].src
 		return
-
-	coffeederp: (config) =>
-		return =>
-			for i in [0..objArray[0].queue.length]
-				out = out + ":" + objArray[0].queue[i]
-			if ticker == 2*config.animation.length
-				ticker = 0
-			ticker++
-			this.getFrame(config)
-
 
 	###
 	#startGame is hard coded at the moment but will eventually take parsed information from a sub config file and then use it
@@ -125,7 +114,7 @@ class window.GameVisual
 	class charObj
 		constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
 			@ldir = @dir
-			@state = 4
+			@cstate = 4
 
 		absPos: (@xpos,@ypos) ->
 
@@ -142,10 +131,10 @@ class window.GameVisual
 		dirFace: (@ldir) ->
 
 		chngState: (act) ->
-			@state = act
+			@cstate = act
 
 		state: () ->
-			return @state
+			return @cstate
 
 	getFrame: (config) ->
 		this.chckMv(config)
