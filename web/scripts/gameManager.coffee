@@ -40,8 +40,8 @@ class window.GameManager
         return
 
     startGame: ->
-        @config.visual.characters.protagonist.x = @config.game.startpos[0] - 1
-        @config.visual.characters.protagonist.y = @config.game.startpos[1] - 1
+        @config.visual.characters.protagonist.x = @config.game.startpos[0]
+        @config.visual.characters.protagonist.y = @config.game.startpos[1]
         @visual.startGame @config.visual
         @gameState = new MapGameState this, @visual, @config.visual.characters
         @commandMap = new MapGameCommands @gameState
@@ -79,13 +79,16 @@ class window.GameManager
 
     reset: =>
         @codeEditor.resetEditor()
+        @visual.startGame @config.visual
         @gameState = new MapGameState this, @visual, @config.visual.characters
         @commandMap = new MapGameCommands @gameState
-        @visual.startGame @config.visual
         return
 
     runStudentCode: =>
         @interpreter.scanText @codeEditor.getStudentCode()
+        @visual.startGame @config.visual
+        @gameState = new MapGameState this, @visual, @config.visual.characters
+        @commandMap = new MapGameCommands @gameState
         @interpreter.executeCommands @commandMap
         return
 
@@ -157,22 +160,33 @@ class MapGameState
     #       2
     #       v
     constructor: (@gameManager, @gameVisual, characterLoadconfig) ->
-        # @config ?= { x: 4, y: 4, direction: 0, maxX:9, maxY:9, traps: [[2,4],[9,9]], targets: [[5,5]], targetCount : 0}
         @config = deepcopy @gameManager.config.game
         @score = 0
         @stars = 0
         @protagonist = {
             x: @config.startpos[0],
             y: @config.startpos[1],
-            dir: if @config.direction? then @config.direction else 0,
-            index: 0
+            dir: characterLoadconfig.protagonist.dir,
+            index: characterLoadconfig.protagonist.index
         }
         @target = {
             x: @config.targetpos[0]
             y: @config.targetpos[1]
         }
+        @otherCharacters = characterLoadconfig[2..]
         @gameVisual.charFace @protagonist.index, @protagonist.dir
+        @clockHandle = setInterval @clock(), 17
         return
+
+    clock: =>
+        @tick = 0
+        return =>
+            @tick++
+            if @tick % 30 == 0
+                # Update Game State
+                placeholder = true
+            @gameVisual.coffederp @gameManager.config.visual
+            return
 
     gameWon: ->
         @gameManager.gameWon @score, @stars
@@ -181,8 +195,8 @@ class MapGameState
     checkEvent: (playerX, playerY) ->
         log "Checking: X: #{playerX}, Y: #{playerY}"
         canMove = true
-        if playerX < 1 or playerX > @gameManager.config.visual.gridX + 1\
-          or playerY < (-1 * @gameManager.config.visual.gridY + 1) or playerY > 1
+        if playerX < 0 or playerX > @gameManager.config.visual.gridX\
+          or playerY < 0 or playerY > @gameManager.config.visual.gridY
             # Player is out of bounds of grid.
             canMove = false
             log "Out of bounds!"
@@ -190,15 +204,9 @@ class MapGameState
         return canMove
 
     move: (steps) ->
-        # Bits are more fun that lookup tables or a switch
-        # sign is positive 1 for North00, East01, and -1 for South10, West11
-        [sign, isEastOrWest] = [1  - (@protagonist.dir & 2), @protagonist.dir & 1]
-        if isEastOrWest
-            newx = @protagonist.x + sign
-            newy = @protagonist.y
-        unless isEastOrWest
-            newx = @protagonist.x
-            newy = @protagonist.y + sign
+        # Top Left: 0,0
+        [newx, newy] = @computeStepInDirection(@protagonist.dir,
+            @protagonist.x, @protagonist.y)
 
         updatePlayerPosition = @checkEvent(newx, newy)
         if updatePlayerPosition
@@ -207,6 +215,19 @@ class MapGameState
             @gameVisual.gridMove @protagonist.index, steps
 
         return
+
+    computeStepInDirection: (direction, currentX, currentY) ->
+        # Bits are more fun that lookup tables or a switch
+        # sign is positive 1 for North00, East01, and -1 for South10, West11
+        [sign, isEastOrWest] = [-1  + (direction & 2), direction & 1]
+        if isEastOrWest
+            newx = currentX + sign
+            newy = currentY
+        unless isEastOrWest
+            newx = currentX
+            newy = currentY + sign
+
+        return [newx, newy]
 
     turnRight: ->
         @turn ((@protagonist.dir + 1) % 4)
