@@ -247,12 +247,36 @@ class MapGameState
         @playerMoves.push {
             key: 'turn',
             exec: (->
-                @protagonist.dir = direction
-                @visual.charFace @protagonist.index, @protagonist.dir
-                @visual.changeState @protagonist.index, 4
+                @_turn direction
                 return).bind @
         }
         @_stand()
+        return
+
+    turnRight: ->
+        @playerMoves.push {
+            key: 'turn',
+            exec: (->
+                @_turn ((@protagonist.dir + 1) % 4)
+                return).bind @
+        }
+        @_stand()
+        return
+
+    turnLeft: ->
+        @playerMoves.push {
+            key: 'turn',
+            exec: (->
+                @_turn ((@protagonist.dir + 3) % 4)
+                return).bind @
+        }
+        @_stand()
+        return
+
+    _turn: (direction) ->
+        @protagonist.dir = direction
+        @visual.charFace @protagonist.index, @protagonist.dir
+        @visual.changeState @protagonist.index, 4
         return
 
     gameWon: ->
@@ -262,8 +286,8 @@ class MapGameState
 
     checkEvent: (playerX, playerY) ->
         canNotMove = false
-        if playerX < 0 or playerX > @gameManager.config.visual.grid.gridX\
-          or playerY < 0 or playerY > @gameManager.config.visual.grid.gridY
+        if playerX < 0 or playerX >= @gameManager.config.visual.grid.gridX\
+          or playerY < 0 or playerY >= @gameManager.config.visual.grid.gridY
             # Player is out of bounds of grid.
             canNotMove = true
         return canNotMove
@@ -280,14 +304,6 @@ class MapGameState
             newy = currentY + sign
 
         return [newx, newy]
-
-    turnRight: ->
-        @turn ((@protagonist.dir + 1) % 4)
-        return
-
-    turnLeft: ->
-        @turn ((@protagonist.dir + 3) % 4)
-        return
 
 class MapGameCommands
     constructor: (@gameState) ->
