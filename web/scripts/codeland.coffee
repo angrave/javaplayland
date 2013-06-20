@@ -151,6 +151,31 @@ _sequence1 = {
     game : {
         startpos : [1, 1]
         targetpos : [3, 5]
+        characters: {
+            protagonist: {
+                dir: 1
+                index: 0
+            }
+            guard: {
+                index: 2
+                x: 3
+                y: 0
+                dir: 2
+                ai: {
+                    move: (gamestate) =>
+                        [newx, newy] = gameState.computeStepInDirection(
+                            @dir, @x, @y)
+                        hitEvent = gamestate.checkEvent(@x, @y)
+                        if !hitEvent
+                            @x = newx
+                            @y = newy
+                            gamestate.gameVisual.gridMove @index, 1
+                        else
+                            @dir = @dir ^ 2
+                        return
+                }
+            }
+        }
     }
     visual : {
         gameType: "grid",
@@ -166,6 +191,7 @@ _sequence1 = {
         },
         characters: {
             protagonist: {
+                dir: 1,
                 imgSet: 0,
                 # x: 0,
                 # y: 0,
@@ -175,9 +201,17 @@ _sequence1 = {
                 ySize: 26
             }
             gflag: {
+                dir: 0,
                 imgSet: 1,
                 x: 5,
                 y: 5,
+                xOff: 2,
+                yOff: 2,
+                xSize: 26,
+                ySize: 26
+            }
+            guard: {
+                imgSet: 1,
                 xOff: 2,
                 yOff: 2,
                 xSize: 26,
