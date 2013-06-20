@@ -134,6 +134,7 @@ _sequence1 = {
     task : 'Re-order existing code that only uses a small set of statements'
     tags : 'intro'
     editor : {
+        freeformEditting: false
         buttons : ['switchUp','switchDown']
         commands : {
             go : { inputs:0, maxUses:8 }
@@ -242,7 +243,8 @@ _sequence3.name = 'Code Sequence Puzzle #3'
 _sequence3.editor.buttons = ['delete']
 _sequence3.editor.commands = {go : { inputs:0, maxUses:3 },goNorth : { inputs:0, maxUses:2 }, turnLeft : { inputs:0, maxUses:6 }, turnRight: { inputs:0, maxUses:2 }}
 _sequence3.code.initial = 'turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();'
-_sequence3.game = { startpos: [7,3], targetpos: [5,2]}
+_sequence3.game.startpos = [7,3]
+_sequence3.game.targetpos = [5,2]
 _sequence3.depends = ['sequence1']
 _sequence3.help = ['Time to debug this code!','This code has too many statements. Delete the unnecessary statements.']
 _sequence3.dyk = ['When your code runs but does not work correctly you have a bug in your code!','Finding the cause and fixing the problem is called \'Debugging\'',]
@@ -252,7 +254,8 @@ _sequence4= deepcopy _sequence3
 _sequence4.name = 'Code Sequence Puzzle #4'
 #goEast4.goSouth1.goWest2.
 _sequence4.editor.buttons = ['switchUp','switchDown' , 'delete','mysteryA', 'mysteryB', 'mysteryC']
-_sequence4.game = { startpos: [2,4], targetpos: [6,8]}
+_sequence4.game.startpos = [2,4]
+_sequence4.game.targetpos = [6,8]
 _sequence4.editor.commands = {mysteryA : { inputs:0, maxUses:5 }, mysteryB : { inputs:0, maxUses:5 }, mysteryC : { inputs:0, maxUses:5 }}
 _sequence4.code.initial = ''
 _sequence4.depends = ['sequence3']

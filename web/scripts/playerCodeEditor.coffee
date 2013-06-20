@@ -45,7 +45,8 @@ class window.EditorManager
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
 
         @editor = new PlayerCodeEditor 'ace-editor', \
-            @commands, @codeConfig.initial, @codeConfig.prefix, @codeConfig.postfix
+            @commands, @codeConfig.initial, @codeConfig.prefix, @codeConfig.postfix, \
+            @editorConfig.freeformEditting
         @interpreter = new CodeInterpreter @commands
 
         @setUpInsertButtons()
@@ -209,7 +210,7 @@ class PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @codePrefix, @codeSuffix) ->
+    constructor: (@editorDivId, @commands, codeText, @codePrefix, @codeSuffix, @freeEdit) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -218,7 +219,7 @@ class PlayerCodeEditor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
-        @editor.setReadOnly false
+        @editor.setReadOnly !@freeEdit
 
         @codePrefixLength = codePrefix.split('\n').length - 1
         @codeSuffixLength = codeSuffix.split('\n').length

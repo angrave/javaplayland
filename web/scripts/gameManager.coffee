@@ -54,11 +54,11 @@ class window.GameManager
 
         player = @environment.player
         if player.games[@environment.key]?
-            if @player.games[@environment.key].hiscore? > score
-                score = @player.games[@environment.key].hiscore
+            if player.games[@environment.key].hiscore? > score
+                score = player.games[@environment.key].hiscore
 
-            if @player.games[@environment.key].stars? > stars
-                stars = @player.games[@environment.key].stars
+            if player.games[@environment.key].stars? > stars
+                stars = player.games[@environment.key].stars
 
         @environment.codeland.storeGameCompletionData @environment.key, {
             hiscore : score,
