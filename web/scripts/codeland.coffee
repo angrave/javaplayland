@@ -18,7 +18,7 @@ root.drawGameMap = (player) ->
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
     addGameToMap = (game) ->
-        console.log "Game: #{game}"
+        # console.log "Game: #{game}"
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
     #TODO FADE IN
@@ -228,7 +228,8 @@ _sequence1 = {
 
 _sequence2= deepcopy _sequence1
 _sequence2.name = 'Code Sequence Puzzle #2'
-_sequence2.game = { startpos: [6,7], targetpos: [5,5]}
+_sequence2.game.startpos = [6,7]
+_sequence2.game.targetpos = [5,5]
 _sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:0, maxUses:4 }}
 _sequence2.code.initial = 'go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();'
 _sequence2.depends = ['sequence1']
@@ -239,9 +240,9 @@ _sequence2.dyk = [ 'When the Java compiler reads our program it looks for semico
 _sequence3= deepcopy _sequence2
 _sequence3.name = 'Code Sequence Puzzle #3'
 _sequence3.editor.buttons = ['delete']
-_sequence2.editor.commands = {go : { inputs:0, maxUses:3 },goNorth : { inputs:0, maxUses:2 }, turnLeft : { inputs:0, maxUses:6 }, turnRight: { inputs:0, maxUses:2 }}
+_sequence3.editor.commands = {go : { inputs:0, maxUses:3 },goNorth : { inputs:0, maxUses:2 }, turnLeft : { inputs:0, maxUses:6 }, turnRight: { inputs:0, maxUses:2 }}
 _sequence3.code.initial = 'turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();'
-_sequence2.game = { startpos: [7,3], targetpos: [5,2]}
+_sequence3.game = { startpos: [7,3], targetpos: [5,2]}
 _sequence3.depends = ['sequence1']
 _sequence3.help = ['Time to debug this code!','This code has too many statements. Delete the unnecessary statements.']
 _sequence3.dyk = ['When your code runs but does not work correctly you have a bug in your code!','Finding the cause and fixing the problem is called \'Debugging\'',]
