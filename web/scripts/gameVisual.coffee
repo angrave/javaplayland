@@ -85,10 +85,10 @@ class window.GameVisual
 
 	###
 	#charFace accepts an index and a direction.  The index will be equivalent to a character id and will reference the character object inside the
-	#objArray member for which to alter the direction of
+	#objArray member for which to change the image to face a direction.
 	###
 	charFace: (char, direction) ->
-		objArray[char].dirFace(direction)
+		objArray[char].imFace(direction)
 		return
 
 	###
@@ -129,8 +129,6 @@ class window.GameVisual
 
 		imFace: (@dir) ->
 
-		dirFace: (@ldir) ->
-
 		chngState: (act) ->
 			@cstate = act
 
@@ -138,14 +136,14 @@ class window.GameVisual
 			return @cstate
 
 	getFrame: (config,outtick) ->
-		this.ticker = outtick
-		this.chckMv(config)
+		@ticker = outtick
+		@chckMv(config)
 		if $(lyr1).css("z-index") == "3"
-			this.drawFrame(lyr2,config)
-			this.swapFrames(lyr2,lyr1)
+			@drawFrame(lyr2,config)
+			@swapFrames(lyr2,lyr1)
 		else
-			this.drawFrame(lyr1,config)
-			this.swapFrames(lyr1,lyr2)
+			@drawFrame(lyr1,config)
+			@swapFrames(lyr1,lyr2)
 		return
 
 	drawFrame: (frame,config) ->
@@ -156,7 +154,7 @@ class window.GameVisual
 	drawChar: (frame) ->
 		td = frame.getContext('2d')
 		for obj in objArray
-			img = obj.current(ticker)
+			img = obj.current(@ticker)
 			td.drawImage(img,obj.xpos+obj.xOff,obj.ypos+obj.yOff,obj.xSize,obj.ySize)
 		return
 

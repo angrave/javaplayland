@@ -23,6 +23,7 @@ class window.CodeInterpreter
     executeCommands: (commandMap) ->
         for commandCard in @commandStack
             commandMap[commandCard.command].apply commandMap, commandCard.parameters
+        commandMap.finishedParsingStartGame()
         return
 
     scanText: (text) ->

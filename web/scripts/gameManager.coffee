@@ -42,8 +42,10 @@ class window.GameManager
     startGame: ->
         @config.visual.characters.protagonist.x = @config.game.startpos[0]
         @config.visual.characters.protagonist.y = @config.game.startpos[1]
+        @config.visual.characters.gflag.x = @config.game.targetpos[0]
+        @config.visual.characters.gflag.y = @config.game.targetpos[1]
         @visual.startGame @config.visual
-        @gameState = new MapGameState this, @visual, @config.game.characters
+        @gameState = new MapGameState @
         @commandMap = new MapGameCommands @gameState
         return
 
@@ -79,16 +81,12 @@ class window.GameManager
 
     reset: =>
         @codeEditor.resetEditor()
-        @visual.startGame @config.visual
-        @gameState = new MapGameState this, @visual, @config.visual.characters
-        @commandMap = new MapGameCommands @gameState
+        @startGame()
         return
 
     runStudentCode: =>
         @interpreter.scanText @codeEditor.getStudentCode()
-        @visual.startGame @config.visual
-        @gameState = new MapGameState this, @visual, @config.visual.characters
-        @commandMap = new MapGameCommands @gameState
+        @startGame()
         @interpreter.executeCommands @commandMap
         return
 
@@ -153,39 +151,109 @@ class window.GameManager
         return
 
 class MapGameState
+    clockHandle = null
     #<--DIRECTIONS-->
     #       ^
     #       0
     #   < 3 4 1 >
     #       2
     #       v
-    constructor: (@gameManager, @visual, characterLoadconfig) ->
-        @config = deepcopy @gameManager.config.game
+    constructor: (@gameManager) ->
+        @gameConfig = deepcopy @gameManager.config.game
+        @visual = @gameManager.visual
         @score = 0
         @stars = 0
+        @playerMoves = []
         @protagonist = {
-            x: @config.startpos[0],
-            y: @config.startpos[1],
-            dir: characterLoadconfig.protagonist.dir,
-            index: characterLoadconfig.protagonist.index
+            x: @gameConfig.startpos[0],
+            y: @gameConfig.startpos[1],
+            dir: @gameConfig.characters.protagonist.dir
+            index: @gameConfig.characters.protagonist.index
         }
         @target = {
-            x: @config.targetpos[0]
-            y: @config.targetpos[1]
+            x: @gameConfig.targetpos[0]
+            y: @gameConfig.targetpos[1]
         }
-        @visual.charFace @protagonist.index, @protagonist.dir
-        @clockHandle = setInterval @clock(), 17
+        @tick = 0
+        if clockHandle?
+            clearInterval clockHandle
+        clockHandle = setInterval @clock, 17
+        @startedGame = false
         return
 
     clock: =>
-        @tick = 0
-        return =>
-            @tick++
-            if @tick % 30 == 0
+        @tick++
+        if @startedGame and @tick % 30 == 0
+            if @playerMoves.length > 0
                 # Update Game State
-                placeholder = true
-            @visual.getFrame @gameManager.config.visual, @tick
-            return
+                command = @playerMoves.splice(0, 1)[0]
+                command.exec()
+            else
+                if @protagonist.x == @target.x and @protagonist.y == @target.y
+                    @gameWon()
+        @visual.getFrame @gameManager.config.visual, @tick
+        return
+
+    start: ->
+        @_stand()
+        @startedGame = true
+        return
+
+    _stand: ->
+        @playerMoves.push {
+            key: 'stand',
+            exec: (->
+                @visual.changeState @protagonist.index, 4
+                return).bind @
+        }
+        return
+
+    move: (steps) ->
+        if @playerMoves.length > 0 and
+          @playerMoves[@playerMoves.length - 1].key == 'stand'
+            @playerMoves.pop()
+        @playerMoves.push {
+            key: 'startMove',
+            exec: (->
+                @_move()
+                return).bind @
+        }
+        for i in [1...steps] by 1
+            @_moving()
+        return
+
+    _moving: ->
+        @playerMoves.push {
+            key: 'moving',
+            exec: (->
+                @_move()
+                return).bind @
+        }
+
+    _move: (steps) ->
+        # Top Left: 0,0
+        [newx, newy] = @computeStepInDirection(@protagonist.dir,
+            @protagonist.x, @protagonist.y)
+        hitEvent = @checkEvent(newx, newy)
+        if !hitEvent
+            @visual.changeState @protagonist.index, @protagonist.dir
+            @protagonist.x = newx
+            @protagonist.y = newy
+        else
+            @visual.changeState @protagonist.index, 4
+        return
+
+    turn: (direction) ->
+        @playerMoves.push {
+            key: 'turn',
+            exec: (->
+                @protagonist.dir = direction
+                @visual.charFace @protagonist.index, @protagonist.dir
+                @visual.changeState @protagonist.index, 4
+                return).bind @
+        }
+        @_stand()
+        return
 
     gameWon: ->
         @gameManager.gameWon @score, @stars
@@ -193,32 +261,19 @@ class MapGameState
 
     checkEvent: (playerX, playerY) ->
         log "Checking: X: #{playerX}, Y: #{playerY}"
-        canMove = true
-        if playerX < 0 or playerX > @gameManager.config.visual.gridX\
-          or playerY < 0 or playerY > @gameManager.config.visual.gridY
+        canNotMove = false
+        if playerX < 0 or playerX > @gameManager.config.visual.grid.gridX\
+          or playerY < 0 or playerY > @gameManager.config.visual.grid.gridY
             # Player is out of bounds of grid.
-            canMove = false
+            canNotMove = true
             log "Out of bounds!"
-        log "canMove: #{canMove}"
-        return canMove
-
-    move: (steps) ->
-        # Top Left: 0,0
-        [newx, newy] = @computeStepInDirection(@protagonist.dir,
-            @protagonist.x, @protagonist.y)
-
-        updatePlayerPosition = @checkEvent(newx, newy)
-        if updatePlayerPosition
-            @protagonist.x = newx
-            @protagonist.y = newy
-            @visual.changeState @protagonist.index, steps
-
-        return
+        log "canNotMove: #{canNotMove}"
+        return canNotMove
 
     computeStepInDirection: (direction, currentX, currentY) ->
         # Bits are more fun that lookup tables or a switch
-        # sign is positive 1 for North00, East01, and -1 for South10, West11
-        [sign, isEastOrWest] = [-1  + (direction & 2), direction & 1]
+        # sign is positive 1 for South 10, and East 01, -1 for North 00, and West 11
+        [sign, isEastOrWest] = [-1 + ((direction + 1) & 2), direction & 1]
         if isEastOrWest
             newx = currentX + sign
             newy = currentY
@@ -236,13 +291,12 @@ class MapGameState
         @turn ((@protagonist.dir + 3) % 4)
         return
 
-    turn: (dir) ->
-        @protagonist.dir = dir
-        @visual.charFace @protagonist.index, @protagonist.dir
-        return
-
 class MapGameCommands
     constructor: (@gameState) ->
+        return
+
+    finishedParsingStartGame: ->
+        @gameState.start()
         return
 
     go: (steps) =>

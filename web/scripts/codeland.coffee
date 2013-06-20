@@ -146,35 +146,35 @@ _sequence1 = {
         initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();'
     }
     events: {
-        victory: [3,7]
+        victory: [7 ,5]
     }
     game : {
         startpos : [1, 1]
-        targetpos : [3, 5]
+        targetpos : [5, 5]
         characters: {
             protagonist: {
                 dir: 1
                 index: 0
             }
-            guard: {
-                index: 2
-                x: 3
-                y: 0
-                dir: 2
-                ai: {
-                    move: (gamestate) =>
-                        [newx, newy] = gameState.computeStepInDirection(
-                            @dir, @x, @y)
-                        hitEvent = gamestate.checkEvent(@x, @y)
-                        if !hitEvent
-                            @x = newx
-                            @y = newy
-                            gamestate.gameVisual.gridMove @index, 1
-                        else
-                            @dir = @dir ^ 2
-                        return
-                }
-            }
+            # guard: {
+            #     index: 2
+            #     x: 3
+            #     y: 0
+            #     dir: 2
+            #     ai: {
+            #         move: (gamestate) =>
+            #             [newx, newy] = gameState.computeStepInDirection(
+            #                 @dir, @x, @y)
+            #             hitEvent = gamestate.checkEvent(@x, @y)
+            #             if !hitEvent
+            #                 @x = newx
+            #                 @y = newy
+            #                 gamestate.gameVisual.gridMove @index, 1
+            #             else
+            #                 @dir = @dir ^ 2
+            #             return
+            #     }
+            # }
         }
     }
     visual : {
@@ -203,20 +203,20 @@ _sequence1 = {
             gflag: {
                 dir: 0,
                 imgSet: 1,
-                x: 5,
+                x: 7,
                 y: 5,
                 xOff: 2,
                 yOff: 2,
                 xSize: 26,
                 ySize: 26
             }
-            guard: {
-                imgSet: 1,
-                xOff: 2,
-                yOff: 2,
-                xSize: 26,
-                ySize: 26
-            }
+            # guard: {
+            #     imgSet: 1,
+            #     xOff: 2,
+            #     yOff: 2,
+            #     xSize: 26,
+            #     ySize: 26
+            # }
         }
     }
     help : [ 'Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle',
