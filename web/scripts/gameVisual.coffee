@@ -10,6 +10,7 @@ class window.GameVisual
 	ldingLyr = null #object for referencing the loading screen div that will sit atop the canvases while resources are being loaded, unsure of exact procedure
 	frameLength = 17
 	ar = null
+	ticker = null
 
 	###
 	#gameVisual constructor accepts a master configuration and ms.  The configuration object will primarily contain image pathing information so the images
@@ -136,7 +137,8 @@ class window.GameVisual
 		state: () ->
 			return @cstate
 
-	getFrame: (config) ->
+	getFrame: (config,outtick) ->
+		this.ticker = outtick
 		this.chckMv(config)
 		if $(lyr1).css("z-index") == "3"
 			this.drawFrame(lyr2,config)
