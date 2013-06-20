@@ -51,6 +51,7 @@ class window.GameManager
 
     gameWon: (score, stars) ->
         log "Game Won: #{@environment.key}"
+
         player = @environment.player
         if player.games[@environment.key]?
             if @player.games[@environment.key].hiscore? > score
@@ -71,7 +72,6 @@ class window.GameManager
         @codeEditor = null
         @interpreter = null
         @visual = null
-        @gameDiv.empty()
         return
 
     addEventListeners: ->
@@ -256,18 +256,16 @@ class MapGameState
         return
 
     gameWon: ->
+        clearInterval clockHandle
         @gameManager.gameWon @score, @stars
         return
 
     checkEvent: (playerX, playerY) ->
-        log "Checking: X: #{playerX}, Y: #{playerY}"
         canNotMove = false
         if playerX < 0 or playerX > @gameManager.config.visual.grid.gridX\
           or playerY < 0 or playerY > @gameManager.config.visual.grid.gridY
             # Player is out of bounds of grid.
             canNotMove = true
-            log "Out of bounds!"
-        log "canNotMove: #{canNotMove}"
         return canNotMove
 
     computeStepInDirection: (direction, currentX, currentY) ->
