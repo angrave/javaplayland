@@ -170,6 +170,27 @@ class window.EditorManager
                 @parameterPopUp.append "<input id='#{id}' type='text' size='5' class='pop-up-inside'>"
                 if i != numberOfInputs
                     @parameterPopUp.append ','
+                    jQuery("##{id}").keypress(
+                        (e) ->
+                            if e.which == 13
+                                setTimeout (->
+                                    jQuery("##{command}-parameter-#{i + 1}").focus()
+                                    return), 0
+                                return false
+                            return true
+                        )
+                else
+                    manager = @
+                    jQuery("##{id}").keypress(
+                        (e) ->
+                            if e.which == 13
+                                setTimeout (->
+                                    manager.popUpEditLine row, command
+                                    return), 0
+                                return false
+                            return true
+                        )
+
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
@@ -187,7 +208,6 @@ class window.EditorManager
 
             @parameterPopUp.show()
             setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
-            # jQuery('#1').submit((submitEvent) -> alert "WHAT")
             return false
         else
             @parameterPopUp.hide()
@@ -199,7 +219,7 @@ class window.EditorManager
 
         line = "#{command}("
         for i in [1..@commands[command]['inputs']] by 1
-            line += jQuery("#parameter-pop-up ##{i}").val()
+            line += jQuery("#parameter-pop-up ##{command}-parameter-#{i}").val()
             if i != @commands[command]['inputs']
                 line += ', '
         line += ');'
