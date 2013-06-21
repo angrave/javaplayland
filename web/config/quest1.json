@@ -400,11 +400,11 @@
       "commands": {
         "go": {
           "inputs": 1,
-          "maxUses": 2
-        },
-        "turn": {
-          "inputs": 1,
           "maxUses": 1
+        },
+        "turnAndGo": {
+            "inputs": 2,
+            "maxUses": 1
         }
       }
     },
@@ -412,7 +412,7 @@
       "prefix": "",
       "postfix": "",
       "show": false,
-      "initial": "go(5);\nturn(\"South\");\ngo(2);"
+      "initial": "go(5);\nturnAndGo(\"South\", 2);"
     },
     "events": {
       "victory": [

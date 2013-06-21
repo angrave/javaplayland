@@ -174,7 +174,7 @@ class window.EditorManager
                         (e) ->
                             if e.which == 13
                                 setTimeout (->
-                                    jQuery("##{command}-parameter-#{i + 1}").focus()
+                                    jQuery(e.currentTarget).next().focus()
                                     return), 0
                                 return false
                             return true
