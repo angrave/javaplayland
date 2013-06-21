@@ -55,14 +55,14 @@ class window.gameSelector
 		else
 			$(tmp1).text("Status:  Incomplete")
 
-		$(tmp2).text("Hi-Score:  #{player?.hiscore}")
+		$(tmp2).text("Hi-Score:  #{if player? player.hiscore else 0}")
 
 		if @dis
 			$(tmp3).text("Stars: #{player?.stars}")
 		else
-			for ns in [1..player?.stars]
+			for ns in [1..player?.stars] by 1
 				$(tmp3).append("<img src='img/star.png' width='20%' height='20%'></img>")
-			for es in [player?.stars...3]
+			for es in [player?.stars...3] by 1
 				$(tmp3).append("<img src='img/stare.png' width='20%' height='20%'></img>")
 		return
 
