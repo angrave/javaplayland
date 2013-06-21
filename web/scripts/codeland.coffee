@@ -85,13 +85,13 @@ root.setString = (key,value) -> localStorage.setItem key value
 root.load = (key) ->
     val = root.getString key
     return null unless val?
-    result = jQuery.parseJSON (val)
+    result = JSON.parse val
     return result if result?
-    throw new Error("Could not parse "+val)
+    throw new Error("Could not parse " + val)
 
-root.store = (key,val) ->
+root.store = (key, val) ->
     throw new Error("Value must exist") unless val ?
-    root.setString(key, jQuery.toJSON(val) )
+    root.setString(key, JSON.stringify val)
 
 #Updates the player data
 root.storeGameCompletionData = (key, data) ->
@@ -102,7 +102,6 @@ root.storeGameCompletionData = (key, data) ->
 
 root.getGame = ->
     return getPlayer().currentGame
-
 
 root.getPlayer = ->
     @currentPlayer ?= root.load("CurrentPlayer")
@@ -122,11 +121,10 @@ root.getPlayer = ->
     }
 
 root.updatePlayer = (callback) ->
-    player  = root.getPlayer()
+    player = root.getPlayer()
     callback(player)
     root.store("CurrentPlayer", player)
     return
-
 
 _sequence1 = {
     name : 'Code Sequence Puzzle #1'
