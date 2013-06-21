@@ -267,7 +267,7 @@ class MapGameCommands
             d = $.inArray(dir, ['North','East','South','West'])
             if d >= 0
                 @gameState.turn d
-            else if d != - 1
+            else if !isNaN d
                 @gameState.turn (4 + dir % 4) % 4
         return
 
