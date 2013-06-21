@@ -22,8 +22,7 @@ class window.EditorManager
         editorDiv.append '<div id="ace-editor"></div>'
 
         if @editorConfig.buttons.length != 0
-            buttonField = jQuery('<div>', {
-                id: 'buttons'})
+            buttonField = jQuery('<div>', {id: 'buttons'})
 
             if $.inArray('switchUp', @editorConfig.buttons) != -1
                 buttonField.append '<button id="switchUp">Up</button>'
@@ -177,9 +176,12 @@ class window.EditorManager
             }
             @parameterPopUp.append button.get 0
 
-            editorOffset = jQuery('#ace-editor').offset()
+            editorOffset = jQuery('#ace-editor').position()
             gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
                 @editor.editor.renderer.$gutterLayer.$padding.left
+            console.log editorOffset
+            console.log gutterOffset
+            console.log "+ X: #{row * 12}, + Y: #{rowLength * 6}"
             @parameterPopUp.css 'top', row * 12 + editorOffset.top
             @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
 
