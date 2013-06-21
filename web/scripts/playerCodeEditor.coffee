@@ -45,8 +45,8 @@ class window.EditorManager
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
 
         @editor = new PlayerCodeEditor 'ace-editor', \
-            @commands, @codeConfig.initial, @codeConfig.prefix, @codeConfig.postfix, \
-            @editorConfig.freeformEditting
+            @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
+            @codeConfig.postfix, @editorConfig.freeformEditting
         @interpreter = new CodeInterpreter @commands
 
         @setUpInsertButtons()
@@ -210,7 +210,7 @@ class PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @codePrefix, @codeSuffix, @freeEdit) ->
+    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -221,10 +221,15 @@ class PlayerCodeEditor
         @editSession.setUseSoftTabs true
         @editor.setReadOnly !@freeEdit
 
-        @codePrefixLength = codePrefix.split('\n').length - 1
-        @codeSuffixLength = codeSuffix.split('\n').length
+        if @wrapCode
+            @codeText = @codePrefix + codeText + '\n' + @codeSuffix
+        else
+            @codePrefix = ""
+            @codeSuffix = ""
+            @codeText = codeText
 
-        @codeText = @codePrefix + codeText + '\n' + @codeSuffix
+        @codePrefixLength = codePrefix.split('\n').length - 1
+        @codeSuffixLength = codeSuffix.split('\n').length - 1
 
         @enableKeyboardShortcuts()
 
