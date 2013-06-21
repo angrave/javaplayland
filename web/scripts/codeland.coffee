@@ -4,6 +4,7 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 root.initialize = (UIcont) ->
+    root.loadGameDescriptions()
     root.UIcont = UIcont
     player = root.getPlayer()
     root.drawGameMap(player)
@@ -127,149 +128,23 @@ root.updatePlayer = (callback) ->
     root.store("CurrentPlayer", player)
     return
 
-
-_sequence1 = {
-    name : 'Code Sequence Puzzle #1'
-    description : 'Find the correct sequence of code lines'
-    task : 'Re-order existing code that only uses a small set of statements'
-    tags : 'intro'
-    editor : {
-        freeformEditting: false
-        buttons : ['switchUp','switchDown']
-        commands : {
-            go : { inputs:0, maxUses:8 }
-            turnRight : { inputs:0, maxUses:1 }
-        }
-    }
-    code : {
-        prefix: ''
-        postfix: ''
-        show: false
-        initial: 'go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();'
-    }
-    events: {
-        victory: [7 ,5]
-    }
-    game : {
-        startpos : [1, 1]
-        targetpos : [5, 5]
-        characters: {
-            protagonist: {
-                dir: 1
-                index: 0
-            }
-            # guard: {
-            #     index: 2
-            #     x: 3
-            #     y: 0
-            #     dir: 2
-            #     ai: {
-            #         move: (gamestate) =>
-            #             [newx, newy] = gameState.computeStepInDirection(
-            #                 @dir, @x, @y)
-            #             hitEvent = gamestate.checkEvent(@x, @y)
-            #             if !hitEvent
-            #                 @x = newx
-            #                 @y = newy
-            #                 gamestate.gameVisual.gridMove @index, 1
-            #             else
-            #                 @dir = @dir ^ 2
-            #             return
-            #     }
-            # }
-        }
-    }
-    visual : {
-        gameType: "grid",
-        grid: {
-            gridUnit: 30,
-            border: 30,
-            gridX: 10,
-            gridY: 10
-        },
-        animation: {
-            length: 30,
-            pixMoveRate: 1
-        },
-        characters: {
-            protagonist: {
-                dir: 1,
-                imgSet: 0,
-                # x: 0,
-                # y: 0,
-                xOff: 2,
-                yOff: 2,
-                xSize: 26,
-                ySize: 26
-            }
-            gflag: {
-                dir: 0,
-                imgSet: 1,
-                x: 7,
-                y: 5,
-                xOff: 2,
-                yOff: 2,
-                xSize: 26,
-                ySize: 26
-            }
-            # guard: {
-            #     imgSet: 1,
-            #     xOff: 2,
-            #     yOff: 2,
-            #     xSize: 26,
-            #     ySize: 26
-            # }
-        }
-    }
-    help : [ 'Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle',
-    'Use up, down reset and test buttons to fix your code!','The reset button changes the code back to the original version']
-    dyk : [ 'Computer programs contain many <em>statement</em>s.','Most of the time we need to write a ; after each statement','When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.','Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!']
-}
-
-
-_sequence2= deepcopy _sequence1
-_sequence2.name = 'Code Sequence Puzzle #2'
-_sequence2.game.startpos = [6,7]
-_sequence2.game.targetpos = [5,5]
-_sequence2.editor.commands = {go : { inputs:0, maxUses:7 }, turnLeft : { inputs:0, maxUses:4 }}
-_sequence2.code.initial = 'go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();'
-_sequence2.depends = ['sequence1']
-_sequence2.help = ['Perhaps if you go a bit too far you can end at the target square?' ]
-_sequence2.dyk = [ 'When the Java compiler reads our program it looks for semicolons', 'So we could write our entire program on just one line but that would be very difficult for people to read!']
-
-
-_sequence3= deepcopy _sequence2
-_sequence3.name = 'Code Sequence Puzzle #3'
-_sequence3.editor.buttons = ['delete']
-_sequence3.editor.commands = {go : { inputs:0, maxUses:3 },goNorth : { inputs:0, maxUses:2 }, turnLeft : { inputs:0, maxUses:6 }, turnRight: { inputs:0, maxUses:2 }}
-_sequence3.code.initial = 'turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();'
-_sequence3.game.startpos = [7,3]
-_sequence3.game.targetpos = [5,2]
-_sequence3.depends = ['sequence1']
-_sequence3.help = ['Time to debug this code!','This code has too many statements. Delete the unnecessary statements.']
-_sequence3.dyk = ['When your code runs but does not work correctly you have a bug in your code!','Finding the cause and fixing the problem is called \'Debugging\'',]
-_sequence2.depends = ['sequence1']
-
-_sequence4= deepcopy _sequence3
-_sequence4.name = 'Code Sequence Puzzle #4'
-#goEast4.goSouth1.goWest2.
-_sequence4.editor.buttons = ['switchUp','switchDown' , 'delete','mysteryA', 'mysteryB', 'mysteryC']
-_sequence4.game.startpos = [2,4]
-_sequence4.game.targetpos = [6,8]
-_sequence4.editor.commands = {mysteryA : { inputs:0, maxUses:5 }, mysteryB : { inputs:0, maxUses:5 }, mysteryC : { inputs:0, maxUses:5 }}
-_sequence4.code.initial = ''
-_sequence4.depends = ['sequence3']
-_sequence4.help = ['Time to play! Write some test programs to discover out what each mystery function does']
-_sequence4.dyk = []
-
+root.loadGameDescriptions = () ->
+    jQuery.ajax({
+        dataType: "json",
+        url: 'config/quest1.json',
+        async: false,
+        success: (data) ->
+            root.gameDescriptions = data
+            return
+    });
+    return
 
 root.getGameDescriptions = ->
-    @gameDescriptions ?= {
-        sequence1 : _sequence1
-        sequence2 : _sequence2
-        sequence3 : _sequence3
-        sequence4 : _sequence4
-    }
+    if root.gameDescriptions?
+        return root.gameDescriptions
+    root.loadGameDescriptions()
+    return root.gameDescriptions
+
 root.getGameSequence = ->
     return @gameSequence if @gameSequence
     @gameSequence = []
