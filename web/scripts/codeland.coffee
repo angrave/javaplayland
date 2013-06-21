@@ -65,6 +65,8 @@ root.getString = (key) -> localStorage.getItem key
 
 root.setString = (key, value) -> localStorage.setItem key, value
 
+root.clearString = (key) -> localStorage.removeItem key
+
 root.load = (key) ->
     val = root.getString key
     return null unless val?
@@ -108,6 +110,10 @@ root.updatePlayer = (callback) ->
     player = root.getPlayer()
     callback(player)
     root.store("CurrentPlayer", player)
+    return
+
+root.clearPlayer = ->
+    root.clearString "CurrentPlayer"
     return
 
 root.loadJSONConfigs = () ->
