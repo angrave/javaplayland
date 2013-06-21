@@ -63,18 +63,19 @@ if console.log == null
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
 
-root.setString = (key,value) -> localStorage.setItem key value
+root.setString = (key, value) -> localStorage.setItem key, value
 
 root.load = (key) ->
     val = root.getString key
     return null unless val?
-    result = jQuery.parseJSON (val)
+    result = JSON.parse val
     return result if result?
-    throw new Error("Could not parse "+val)
+    throw new Error("Could not parse " + val)
 
-root.store = (key,val) ->
-    throw new Error("Value must exist") unless val ?
-    root.setString(key, jQuery.toJSON(val) )
+root.store = (key, val) ->
+    throw new Error("Value must exist") unless val?
+    root.setString(key, JSON.stringify val)
+    return
 
 #Updates the player data
 root.storeGameCompletionData = (key, data) ->
@@ -85,7 +86,6 @@ root.storeGameCompletionData = (key, data) ->
 
 root.getGame = ->
     return getPlayer().currentGame
-
 
 root.getPlayer = ->
     root.currentPlayer ?= root.load("CurrentPlayer")
@@ -105,7 +105,7 @@ root.getPlayer = ->
     }
 
 root.updatePlayer = (callback) ->
-    player  = root.getPlayer()
+    player = root.getPlayer()
     callback(player)
     root.store("CurrentPlayer", player)
     return
