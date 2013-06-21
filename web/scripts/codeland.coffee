@@ -4,7 +4,7 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 root.initialize = (UIcont) ->
-    root.loadGameDescriptions()
+    root.loadJSONConfigs()
     root.UIcont = UIcont
     player = root.getPlayer()
     root.drawGameMap(player)
@@ -27,24 +27,6 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
-    if not root.visualMaster
-        root.visualMaster = {
-            container: {
-                width: 360,
-                height: 360
-                # id: "gbox"
-            },
-            preLoading: {
-                protagonist: [
-                    "img/wmn1_bk1.gif","img/wmn1_bk2.gif",
-                    "img/wmn1_rt1.gif","img/wmn1_rt2.gif",
-                    "img/wmn1_fr1.gif","img/wmn1_fr2.gif",
-                    "img/wmn1_lf1.gif","img/wmn1_lf2.gif"
-                ]
-                vicflag: ["img/vicflag1.png","img/vicflag2.png"]
-            }
-        }
-        root.visualFrameRate = 17
     root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
@@ -58,7 +40,7 @@ root.startGame = (game) ->
         key: game
         description : description
         visualMaster: root.visualMaster
-        frameRate: root.visualFrameRate
+        frameRate: root.visualMaster.frameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
@@ -128,7 +110,7 @@ root.updatePlayer = (callback) ->
     root.store("CurrentPlayer", player)
     return
 
-root.loadGameDescriptions = () ->
+root.loadJSONConfigs = () ->
     jQuery.ajax({
         dataType: "json",
         url: 'config/quest1.json',
@@ -137,12 +119,20 @@ root.loadGameDescriptions = () ->
             root.gameDescriptions = data
             return
     });
+    jQuery.ajax({
+        dataType: "json",
+        url: 'config/visualMaster.json',
+        async: false,
+        success: (data) ->
+            root.visualMaster = data
+            return
+        })
     return
 
 root.getGameDescriptions = ->
     if root.gameDescriptions?
         return root.gameDescriptions
-    root.loadGameDescriptions()
+    root.loadJSONConfigs()
     return root.gameDescriptions
 
 root.getGameSequence = ->
