@@ -26,8 +26,8 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
-    if not @visualMaster
-        @visualMaster = {
+    if not root.visualMaster
+        root.visualMaster = {
             container: {
                 width: 360,
                 height: 360
@@ -43,8 +43,8 @@ root.startGame = (game) ->
                 vicflag: ["img/vicflag1.png","img/vicflag2.png"]
             }
         }
-        @visualFrameRate = 17
-    @currentGame.finishGame() if @currentGame
+        root.visualFrameRate = 17
+    root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
@@ -56,8 +56,8 @@ root.startGame = (game) ->
     env = {
         key: game
         description : description
-        visualMaster: @visualMaster
-        frameRate: @visualFrameRate
+        visualMaster: root.visualMaster
+        frameRate: root.visualFrameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
@@ -65,9 +65,9 @@ root.startGame = (game) ->
 
     managerString  = description?.manager ?= 'GameManager'
 
-    @currentGame = new window[managerString](env)
+    root.currentGame = new window[managerString](env)
 
-    @currentGame.startGame()
+    root.currentGame.startGame()
 
 deepcopy = (src) -> $.extend(true, {},src)
 
@@ -104,8 +104,8 @@ root.getGame = ->
     return getPlayer().currentGame
 
 root.getPlayer = ->
-    @currentPlayer ?= root.load("CurrentPlayer")
-    @currentPlayer ?= {
+    root.currentPlayer ?= root.load("CurrentPlayer")
+    root.currentPlayer ?= {
         id : +(new Date())
         currentGame : ''
         first : ''
@@ -156,25 +156,6 @@ _sequence1 = {
                 dir: 1
                 index: 0
             }
-            # guard: {
-            #     index: 2
-            #     x: 3
-            #     y: 0
-            #     dir: 2
-            #     ai: {
-            #         move: (gamestate) =>
-            #             [newx, newy] = gameState.computeStepInDirection(
-            #                 @dir, @x, @y)
-            #             hitEvent = gamestate.checkEvent(@x, @y)
-            #             if !hitEvent
-            #                 @x = newx
-            #                 @y = newy
-            #                 gamestate.gameVisual.gridMove @index, 1
-            #             else
-            #                 @dir = @dir ^ 2
-            #             return
-            #     }
-            # }
         }
     }
     visual : {
@@ -262,24 +243,24 @@ _sequence4.dyk = []
 
 
 root.getGameDescriptions = ->
-    @gameDescriptions ?= {
+    root.gameDescriptions ?= {
         sequence1 : _sequence1
         sequence2 : _sequence2
         sequence3 : _sequence3
         sequence4 : _sequence4
     }
 root.getGameSequence = ->
-    return @gameSequence if @gameSequence
-    @gameSequence = []
+    return root.gameSequence if root.gameSequence
+    root.gameSequence = []
     games = root.getGameDescriptions()
     addGame = (name) =>
-        return if $.inArray(name, @gameSequence)!=-1
+        return if $.inArray(name, root.gameSequence)!=-1
         doFirst = games[name].depends ?= []
         addGame g for g in doFirst
-        @gameSequence.push name
+        root.gameSequence.push name
         return
     addGame(g) for g,ignore of games
-    return @gameSequence
+    return root.gameSequence
 
 
 root.canPlay = (game) ->
