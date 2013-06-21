@@ -139,6 +139,8 @@ class window.EditorManager
             When the editor is clicked, we may or may not
             want to pop up a div for students to enter
             parameters into.
+            Return true: continue event propogation
+            Return false: stop event propogation
         ###
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
@@ -149,22 +151,23 @@ class window.EditorManager
             rowLength = line.length
             if rowLength == 0
                 @parameterPopUp.hide()
-                return
+                return true
 
             command = @interpreter.identifyCommand line
             if command == null
                 @parameterPopUp.hide()
-                return
+                return true
 
             numberOfInputs = @commands[command]['inputs']
             if numberOfInputs == 0
                 @parameterPopUp.hide()
-                return
+                return true
 
             @parameterPopUp.empty()
             @parameterPopUp.append '('
             for i in [1..numberOfInputs] by 1
-                @parameterPopUp.append "<input id='#{i}' type='text' size='5' class='pop-up-inside'>"
+                id = "#{command}-parameter-#{i}"
+                @parameterPopUp.append "<input id='#{id}' type='text' size='5' class='pop-up-inside'>"
                 if i != numberOfInputs
                     @parameterPopUp.append ','
             @parameterPopUp.append ')'
@@ -183,9 +186,12 @@ class window.EditorManager
             @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
 
             @parameterPopUp.show()
+            setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
+            # jQuery('#1').submit((submitEvent) -> alert "WHAT")
+            return false
         else
             @parameterPopUp.hide()
-        return
+        return true
 
     popUpEditLine: (row, command) ->
         if @parameterPopUp == undefined
