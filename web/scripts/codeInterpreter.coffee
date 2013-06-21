@@ -93,9 +93,12 @@ class window.CodeInterpreter
 
             if result == null
                 # Match a String
-                result = /^(?:".*?")|(?:'.*?')/.exec innerText
+                result = /^(?:"(.*?)")|(?:'(.*?)')/.exec innerText
                 if result != null
-                    parameters.push result[0]
+                    if result[1] != null
+                        parameters.push result[1]
+                    else
+                        parameters.push result[2]
 
             if result == null
                 # Match until a ,
