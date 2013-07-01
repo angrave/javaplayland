@@ -222,6 +222,8 @@ class MapGameState
 
     gameWon: ->
         clearInterval clockHandle
+        @stars += 1
+        @score += 5
         @gameManager.gameWon @score, @stars
         return
 
