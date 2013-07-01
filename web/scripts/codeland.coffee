@@ -52,7 +52,7 @@ root.startGame = (game) ->
 
     root.currentGame.startGame()
 
-deepcopy = (src) -> $.extend(true, {},src)
+deepcopy = (src) -> $.extend(true, {}, src)
 
 #IE Support ....
 # if not console?
@@ -83,7 +83,7 @@ root.store = (key, val) ->
 root.storeGameCompletionData = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
     root.updatePlayer((p)-> p.games[key] = data)
-    root.drawGameMap root.getPlayer()
+    root.showMap()
     return
 
 root.showMap = () ->
@@ -121,16 +121,27 @@ root.clearPlayer = ->
     return
 
 root.loadJSONConfigs = () ->
+    if not root.gameDescriptions?
+        root.gameDescriptions = {}
+
     jQuery.ajax({
-        dataType: "json",
+        dataType: 'json',
         url: 'config/quest1.json',
         async: false,
         success: (data) ->
-            root.gameDescriptions = data
+            for game in data.games
+                jQuery.ajax({
+                    dataType: 'json',
+                    url: "config/#{game}.json"
+                    async: false,
+                    success: (gameData) ->
+                        root.gameDescriptions[game] = gameData
+                        return
+                    })
             return
     });
     jQuery.ajax({
-        dataType: "json",
+        dataType: 'json',
         url: 'config/visualMaster.json',
         async: false,
         success: (data) ->

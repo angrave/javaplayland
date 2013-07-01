@@ -1,0 +1,102 @@
+{
+  "name": "Code Sequence Puzzle #3",
+  "description": "Find the correct sequence of code lines",
+  "task": "Re-order existing code that only uses a small set of statements",
+  "tags": "intro",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "deleteLine"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 0,
+        "maxUses": 3
+      },
+      "goNorth": {
+        "inputs": 0,
+        "maxUses": 2
+      },
+      "turnLeft": {
+        "inputs": 0,
+        "maxUses": 6
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 2
+      }
+    }
+  },
+  "code": {
+    "prefix": "",
+    "postfix": "",
+    "show": false,
+    "initial": "turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();"
+  },
+  "events": {
+    "victory": [
+      7,
+      5
+    ]
+  },
+  "game": {
+    "startpos": [
+      7,
+      3
+    ],
+    "targetpos": [
+      5,
+      2
+    ],
+    "characters": {
+      "protagonist": {
+        "dir": 1,
+        "index": 0
+      }
+    }
+  },
+  "visual": {
+    "gameType": "grid",
+    "grid": {
+      "gridUnit": 30,
+      "border": 30,
+      "gridX": 10,
+      "gridY": 10
+    },
+    "animation": {
+      "length": 30,
+      "pixMoveRate": 1
+    },
+    "characters": {
+      "protagonist": {
+        "dir": 1,
+        "imgSet": 0,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "gflag": {
+        "dir": 0,
+        "imgSet": 1,
+        "x": 7,
+        "y": 5,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      }
+    }
+  },
+  "help": [
+    "Time to debug this code!",
+    "This code has too many statements. Delete the unnecessary statements."
+  ],
+  "dyk": [
+    "When your code runs but does not work correctly you have a bug in your code!",
+    "Finding the cause and fixing the problem is called 'Debugging'"
+  ],
+  "depends": [
+    "game1"
+  ]
+}
