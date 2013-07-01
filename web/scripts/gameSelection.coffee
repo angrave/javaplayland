@@ -55,7 +55,7 @@ class window.gameSelector
 		else
 			$(tmp1).text("Status:  Incomplete")
 
-		$(tmp2).text("Hi-Score:  #{if player? player.hiscore else 0}")
+		$(tmp2).text("Hi-Score: #{if player? then player.hiscore else 0}")
 
 		if @dis
 			$(tmp3).text("Stars: #{player?.stars}")
