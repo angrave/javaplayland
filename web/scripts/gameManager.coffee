@@ -118,7 +118,7 @@ class MapGameState
         @tick = 0
 
         for name, character of @gameConfig.characters
-            if character.AI?
+            if character.AI? and character.moves?
                 @_stand character
                 for command in character.AI.normal
                     @executeAICommand character, command
@@ -146,12 +146,10 @@ class MapGameState
             for name, character of @gameConfig.characters
                 if not character.moves?
                     continue
-
                 nextMove = false
                 if character.moves.length > 0
                     command = character.moves.splice(0, 1)[0]
                     worked = command.exec()
-
                     if character.AI?
                         if not worked
                             if character.AI.failed[command.key]?
@@ -161,13 +159,11 @@ class MapGameState
                             nextMove = true
                 else
                     nextMove = true
-
+                    if character == @protagonist
+                        protDoneMoving = true
                 if nextMove and character.AI?
                     for aiCommand in character.AI.normal
                         @executeAICommand character, aiCommand
-
-                else if character is @protagonist
-                    protDoneMoving = true
             if protDoneMoving and @protagonist.x == @target.x and @protagonist.y == @target.y
                     @gameWon()
         @visual.getFrame @gameManager.config.visual, @tick
@@ -369,8 +365,8 @@ class MapGameCommands
 
     goNorth: (steps) => @turnAndGo 0, steps
     goEast:  (steps) => @turnAndGo 1, steps
-    goWest:  (steps) => @turnAndGo 2, steps
-    goSouth: (steps) => @turnAndGo 3, steps
+    goSouth: (steps) => @turnAndGo 2, steps
+    goWest:  (steps) => @turnAndGo 3, steps
 
     # used in sequence4
     mysteryA: => @goEast 4
