@@ -26,12 +26,6 @@
     "show": false,
     "initial": "go();\ngo();\ngo();\ngo();\ngo();\ngo();\n\nturnLeft();\nturnLeft();\nturnLeft();\ngo();"
   },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
-  },
   "game": {
     "characters": {
       "protagonist": {
@@ -45,7 +39,7 @@
         "x": 5,
         "y": 5,
         "index": 1,
-        "event": "victory"
+        "trigger": "victory"
       }
     }
   },

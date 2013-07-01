@@ -23,12 +23,6 @@
     "show": false,
     "initial": "go(5);\nturnAndGo(\"South\", 2);"
   },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
-  },
   "game": {
     "characters": {
       "protagonist": {
@@ -42,7 +36,7 @@
         "x": 9,
         "y": 0,
         "index": 1,
-        "event": "victory"
+        "trigger": "victory"
       }
     }
   },

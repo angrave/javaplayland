@@ -51,14 +51,14 @@
         "x": 6,
         "y": 8,
         "index": 1,
-        "event": "victory"
+        "trigger": "victory"
       },
       "guard": {
         "x": 6,
         "y": 7,
         "dir": 0,
         "index": 2,
-        "event": "loss",
+        "trigger": "loss",
         "AI": {
           "normal": [
             {

@@ -142,7 +142,7 @@ class MapGameState
     clock: =>
         @tick++
         if @startedGame and @tick % 30 == 0
-            protDoneMoving = false
+            @checkEvents @protagonistDoneMoving
             for name, character of @gameConfig.characters
                 if not character.moves?
                     continue
@@ -160,16 +160,30 @@ class MapGameState
                 else
                     nextMove = true
                     if character == @protagonist
-                        protDoneMoving = true
+                        @protagonistDoneMoving = true
                 if nextMove and character.AI?
                     for aiCommand in character.AI.normal
                         @executeAICommand character, aiCommand
-            if protDoneMoving and @protagonist.x == @target.x and @protagonist.y == @target.y
-                    @gameWon()
         @visual.getFrame @gameManager.config.visual, @tick
         return
 
+    checkEvents: (protagonistDoneMoving) ->
+        # Just doing player collisions at the moment.
+        triggers = {"victory": @gameWon, "loss": @gameLost}
+        for name, character of @gameConfig.characters
+            if character == @protagonist
+                continue
+            if @protagonist.x == character.x and @protagonist.y == character.y
+                if character.trigger?
+                    if character.trigger != "victory" or\
+                        (character.trigger == "victory" and\
+                            protagonistDoneMoving)
+                        triggers[character.trigger]()
+
+        return
+
     start: ->
+        @protagonistDoneMoving = false
         @_stand @protagonist
         @startedGame = true
         return
@@ -292,11 +306,17 @@ class MapGameState
         @visual.changeState character.index, 4
         return
 
-    gameWon: ->
+    gameWon: =>
         clearInterval clockHandle
         @stars += 1
         @score += 5
         @gameManager.gameWon @score, @stars
+        return
+
+    gameLost: =>
+        alert "You Have Lost!"
+        if clockHandle?
+            clearInterval clockHandle
         return
 
     checkInBounds: (playerX, playerY) ->

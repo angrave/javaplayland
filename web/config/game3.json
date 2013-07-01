@@ -33,12 +33,6 @@
     "show": false,
     "initial": "turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();"
   },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
-  },
   "game": {
     "characters": {
       "protagonist": {
@@ -52,7 +46,7 @@
         "x": 5,
         "y": 2,
         "index": 1,
-        "event": "victory"
+        "trigger": "victory"
       }
     }
   },
