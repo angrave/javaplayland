@@ -314,9 +314,13 @@ class MapGameState
         return
 
     gameLost: =>
-        alert "You Have Lost!"
         if clockHandle?
             clearInterval clockHandle
+        @visual.changeState @protagonist.index, 4
+        @protagonist.moves = null
+        @startedGame = false
+        alert "You Have Lost!"
+        clockHandle = setInterval @clock, 17
         return
 
     checkInBounds: (playerX, playerY) ->
