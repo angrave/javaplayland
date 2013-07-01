@@ -45,7 +45,8 @@
         "x": 7,
         "y": 3,
         "dir": 1,
-        "index": 0
+        "index": 0,
+        "moves": []
       },
       "gflag": {
         "x": 5,

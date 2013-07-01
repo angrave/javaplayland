@@ -32,7 +32,8 @@
         "dir": 1,
         "x": 1,
         "y": 1,
-        "index": 0
+        "index": 0,
+        "moves": []
       },
       "gflag": {
         "x": 5,

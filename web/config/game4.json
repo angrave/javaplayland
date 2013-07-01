@@ -44,13 +44,56 @@
         "x": 2,
         "y": 4,
         "dir": 1,
-        "index": 0
+        "index": 0,
+        "moves": []
       },
       "gflag": {
         "x": 6,
         "y": 8,
         "index": 1,
         "event": "victory"
+      },
+      "guard": {
+        "x": 1,
+        "y": 6,
+        "dir": 1,
+        "index": 2,
+        "moves": [],
+        "event": "loss",
+        "AI": {
+          "normal": [
+            {
+              "command": "move",
+              "arguments": [
+                1,
+                "character"
+              ]
+            }
+          ],
+          "failed": {
+            "startMove": [
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "move",
+                "arguments": [
+                  1,
+                  "character"
+                ]
+              }
+            ]
+          }
+        }
       }
     }
   },
@@ -77,6 +120,13 @@
       "gflag": {
         "dir": 0,
         "imgSet": 1,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "guard": {
+        "imgSet": 2,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,
