@@ -86,6 +86,10 @@ root.storeGameCompletionData = (key, data) ->
     root.drawGameMap root.getPlayer()
     return
 
+root.showMap = () ->
+    root.drawGameMap root.getPlayer()
+    return
+
 root.getGame = ->
     return getPlayer().currentGame
 
