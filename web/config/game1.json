@@ -1,0 +1,101 @@
+{
+  "name": "Code Sequence Puzzle #1",
+  "description": "Find the correct sequence of code lines",
+  "task": "Re-order existing code that only uses a small set of statements",
+  "tags": "intro",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 0,
+        "maxUses": 8
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 1
+      }
+    }
+  },
+  "code": {
+    "prefix": "",
+    "postfix": "",
+    "show": false,
+    "initial": "go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();"
+  },
+  "events": {
+    "victory": [
+      7,
+      5
+    ]
+  },
+  "game": {
+    "startpos": [
+      1,
+      1
+    ],
+    "targetpos": [
+      5,
+      5
+    ],
+    "characters": {
+      "protagonist": {
+        "dir": 1,
+        "index": 0
+      },
+      "gflag": {
+        "dir": 0,
+        "index": 1,
+        "event": "victory"
+      }
+    }
+  },
+  "visual": {
+    "gameType": "grid",
+    "grid": {
+      "gridUnit": 30,
+      "border": 30,
+      "gridX": 10,
+      "gridY": 10
+    },
+    "animation": {
+      "length": 30,
+      "pixMoveRate": 1
+    },
+    "characters": {
+      "protagonist": {
+        "dir": 1,
+        "imgSet": 0,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "gflag": {
+        "dir": 0,
+        "imgSet": 1,
+        "x": 7,
+        "y": 5,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      }
+    }
+  },
+  "help": [
+    "Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle",
+    "Use up, down reset and test buttons to fix your code!",
+    "The reset button changes the code back to the original version"
+  ],
+  "dyk": [
+    "Computer programs contain many <em>statement</em>s.",
+    "Most of the time we need to write a ; after each statement",
+    "When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.",
+    "Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!"
+  ],
+  "depends": []
+}
