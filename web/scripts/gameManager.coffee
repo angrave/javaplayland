@@ -20,12 +20,13 @@ class window.GameManager
         vis = document.createElement("div")
 
         $(editdiv).attr({'id':@editorDiv,'class':'code_editor'})
-        $(editdiv).css({width:'30%',height:'90%','position':'absolute','top':'5%','left':'5%'})
+        $(editdiv).css({width:'35%',height:'90%','position':'absolute','top':'5%','left':'5%'})
 
         $(vis).attr({'id':@visualDiv,'class':'game_visual'})
-        $(vis).css({width:'40%',height:'90%','position':'absolute','top':'5%','right':'5%'})
+        $(vis).css({width:'35%',height:'90%','position':'absolute','top':'5%','right':'5%'})
 
         @gameDiv.append(editdiv)
+        @gameDiv.append '<button id="refOpen" style="position:absolute;top:40%;right:45%">Reference</button>'
         $(editdiv).append '<button id="compileAndRun">Go</button>'
         $(editdiv).append '<button id="resetState">Reset</button>'
         @gameDiv.append(vis)
@@ -76,6 +77,7 @@ class window.GameManager
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
         jQuery('#resetState').click @reset
+        jQuery('#refOpen').click InitFloat
         return
 
     reset: =>

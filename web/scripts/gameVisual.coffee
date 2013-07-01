@@ -11,6 +11,7 @@ class window.GameVisual
 	frameLength = 17
 	ar = null
 	ticker = null
+	cobj = null
 
 	###
 	#gameVisual constructor accepts a master configuration and ms.  The configuration object will primarily contain image pathing information so the images
@@ -26,27 +27,27 @@ class window.GameVisual
 	#These canvas elements are stacked ontop of eachother in the div.  Need to resolve the issue concerning a loading screen.
 	###
 	initContainer: (w,h,d) ->
-		obj = $("##{d}")
+		cobj = $("##{d}")
 
-		gh = obj.height()
-		gw = obj.width()
+		gh = cobj.height()
+		gw = cobj.width()
 
 		lyr1 = document.createElement("canvas")
 		#required to make tmp a direct reference to the canvas element, as opposed to a jquery object, otherwise getContext will not resolve
 		lyr2 = document.createElement("canvas")
 
-		obj.prepend(lyr1)
+		cobj.prepend(lyr1)
 		$(lyr1).text("Your browser does not support Canvas") #this text is shown if canvas is not supported
 		$(lyr1).css("position","absolute")
-		$(lyr1).attr("width",gw)
-		$(lyr1).attr("height",gh)
+		$(lyr1).attr("width",w)
+		$(lyr1).attr("height",h)
 		$(lyr1).css({"z-index":"3"})
 
-		obj.prepend(lyr2)
+		cobj.prepend(lyr2)
 		$(lyr2).text("Your browser does not support Canvas")
 		$(lyr2).css("position","absolute")
-		$(lyr2).attr("width",gw)
-		$(lyr2).attr("height",gh)
+		$(lyr2).attr("width",w)
+		$(lyr2).attr("height",h)
 		$(lyr2).css({"z-index":"2"})
 
 		return
@@ -138,6 +139,12 @@ class window.GameVisual
 	getFrame: (config,outtick) ->
 		@ticker = outtick
 		@chckMv(config)
+
+		$(lyr1).css("width",cobj.height())
+		$(lyr1).css("height",cobj.height())
+		$(lyr2).css("width",cobj.height())
+		$(lyr2).css("height",cobj.height())
+
 		if $(lyr1).css("z-index") == "3"
 			@drawFrame(lyr2,config)
 			@swapFrames(lyr2,lyr1)
@@ -188,8 +195,8 @@ class window.GameVisual
 		grid.fillRect(0,0,1000,1000)
 
 		grid.beginPath()
-		this.drawVLine ps,grid,config.border,config.gridUnit,config.gridX for ps in [config.border..config.gridUnit*(config.gridX+1)] by config.gridUnit
-		this.drawHLine ps,grid,config.border,config.gridUnit,config.gridY for ps in [config.border..config.gridUnit*(config.gridY+1)] by config.gridUnit
+		this.drawVLine ps,grid,config.border,config.gridUnit,config.gridX for ps in [config.border..(config.gridUnit*(config.gridX))+config.border] by config.gridUnit
+		this.drawHLine ps,grid,config.border,config.gridUnit,config.gridY for ps in [config.border..(config.gridUnit*(config.gridY))+config.border] by config.gridUnit
 		grid.strokeStyle = "black"
 		grid.stroke()
 		return

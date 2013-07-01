@@ -6,4 +6,77 @@ window.InitFloat =  () ->
 	$(refContainer).css({width:'90%',height:'90%',left:'5%',top:'5%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
 
 	$("body").prepend(backFade)
+	$(backFade).attr({id:'bF'})
 	$("body").prepend(refContainer)
+
+	dictionary = document.createElement("div")
+	input = document.createElement("div")
+	output = document.createElement("div")
+
+	$(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
+	$(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
+	$(output).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
+
+	$(refContainer).prepend(dictionary)
+	$(refContainer).prepend(input)
+	$(refContainer).prepend(output)
+
+	en1 = document.createElement("img")
+	en2 = document.createElement("img")
+	en3 = document.createElement("img")
+
+	$(en1).attr({'src':'img/enlarge1.png',class:'en'})
+	$(en2).attr({'src':'img/enlarge1.png',class:'en'})
+	$(en3).attr({'src':'img/enlarge1.png',class:'en'})
+
+	$(en1).css({position:'absolute',right:'4px',top:'4px'})
+	$(en2).css({position:'absolute',right:'4px',top:'4px'})
+	$(en3).css({position:'absolute',right:'4px',top:'4px'})
+
+	$(dictionary).append(en1)
+	$(input).append(en2)
+	$(output).append(en3)
+
+
+	enHover = () ->
+		this.src = 'img/enlarge2.png'
+	lvHover = () ->
+		this.src = 'img/enlarge1.png'
+	enClick = () ->
+		$(this).unbind()
+
+		$(this).parent().stop()
+		$(this).parent().siblings().stop()
+
+		this.src = 'img/shrink1.png'
+		$(this).parent().animate({width:'90%',height:'90%',top:'5%'})
+		$(this).parent().siblings().animate({width:'0%',height:'0%',opacity:'0'})
+
+		$(".en").hover(clHover,cllvHover)
+		$(".en").click(clClick)
+	closeClick = () ->
+		$(backFade).remove()
+		$(refContainer).remove()
+	clClick = () ->
+		$(this).unbind()
+
+		$(dictionary).stop()
+		$(input).stop()
+		$(output).stop()
+
+		$(dictionary).animate({width:'35%',height:'90%',opacity:'1'})
+		$(input).animate({width:'50%',height:'40%',opacity:'1'})
+		$(output).animate({width:'50%',height:'40%',opacity:'1',top:'50%'})
+
+		$(".en").hover(enHover,lvHover)
+		$(".en").click(enClick)	
+	clHover = () ->
+		this.src = 'img/shrink2.png'
+	cllvHover = () ->
+		this.src = 'img/shrink1.png'
+
+	$(".en").hover(enHover,lvHover)
+	$(".en").click(enClick)
+	$("#bF").click(closeClick)
+
+
