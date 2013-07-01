@@ -39,18 +39,18 @@
     ]
   },
   "game": {
-    "startpos": [
-      2,
-      4
-    ],
-    "targetpos": [
-      6,
-      8
-    ],
     "characters": {
       "protagonist": {
+        "x": 2,
+        "y": 4,
         "dir": 1,
         "index": 0
+      },
+      "gflag": {
+        "x": 6,
+        "y": 8,
+        "index": 1,
+        "event": "victory"
       }
     }
   },
@@ -68,7 +68,6 @@
     },
     "characters": {
       "protagonist": {
-        "dir": 1,
         "imgSet": 0,
         "xOff": 2,
         "yOff": 2,
@@ -78,8 +77,6 @@
       "gflag": {
         "dir": 0,
         "imgSet": 1,
-        "x": 7,
-        "y": 5,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,

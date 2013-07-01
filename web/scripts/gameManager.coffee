@@ -41,10 +41,12 @@ class window.GameManager
         return
 
     startGame: ->
-        @config.visual.characters.protagonist.x = @config.game.startpos[0]
-        @config.visual.characters.protagonist.y = @config.game.startpos[1]
-        @config.visual.characters.gflag.x = @config.game.targetpos[0]
-        @config.visual.characters.gflag.y = @config.game.targetpos[1]
+        for character, val of @config.game.characters
+            # Load starting positions into visual config
+            @config.visual.characters[character].x = val.x
+            @config.visual.characters[character].y = val.y
+            if val.dir?
+                @config.visual.characters[character].dir = val.dir
         @visual.startGame @config.visual
         @gameState = new MapGameState @
         @commandMap = new MapGameCommands @gameState
@@ -108,16 +110,8 @@ class MapGameState
         @score = 0
         @stars = 0
         @playerMoves = []
-        @protagonist = {
-            x: @gameConfig.startpos[0],
-            y: @gameConfig.startpos[1],
-            dir: @gameConfig.characters.protagonist.dir
-            index: @gameConfig.characters.protagonist.index
-        }
-        @target = {
-            x: @gameConfig.targetpos[0]
-            y: @gameConfig.targetpos[1]
-        }
+        @protagonist = @gameConfig.characters.protagonist
+        @target = @gameConfig.characters.gflag
         @tick = 0
         if clockHandle?
             clearInterval clockHandle
