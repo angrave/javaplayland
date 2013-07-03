@@ -1,3 +1,50 @@
+window.dictionary = (text,cont) ->
+	info = document.createElement("div")
+	$(info).css({"width":"100%","height":"35%","position":"absolute","top":"65%","border-top":"1px solid black"})
+	$(cont).append(info)
+	attache = (k,d) ->
+		info.innerHTML = d
+		return
+	showChildren = (nde) ->
+		if $(nde).children("img").attr("src") == "img/listarrow1.png"
+			$(nde).children("img").attr({"src":"img/listarrow2.png"})
+			$(nde).children("div").css({"display":"block"})
+		else
+			$(nde).children("img").attr({"src":"img/listarrow1.png"})
+			$(nde).children("div").css({"display":"none"})
+	delve = (tmp,tcont,marg) ->
+		marg = marg + 5
+		for key,data of tmp
+			if typeof data == "string"
+				$(tcont).click(((k,d) -> attache(k,d); return false).bind(null, key, data))
+			else
+				npa = document.createElement("div")
+				ar = document.createElement("img")
+				$(ar).attr({"src":"img/listarrow1.png"})
+				$(ar).css({"position":"relative","left":"0","top":"0"})
+				$(npa).css({"margin":"4px 0 0 20px"})
+				if tcont != cont
+					$(npa).css({"display":"none"})
+				else
+					$(npa).css({"margin-left":"0"})
+				npa.innerHTML = key
+				$(tcont).append(npa)
+				for key1,data1 of data
+					if typeof data1 != "string"
+						$(npa).prepend(ar)
+						$(npa).click(((n) -> showChildren(n); return false).bind(null,npa))
+						break
+				delve data,npa,marg
+		return
+
+	$.getJSON(text, (data) -> delve data,cont,0)
+	
+
+		
+
+
+
+
 window.InitFloat =  () ->
 	backFade = document.createElement("div")
 	refContainer = document.createElement("div")
@@ -29,9 +76,9 @@ window.InitFloat =  () ->
 	$(en2).attr({'src':'img/enlarge1.png',class:'en'})
 	$(en3).attr({'src':'img/enlarge1.png',class:'en'})
 
-	$(en1).css({position:'absolute',right:'4px',top:'4px'})
-	$(en2).css({position:'absolute',right:'4px',top:'4px'})
-	$(en3).css({position:'absolute',right:'4px',top:'4px'})
+	$(en1).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
+	$(en2).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
+	$(en3).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
 
 	$(dictionary).append(en1)
 	$(input).append(en2)
@@ -78,5 +125,9 @@ window.InitFloat =  () ->
 	$(".en").hover(enHover,lvHover)
 	$(".en").click(enClick)
 	$("#bF").click(closeClick)
+
+	window.dictionary("config/dictionary.json",dictionary)
+
+
 
 

@@ -3,12 +3,10 @@ class window.gameSelector
 	constructor: (@div, @dis) ->
 		tmp = document.createElement("div")
 		cont = $(tmp)
-		$(tmp).css(height:'100%', overflow:'auto',position:'relative')
+		$(tmp).css(height:'100%', overflow:'auto',position:'relative','font-size':($(window).height()*0.02) + 'px')
 		$(tmp).attr("id","gameSelection")
 		@div.append(tmp)
 		return
-
-	destroy: () ->
 
 	buildDiv: (game, desc, player, canPlay, codeland) ->
 			tmp1 = document.createElement("div")
@@ -61,9 +59,9 @@ class window.gameSelector
 			$(tmp3).text("Stars: #{player?.stars}")
 		else
 			for ns in [1..player?.stars] by 1
-				$(tmp3).append("<img src='img/star.png' width='20%' height='20%'></img>")
+				$(tmp).append("<img src='img/star.png' width='20%' height='20%'></img>")
 			for es in [player?.stars...3] by 1
-				$(tmp3).append("<img src='img/stare.png' width='20%' height='20%'></img>")
+				$(tmp).append("<img src='img/stare.png' width='20%' height='20%'></img>")
 		return
 
 	buildInfo: (con,desc) ->
