@@ -45,7 +45,8 @@
         "y": 4,
         "dir": 1,
         "index": 0,
-        "moves": []
+        "moves": [],
+        "group": "heroes"
       },
       "gflag": {
         "x": 6,
@@ -53,12 +54,28 @@
         "index": 1,
         "trigger": "victory"
       },
-      "guard": {
+      "guardOne": {
         "x": 6,
         "y": 7,
         "dir": 0,
+        "index": 3,
+        "trigger": "loss",
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards"
+      },
+      "guardTwo": {
+        "x": 4,
+        "y": 7,
+        "dir": 1,
         "index": 2,
         "trigger": "loss",
+        "moves": [],
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards",
         "AI": {
           "normal": [
             {
@@ -124,7 +141,14 @@
         "xSize": 26,
         "ySize": 26
       },
-      "guard": {
+      "guardTwo": {
+        "imgSet": 2,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "guardOne": {
         "imgSet": 2,
         "xOff": 2,
         "yOff": 2,

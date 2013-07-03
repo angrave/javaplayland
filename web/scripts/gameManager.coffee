@@ -236,7 +236,7 @@ class MapGameState
         moved = false
         [newx, newy] = @computeStepInDirection(character.dir,
             character.x, character.y)
-        hitEvent = @checkInBounds(newx, newy)
+        hitEvent = @checkCanMove(newx, newy, character)
         if !hitEvent
             @visual.changeState character.index, character.dir
             character.x = newx
@@ -245,6 +245,25 @@ class MapGameState
         else
             @visual.changeState character.index, 4
         return moved
+
+    checkCanMove: (newX, newY, character) ->
+        canNotMove = false
+        if newX < 0 or newX >= @gameManager.config.visual.grid.gridX\
+          or newY < 0 or newY >= @gameManager.config.visual.grid.gridY
+            # Player is out of bounds of grid.
+            canNotMove = true
+
+        if character.group?
+            for name, otherCharacter of @gameConfig.characters
+                if otherCharacter == character
+                    continue
+                if not otherCharacter.blocks?
+                    continue
+                if newX == otherCharacter.x and \
+                      newY == otherCharacter.y and \
+                      character.group in otherCharacter.blocks
+                    canNotMove = true
+        return canNotMove
 
     turn: (direction, character) ->
         if not character?
@@ -316,20 +335,13 @@ class MapGameState
     gameLost: =>
         if clockHandle?
             clearInterval clockHandle
-        @visual.changeState @protagonist.index, 4
-        @protagonist.moves = null
+        for name, character of @gameConfig.characters
+            @visual.changeState character.index, 4
+            character.moves = null
         @startedGame = false
         alert "You Have Lost!"
         clockHandle = setInterval @clock, 17
         return
-
-    checkInBounds: (playerX, playerY) ->
-        canNotMove = false
-        if playerX < 0 or playerX >= @gameManager.config.visual.grid.gridX\
-          or playerY < 0 or playerY >= @gameManager.config.visual.grid.gridY
-            # Player is out of bounds of grid.
-            canNotMove = true
-        return canNotMove
 
     computeStepInDirection: (direction, currentX, currentY) ->
         # Bits are more fun that lookup tables or a switch
