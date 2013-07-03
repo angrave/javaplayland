@@ -57,7 +57,7 @@
       "guardOne": {
         "x": 6,
         "y": 7,
-        "dir": 2,
+        "dir": 0,
         "index": 3,
         "trigger": "loss",
         "blocks": [
