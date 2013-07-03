@@ -144,27 +144,29 @@ class MapGameState
         if @startedGame and @tick % 30 == 0
             @checkEvents @protagonistDoneMoving
             for name, character of @gameConfig.characters
-                if not character.moves?
-                    continue
-                nextMove = false
-                if character.moves.length > 0
-                    command = character.moves.splice(0, 1)[0]
-                    worked = command.exec()
-                    if character.AI?
-                        if not worked
-                            if character.AI.failed[command.key]?
-                                for aiCommand in character.AI.failed[command.key]
-                                    @executeAICommand character, aiCommand
-                        else
-                            nextMove = true
-                else
-                    nextMove = true
-                    if character == @protagonist
-                        @protagonistDoneMoving = true
-                if nextMove and character.AI?
-                    for aiCommand in character.AI.normal
-                        @executeAICommand character, aiCommand
+                @runCharacterCommand character
         @visual.getFrame @gameManager.config.visual, @tick
+        return
+
+    runCharacterCommand: (character) ->
+        if not character.moves?
+            return
+        if character.moves.length > 0
+            command = character.moves.splice(0, 1)[0]
+            result = command.exec()
+            if character.AI?
+                if not result.success
+                    if character.AI.failed[command.key]?
+                        for aiCommand in character.AI.failed[command.key]
+                            @executeAICommand character, aiCommand
+        else
+            if character == @protagonist
+                @protagonistDoneMoving = true
+        if character.AI? and character.moves.length == 0
+            for aiCommand in character.AI.normal
+                @executeAICommand character, aiCommand
+        if result?.continueExecution
+            @runCharacterCommand character
         return
 
     checkEvents: (protagonistDoneMoving) ->
@@ -196,7 +198,8 @@ class MapGameState
             key: 'stand',
             exec: ((char) ->
                 @visual.changeState char.index, 4
-                return).bind @, character
+                return {success: true, continueExecution: false}
+                ).bind @, character
         }
         return
 
@@ -210,7 +213,8 @@ class MapGameState
         character.moves.push {
             key: 'startMove',
             exec: ((char) ->
-                return @_move(char)
+                success = @_move(char)
+                return {success: success, continueExecution: false}
                 ).bind @, character
         }
         for i in [1...steps] by 1
@@ -224,7 +228,8 @@ class MapGameState
         character.moves.push {
             key: 'moving',
             exec: ((char) ->
-                return @_move(char)
+                success = @_move(char)
+                return {success: success, continueExecution: false}
                 ).bind @, character
         }
 
@@ -276,8 +281,9 @@ class MapGameState
         character.moves.push {
             key: 'turn',
             exec: ((dir, char) ->
-                @_turn dir, char
-                return).bind @, direction, character
+                continueExec = @_turn dir, char
+                return {success: true, continueExecution: continueExec}
+                ).bind @, direction, character
         }
         @_stand character
         return
@@ -293,8 +299,9 @@ class MapGameState
         character.moves.push {
             key: 'turn',
             exec: ((char) ->
-                @_turn ((char.dir + 1) % 4), char
-                return).bind @, character
+                continueExec = @_turn ((char.dir + 1) % 4), char
+                return {success: true, continueExecution: continueExec}
+                ).bind @, character
         }
         @_stand(character)
         return
@@ -310,8 +317,9 @@ class MapGameState
         character.moves.push {
             key: 'turn',
             exec: ((char) ->
-                @_turn ((char.dir + 3) % 4), char
-                return).bind @, character
+                continueExec = @_turn ((char.dir + 3) % 4), char
+                return {success: true, continueExecution: continueExec}
+                ).bind @, character
         }
         @_stand(character)
         return
@@ -320,9 +328,12 @@ class MapGameState
         if not character?
             character = @protagonist
 
-        character.dir = direction
-        @visual.charFace character.index, character.dir
-        @visual.changeState character.index, 4
+        if character.dir == direction
+            return true
+        else
+            character.dir = direction
+            @visual.charFace character.index, character.dir
+            @visual.changeState character.index, 4
         return
 
     gameWon: =>

@@ -66,9 +66,9 @@
         "group": "guards"
       },
       "guardTwo": {
-        "x": 4,
+        "x": 5,
         "y": 7,
-        "dir": 1,
+        "dir": 3,
         "index": 2,
         "trigger": "loss",
         "moves": [],
@@ -78,6 +78,12 @@
         "group": "guards",
         "AI": {
           "normal": [
+            {
+              "command": "_stand",
+              "arguments": [
+                "character"
+              ]
+            },
             {
               "command": "move",
               "arguments": [
