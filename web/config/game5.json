@@ -23,25 +23,20 @@
     "show": false,
     "initial": "go(5);\nturnAndGo(\"South\", 2);"
   },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
-  },
   "game": {
-    "startpos": [
-      2,
-      7
-    ],
-    "targetpos": [
-      9,
-      0
-    ],
     "characters": {
       "protagonist": {
+        "x": 2,
+        "y": 7,
         "dir": 1,
-        "index": 0
+        "index": 0,
+        "moves": []
+      },
+      "gflag": {
+        "x": 9,
+        "y": 0,
+        "index": 1,
+        "trigger": "victory"
       }
     }
   },
@@ -59,7 +54,6 @@
     },
     "characters": {
       "protagonist": {
-        "dir": 1,
         "imgSet": 0,
         "xOff": 2,
         "yOff": 2,
@@ -81,6 +75,7 @@
   ],
   "dyk": [],
   "depends": [
-    "game1"
+    "game1",
+    "game2"
   ]
 }

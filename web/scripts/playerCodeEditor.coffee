@@ -202,7 +202,7 @@ class window.EditorManager
 
             editorOffset = jQuery('#ace-editor').position()
             gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
-                @editor.editor.renderer.$gutterLayer.$padding.left
+                @editor.editor.renderer.$gutterLayer.$padding?.left
             @parameterPopUp.css 'top', row * 12 + editorOffset.top - 3
             @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
 

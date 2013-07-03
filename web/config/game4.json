@@ -39,18 +39,77 @@
     ]
   },
   "game": {
-    "startpos": [
-      2,
-      4
-    ],
-    "targetpos": [
-      6,
-      8
-    ],
     "characters": {
       "protagonist": {
+        "x": 2,
+        "y": 4,
         "dir": 1,
-        "index": 0
+        "index": 0,
+        "moves": [],
+        "group": "heroes"
+      },
+      "gflag": {
+        "x": 6,
+        "y": 8,
+        "index": 1,
+        "trigger": "victory"
+      },
+      "guardOne": {
+        "x": 6,
+        "y": 7,
+        "dir": 0,
+        "index": 3,
+        "trigger": "loss",
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards"
+      },
+      "guardTwo": {
+        "x": 4,
+        "y": 7,
+        "dir": 1,
+        "index": 2,
+        "trigger": "loss",
+        "moves": [],
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards",
+        "AI": {
+          "normal": [
+            {
+              "command": "move",
+              "arguments": [
+                1,
+                "character"
+              ]
+            }
+          ],
+          "failed": {
+            "startMove": [
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "move",
+                "arguments": [
+                  1,
+                  "character"
+                ]
+              }
+            ]
+          }
+        }
       }
     }
   },
@@ -68,7 +127,6 @@
     },
     "characters": {
       "protagonist": {
-        "dir": 1,
         "imgSet": 0,
         "xOff": 2,
         "yOff": 2,
@@ -78,8 +136,20 @@
       "gflag": {
         "dir": 0,
         "imgSet": 1,
-        "x": 7,
-        "y": 5,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "guardTwo": {
+        "imgSet": 2,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "guardOne": {
+        "imgSet": 2,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,

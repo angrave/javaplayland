@@ -33,25 +33,20 @@
     "show": false,
     "initial": "turnLeft();\nturnRight();\nturnLeft();\nturnRight();go();\ngoNorth();\ngo();\nturnLeft();\nturnLeft();\nturnLeft();\nturnLeft();\ngo();\ngoNorth();"
   },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
-  },
   "game": {
-    "startpos": [
-      7,
-      3
-    ],
-    "targetpos": [
-      5,
-      2
-    ],
     "characters": {
       "protagonist": {
+        "x": 7,
+        "y": 3,
         "dir": 1,
-        "index": 0
+        "index": 0,
+        "moves": []
+      },
+      "gflag": {
+        "x": 5,
+        "y": 2,
+        "index": 1,
+        "trigger": "victory"
       }
     }
   },
@@ -69,7 +64,6 @@
     },
     "characters": {
       "protagonist": {
-        "dir": 1,
         "imgSet": 0,
         "xOff": 2,
         "yOff": 2,
@@ -79,8 +73,6 @@
       "gflag": {
         "dir": 0,
         "imgSet": 1,
-        "x": 7,
-        "y": 5,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,
