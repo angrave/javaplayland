@@ -167,6 +167,8 @@ class MapGameState
                 @executeAICommand character, aiCommand
         if result?.continueExecution
             @runCharacterCommand character
+        else
+            @score++
         return
 
     checkEvents: (protagonistDoneMoving) ->
