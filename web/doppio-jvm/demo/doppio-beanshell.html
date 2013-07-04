@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doppio BeanShell Test</title>
+  <link rel='stylesheet' type="text/css" href="style.css">
+</head>
+<body>
+
+<div id='main'>
+  <header class='page-header'>
+  <h1>BeanShell Test</h1>    
+  </header>
+
+  <div id='ide'>
+    <div id='mycodeexample' onclick='coderunner.edit(this)'>print (1+2);</div>
+  </div>
+</div>
+
+<script type="text/javascript" src="../scripts/demo/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../scripts/demo/_.js"></script>
+<script type="text/javascript">
+window.nodeconfig = {
+	home:'/home/doppio',
+	base_url: '/doppio-jvm',
+	listing_file : '/listings.json',
+	storage_prefix : 'fs'
+};
+</script>
+<script type="text/javascript" src="../scripts/demo/node.js"></script>
+<script type="text/javascript" src="../scripts/demo/util.js"></script>
+
+<script type="text/javascript" src="../scripts/jvm/uncompressed.js"></script>
+<script type="text/javascript" src="../scripts/demo/jquery.console.js"></script>
+
+<script type="text/javascript" src="../scripts/demo/untar.js"></script>
+<script type="text/javascript" src="../scripts/demo/doppio-beanshell.js"></script>
+<script type="text/javascript" src="../scripts/demo/ace-combined.js"></script>
+
+</body>
+</html>
