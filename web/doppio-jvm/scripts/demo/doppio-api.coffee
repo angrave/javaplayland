@@ -1,11 +1,13 @@
 "use strict"
 root = this
 
+# /home/doppio/vendor/classes/java/lang/Runtime.class - Causing magic number error as byte array is []
+
 root.init_editor = ->
     root.editor = ace.edit('source')
     JavaMode = require("ace/mode/java").Mode
     root.editor.getSession().setMode(new JavaMode())
-    root.editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Args=\"+args[0]);\n  }\n}")
+    root.editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Hello World\");\n  }\n}")
     return
 
 root.preload = ->
