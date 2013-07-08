@@ -1,4 +1,37 @@
 "use strict"
+root = this
+
+root.init_editor = ->
+    root.editor = ace.edit('source')
+    JavaMode = require("ace/mode/java").Mode
+    root.editor.getSession().setMode(new JavaMode())
+    root.editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Args=\"+args[0]);\n  }\n}")
+    return
+
+root.preload = ->
+    root.doppioAPI = new DoppioApi()
+    root.init_editor()
+
+    # root.bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
+
+    $('#run_btn').click (e) ->
+        root.doppioAPI.compileAndRun root.editor.getValue()
+        e.preventDefault()
+        return
+    $('#abort_btn').click (e) ->
+        console.log 'abort button clicked'
+        if doppioAPI.rs
+            $('#messages').text 'Stopping ...'
+            cb =-> $('#messages').text 'Stopped'
+            doppioAPI.rs.async_abort(cb)
+        else
+            console.log 'but nothing to do'
+        e.preventDefault()
+        return
+    return
+
+$(document).ready ->
+    root.preload()
 
 class window.DoppioApi
     ###
@@ -79,9 +112,11 @@ class window.DoppioApi
         user_input = (resume) -> resume ''
         bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
+        @rs = rs
         args = [ fname ]
         my_cb = ->
             end_compile = (new Date()).getTime()
+            @rs = null
             console.log "javac took a total of #{end_compile-start_compile}ms."
             console.log 'Compilation complete'
             finish_cb()
