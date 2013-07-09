@@ -63,7 +63,7 @@ class window.CodeRunner
         
         JavaMode = require("ace/mode/java").Mode
         @session.setMode(new JavaMode())
-        @session.setValue ("for(int i=0;i<10;i++) {print(i);}")
+        @session.setValue ("for(int i=0;i<10;i++) {print(i);}\nclasses.doppio.JavaScript.eval(\"alert(1)\");")
               
         @stopJavaBtn.attr("disabled", true);
         
