@@ -139,12 +139,21 @@ class window.GameVisual
 	getFrame: (config,outtick) ->
 		@ticker = outtick
 		@chckMv(config)
-
-		$(lyr1).css("width",cobj.height())
-		$(lyr1).css("height",cobj.height())
-		$(lyr2).css("width",cobj.height())
-		$(lyr2).css("height",cobj.height())
-
+		if cobj.width() > cobj.height()
+			$(lyr1).css("width",cobj.height())
+			$(lyr1).css("height",cobj.height())
+			$(lyr2).css("width",cobj.height())
+			$(lyr2).css("height",cobj.height())
+			tdist = $(lyr1).parent().parent().height() - cobj.height()
+		else
+			$(lyr1).css("width",cobj.width())
+			$(lyr1).css("height",cobj.width())
+			$(lyr2).css("width",cobj.width())
+			$(lyr2).css("height",cobj.width())
+			tdist = $(lyr1).parent().parent().height() - cobj.width()
+		tdist = tdist / 2
+		$(lyr1).parent().css({"top":tdist})
+	
 		if $(lyr1).css("z-index") == "3"
 			@drawFrame(lyr2,config)
 			@swapFrames(lyr2,lyr1)
