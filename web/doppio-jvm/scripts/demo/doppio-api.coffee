@@ -2,6 +2,7 @@
 root = this
 
 # /home/doppio/vendor/classes/java/lang/Runtime.class - Causing magic number error as byte array is []
+# /home/doppio/vendor/classes/java/lang/Runtime.class
 
 root.init_editor = ->
     root.editor = ace.edit('source')
@@ -53,7 +54,9 @@ class window.DoppioApi
                 data = util.bytestr_to_array node.fs.readFileSync(fullpath)
             catch e
                 data = null
-            return cb(data) if data != null
+            if data != null and data.length <= 0
+                console.log "Empty data for: #{fullpath}"
+            return cb(data) if data != null and data.length > 0
         failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
 
     load_mini_rt: ->
@@ -72,7 +75,11 @@ class window.DoppioApi
             [base, ext] = path.split '.'
             file_count++
             cls = base.substr base_dir.length
-            node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
+            # if path == 'vendor/classes/java/lang/Runtime.class'
+            #     console.log "Writting runtime"
+            if file.length > 0
+                node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
+            return
         untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
         end_untar = (new Date()).getTime()
         console.log "Untarring took a total of #{end_untar-start_untar}ms."
@@ -110,19 +117,21 @@ class window.DoppioApi
     compile: (stdout, fname, finish_cb) ->
         console.log "Compiling #{fname} ..."
         start_compile = (new Date()).getTime()
-        jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
+        # jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
+        jvm.set_classpath '/home/doppio/vendor/classes/', './'
+
         user_input = (resume) -> resume ''
         bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
         @rs = rs
         args = [ fname ]
-        my_cb = ->
+        my_cb = =>
             end_compile = (new Date()).getTime()
             @rs = null
             console.log "javac took a total of #{end_compile-start_compile}ms."
             console.log 'Compilation complete'
             finish_cb()
-        jvm.run_class rs, 'classes/util/Javac', args, my_cb
+        jvm.run_class(rs, 'classes/util/Javac', args, my_cb)
         return
 
     exec: (stdout, stdin, class_name, class_args, finish_cb) ->
