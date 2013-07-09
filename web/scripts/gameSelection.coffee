@@ -10,7 +10,7 @@ class window.gameSelector
 
 	buildDiv: (game, desc, player, canPlay, codeland) ->
 			tmp1 = document.createElement("div")
-			$(tmp1).css({width:'50%',height:'46%','border-style':'double','border-width':'medium','margin-bottom':'1%',position:'relative',left:'25%'})
+			$(tmp1).css({width:'50%',height:'46%','border-style':'double','border-width':'medium','margin-bottom':'1%',"margin-top":"1%",position:'relative',left:'25%',"background-color":"#003366"})
 			$(tmp1).attr("id","select#{game}")
 			cont.append(tmp1)
 

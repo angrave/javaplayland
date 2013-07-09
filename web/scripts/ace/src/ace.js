@@ -3312,6 +3312,7 @@ var TextInput = function(parentNode, host) {
     if (useragent.isTouchPad)
         text.setAttribute("x-palm-disable-auto-cap", true);
 
+    text.setAttribute("readonly", "readonly");
     text.wrap = "off";
     text.autocorrect = "off";
     text.autocapitalize = "off";

@@ -8,11 +8,15 @@
 
 <div id='main'>
   <header class='page-header'>
-  <h1>BeanShell Test</h1>    
+  <h1 id='title' style='float:left;' class='bitter'>Doppio BeanShell Test</h1>    
+    <h1>&nbsp;</h1>
   </header>
-
   <div id='ide'>
-    <div id='mycodeexample' onclick='coderunner.edit(this)'>print (1+2);</div>
+    <div id='source'></div>
+    <div style='height:70%'></div>
+      <button id='run_btn' class='btn btn-mini btn-primary'>Run</button>
+      <button id='abort_btn' class='btn btn-mini btn-primary'>Abort</button>
+    <div id='output' style='height:30%'></div>
   </div>
 </div>
 
@@ -29,7 +33,7 @@ window.nodeconfig = {
 <script type="text/javascript" src="../scripts/demo/node.js"></script>
 <script type="text/javascript" src="../scripts/demo/util.js"></script>
 
-<script type="text/javascript" src="../scripts/jvm/uncompressed.js"></script>
+<script type="text/javascript" src="../scripts/jvm/compressed.js"></script>
 <script type="text/javascript" src="../scripts/demo/jquery.console.js"></script>
 
 <script type="text/javascript" src="../scripts/demo/untar.js"></script>
