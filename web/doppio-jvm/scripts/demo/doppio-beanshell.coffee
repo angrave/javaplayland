@@ -43,100 +43,43 @@ initializeDoppioEnvironment = ->
     root.doppioEnvironmentInitialized  = true
 
 
-getOrCreateCodeRunner = (element) ->
-    e=$(element)
-    coderunner = e.data('coderunner')
-    if coderunner is undefined
-        coderunner = new window.CodeRunner(element)
-        e.data('coderunner',coderunner)
-    return coderunner 
-
-
-root.edit= (element)->
-    return getOrCreateCodeRunner(element).edit()
-
-root.run= (element) ->
-    return getOrCreateCodeRunner(element).run()
-
-
+onResize = ->
+      $('#source').height($(window).height() * 0.5)
+      
 class window.CodeRunner
     stdout : null
     user_input : null
     
-    constructor : (@element) ->
+    constructor : () ->
         @rs=null
-        @parentDiv = $('<div/>',{name:'runjava-parent',style:'position:static;',height:'100'})
-        @editorDiv = $('<div/>',{name:'runjava-editor',style:"",id:'fubar'})
-        #position:absolute;top:0;bottom:110;left:0;right:110
-        @controlsDiv = $('<div/>',{name:'runjava-controls'})
-        @outputDiv= $('<div/>',{name:'runjava-output',text:''})
         
-        @runJavaBtn = $('<a/>',{name:'runjava-ctrl-run',text:'run'})
-        @stopJavaBtn = $('<a/>',{name:'runjava-ctrl-stop',text:'stop'})
-        @resetCodeBtn = $('<a/>',{name:'runjava-ctrl-reset',text:'reset'})
-        
-        $(@element).parent().append(@parentDiv)
-        @parentDiv.after (@outputDiv)
-        @parentDiv.after @controlsDiv
-        (@parentDiv.append (item)) for item in [@editorDiv,@outputDiv,@controlsDiv]
-        
-        for control in [@runJavaBtn, @stopJavaBtn, @resetCodeBtn]
-            @controlsDiv.append (control)
-            control.css('border','2px solid gray')
-            
+        @runJavaBtn=$('#run_btn')  
+        @stopJavaBtn=$('#abort_btn')
+        @outputDiv = $('#output')
 
-        #Todo stopBtn.css('visibility', 'hidden') 
-        @editor = ace.edit('fubar')
-        #@editorDiv[0])
-        
+
+        @editor = ace.edit('source')
+        @session = @editor.getSession()
         
         JavaMode = require("ace/mode/java").Mode
-        @session = @editor.getSession()
         @session.setMode(new JavaMode())
-        
-        val= @element.innerHTML 
-        @session.setValue(val) if val
-        
-        e= $(@element)
-        #-document.scrollTop()
-        position=@element.getBoundingClientRect()
-        
-        @blurb = {
-            "left": position.left+"px",
-            "right": position.right+"px",
-            "top": position.top+"px",
-            "bottom": position.bottom+"px",
-        }
-        
-        @resizeEditor= => 
-            position=@element.getBoundingClientRect()
-            @editorDiv.css("position","absolute")
-            @blurb = {
-                "left": position.left,
-                "top": position.top
-                }
-            @editorDiv.css(@blurb )
-            #.width not supported in IE
-            @editorDiv.width  20 + position.right - position.left
-            @editorDiv.height 20 +  position.bottom - position.top
-        @resizeEditor()
-        @editor.getSession().on('change', (e)=>
-#            e.text @editor.getSession().getValue()
-        )
-#        $(window).resize( @resizeEditor )
-        
+        @session.setValue ("for(int i=0;i<10;i++) {print(i);}")
+              
+        @stopJavaBtn.attr("disabled", true);
         
         @runJavaBtn.click (e) =>
             @run()
             e.preventDefault()       
+        onResize()
         return
+        
 
     edit: =>
         @editor.focus()
         return this
     
     run: =>
-        @outputDiv.text 'Starting...5..4..3..'
+        @outputDiv.text 'Starting...3..'
         initializeDoppioEnvironment()
         
         @outputDiv.text( @outputDiv.text() + '2..' )
@@ -146,25 +89,41 @@ class window.CodeRunner
         contents = @session.getValue()
         saveFile fname, contents
         msg = '' ;
-        stdout = (str) ->
+        stdout = (str) =>
             msg += str
             @outputDiv.text msg
         stdin = -> "\n"
         class_args = [ fname ]
         finish_cb = =>
+             @outputDiv.text 'Done'
             @rs = null
         @rs = new runtime.RuntimeState(stdout, stdin, root._bs_cl)
+        jvm.set_classpath '/home/doppio/vendor/classes/', './'
+        
         @outputDiv.text( @outputDiv.text() + '1..' )
         @stopJavaBtn.click (e) =>
+            if @rs
                 stdout('Stopping...')
-                aborted_cb = -> stdout('Stopped')
-                @rs.abortjvm(aborted_cb) if @rs
+                @stopJavaBtn.attr("disabled", true)
+                aborted_cb = -> 
+                    stdout('Stopped')
+                    @runJavaBtn.attr("disabled", false)
+                @rs.abortjvm(aborted_cb) 
                 e.preventDefault()
+                
+        @runJavaBtn.attr("disabled", true)
+        @stopJavaBtn.attr("disabled", false)
+
         #Todo enable stop button here. disable run button earlier if any async setup
         finish_cb= =>
+            @stopJavaBtn.attr("disabled", true);
+            @runJavaBtn.attr("disabled", false);
             @edit()
             #Todo enable/disable buttons here
         @outputDiv.text ''   
-        jvm.run_class(@rs, 'LearnJavaInterpreter', class_args, finish_cb)
+        jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
         
         return this
+
+$(document).ready ->
+        new window.CodeRunner()
