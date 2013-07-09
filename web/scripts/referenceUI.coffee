@@ -1,10 +1,18 @@
+###
+Dictionary takes a string json reference in the form of a directory path and a container DOM element to create the dictionary in.  Example .json format is in the
+config directory named dictionary.json.  The dictionary function appends a div to its container that serves the dynamic information content depending on the
+dictionary item that is clicked in the list.
+###
 window.dictionary = (text,cont) ->
+	#appends a div for the paragraph content, to be further developed to contain code snippets and videos
 	info = document.createElement("div")
 	$(info).css({"width":"100%","height":"35%","position":"absolute","top":"65%","border-top":"1px solid black"})
 	$(cont).append(info)
+	#the attache function accepts a key and data and creates the content for the info div
 	attache = (k,d) ->
 		info.innerHTML = d
 		return
+	#the showChildren function accepts a DOM element from the dictionary list and displays or hides its children and alters its arrow image appropriately
 	showChildren = (nde) ->
 		if $(nde).children("img").attr("src") == "img/listarrow1.png"
 			$(nde).children("img").attr({"src":"img/listarrow2.png"})
@@ -12,8 +20,8 @@ window.dictionary = (text,cont) ->
 		else
 			$(nde).children("img").attr({"src":"img/listarrow1.png"})
 			$(nde).children("div").css({"display":"none"})
-	delve = (tmp,tcont,marg) ->
-		marg = marg + 5
+	#delve accepts a data object tmp and a recursive DOM object tcont.  The function recursively calls itself to build the hierarchal list
+	delve = (tmp,tcont) ->
 		for key,data of tmp
 			if typeof data == "string"
 				$(tcont).click(((k,d) -> attache(k,d); return false).bind(null, key, data))
@@ -34,17 +42,20 @@ window.dictionary = (text,cont) ->
 						$(npa).prepend(ar)
 						$(npa).click(((n) -> showChildren(n); return false).bind(null,npa))
 						break
-				delve data,npa,marg
+				delve data,npa
 		return
 
-	$.getJSON(text, (data) -> delve data,cont,0)
+	$.getJSON(text, (data) -> delve data,cont)
 	
 
 		
 
 
 
-
+###
+InitFloat builds the floating div and appropriates its space for the java virtual console and the dictionary.  It also attaches several enlargement functions
+that allow each appropriate div to fullscreen and then shrink back
+###
 window.InitFloat =  () ->
 	backFade = document.createElement("div")
 	refContainer = document.createElement("div")
