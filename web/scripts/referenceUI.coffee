@@ -137,6 +137,9 @@ window.InitFloat =  () ->
     return
 
 setUpJavaSandbox = (input, output) ->
+    ###
+        Sets up the code editor and the doppio api for running Java code.
+    ###
     input = $(input)
     output = $(output)
     textOutput = $('<div></div>')
@@ -160,7 +163,6 @@ setUpJavaSandbox = (input, output) ->
         id: 'runCode',
         text: 'Run',
         click: (e) ->
-
             textOutput.text ''
             msg = ''
             sandBoxDoppio.run sandBoxEditor.getStudentCode()
