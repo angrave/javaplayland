@@ -1,39 +1,32 @@
 "use strict"
 root = this
 
-# /home/doppio/vendor/classes/java/lang/Runtime.class - Causing magic number error as byte array is []
-
 root.init_editor = ->
     root.editor = ace.edit('source')
     JavaMode = require("ace/mode/java").Mode
     root.editor.getSession().setMode(new JavaMode())
-    root.editor.getSession().setValue ("public class Student {\n  public static void main(String[]args) {\n    System.out.println(\"Hello World\");\n  }\n}")
+    root.editor.getSession().setValue ('classes.doppio.JavaScript.eval("console.log(\\\"HELLO WORLD\\\");");')
     return
 
 root.preload = ->
     root.doppioAPI = new DoppioApi()
     root.init_editor()
 
-    # root.bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
-
     $('#run_btn').click (e) ->
-        root.doppioAPI.compileAndRun root.editor.getValue()
+        root.doppioAPI.run root.editor.getValue()
         e.preventDefault()
         return
     $('#abort_btn').click (e) ->
-        console.log 'abort button clicked'
-        if doppioAPI.rs
-            $('#messages').text 'Stopping ...'
-            cb =-> $('#messages').text 'Stopped'
-            doppioAPI.rs.async_abort(cb)
-        else
-            console.log 'but nothing to do'
+        root.doppioAPI.abort()
         e.preventDefault()
         return
     return
 
 $(document).ready ->
     root.preload()
+
+### TEST CODE ###
+# classes.doppio.JavaScript.eval("console.log(\"HELLO WORLD\");");
 
 class window.DoppioApi
     ###
@@ -42,6 +35,8 @@ class window.DoppioApi
     ###
     constructor: () ->
         @load_mini_rt()
+        @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
+        jvm.set_classpath '/home/doppio/vendor/classes/', './'
         return
 
     # Read in a binary classfile synchronously. Return an array of bytes.
@@ -79,59 +74,40 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         console.log "Untarring took a total of #{end_untar-start_untar}ms."
 
-    compileAndRun: (studentCode) ->
-        fname = "Student.java"
-        cname = fname.slice 0, -5
-        console.log cname
+    run: (studentCode) ->
+        start_time = (new Date()).getTime()
+        fname = 'program.bsh'
         @saveFile fname, studentCode
-        msg = ''
         stdout = (str) ->
-            msg += str
             console.log str
             return str
-
         stdin = -> "\n"
-
         class_args = [fname]
-        exec_finish_cb = ->
-            console.log 'Done'
+        finish_cb = =>
+            end_time = (new Date()).getTime()
+            console.log 'Finished Run'
+            console.log "Took #{end_time - start_time}ms."
+            @rs = null
             return
 
-        compile_finished_cb = ->
-            console.log "Compilation Finished"
-            if msg.length == 0
-                @exec stdout, stdin, cname, class_args, exec_finish_cb
+        @rs = new runtime.RuntimeState(stdout, stdin, @bs_cl)
+        jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
+        return
 
-        @compile stdout, fname, compile_finished_cb.bind @
+    abort: =>
+        console.log 'User Abort Requested'
+        if @rs
+            console.log 'Aborting Run'
+            cb = =>
+                console.log 'Aborted Successfully'
+                @rs = null
+            @rs.async_abort(cb)
+        else
+            console.log 'No Run Detected'
+        return
 
     saveFile: (fname, contents) ->
         contents += '\n' unless contents[contents.length-1] == '\n'
         node.fs.writeFileSync(fname, contents)
         console.log("File saved as '#{fname}'.")
-
-    compile: (stdout, fname, finish_cb) ->
-        console.log "Compiling #{fname} ..."
-        start_compile = (new Date()).getTime()
-        # jvm.set_classpath '/home/doppio/vendor/classes/', './:/home/doppio'
-        jvm.set_classpath '/home/doppio/vendor/classes/', './'
-
-        user_input = (resume) -> resume ''
-        bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
-        rs = new runtime.RuntimeState(stdout, user_input, bs_cl)
-        @rs = rs
-        args = [ fname ]
-        my_cb = =>
-            end_compile = (new Date()).getTime()
-            @rs = null
-            console.log "javac took a total of #{end_compile-start_compile}ms."
-            console.log 'Compilation complete'
-            finish_cb()
-        jvm.run_class(rs, 'classes/util/Javac', args, my_cb)
-        return
-
-    exec: (stdout, stdin, class_name, class_args, finish_cb) ->
-        console.log "Running #{class_name}"
-        bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
-        rs = new runtime.RuntimeState(stdout, stdin, bs_cl)
-        jvm.run_class(rs, class_name, class_args, finish_cb)
         return
