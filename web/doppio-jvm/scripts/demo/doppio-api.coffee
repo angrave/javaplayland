@@ -2,7 +2,6 @@
 root = this
 
 # /home/doppio/vendor/classes/java/lang/Runtime.class - Causing magic number error as byte array is []
-# /home/doppio/vendor/classes/java/lang/Runtime.class
 
 root.init_editor = ->
     root.editor = ace.edit('source')
@@ -54,8 +53,6 @@ class window.DoppioApi
                 data = util.bytestr_to_array node.fs.readFileSync(fullpath)
             catch e
                 data = null
-            if data != null and data.length <= 0
-                console.log "Empty data for: #{fullpath}"
             return cb(data) if data != null and data.length > 0
         failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
 
@@ -75,8 +72,6 @@ class window.DoppioApi
             [base, ext] = path.split '.'
             file_count++
             cls = base.substr base_dir.length
-            # if path == 'vendor/classes/java/lang/Runtime.class'
-            #     console.log "Writting runtime"
             if file.length > 0
                 node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
             return
