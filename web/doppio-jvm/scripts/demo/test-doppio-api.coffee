@@ -2,10 +2,9 @@
 root = this
 
 root.init_editor = ->
-    root.editor = ace.edit('source')
-    JavaMode = require("ace/mode/java").Mode
-    root.editor.getSession().setMode(new JavaMode())
-    root.editor.getSession().setValue ('classes.doppio.JavaScript.eval("console.log(\\\"HELLO WORLD\\\");");')
+    root.editor = new PlayerCodeEditor 'source', null, \
+        'classes.doppio.JavaScript.eval("console.log(\\\"HELLO WORLD\\\");");', \
+        false, "", "", true
     return
 
 root.preload = ->
@@ -16,7 +15,7 @@ root.preload = ->
     root.init_editor()
 
     $('#run_btn').click (e) ->
-        root.doppioAPI.run root.editor.getValue()
+        root.doppioAPI.run root.editor.getStudentCode()
         e.preventDefault()
         return
     $('#abort_btn').click (e) ->
