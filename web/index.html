@@ -3,14 +3,30 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <title> Java Play Land -- Learning Java the Fun way </title>
-<script src="scripts/referenceUI.js" type = "text/javascript"></script>
 <script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="/doppio-jvm/scripts/demo/_.js"></script>
+<script type="text/javascript">
+window.nodeconfig = {
+    home:'/home/doppio',
+    base_url: '/doppio-jvm',
+    listing_file : '/listings.json',
+    storage_prefix : 'fs'
+};
+</script>
+<script type="text/javascript" src="/doppio-jvm/scripts/demo/node.js"></script>
+<script type="text/javascript" src="/doppio-jvm/scripts/demo/util.js"></script>
+<script type="text/javascript" src="/doppio-jvm/scripts/jvm/uncompressed.js"></script>
+<script type="text/javascript" src="/doppio-jvm/scripts/demo/untar.js"></script>
+
+<script src="scripts/referenceUI.js" type = "text/javascript"></script>
 <script src="scripts/_.js" type="text/javascript"></script>
 <script src="scripts/codeland.js" type="text/javascript"></script>
 <script src="scripts/ace/src/ace.js" type="text/javascript"></script>
 <script src="scripts/ace/src/mode-java.js" type="text/javascript"></script>
 <script src="scripts/codeInterpreter.js" type="text/javascript"></script>
 <script src="scripts/playerCodeEditor.js" type="text/javascript"></script>
+<script type="text/javascript" src="/doppio-jvm/scripts/demo/doppio-api.js"></script>
 <script src="scripts/gameSelection.js" type="text/javascript"></script>
 <script src="scripts/gameVisual.js" type="text/javascript"></script>
 <script src="scripts/gameManager.js" type="text/javascript"></script>
@@ -20,7 +36,7 @@
 <body><script type = "text/javascript">
 
 //	window.addEventListener('resize', function(){alert(screen.availHeight + "/" + window.innerHeight + "  " + screen.availWidth + "/" + window.innerWidth)}, false)
-	
+
 	$("body").css({height:'100%',width:'100%','overflow':'hidden','margin':'0','padding':'0','background-color':'#003366'})
 	$("html").css({height:'100%',width:'100%','margin':'0','padding':'0'})
 
