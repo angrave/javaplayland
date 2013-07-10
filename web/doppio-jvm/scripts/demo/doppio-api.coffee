@@ -10,10 +10,16 @@ class window.DoppioApi
     constructor: (@stdout, @log) ->
         ###
             Sets up Doppio environment.
+            @stdout (msg) ->
+                A function that will receive messages from the executing java code.
+            @log (msg) ->
+                A function that will receive log messages such as total execution
+                time or abort requests. Set to null to disable logging.
         ###
         @load_mini_rt()
         @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         jvm.set_classpath '/home/doppio/vendor/classes/', './'
+        @rs = null
         return
 
     read_classfile: (cls, cb, failure_cb) ->
@@ -55,7 +61,7 @@ class window.DoppioApi
             return
         untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
         end_untar = (new Date()).getTime()
-        @log "Untarring took a total of #{end_untar-start_untar}ms."
+        @log? "Untarring took a total of #{end_untar-start_untar}ms."
 
     run: (studentCode) ->
         ###
@@ -63,15 +69,17 @@ class window.DoppioApi
             Note, this does not recognize classes.
         ###
         start_time = (new Date()).getTime()
+        @log? 'Starting Run'
         fname = 'program.bsh'
         node.fs.writeFileSync(fname, studentCode)
         stdin = -> "\n"
         class_args = [fname]
         finish_cb = =>
             end_time = (new Date()).getTime()
-            @log 'Finished Run'
-            @log "Took #{end_time - start_time}ms."
-            @rs = null
+            if @rs != null
+                @log? 'Finished Run'
+                @log? "Took #{end_time - start_time}ms."
+                @rs = null
             return
 
         @rs = new runtime.RuntimeState(@stdout, stdin, @bs_cl)
@@ -82,13 +90,13 @@ class window.DoppioApi
         ###
             Abort the current run.
         ###
-        @log 'User Abort Requested'
+        @log? 'User Abort Requested'
         if @rs
-            @log 'Aborting Run'
+            @log? 'Aborting Run'
             cb = =>
-                @log 'Aborted Successfully'
+                @log? 'Aborted Successfully'
                 @rs = null
             @rs.async_abort(cb)
         else
-            @log 'No Run Detected'
+            @log? 'No Run Detected'
         return
