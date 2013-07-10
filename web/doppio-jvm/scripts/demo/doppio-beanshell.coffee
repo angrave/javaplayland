@@ -18,7 +18,8 @@ load_mini_rt = ->
       [base,ext] = path.split('.')
       file_count++
       cls = base.substr(base_dir.length)
-      node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
+      if file.length > 0
+          node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
     untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
 
 saveFile = (fname,contents) ->
@@ -45,46 +46,46 @@ initializeDoppioEnvironment = ->
 
 onResize = ->
       $('#source').height( Math.min(50,$(window).height() * 0.25))
-      
+
 class window.CodeRunner
     stdout : null
     user_input : null
-    
+
     constructor : () ->
         @rs=null
-        
-        @runJavaBtn=$('#run_btn')  
+
+        @runJavaBtn=$('#run_btn')
         @stopJavaBtn=$('#abort_btn')
         @outputDiv = $('#output')
 
 
         @editor = ace.edit('source')
         @session = @editor.getSession()
-        
+
         JavaMode = require("ace/mode/java").Mode
         @session.setMode(new JavaMode())
         @session.setValue ("for(int i=0;i<10;i++) {print(i);}\nclasses.doppio.JavaScript.eval(\"alert(1)\");")
-              
+
         @stopJavaBtn.attr("disabled", true);
-        
+
         @runJavaBtn.click (e) =>
             @run()
-            e.preventDefault()       
+            e.preventDefault()
         onResize()
         return
-        
+
 
     edit: =>
         @editor.focus()
         return this
-    
+
     run: =>
         @outputDiv.text 'Starting...3..'
         initializeDoppioEnvironment()
-        
+
         @outputDiv.text( @outputDiv.text() + '2..' )
 
-        
+
         fname = "program.bsh"
         contents = @session.getValue()
         saveFile fname, contents
@@ -99,19 +100,19 @@ class window.CodeRunner
             @rs = null
         @rs = new runtime.RuntimeState(stdout, stdin, root._bs_cl)
         jvm.set_classpath '/home/doppio/vendor/classes/', './'
-        
+
         @outputDiv.text( @outputDiv.text() + '1..' )
         @stopJavaBtn.click (e) =>
             if @rs
                 stdout('Stopping...')
                 @stopJavaBtn.attr("disabled", true)
-                aborted_cb = => 
+                aborted_cb = =>
                     @rs=null
                     stdout('Stopped')
                     @runJavaBtn.attr("disabled", false)
-                @rs.async_abort(aborted_cb) 
+                @rs.async_abort(aborted_cb)
                 e.preventDefault()
-                
+
         @runJavaBtn.attr("disabled", true)
         @stopJavaBtn.attr("disabled", false)
 
@@ -119,9 +120,9 @@ class window.CodeRunner
             @stopJavaBtn.attr("disabled", true);
             @runJavaBtn.attr("disabled", false);
             @edit()
-        @outputDiv.text ''   
+        @outputDiv.text ''
         jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
-        
+
         return this
 
 $(document).ready ->
