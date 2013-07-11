@@ -5,5 +5,22 @@
     "game3",
     "game4",
     "game5"
-  ]
+  ],
+  "commands": [
+    "go(I)V",
+    "turn(I)V",
+    "turn(Ljava/lang/String;)V",
+    "turnRight()V",
+    "turnLeft()V",
+    "turnAndGo(I,I)V",
+    "turnAndGo(Ljava/lang/String;,I)V",
+    "goNorth(I)V",
+    "goEast(I)V",
+    "goSouth(I)V",
+    "goWest(I)V",
+    "mysteryA()V",
+    "mysteryB()V",
+    "mysteryC()V"
+  ],
+  "commandBeanshell": "void go (int i) {\nclasses.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.go(\" + i + \")\");\n}\nvoid turn (int i) {\nclasses.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turn(\" + i + \")\");\n}\nvoid turn (String s) {\nclasses.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turn(\" + s + \")\");\n}\nvoid turnRight() {\nclasses.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnRight()\");\n}\nvoid turnLeft() {\nclasses.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnLeft()\");\n}\nvoid testingHello() {\nSystem.out.println (\"It's Alive!\");\n}\nsource(\"program.bsh\");\n"
 }
