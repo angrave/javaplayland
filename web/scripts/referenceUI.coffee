@@ -1,3 +1,5 @@
+root = exports ? referencePage = {}
+
 ###
 Dictionary takes a string json reference in the form of a directory path and a container DOM element to create the dictionary in.  Example .json format is in the
 config directory named dictionary.json.  The dictionary function appends a div to its container that serves the dynamic information content depending on the
@@ -157,7 +159,8 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         textOutput.text msg
         return
     log = console.log
-    sandBoxDoppio = new DoppioApi stdout, log, doppioWrapper
+    if not root.sandBoxDoppio
+        root.sandBoxDoppio = new DoppioApi stdout, log, doppioWrapper
 
     run = jQuery '<button>', {
         id: 'runCode',
@@ -165,7 +168,7 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         click: (e) ->
             textOutput.text ''
             msg = ''
-            sandBoxDoppio.run sandBoxEditor.getStudentCode()
+            root.sandBoxDoppio.run sandBoxEditor.getStudentCode()
             e.preventDefault()
             return
     }
@@ -173,7 +176,7 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         id: 'abortCode',
         text: 'Abort',
         click: (e) ->
-            sandBoxDoppio.abort()
+            root.sandBoxDoppio.abort()
             e.preventDefault()
             return
     }
