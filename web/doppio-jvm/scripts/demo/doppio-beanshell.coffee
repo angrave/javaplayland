@@ -5,7 +5,7 @@ root = window.coderunner = {}
 
 load_mini_rt = ->
     try
-        data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
+        data = node.fs.readFileSync("/home/doppio/preload.tar")
     catch e
         console.error e
     if data == null
@@ -27,7 +27,7 @@ saveFile = (fname,contents) ->
 
 initializeDoppioEnvironment = ->
     return if root.doppioEnvironmentInitialized
-    load_mini_rt()
+    # Assumes load_mini_rt() is already called
     # Read in a binary classfile synchronously. Return an array of bytes.
     read_classfile = (cls, cb, failure_cb) ->
       cls = cls[1...-1] # Convert Lfoo/bar/Baz; -> foo/bar/Baz.
@@ -125,4 +125,5 @@ class window.CodeRunner
         return this
 
 $(document).ready ->
-        new window.CodeRunner()
+    load_mini_rt()
+    new window.CodeRunner()
