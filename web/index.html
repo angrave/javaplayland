@@ -34,6 +34,7 @@ window.nodeconfig = {
 
 </head>
 <body><script type = "text/javascript">
+$(function() {
 	$("body").css({height:'100%',width:'100%','overflow':'hidden','margin':'0','padding':'0','background-color':'#003366'})
 	$("html").css({height:'100%',width:'100%','margin':'0','padding':'0','overflow':'hidden'})
 
@@ -57,12 +58,12 @@ window.nodeconfig = {
 
 	window.addEventListener('resize', function(){
 		if ((window.orientation === 90) || (window.orientation === -90))
-			$(title).css({height:"25%"}) 
-		else 
+			$(title).css({height:"25%"})
+		else
 			$(title).css({height:"30%"})
 	}, false)
 
 	window.codeland.initialize(container)
-
+});
 </script></body>
 </html>
