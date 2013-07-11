@@ -254,11 +254,16 @@ class MapGameState
         return moved
 
     checkCanMove: (newX, newY, character) ->
-        canNotMove = false
         if newX < 0 or newX >= @gameManager.config.visual.grid.gridX\
           or newY < 0 or newY >= @gameManager.config.visual.grid.gridY
             # Player is out of bounds of grid.
-            canNotMove = true
+            if character == @protagonist
+                if newX < -1 or newX >= @gameManager.config.visual.grid.gridX + 1\
+                  or newY < -1 or newY >= @gameManager.config.visual.grid.gridY + 1
+                    @gameLost()
+                else
+                    return false
+            return true
 
         if character.group?
             for name, otherCharacter of @gameConfig.characters
@@ -269,8 +274,8 @@ class MapGameState
                 if newX == otherCharacter.x and \
                       newY == otherCharacter.y and \
                       character.group in otherCharacter.blocks
-                    canNotMove = true
-        return canNotMove
+                    return true
+        return false
 
     turn: (direction, character) ->
         if not character?
