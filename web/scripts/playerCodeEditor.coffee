@@ -245,6 +245,8 @@ class window.PlayerCodeEditor
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
         @editor.setReadOnly !@freeEdit
+        if !@freeEdit
+            jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
         if @wrapCode
             @codeText = @codePrefix + codeText + '\n' + @codeSuffix
