@@ -18,11 +18,9 @@
 
 </head>
 <body><script type = "text/javascript">
-
-//	window.addEventListener('resize', function(){alert(screen.availHeight + "/" + window.innerHeight + "  " + screen.availWidth + "/" + window.innerWidth)}, false)
 	
 	$("body").css({height:'100%',width:'100%','overflow':'hidden','margin':'0','padding':'0','background-color':'#003366'})
-	$("html").css({height:'100%',width:'100%','margin':'0','padding':'0'})
+	$("html").css({height:'100%',width:'100%','margin':'0','padding':'0','overflow':'hidden'})
 
 	//http://colorschemedesigner.com/#3La1Yw0w0w0w0
 	title = document.createElement("img")
@@ -42,7 +40,12 @@
 	$(title).attr({"src":"img/header.png"})
 	$(title).css({'position':'relative',height:'30%',width:'100%','top':'0%','left':'0%'})
 
-	//window.posCloud(200,"This is a test cloud","30%","30%")
+	window.addEventListener('resize', function(){
+		if ((window.orientation === 90) || (window.orientation === -90))
+			$(title).css({height:"25%"}) 
+		else 
+			$(title).css({height:"30%"})
+	}, false)
 
 	window.codeland.initialize(container)
 

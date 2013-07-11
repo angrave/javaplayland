@@ -3,14 +3,18 @@ class window.gameSelector
 	constructor: (@div, @dis) ->
 		tmp = document.createElement("div")
 		cont = $(tmp)
-		$(tmp).css(height:'100%', overflow:'auto',position:'relative','font-size':($(window).height()*0.02) + 'px')
+		$(tmp).css(height:'100%', overflow:'auto',position:'relative','font-size':"20" + 'px')
 		$(tmp).attr("id","gameSelection")
 		@div.append(tmp)
 		return
 
 	buildDiv: (game, desc, player, canPlay, codeland) ->
 			tmp1 = document.createElement("div")
-			$(tmp1).css({width:'50%',height:'46%','border-style':'double','border-width':'medium','margin-bottom':'1%',"margin-top":"1%",position:'relative',left:'25%',"background-color":"#003366"})
+			$(tmp1).css({"min-width":"800px",width:'50%',"min-height":"250px",height:'46%','border-style':'double','border-width':'medium','margin-bottom':'1%',"margin-top":"1%",position:'relative',left:"25%","background-color":"#003366"})
+			if cont.width() < 1600
+				lp = (cont.width() - 800)/2
+				$(tmp1).css({left:lp}) 
+
 			$(tmp1).attr("id","select#{game}")
 			cont.append(tmp1)
 
@@ -85,4 +89,4 @@ class window.gameSelector
 		else
 			ovr = document.createElement("div")
 			$(con).prepend(ovr)
-			$(ovr).css({'opacity':'.5','width':'100%','height':'100%',position:'inherit','z-index':'1','background-color':'#000000'})
+			$(ovr).css({'opacity':'.5','width':'100%',"min-height":"250px",'height':'100%',position:'inherit','z-index':'1','background-color':'#000000'})
