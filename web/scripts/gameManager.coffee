@@ -40,7 +40,7 @@ class window.GameManager
         @addEventListeners()
         return
 
-    startGame: (waitForCode) ->
+    startGame: (waitForCode) =>
         if not waitForCode?
             waitForCode = false
 
@@ -86,6 +86,7 @@ class window.GameManager
         jQuery('#resetState').click @reset
         jQuery('#refOpen').click InitFloat
         jQuery('#gmOp').click codeland.showMap
+        @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
 
         return
 

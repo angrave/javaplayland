@@ -6,6 +6,7 @@ class window.EditorManager
         Manages the code editor.
     ###
     constructor: (@editorDivId, @editorConfig, @codeConfig) ->
+        @onStudentCodeChangeCallback = null
         @commands = @editorConfig.commands
         @setUpEditor()
         return
@@ -96,7 +97,10 @@ class window.EditorManager
         (@editor.button @editor.resetState)()
         return
 
-    onStudentCodeChange: =>
+    onStudentCodeChangeListener: (@onStudentCodeChangeCallback) ->
+        return
+
+    onStudentCodeChange: (changeData) =>
         ###
             When the student code changes, run it through the
             interpreter to figure out commands remaining.
@@ -105,6 +109,8 @@ class window.EditorManager
             window.clearTimeout @scanTimer
             @scanTimer = null
         @scanTimer = window.setTimeout @scan, 500
+        if @onStudentCodeChangeCallback?
+            @onStudentCodeChangeCallback changeData
         return
 
     scan: =>
