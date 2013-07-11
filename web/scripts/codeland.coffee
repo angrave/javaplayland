@@ -14,6 +14,7 @@ root.initialize = (UIcont) ->
 root.initializeDoppio = ->
     root.doppioWrapper = 'wrapper.bsh'
     node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
+    root.doppioAPI = new DoppioApi null, null, root.doppioWrapper
     return
 
 root.reference = () ->

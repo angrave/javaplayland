@@ -84,7 +84,7 @@ class window.GameManager
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
         jQuery('#resetState').click @reset
-        jQuery('#refOpen').click InitFloat.bind window, @environment.codeland.doppioWrapper
+        jQuery('#refOpen').click InitFloat
         jQuery('#gmOp').click codeland.showMap
 
         return
