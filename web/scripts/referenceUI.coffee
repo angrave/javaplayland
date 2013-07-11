@@ -50,7 +50,7 @@ window.dictionary = (text,cont) ->
 InitFloat builds the floating div and appropriates its space for the java virtual console and the dictionary.  It also attaches several enlargement functions
 that allow each appropriate div to fullscreen and then shrink back
 ###
-window.InitFloat =  () ->
+window.InitFloat =  (doppioWrapper) ->
     backFade = document.createElement("div")
     refContainer = document.createElement("div")
 
@@ -133,10 +133,10 @@ window.InitFloat =  () ->
 
     window.dictionary("config/dictionary.json",dictionary)
 
-    setUpJavaSandbox input, output
+    setUpJavaSandbox input, output, doppioWrapper
     return
 
-setUpJavaSandbox = (input, output) ->
+setUpJavaSandbox = (input, output, doppioWrapper) ->
     ###
         Sets up the code editor and the doppio api for running Java code.
     ###
@@ -157,7 +157,7 @@ setUpJavaSandbox = (input, output) ->
         textOutput.text msg
         return
     log = console.log
-    sandBoxDoppio = new DoppioApi stdout, log
+    sandBoxDoppio = new DoppioApi stdout, log, doppioWrapper
 
     run = jQuery '<button>', {
         id: 'runCode',

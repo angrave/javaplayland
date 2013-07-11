@@ -7,7 +7,7 @@ class window.DoppioApi
         (this is usually accomplished with jQuery(document).onReady)
     ###
 
-    constructor: (@stdout, @log) ->
+    constructor: (@stdout, @log, @beanshellWrapperName) ->
         ###
             Sets up Doppio environment.
             @stdout (msg) ->
@@ -73,7 +73,10 @@ class window.DoppioApi
         fname = 'program.bsh'
         node.fs.writeFileSync(fname, studentCode)
         stdin = -> "\n"
-        class_args = [fname]
+        if @beanshellWrapperName?
+            class_args = [@beanshellWrapperName]
+        else
+            class_args = [fname]
         finish_cb = =>
             end_time = (new Date()).getTime()
             if @rs != null
