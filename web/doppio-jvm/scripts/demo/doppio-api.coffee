@@ -42,7 +42,7 @@ class window.DoppioApi
             Loads the compressed pre-compiled java classes for Doppio
         ###
         try
-            data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
+            data = node.fs.readFileSync("/home/doppio/preload.tar")
         catch e
             console.error e
         if data == null
