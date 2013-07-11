@@ -47,7 +47,7 @@
     "gameType": "grid",
     "grid": {
       "gridUnit": 30,
-      "border": 30,
+      "border": 0,
       "gridX": 10,
       "gridY": 10
     },
