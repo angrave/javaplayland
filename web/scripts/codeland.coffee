@@ -5,9 +5,19 @@ root.UIcont = null
 
 root.initialize = (UIcont) ->
     root.loadJSONConfigs()
+    root.initializeDoppio()
     root.UIcont = UIcont
     player = root.getPlayer()
     root.drawGameMap(player)
+    return
+
+root.initializeDoppio = ->
+    root.doppioWrapper = 'wrapper.bsh'
+    node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
+    root.doppioAPI = new DoppioApi null, console.log, root.doppioWrapper
+    # classes.doppio.JavaScript.eval("console.log(1);");
+    # root.doppioAPI = new DoppioApi null, console.log, null
+    return
 
 root.reference = () ->
 
@@ -129,6 +139,7 @@ root.loadJSONConfigs = () ->
         url: 'config/quest1.json',
         async: false,
         success: (data) ->
+            root.quest = data
             for game in data.games
                 jQuery.ajax({
                     dataType: 'json',
