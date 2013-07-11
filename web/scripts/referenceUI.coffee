@@ -52,7 +52,7 @@ window.dictionary = (text,cont) ->
 InitFloat builds the floating div and appropriates its space for the java virtual console and the dictionary.  It also attaches several enlargement functions
 that allow each appropriate div to fullscreen and then shrink back
 ###
-window.InitFloat =  (doppioWrapper) ->
+window.InitFloat = ->
     backFade = document.createElement("div")
     refContainer = document.createElement("div")
 
@@ -135,10 +135,10 @@ window.InitFloat =  (doppioWrapper) ->
 
     window.dictionary("config/dictionary.json",dictionary)
 
-    setUpJavaSandbox input, output, doppioWrapper
+    setUpJavaSandbox input, output
     return
 
-setUpJavaSandbox = (input, output, doppioWrapper) ->
+setUpJavaSandbox = (input, output) ->
     ###
         Sets up the code editor and the doppio api for running Java code.
     ###
@@ -159,8 +159,7 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         textOutput.text msg
         return
     log = console.log
-    if not root.sandBoxDoppio
-        root.sandBoxDoppio = new DoppioApi stdout, log, doppioWrapper
+    codeland.doppioAPI.setOutputFunctions stdout, log
 
     run = jQuery '<button>', {
         id: 'runCode',
@@ -168,7 +167,7 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         click: (e) ->
             textOutput.text ''
             msg = ''
-            root.sandBoxDoppio.run sandBoxEditor.getStudentCode()
+            codeland.doppioAPI.run sandBoxEditor.getStudentCode()
             e.preventDefault()
             return
     }
@@ -176,7 +175,7 @@ setUpJavaSandbox = (input, output, doppioWrapper) ->
         id: 'abortCode',
         text: 'Abort',
         click: (e) ->
-            root.sandBoxDoppio.abort()
+            codeland.doppioAPI.abort()
             e.preventDefault()
             return
     }

@@ -22,6 +22,9 @@ class window.DoppioApi
         @rs = null
         return
 
+    setOutputFunctions: (@stdout, @log) ->
+        return
+
     read_classfile: (cls, cb, failure_cb) ->
         ###
             Used internally in Doppio.
@@ -63,7 +66,7 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         @log? "Untarring took a total of #{end_untar-start_untar}ms."
 
-    run: (studentCode) ->
+    run: (studentCode) =>
         ###
             Runs the given Java Code.
             Note, this does not recognize classes.
