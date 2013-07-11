@@ -5,7 +5,7 @@ root = window.coderunner = {}
 
 load_mini_rt = ->
     try
-        data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
+        data = node.fs.readFileSync("/home/doppio/preload.tar")
     catch e
         console.error e
     if data == null
@@ -27,7 +27,7 @@ saveFile = (fname,contents) ->
 
 initializeDoppioEnvironment = ->
     return if root.doppioEnvironmentInitialized
-    load_mini_rt()
+    # Assumes load_mini_rt() is already called
     # Read in a binary classfile synchronously. Return an array of bytes.
     read_classfile = (cls, cb, failure_cb) ->
       cls = cls[1...-1] # Convert Lfoo/bar/Baz; -> foo/bar/Baz.
@@ -44,7 +44,7 @@ initializeDoppioEnvironment = ->
 
 
 onResize = ->
-      $('#source').height($(window).height() * 0.5)
+      $('#source').height( Math.min(50,$(window).height() * 0.25))
       
 class window.CodeRunner
     stdout : null
@@ -63,7 +63,7 @@ class window.CodeRunner
         
         JavaMode = require("ace/mode/java").Mode
         @session.setMode(new JavaMode())
-        @session.setValue ("for(int i=0;i<10;i++) {print(i);}")
+        @session.setValue ("for(int i=0;i<10;i++) {print(i);}\nclasses.doppio.JavaScript.eval(\"alert(1)\");")
               
         @stopJavaBtn.attr("disabled", true);
         
@@ -105,25 +105,25 @@ class window.CodeRunner
             if @rs
                 stdout('Stopping...')
                 @stopJavaBtn.attr("disabled", true)
-                aborted_cb = -> 
+                aborted_cb = => 
+                    @rs=null
                     stdout('Stopped')
                     @runJavaBtn.attr("disabled", false)
-                @rs.abortjvm(aborted_cb) 
+                @rs.async_abort(aborted_cb) 
                 e.preventDefault()
                 
         @runJavaBtn.attr("disabled", true)
         @stopJavaBtn.attr("disabled", false)
 
-        #Todo enable stop button here. disable run button earlier if any async setup
         finish_cb= =>
             @stopJavaBtn.attr("disabled", true);
             @runJavaBtn.attr("disabled", false);
             @edit()
-            #Todo enable/disable buttons here
         @outputDiv.text ''   
         jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
         
         return this
 
 $(document).ready ->
-        new window.CodeRunner()
+    load_mini_rt()
+    new window.CodeRunner()

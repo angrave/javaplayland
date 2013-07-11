@@ -59,8 +59,8 @@ make library
 popd
 
 mkdir -p "$DOPPIO_JVM" "$DOPPIO_CUSTOM" "$DOPPIO_DEMO"
-ln -sfn $(cd $DOPPIO_SRC/classes;pwd) "$DOPPIO_CLASSES"
-ln -sfn $(cd $DOPPIO_SRC/vendor;pwd) "$DOPPIO_WEB/vendor"
+####ln -sfn $(cd $DOPPIO_SRC/classes;pwd) "$DOPPIO_CLASSES"
+####ln -sfn $(cd $DOPPIO_SRC/vendor;pwd) "$DOPPIO_WEB/vendor"
 
 # Copy doppio JVM
 cp -r $DOPPIO_SRC/build/library/*compressed* "$DOPPIO_JVM"
@@ -79,7 +79,7 @@ cd web
 coffee --compile --map $DEV_COFFEE_OPTIONS --output $(cd $DOPPIO_JVM/..;pwd) $(cd $DOPPIO_JVM/..;pwd)
 # Doppio listing needs to be relative to Doppio root
 cd "$DOPPIO_WEB"
-$COFFEEC "$DOPPIO_SRC/tools/gen_dir_listings.coffee" > "$DOPPIO_LISTINGS"
+####$COFFEEC "$DOPPIO_SRC/tools/gen_dir_listings.coffee" > "$DOPPIO_LISTINGS"
 popd 
 
-cp "$DOPPIO_SRC/build/release/browser/mini-rt.tar" "$DOPPIO_DEMO"
+####cp "$DOPPIO_SRC/build/release/browser/mini-rt.tar" "$DOPPIO_DEMO"
