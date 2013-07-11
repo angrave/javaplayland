@@ -159,7 +159,8 @@ class window.EditorManager
                 @parameterPopUp.hide()
                 return true
 
-            command = @interpreter.identifyCommand line
+            commandInfo = @interpreter.scanCommand line
+            command = commandInfo.command
             if command == null
                 @parameterPopUp.hide()
                 return true
@@ -174,6 +175,7 @@ class window.EditorManager
             for i in [1..numberOfInputs] by 1
                 id = "#{command}-parameter-#{i}"
                 @parameterPopUp.append "<input id='#{id}' type='text' size='5' class='pop-up-inside'>"
+                jQuery("##{id}").val commandInfo.parameters[i - 1]
                 if i != numberOfInputs
                     @parameterPopUp.append ','
                     jQuery("##{id}").keypress(
@@ -200,7 +202,7 @@ class window.EditorManager
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
-                text: 'Edit',
+                text: 'Ok',
                 class: 'pop-up-inside',
                 click: @popUpEditLine.bind(@, row, command)
             }

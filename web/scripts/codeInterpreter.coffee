@@ -1,6 +1,9 @@
 class window.CodeInterpreter
     constructor: (@commands) ->
         @buildNeededParsers()
+        @usesRemaining = {}
+        for command of @commands
+            @usesRemaining[command] = @commands[command]['maxUses']
         return
 
     buildNeededParsers: ->
@@ -20,6 +23,14 @@ class window.CodeInterpreter
                 return command
         return null
 
+    scanCommand: (line) ->
+        for command of @commands
+            result = @commands[command]['parser'].exec line
+            if result != null
+                parameters = @processCommand command, result[1]
+                return {"command": command, "parameters": parameters}
+        return null
+
     executeCommands: (commandMap) ->
         for commandCard in @commandStack
             commandMap[commandCard.command].apply commandMap, commandCard.parameters
@@ -34,9 +45,6 @@ class window.CodeInterpreter
             remaining.
         ###
         @commandStack = []
-        usesRemaining = {}
-        for command of @commands
-            usesRemaining[command] = @commands[command]['maxUses']
 
         currentLine = 0
         while text != ""
@@ -44,8 +52,8 @@ class window.CodeInterpreter
             for command of @commands
                 result = @commands[command]['parser'].exec text
                 if result != null
-                    usesRemaining[command]--
-                    parameters = @processCommand command, result[1], usesRemaining
+                    @usesRemaining[command]--
+                    parameters = @processCommand command, result[1]
                     @commandStack.push {command: command, parameters: parameters}
                     break
 
@@ -69,9 +77,9 @@ class window.CodeInterpreter
                 text = text.substring 1
             else
                 text = text.substring result[0].length
-        return usesRemaining
+        return @usesRemaining
 
-    processCommand: (command, innerText, usesRemaining) ->
+    processCommand: (command, innerText) ->
         ###
             Processes a found command.
         ###
@@ -83,7 +91,7 @@ class window.CodeInterpreter
             # for command of @commands
                 # result = @commands[command]['parser'].exec innerText
                 # if result != null
-                #     usesRemaining[command]--
+                #     @usesRemaining[command]--
                 #     @processCommand command, result[1]
                 #     break
 
