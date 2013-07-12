@@ -6,6 +6,7 @@ class window.EditorManager
         Manages the code editor.
     ###
     constructor: (@editorDivId, @editorConfig, @codeConfig) ->
+        @onStudentCodeChangeCallback = null
         @commands = @editorConfig.commands
         @setUpEditor()
         return
@@ -23,26 +24,20 @@ class window.EditorManager
 
         if @editorConfig.buttons.length != 0
             buttonField = jQuery('<div>', {id: 'buttons'})
-
             if $.inArray('switchUp', @editorConfig.buttons) != -1
                 buttonField.append '<button id="switchUp">Up</button>'
-
             if $.inArray('switchDown', @editorConfig.buttons) != -1
                 buttonField.append '<button id="switchDown">Down</button>'
-
             if $.inArray('deleteLine', @editorConfig.buttons) != -1
                 buttonField.append '<button id="deleteLine">Delete</button>'
-
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
                 buttonField.append '<br />'
                 buttonField.append jQuery('<div>', {
                     id: 'insertButtons'}).get(0)
-
             buttonField.append '<br />'
             editorDiv.append buttonField.get 0
 
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
-
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
             @codeConfig.postfix, @editorConfig.freeformEditting
@@ -102,14 +97,25 @@ class window.EditorManager
         (@editor.button @editor.resetState)()
         return
 
-    onStudentCodeChange: =>
+    onStudentCodeChangeListener: (@onStudentCodeChangeCallback) ->
+        return
+
+    onStudentCodeChange: (changeData) =>
         ###
             When the student code changes, run it through the
             interpreter to figure out commands remaining.
         ###
+        if @scanTimer?
+            window.clearTimeout @scanTimer
+            @scanTimer = null
+        @scanTimer = window.setTimeout @scan, 500
+        if @onStudentCodeChangeCallback?
+            @onStudentCodeChangeCallback changeData
+        return
+
+    scan: =>
         remaining = @interpreter.scanText @editor.getStudentCode()
         @UpdateCommandsStatus remaining
-        return
 
     UpdateCommandsStatus: (remaining) ->
         ###
@@ -153,7 +159,8 @@ class window.EditorManager
                 @parameterPopUp.hide()
                 return true
 
-            command = @interpreter.identifyCommand line
+            commandInfo = @interpreter.scanCommand line
+            command = commandInfo.command
             if command == null
                 @parameterPopUp.hide()
                 return true
@@ -168,6 +175,7 @@ class window.EditorManager
             for i in [1..numberOfInputs] by 1
                 id = "#{command}-parameter-#{i}"
                 @parameterPopUp.append "<input id='#{id}' type='text' size='5' class='pop-up-inside'>"
+                jQuery("##{id}").val commandInfo.parameters[i - 1]
                 if i != numberOfInputs
                     @parameterPopUp.append ','
                     jQuery("##{id}").keypress(
@@ -194,7 +202,7 @@ class window.EditorManager
             @parameterPopUp.append ')'
             button = jQuery '<button>', {
                 id: 'editLine',
-                text: 'Edit',
+                text: 'Ok',
                 class: 'pop-up-inside',
                 click: @popUpEditLine.bind(@, row, command)
             }
@@ -231,7 +239,7 @@ class window.EditorManager
         return
 
 
-class PlayerCodeEditor
+class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
@@ -245,6 +253,8 @@ class PlayerCodeEditor
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
         @editor.setReadOnly !@freeEdit
+        if !@freeEdit
+            jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
         if @wrapCode
             @codeText = @codePrefix + codeText + '\n' + @codeSuffix
@@ -259,6 +269,8 @@ class PlayerCodeEditor
         @enableKeyboardShortcuts()
 
         @resetState()
+        @onChangeCallback = null
+        @editor.on 'change', @onChange
         @editor.focus()
 
     getStudentCode: ->
@@ -273,8 +285,17 @@ class PlayerCodeEditor
         # @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
-    onChangeListener: (callback) ->
-        @editor.on 'change', callback
+    onChangeListener: (@onChangeCallback) ->
+        return
+
+    onChange: (changeData) =>
+        if @reindentTimer?
+            window.clearTimeout @reindentTimer
+            @reindentTimer = null
+        if not @reIndenting
+            window.setTimeout @reIndentCode, 500
+        if @onChangeCallback != null
+            @onChangeCallback changeData
         return
 
     onClickListener: (callback) ->
@@ -320,12 +341,12 @@ class PlayerCodeEditor
         text.removeLines currentRow, currentRow
         return
 
-    insertLine: ({text, line, currentRow}) ->
+    insertLine: ({text, command, currentRow}) ->
         maxRow = @editSession.getLength()
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
-        printLine = (@createBlankFunctionHeader line) + ';'
+        printLine = (@createBlankFunctionHeader command) + ';'
         text.insertLines currentRow + 1, [printLine]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
@@ -356,7 +377,8 @@ class PlayerCodeEditor
         @reIndentCode()
         return
 
-    reIndentCode: ->
+    reIndentCode: =>
+        @reIndenting = true
         position = @editor.getCursorPosition()
         text = @editSession.getDocument()
         mode = @editSession.getMode()
@@ -382,6 +404,7 @@ class PlayerCodeEditor
                 @editSession, currentRow)
         @editor.moveCursorToPosition position
         @editor.clearSelection()
+        @reIndenting = false
         return
 
     createBlankFunctionHeader: (command) ->
