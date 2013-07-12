@@ -44,6 +44,8 @@ class window.GameManager
         if not waitForCode?
             waitForCode = false
 
+        @interpretGameConfigMap()
+
         for character, val of @config.game.characters
             # Load starting positions into visual config
             @config.visual.characters[character].x = val.x
@@ -54,6 +56,47 @@ class window.GameManager
         @visual.startGame @config.visual
         @gameState = new MapGameState @, waitForCode
         @commandMap = new MapGameCommands @gameState
+        return
+
+    interpretGameConfigMap: ->
+        x = @config.game.offset.x
+        y = @config.game.offset.y
+        index = 0
+        map = @config.game.map
+        while map != ""
+            achar = map.substring 0, 1
+            if achar of @config.game.key
+                name = @config.game.key[achar]
+                base = deepcopy @config.game.characterBase[name]
+                visualBase = deepcopy @config.visual.visualBase[name]
+                base.x = x
+                base.y = y
+                base.index = index
+                visualBase.x = x
+                visualBase.y = y
+                if base.dir?
+                    visualBase.dir = base.dir
+                # In case another copy of this character already exists:
+                baseName = name
+                numLength = 1
+                while name in @config.game.characters
+                    if name == baseName
+                        name = name + '1'
+                    else
+                        num = parseInt name.substring(name.length - numLength), 10
+                        num++
+                        name = baseName + num
+                        numLength = num.toString().length
+                @config.game.characters[name] = base
+                @config.visual.characters[name] = visualBase
+                index++
+
+            if achar == '\n'
+                y++
+                x = @config.game.offset.x
+            else
+                x++
+            map = map.substring 1
         return
 
     gameWon: (score, stars) ->
