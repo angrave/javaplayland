@@ -62,13 +62,21 @@
           "guards"
         ],
         "group": "guards"
+      },
+      "guard": {
+        "sprite": "guard",
+        "trigger": "loss",
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards"
       }
     },
     "key": {
       "P": "protagonist",
       "F": "gflag",
       "X": "pitGuard",
-      "G": "pitGuard"
+      "G": "guard"
     }
   },
   "visual": {

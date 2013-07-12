@@ -33,9 +33,53 @@
     "characterBase": {
       "protagonist": {
         "dir": 1
+      },
+      "guard": {
+        "dir": 0,
+        "moves": [],
+        "AI": {
+          "normal": [
+            {
+              "command": "_stand",
+              "arguments": [
+                "character"
+              ]
+            },
+            {
+              "command": "move",
+              "arguments": [
+                1,
+                "character"
+              ]
+            }
+          ],
+          "failed": {
+            "startMove": [
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "move",
+                "arguments": [
+                  1,
+                  "character"
+                ]
+              }
+            ]
+          }
+        }
       }
     },
-    "map": "XXXXXXXXXX\nX>P......X\nX.XXXX.X.X\nX.X....X.X\nX.XX.XXX.X\nX.XX.XXX.X\nXGXX...XXX\nX.X.X....X\nX.X.XX.X.X\nX.....FX.X\nXXXXXXXXXX",
+    "map": "XXXXXXXXXX\nX>P......X\nX.XXXX.X.X\nX.X....X.X\nX.XX.XXX.X\nX.XX.XXX.X\nXGXX...XXX\nX.X.X....X\nX.....FX.X\nXXXXXXXXXX",
     "offset": {
       "x": 0,
       "y": 0
