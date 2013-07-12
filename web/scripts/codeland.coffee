@@ -136,6 +136,15 @@ root.loadJSONConfigs = () ->
 
     jQuery.ajax({
         dataType: 'json',
+        url: 'config/defaults.json',
+        async: false,
+        success: (data) ->
+            root.gameDefaults = data
+            return
+        })
+
+    jQuery.ajax({
+        dataType: 'json',
         url: 'config/quest1.json',
         async: false,
         success: (data) ->
@@ -146,6 +155,7 @@ root.loadJSONConfigs = () ->
                     url: "config/#{game}.json"
                     async: false,
                     success: (gameData) ->
+                        gameData = root.addGameDefaults gameData
                         root.gameDescriptions[game] = gameData
                         return
                     })
@@ -159,6 +169,19 @@ root.loadJSONConfigs = () ->
             root.visualMaster = data
             return
         })
+    return
+
+root.addGameDefaults = (gameData) ->
+    root.addToObject root.gameDefaults, gameData
+    return gameData
+
+root.addToObject = (source, destination) ->
+    for key, value of source
+        if key of destination
+            if typeof value == "object"
+                root.addToObject value, destination[key]
+        else
+            destination[key] = value
     return
 
 root.getGameDescriptions = ->
