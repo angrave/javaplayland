@@ -12,7 +12,7 @@
     "commands": {
       "go": {
         "inputs": 0,
-        "maxUses": 8
+        "maxUses": 1
       },
       "turnRight": {
         "inputs": 0,
@@ -24,38 +24,20 @@
     "prefix": "",
     "postfix": "",
     "show": false,
-    "initial": "go();\ngo();\ngo();\ngo();\ngo();\nturnRight();\ngo();\ngo();\ngo();"
+    "initial": "go();\nturnRight();"
   },
   "game": {
-    "characters": {
+    "characters": {},
+    "characterBase": {
       "protagonist": {
         "dir": 1,
-        "x": 1,
-        "y": 1,
-        "index": 0,
         "moves": []
       },
       "gflag": {
-        "x": 5,
-        "y": 5,
-        "index": 1,
         "trigger": "victory"
       }
-    }
-  },
-  "visual": {
-    "gameType": "grid",
-    "grid": {
-      "gridUnit": 30,
-      "border": 30,
-      "gridX": 10,
-      "gridY": 10
     },
-    "animation": {
-      "length": 30,
-      "pixMoveRate": 1
-    },
-    "characters": {
+    "visualBase": {
       "protagonist": {
         "imgSet": 0,
         "xOff": 2,
@@ -71,7 +53,30 @@
         "xSize": 26,
         "ySize": 26
       }
+    },
+    "map": "P\nF",
+    "offset": {
+      "x": 4,
+      "y": 4
+    },
+    "key": {
+      "P": "protagonist",
+      "F": "gflag"
     }
+  },
+  "visual": {
+    "gameType": "grid",
+    "grid": {
+      "gridUnit": 30,
+      "border": 30,
+      "gridX": 10,
+      "gridY": 10
+    },
+    "animation": {
+      "length": 30,
+      "pixMoveRate": 1
+    },
+    "characters": {}
   },
   "help": [
     "Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle",
