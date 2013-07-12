@@ -84,7 +84,6 @@ class window.GameManager
                 @config.game.characters[name] = base
                 @config.visual.characters[name] = visualBase
                 index++
-
             if achar == '\n'
                 y++
                 x = @config.game.offset.x
@@ -124,7 +123,16 @@ class window.GameManager
         jQuery('#refOpen').click InitFloat
         jQuery('#gmOp').click codeland.showMap
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
+        @codeEditor.onCommandValidation @commandsValid
+        return
 
+    commandsValid: (valid) =>
+        if valid
+            jQuery('#compileAndRun').attr 'disabled', false
+            @canRun = true
+        else
+            jQuery('#compileAndRun').attr 'disabled', true
+            @canRun = false
         return
 
     reset: =>
@@ -133,6 +141,9 @@ class window.GameManager
         return
 
     runStudentCode: =>
+        @codeEditor.scan()
+        if not @canRun
+            return
         @interpreter.scanText @codeEditor.getStudentCode()
         @startGame true
         @interpreter.executeCommands @commandMap
