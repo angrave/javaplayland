@@ -4,6 +4,7 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 root.initialize = (UIcont) ->
+    root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
     root.initializeDoppio()
     root.UIcont = UIcont
@@ -32,6 +33,9 @@ root.drawGameMap = (player) ->
         # console.log "Game: #{game}"
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
+    $('#gameSelection').animate {
+        scrollTop: root.gameSelectionScrollPosition
+    }, 0
     #TODO FADE IN
     return
 
@@ -41,6 +45,7 @@ root.startGame = (game) ->
 
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
+    root.gameSelectionScrollPosition = tmp1.scrollTop
     root.UIcont.removeChild(tmp1)
 
     #Todo FADE IN
