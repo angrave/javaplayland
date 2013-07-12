@@ -6,161 +6,36 @@
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp",
-      "switchDown",
-      "deleteLine",
-      "insertButtons"
+      "deleteLine"
     ],
     "commands": {
-      "mysteryA": {
+      "go": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 3
       },
-      "mysteryB": {
+      "turnRight": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 4
       },
-      "mysteryC": {
+      "turnLeft": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 1
       }
     }
   },
   "code": {
-    "prefix": "",
-    "postfix": "",
-    "show": false,
-    "initial": ""
-  },
-  "events": {
-    "victory": [
-      7,
-      5
-    ]
+    "shorthand": "tRtRtRtRggtLg"
   },
   "game": {
-    "characters": {
+    "characterBase": {
       "protagonist": {
-        "x": 2,
-        "y": 4,
-        "dir": 1,
-        "index": 0,
-        "moves": [],
-        "group": "heroes"
-      },
-      "gflag": {
-        "x": 6,
-        "y": 8,
-        "index": 1,
-        "trigger": "victory"
-      },
-      "guardOne": {
-        "x": 6,
-        "y": 7,
-        "dir": 0,
-        "index": 3,
-        "trigger": "loss",
-        "blocks": [
-          "guards"
-        ],
-        "group": "guards"
-      },
-      "guardTwo": {
-        "x": 5,
-        "y": 7,
-        "dir": 3,
-        "index": 2,
-        "trigger": "loss",
-        "moves": [],
-        "blocks": [
-          "guards"
-        ],
-        "group": "guards",
-        "AI": {
-          "normal": [
-            {
-              "command": "_stand",
-              "arguments": [
-                "character"
-              ]
-            },
-            {
-              "command": "move",
-              "arguments": [
-                1,
-                "character"
-              ]
-            }
-          ],
-          "failed": {
-            "startMove": [
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "move",
-                "arguments": [
-                  1,
-                  "character"
-                ]
-              }
-            ]
-          }
-        }
+        "dir": 1
       }
-    }
-  },
-  "visual": {
-    "gameType": "grid",
-    "grid": {
-      "gridUnit": 30,
-      "border": 30,
-      "gridX": 10,
-      "gridY": 10
     },
-    "animation": {
-      "length": 30,
-      "pixMoveRate": 1
-    },
-    "characters": {
-      "protagonist": {
-        "imgSet": 0,
-        "xOff": 2,
-        "yOff": 2,
-        "xSize": 26,
-        "ySize": 26
-      },
-      "gflag": {
-        "dir": 0,
-        "imgSet": 1,
-        "xOff": 2,
-        "yOff": 2,
-        "xSize": 26,
-        "ySize": 26
-      },
-      "guardTwo": {
-        "imgSet": 2,
-        "xOff": 2,
-        "yOff": 2,
-        "xSize": 26,
-        "ySize": 26
-      },
-      "guardOne": {
-        "imgSet": 2,
-        "xOff": 2,
-        "yOff": 2,
-        "xSize": 26,
-        "ySize": 26
-      }
+    "map": "F\n\n\nP",
+    "offset": {
+      "x": 4,
+      "y": 4
     }
   },
   "help": [
