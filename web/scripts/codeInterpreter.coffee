@@ -45,6 +45,8 @@ class window.CodeInterpreter
             remaining.
         ###
         @commandStack = []
+        for command of @commands
+            @usesRemaining[command] = @commands[command]['maxUses']
 
         currentLine = 0
         while text != ""
