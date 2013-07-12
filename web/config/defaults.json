@@ -2,7 +2,45 @@
   "code": {
     "prefix": "",
     "postfix": "",
-    "show": false
+    "show": false,
+    "shorthandKey": [
+      {
+        "regex": "^tAG",
+        "repl": "turnAndGo"
+      },
+      {
+        "regex": "^tR",
+        "repl": "turnRight"
+      },
+      {
+        "regex": "^tL",
+        "repl": "turnLeft"
+      },
+      {
+        "regex": "^t",
+        "repl": "turn"
+      },
+      {
+        "regex": "^gN",
+        "repl": "goNorth"
+      },
+      {
+        "regex": "^gE",
+        "repl": "goEast"
+      },
+      {
+        "regex": "^gS",
+        "repl": "goSouth"
+      },
+      {
+        "regex": "^gW",
+        "repl": "goWest"
+      },
+      {
+        "regex": "^g",
+        "repl": "go"
+      }
+    ]
   },
   "game": {
     "characters": {},

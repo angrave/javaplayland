@@ -1,6 +1,7 @@
 ><^
 10 swap-only
 "gR"
+"initial": "go();\nturnRight();"
 >
 F
 
@@ -42,8 +43,8 @@ X...X
 
 70 swap and delete
 "gggggLLLRR"
-F.XX 
-X... 
+F.XX
+X...
 XX>.
 
 

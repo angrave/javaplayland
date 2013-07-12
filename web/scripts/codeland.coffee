@@ -155,7 +155,8 @@ root.loadJSONConfigs = () ->
                     url: "config/#{game}.json"
                     async: false,
                     success: (gameData) ->
-                        gameData = root.addGameDefaults gameData
+                        root.addToObject root.gameDefaults, gameData
+                        root.convertShorthandToCode gameData
                         root.gameDescriptions[game] = gameData
                         return
                     })
@@ -171,10 +172,6 @@ root.loadJSONConfigs = () ->
         })
     return
 
-root.addGameDefaults = (gameData) ->
-    root.addToObject root.gameDefaults, gameData
-    return gameData
-
 root.addToObject = (source, destination) ->
     for key, value of source
         if key of destination
@@ -182,6 +179,33 @@ root.addToObject = (source, destination) ->
                 root.addToObject value, destination[key]
         else
             destination[key] = value
+    return
+
+root.convertShorthandToCode = (gameData) ->
+    if gameData.code.initial?
+        return
+    initial = ''
+    shorthand = gameData.code.shorthand
+    while shorthand != ''
+        for short in gameData.code.shorthandKey
+            re = new RegExp short.regex
+            result = re.exec shorthand
+            if result != null
+                if initial != ''
+                    initial += '();\n'
+                initial += short.repl
+                break
+        if result == null
+            result = /\(.*\)/.exec shorthand
+            if result != null
+                initial += result[0] + ';'
+        if result != null
+            shorthand = shorthand.substring result.length
+        else
+            shorthand = shorthand.substring 1
+    if initial.substring initial.length - 1 != ';'
+        initial += '();'
+    gameData.code.initial = initial
     return
 
 root.getGameDescriptions = ->

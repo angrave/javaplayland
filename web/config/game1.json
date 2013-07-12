@@ -21,7 +21,7 @@
     }
   },
   "code": {
-    "initial": "go();\nturnRight();"
+    "shorthand": "gtR"
   },
   "game": {
     "characterBase": {
