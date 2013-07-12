@@ -69,7 +69,7 @@ class window.EditorManager
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.usesTextDocument codeEditor.insertLine)
                     .call(codeEditor,
-                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
+                            codeEditor.createNamedArguments({command: e.currentTarget.value}))
                     return false
             }
             buttons.push button.get 0
@@ -175,7 +175,9 @@ class window.EditorManager
             for i in [1..numberOfInputs] by 1
                 id = "#{command}-parameter-#{i}"
                 @parameterPopUp.append "<input id='#{id}' type='text' size='5' class='pop-up-inside'>"
-                jQuery("##{id}").val commandInfo.parameters[i - 1]
+                codeParam = commandInfo.parameters[i - 1]
+                if codeParam != "__"
+                    jQuery("##{id}").val codeParam
                 if i != numberOfInputs
                     @parameterPopUp.append ','
                     jQuery("##{id}").keypress(
