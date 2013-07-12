@@ -68,7 +68,7 @@ class window.GameManager
             if achar of @config.game.key
                 name = @config.game.key[achar]
                 base = deepcopy @config.game.characterBase[name]
-                visualBase = deepcopy @config.game.visualBase[name]
+                visualBase = deepcopy @config.visual.visualBase[name]
                 base.x = x
                 base.y = y
                 base.index = index
