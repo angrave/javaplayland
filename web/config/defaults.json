@@ -46,15 +46,28 @@
     "characters": {},
     "characterBase": {
       "protagonist": {
+        "sprite": "protagonist",
+        "group": "heroes",
         "moves": []
       },
       "gflag": {
+        "sprite": "gflag",
         "trigger": "victory"
+      },
+      "pitGuard": {
+        "sprite": "guard",
+        "dir": 2,
+        "trigger": "loss",
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards"
       }
     },
     "key": {
       "P": "protagonist",
-      "F": "gflag"
+      "F": "gflag",
+      "X": "pitGuard"
     }
   },
   "visual": {
@@ -69,6 +82,13 @@
       "gflag": {
         "dir": 0,
         "imgSet": 1,
+        "xOff": 2,
+        "yOff": 2,
+        "xSize": 26,
+        "ySize": 26
+      },
+      "guard": {
+        "imgSet": 2,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,

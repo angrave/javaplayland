@@ -37,6 +37,7 @@ class window.GameManager
 
         @environment.visualMaster.container.id = @visualDiv
         @visual = new GameVisual @environment.visualMaster, @environment.frameRate
+        @interpretGameConfigMap()
         @addEventListeners()
         return
 
@@ -44,21 +45,14 @@ class window.GameManager
         if not waitForCode?
             waitForCode = false
 
-        @interpretGameConfigMap()
-
-        for character, val of @config.game.characters
-            # Load starting positions into visual config
-            @config.visual.characters[character].x = val.x
-            @config.visual.characters[character].y = val.y
-            if val.dir?
-                @config.visual.characters[character].dir = val.dir
-
         @visual.startGame @config.visual
         @gameState = new MapGameState @, waitForCode
         @commandMap = new MapGameCommands @gameState
         return
 
     interpretGameConfigMap: ->
+        @config.game = deepcopy @config.game
+        @config.visual = deepcopy @config.visual
         x = @config.game.offset.x
         y = @config.game.offset.y
         index = 0
@@ -68,7 +62,7 @@ class window.GameManager
             if achar of @config.game.key
                 name = @config.game.key[achar]
                 base = deepcopy @config.game.characterBase[name]
-                visualBase = deepcopy @config.visual.visualBase[name]
+                visualBase = deepcopy @config.visual.visualBase[base.sprite]
                 base.x = x
                 base.y = y
                 base.index = index
@@ -79,7 +73,7 @@ class window.GameManager
                 # In case another copy of this character already exists:
                 baseName = name
                 numLength = 1
-                while name in @config.game.characters
+                while name of @config.game.characters
                     if name == baseName
                         name = name + '1'
                     else
