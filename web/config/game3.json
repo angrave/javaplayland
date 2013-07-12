@@ -21,7 +21,7 @@
     }
   },
   "code": {
-    "shorthand": "tRtRggg"
+    "shorthand": "RRggg"
   },
   "game": {
     "characterBase": {
@@ -44,6 +44,6 @@
     "Finding the cause and fixing the problem is called 'Debugging'"
   ],
   "depends": [
-    "game1"
+    "game2"
   ]
 }
