@@ -9,11 +9,11 @@
         "repl": "turnAndGo"
       },
       {
-        "regex": "^tR",
+        "regex": "^R",
         "repl": "turnRight"
       },
       {
-        "regex": "^tL",
+        "regex": "^L",
         "repl": "turnLeft"
       },
       {
@@ -21,19 +21,19 @@
         "repl": "turn"
       },
       {
-        "regex": "^gN",
+        "regex": "^N",
         "repl": "goNorth"
       },
       {
-        "regex": "^gE",
+        "regex": "^E",
         "repl": "goEast"
       },
       {
-        "regex": "^gS",
+        "regex": "^S",
         "repl": "goSouth"
       },
       {
-        "regex": "^gW",
+        "regex": "^W",
         "repl": "goWest"
       },
       {
@@ -67,7 +67,8 @@
     "key": {
       "P": "protagonist",
       "F": "gflag",
-      "X": "pitGuard"
+      "X": "pitGuard",
+      "G": "pitGuard"
     }
   },
   "visual": {

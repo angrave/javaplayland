@@ -1,5 +1,5 @@
 {
-  "name": "Code Sequence Puzzle #5",
+  "name": "Code Sequence Puzzle #8",
   "description": "Create the correct sequence of code lines",
   "task": "Work with parameters to functions!",
   "tags": "intro",
@@ -8,21 +8,26 @@
     "buttons": [
       "switchUp",
       "switchDown",
-      "deleteLine"
+      "deleteLine",
+      "insertButtons"
     ],
     "commands": {
       "go": {
         "inputs": 0,
-        "maxUses": 6
+        "maxUses": 1
       },
       "turnLeft": {
         "inputs": 0,
-        "maxUses": 3
+        "maxUses": 1
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 2
       }
     }
   },
   "code": {
-    "shorthand": "gLgLgLggg"
+    "shorthand": ""
   },
   "game": {
     "characterBase": {
@@ -30,17 +35,15 @@
         "dir": 1
       }
     },
-    "map": "XXXXX\nXP..X\nXFXXX\n.X...\n",
+    "map": "FP",
     "offset": {
       "x": 4,
       "y": 4
     }
   },
-  "help": [
-    "Click on a command to change its <em>Parameters</em>"
-  ],
+  "help": [],
   "dyk": [],
   "depends": [
-    "game4"
+    "game7"
   ]
 }
