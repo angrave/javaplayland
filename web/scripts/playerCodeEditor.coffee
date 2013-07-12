@@ -100,6 +100,9 @@ class window.EditorManager
     onStudentCodeChangeListener: (@onStudentCodeChangeCallback) ->
         return
 
+    onCommandValidation: (@onCommandRemainingValid) ->
+        return
+
     onStudentCodeChange: (changeData) =>
         ###
             When the student code changes, run it through the
@@ -116,11 +119,13 @@ class window.EditorManager
     scan: =>
         remaining = @interpreter.scanText @editor.getStudentCode()
         @UpdateCommandsStatus remaining
+        return
 
     UpdateCommandsStatus: (remaining) ->
         ###
             Updates the number of commands remaining for each command.
         ###
+        valid = true
         buttonField = jQuery '#insertButtons'
         for command of @commands
             button = buttonField.find "##{command}"
@@ -129,9 +134,12 @@ class window.EditorManager
             usesRemaining = remaining[command]
             if usesRemaining <= 0
                 button.attr 'disabled', true
+                if usesRemaining < 0
+                    valid = false
             else
                 button.attr 'disabled', false
             button.text "#{line}: #{usesRemaining}"
+        @onCommandRemainingValid? valid
         return
 
     onEditorCursorMove: (cursorEvent) =>
