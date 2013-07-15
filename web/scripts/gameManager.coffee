@@ -222,7 +222,7 @@ class MapGameState
 
     checkEvents: (protagonistDoneMoving) ->
         # Just doing player collisions at the moment.
-        triggers = {"victory": @gameWon, "loss": @gameWon}
+        triggers = {"victory": @gameWon, "loss": @gameLost}
         for name, character of @gameConfig.characters
             if character == @protagonist
                 continue
