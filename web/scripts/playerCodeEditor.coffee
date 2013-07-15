@@ -171,6 +171,7 @@ class window.EditorManager
             @parameterPopUp = jQuery('#parameter-pop-up')
 
         @parameterPopUp.hide()
+        return
 
     onEditorClick: (inBounds, clickEvent) =>
         ###
@@ -250,6 +251,7 @@ class window.EditorManager
 
             @parameterPopUp.show()
             setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
+            clickEvent.stopPropagation()
             return false
         else
             @parameterPopUp.hide()

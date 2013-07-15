@@ -5,7 +5,7 @@ if not deepcopy?
 
 class window.GameManager
     constructor: (@environment) ->
-        @config = @environment.description
+        @config = deepcopy @environment.description
 
         @editorDiv = 'codeEditor'
         @visualDiv = 'gameVisual'
@@ -51,8 +51,6 @@ class window.GameManager
         return
 
     interpretGameConfigMap: ->
-        @config.game = deepcopy @config.game
-        @config.visual = deepcopy @config.visual
         x = @config.game.offset.x
         y = @config.game.offset.y
         index = 0
