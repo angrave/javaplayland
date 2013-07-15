@@ -27,7 +27,7 @@
     }
   },
   "code": {
-    "initial": "go(6)",
+    "shorthand": "g(6)",
 	"comments" : ["go,turnRight and turnLeft are called \"methods\".",
 	"I just made a new 'go' method for you.",
 	"This go method takes a single integer parameter.",
