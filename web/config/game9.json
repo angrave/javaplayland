@@ -1,7 +1,7 @@
 {
-  "name": "Code Sequence Puzzle #9",
-  "description": "Create the correct sequence of code lines",
-  "task": "Work with parameters to functions!",
+  "name": "Puzzle #9",
+  "description": "My awesome go method takes an integer parameter",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
