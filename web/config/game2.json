@@ -1,6 +1,6 @@
 {
-  "name": "Code Sequence Puzzle #2",
-  "description": "Find the correct sequence of code lines",
+  "name": "Puzzle #2",
+  "description": "Not too hard?",
   "task": "Re-order existing code that only uses a small set of statements",
   "tags": "intro",
   "editor": {
