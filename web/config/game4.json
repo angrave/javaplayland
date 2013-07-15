@@ -1,6 +1,6 @@
 {
-  "name": "Code Sequence Puzzle #4",
-  "description": "Find the correct sequence of code lines",
+  "name": "Puzzle #4",
+  "description": "Ingredients: May contains bugs! Delete Delete!",
   "task": "Re-order existing code that only uses a small set of statements",
   "tags": "intro",
   "editor": {
