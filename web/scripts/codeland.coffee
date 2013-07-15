@@ -3,6 +3,13 @@
 root = exports ? this.codeland = {}
 root.UIcont = null
 
+#IE Support ....
+if console.log == null
+    console.log = -> return
+#Chrome support: 'this' must be the console object
+root.log = (msg) ->
+    console.log.call(console,msg)
+
 root.initialize = (UIcont) ->
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
@@ -15,7 +22,7 @@ root.initialize = (UIcont) ->
 root.initializeDoppio = ->
     root.doppioWrapper = 'wrapper.bsh'
     node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
-    root.doppioAPI = new DoppioApi null, console.log, root.doppioWrapper
+    root.doppioAPI = new DoppioApi null, root.log, root.doppioWrapper
     # classes.doppio.JavaScript.eval("console.log(1);");
     # root.doppioAPI = new DoppioApi null, console.log, null
     return
@@ -68,12 +75,6 @@ root.startGame = (game) ->
     root.currentGame.startGame()
 
 deepcopy = (src) -> $.extend(true, {}, src)
-
-#IE Support ....
-# if not console?
-#     console = {}
-if console.log == null
-    console.log = -> return
 
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
@@ -138,11 +139,15 @@ root.clearPlayer = ->
 root.loadJSONConfigs = () ->
     if not root.gameDescriptions?
         root.gameDescriptions = {}
-
+    configFail = false
     jQuery.ajax({
         dataType: 'json',
         url: 'config/defaults.json',
         async: false,
+        error : () ->
+            configFail = true
+            console.log 'Could not read defaults.json'
+
         success: (data) ->
             root.gameDefaults = data
             return
@@ -152,6 +157,10 @@ root.loadJSONConfigs = () ->
         dataType: 'json',
         url: 'config/quest1.json',
         async: false,
+        error : ->
+            configFail = true
+            console.log "Could not read quest1.json" 
+            
         success: (data) ->
             root.quest = data
             for game in data.games
@@ -159,11 +168,19 @@ root.loadJSONConfigs = () ->
                     dataType: 'json',
                     url: "config/#{game}.json"
                     async: false,
+                    error: ( jqXHR, textStatus, errorThrown ) ->
+                        configFail = true
+                        console.log "Could not read " + game + ':'+textStatus
                     success: (gameData) ->
-                        root.addToObject root.gameDefaults, gameData
-                        root.convertShorthandToCode gameData
-                        root.gameDescriptions[game] = gameData
-                        return
+                        try 
+                            root.addToObject root.gameDefaults, gameData
+                            root.convertShorthandToCode gameData
+                            root.addHintsToCode gameData
+                            root.gameDescriptions[game] = gameData
+                            return
+                        catch error
+                            configFail = true
+                            console.log error
                     })
             return
     });
@@ -171,10 +188,16 @@ root.loadJSONConfigs = () ->
         dataType: 'json',
         url: 'config/visualMaster.json',
         async: false,
+        error : ->
+            configFail = true
+            console.log "Could not read visualMaster.json"
         success: (data) ->
             root.visualMaster = data
             return
         })
+    if configFail
+        root.gameDescriptions = null
+        throw "Configuration Exception"
     return
 
 root.addToObject = (source, destination) ->
@@ -212,6 +235,12 @@ root.convertShorthandToCode = (gameData) ->
         initial += '();'
     gameData.code.initial = initial
     return
+
+root.addHintsToCode = (gameData) -> 
+    if gameData.code.comments
+        # Also ensures newlines in the data are properly commented out
+        one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
+        gameData.code.initial = one + '\n' + gameData.code.initial 
 
 root.getGameDescriptions = ->
     if root.gameDescriptions?

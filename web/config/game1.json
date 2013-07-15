@@ -21,7 +21,10 @@
     }
   },
   "code": {
-    "shorthand": "gR"
+    "shorthand": "gR",
+     "comments" : [
+       "To run your Java code click the play button.",
+       "To fix the sequence of go and turnRight statements click on \nthis code and use the up and down buttons." ]
   },
   "game": {
     "characterBase": {
@@ -35,16 +38,12 @@
       "y": 4
     }
   },
-  "help": [
-    "Oops your go <em>statements</em> and turnRight <em>statements</em>need to be in the correct <em>sequence of operations</em> to solve this puzzle",
-    "Use up, down reset and test buttons to fix your code!",
-    "The reset button changes the code back to the original version"
-  ],
+  
   "dyk": [
     "Computer programs contain many <em>statement</em>s.",
     "Most of the time we need to write a ; after each statement",
     "When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.",
-    "Computer programs are a like movie scripts and cooking recipies - the correct sequence matters!"
+    "Computer programs are a like movie scripts and cooking recipes - the correct sequence matters!"
   ],
   "depends": []
 }

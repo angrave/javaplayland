@@ -222,7 +222,7 @@ class MapGameState
 
     checkEvents: (protagonistDoneMoving) ->
         # Just doing player collisions at the moment.
-        triggers = {"victory": @gameWon, "loss": @gameLost}
+        triggers = {"victory": @gameWon, "loss": @gameWon}
         for name, character of @gameConfig.characters
             if character == @protagonist
                 continue
@@ -406,7 +406,7 @@ class MapGameState
             @visual.changeState character.index, 4
             character.moves = null
         @startedGame = false
-        alert "You Have Lost!"
+        alert "Try again!"
         clockHandle = setInterval @clock, 17
         return
 

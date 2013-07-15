@@ -21,7 +21,10 @@
     }
   },
   "code": {
-    "shorthand": "RRggg"
+    "shorthand": "RRggg",
+    "comments" : [
+     "English uses ! for commands : Fetch the Ball! Run!\nbut notice Java statements end with a semicolon ; instead"
+     ]
   },
   "game": {
     "characterBase": {
