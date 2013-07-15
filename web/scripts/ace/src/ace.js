@@ -3758,6 +3758,7 @@ var MouseHandler = function(editor) {
     event.addListener(gutterEl, "click", this.onMouseEvent.bind(this, "gutterclick"));
     event.addListener(gutterEl, "dblclick", this.onMouseEvent.bind(this, "gutterdblclick"));
     event.addListener(gutterEl, "mousemove", this.onMouseEvent.bind(this, "guttermousemove"));
+
 };
 
 (function() {
@@ -12922,8 +12923,10 @@ var Range = require("../range").Range;
 var dom = require("../lib/dom");
 
 var Marker = function(parentEl) {
+    var x,u,d;
     this.element = dom.createElement("div");
     this.element.className = "ace_layer ace_marker-layer";
+
     parentEl.appendChild(this.element);
 };
 

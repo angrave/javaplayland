@@ -1,6 +1,7 @@
 class window.gameSelector
 	cont = null
 	constructor: (@div, @dis) ->
+		$("#acelne").remove()
 		tmp = document.createElement("div")
 		cont = $(tmp)
 		$(tmp).css(height:'100%', overflow:'auto',position:'relative','font-size':"20" + 'px')

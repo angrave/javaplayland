@@ -2,6 +2,7 @@ String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
 class window.EditorManager
+    acelne = null
     ###
         Manages the code editor.
     ###
@@ -87,7 +88,6 @@ class window.EditorManager
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
             jQuery('#deleteLine').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
 
-
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
         ed.onCursorMoveListener @onEditorCursorMove
@@ -156,6 +156,39 @@ class window.EditorManager
             Return true: continue event propogation
             Return false: stop event propogation
         ###
+        if acelne != null
+            gtop = $(".ace_active-line").offset().top
+            gleft = $(".ace_active-line").offset().left
+            gheight = $(".ace_active-line").height()
+            gwidth = $(".ace_active-line").width()
+            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
+        else
+            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
+               
+            acelne = document.createElement("div")
+
+            x = document.createElement("img")
+            $(x).attr({"src":"img/cx.png","class":"ace_xbutton"})  
+            u = document.createElement("img")
+            $(u).attr({"src":"img/ua.png","class":"ace_uparrow"})
+            d = document.createElement("img")
+            $(d).attr({"src":"img/da.png","class":"ace_downarrow"})
+            
+            $(acelne).append(x)
+            $(acelne).append(u)
+            $(acelne).append(d)
+
+            gtop = $(".ace_active-line").offset().top
+            gleft = $(".ace_active-line").offset().left
+            gheight = $(".ace_active-line").height()
+            gwidth = $(".ace_active-line").width()
+
+            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
+            $(acelne).attr({"id":"acelne"})
+
+            $("body").append(acelne)
+        
+
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
@@ -314,6 +347,7 @@ class window.PlayerCodeEditor
             if clickEvent.$pos.row < @codePrefixLength or\
                clickEvent.$pos.row >= @editSession.getLength() - @codeSuffixLength
                 inBounds = false
+
             return callback inBounds, clickEvent
             )
         return
