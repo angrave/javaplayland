@@ -28,6 +28,7 @@ class window.GameManager
         @gameDiv.append(editdiv)
         @gameDiv.append '<button id="refOpen" style="position:absolute;top:40%;right:45%">Reference</button>'
         @gameDiv.append '<button id="gmOp" style="position:absolute;top:48%;right:45%">Game Map</button>'
+        @gameDiv.append '<button id="about" style="position:absolute;top:56%;right:46%">About</button>'
         $(editdiv).append '<button id="compileAndRun">Go</button>'
         $(editdiv).append '<button id="resetState">Reset</button>'
         @gameDiv.append(vis)
@@ -122,6 +123,7 @@ class window.GameManager
         jQuery('#resetState').click @reset
         jQuery('#refOpen').click InitFloat
         jQuery('#gmOp').click codeland.showMap
+        jQuery('#about').click AboutPage
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
         @codeEditor.onCommandValidation @commandsValid
         return
