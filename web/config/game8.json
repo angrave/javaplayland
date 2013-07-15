@@ -27,7 +27,9 @@
     }
   },
   "code": {
-    "shorthand": ""
+    "shorthand": "",
+	"comments" : ["To solve this puzzle use the code buttons to create your own program.",
+	"Watch out! Your program can only use turnRight() a maximum of two times!"]
   },
   "game": {
     "characterBase": {

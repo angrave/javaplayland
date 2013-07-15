@@ -21,7 +21,11 @@
     }
   },
   "code": {
-    "shorthand": "RRggg"
+    "shorthand": "RRggg", 
+    "comments": [ "Writing two forward slashes at the start means this just a comment line.",
+      "We write comments in programs to help other programmers understand our code and ideas.",
+       "Comments are ignored when the program runs.",
+       "Time to play... Hint: Go back to go forward!" ]
   },
   "game": {
     "characterBase": {
@@ -35,13 +39,8 @@
       "y": 4
     }
   },
-  "help": [
-    "Time to debug this code!",
-    "This code has too many statements. Delete the unnecessary statements."
-  ],
+  
   "dyk": [
-    "When your code runs but does not work correctly you have a bug in your code!",
-    "Finding the cause and fixing the problem is called 'Debugging'"
   ],
   "depends": [
     "game2"
