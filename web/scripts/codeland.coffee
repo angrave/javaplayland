@@ -159,8 +159,8 @@ root.loadJSONConfigs = () ->
         async: false,
         error : ->
             configFail = true
-            console.log "Could not read quest1.json" 
-            
+            console.log "Could not read quest1.json"
+
         success: (data) ->
             root.quest = data
             for game in data.games
@@ -172,7 +172,7 @@ root.loadJSONConfigs = () ->
                         configFail = true
                         console.log "Could not read " + game + ':'+textStatus
                     success: (gameData) ->
-                        try 
+                        try
                             root.addToObject root.gameDefaults, gameData
                             root.convertShorthandToCode gameData
                             root.addHintsToCode gameData
@@ -220,27 +220,31 @@ root.convertShorthandToCode = (gameData) ->
             result = re.exec shorthand
             if result != null
                 if initial != ''
-                    initial += '();\n'
+                    last = initial.substring(initial.length - 1)
+                    if last == ';'
+                        initial += '\n'
+                    else if last != '\n'
+                        initial += '();\n'
                 initial += short.repl
                 break
         if result == null
-            result = /\(.*\)/.exec shorthand
+            result = /\(.*?\)/.exec shorthand
             if result != null
                 initial += result[0] + ';'
         if result != null
-            shorthand = shorthand.substring result.length
+            shorthand = shorthand.substring result[0].length
         else
             shorthand = shorthand.substring 1
-    if initial.substring initial.length - 1 != ';'
+    if initial.substring(initial.length - 1) != ';'
         initial += '();'
     gameData.code.initial = initial
     return
 
-root.addHintsToCode = (gameData) -> 
+root.addHintsToCode = (gameData) ->
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
         one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
-        gameData.code.initial = one + '\n' + gameData.code.initial 
+        gameData.code.initial = one + '\n' + gameData.code.initial
 
 root.getGameDescriptions = ->
     if root.gameDescriptions?
