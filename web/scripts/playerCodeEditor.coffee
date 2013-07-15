@@ -2,11 +2,11 @@ String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
 class window.EditorManager
-    acelne = null
     ###
         Manages the code editor.
     ###
     constructor: (@editorDivId, @editorConfig, @codeConfig) ->
+        @acelne = null
         @onStudentCodeChangeCallback = null
         @commands = @editorConfig.commands
         @setUpEditor()
@@ -36,37 +36,37 @@ class window.EditorManager
 
         # New logic for up, down, and delete "buttons"
         if $.inArray('switchUp', @editorConfig.buttons) != -1
-            switchUpImg = 'img/ua-usable.png'
+            @switchUpImg = 'img/ua-usable.png'
         else
-            switchUpImg = 'img/ua.png'
+            @switchUpImg = 'img/ua.png'
         if $.inArray('switchDown', @editorConfig.buttons) != -1
-            switchDownImg = 'img/da-usable.png'
+            @switchDownImg = 'img/da-usable.png'
         else
-            switchDownImg = 'img/da.png'
+            @switchDownImg = 'img/da.png'
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
-            deleteImg = 'img/cx-usable.png'
+            @deleteImg = 'img/cx-usable.png'
         else
-            deleteImg = 'img/cx/png'
-
-        lineEditingButtons = jQuery '<div>', {id: 'lineEdit'}
-        swUp = jQuery '<div>', {id: 'switchUp', class: 'switchUp'}
-        swUp.css 'background-image', "url(#{switchUpImg});"
-        lineEditingButtons.append swUp.get 0
-
-        del = jQuery '<div>', {id: 'deleteLine', class: 'deleteLine'}
-        del.css 'background-image', "url(#{deleteImg});"
-        lineEditingButtons.append del.get 0
-
-        swDown = jQuery '<div>', {id: 'switchDown', class: 'switchDown'}
-        swDown.css 'background-image', "url(#{switchDownImg});"
-        lineEditingButtons.append swDown.get 0
-
-        editorDiv.append lineEditingButtons.get 0
+            @deleteImg = 'img/cx.png'
 
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
             @codeConfig.postfix, @editorConfig.freeformEditting
         @interpreter = new CodeInterpreter @commands
+
+        # Create editor buttons
+        @acelne = document.createElement("div")
+        x = document.createElement("img")
+        $(x).attr({"src":"#{@deleteImg}","class":"ace_xbutton"})
+        u = document.createElement("img")
+        $(u).attr({"src":"#{@switchUpImg}","class":"ace_uparrow"})
+        d = document.createElement("img")
+        $(d).attr({"src":"#{@switchDownImg}","class":"ace_downarrow"})
+        $(@acelne).append(x)
+        $(@acelne).append(u)
+        $(@acelne).append(d)
+        $(@acelne).attr({"id":"acelne"})
+        $(@acelne).css({"z-index": -1})
+        $("body").append(@acelne)
 
         @setUpInsertButtons()
         @addEventListeners()
@@ -104,13 +104,19 @@ class window.EditorManager
     addEventListeners: ->
         ed = @editor
         if $.inArray('switchUp', @editorConfig.buttons) != -1
-            jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
+            jQuery('.ace_uparrow').click ed.button ed.usesCurrentPosition ed.switchUp
+        else
+            jQuery('.ace_uparrow').click ed.editor.focus
 
         if $.inArray('switchDown', @editorConfig.buttons) != -1
-            jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
+            jQuery('.ace_downarrow').click ed.button ed.usesCurrentPosition ed.switchDown
+        else
+            jQuery('.ace_downarrow').click ed.editor.focus
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
-            jQuery('#deleteLine').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
+            jQuery('.ace_xbutton').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
+        else
+            jQuery('.ace_xbutton').click ed.editor.focus
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
@@ -166,9 +172,51 @@ class window.EditorManager
         @onCommandRemainingValid? valid
         return
 
+    moveEditorButtons: =>
+        if @acelne != null
+            gtop = $(".ace_active-line").offset().top
+            gleft = $(".ace_active-line").offset().left
+            gheight = $(".ace_active-line").height()
+            gwidth = $(".ace_active-line").width()
+            $(@acelne).css(
+                {"position":"absolute","top":gtop,
+                "left":gleft,"width":gwidth,
+                "height":gheight, "z-index": 12})
+        else
+            @acelne = document.createElement("div")
+
+            x = document.createElement("img")
+            $(x).attr({"src":"#{@deleteImg}","class":"ace_xbutton"})
+            u = document.createElement("img")
+            $(u).attr({"src":"#{@switchUpImg}","class":"ace_uparrow"})
+            d = document.createElement("img")
+            $(d).attr({"src":"#{@switchDownImg}","class":"ace_downarrow"})
+
+            $(@acelne).append(x)
+            $(@acelne).append(u)
+            $(@acelne).append(d)
+
+            gtop = $(".ace_active-line").offset().top
+            gleft = $(".ace_active-line").offset().left
+            gheight = $(".ace_active-line").height()
+            gwidth = $(".ace_active-line").width()
+
+            $(@acelne).css(
+                {"position":"absolute",
+                "top":gtop, "left":gleft,
+                "width":gwidth, "height":gheight,
+                "z-index": 12})
+
+            $(@acelne).attr({"id":"acelne"})
+
+            $("body").append(@acelne)
+            return
+
     onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
+
+        setTimeout @moveEditorButtons, 20
 
         @parameterPopUp.hide()
         return
@@ -181,39 +229,6 @@ class window.EditorManager
             Return true: continue event propogation
             Return false: stop event propogation
         ###
-        if acelne != null
-            gtop = $(".ace_active-line").offset().top
-            gleft = $(".ace_active-line").offset().left
-            gheight = $(".ace_active-line").height()
-            gwidth = $(".ace_active-line").width()
-            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
-        else
-            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
-               
-            acelne = document.createElement("div")
-
-            x = document.createElement("img")
-            $(x).attr({"src":"img/cx.png","class":"ace_xbutton"})  
-            u = document.createElement("img")
-            $(u).attr({"src":"img/ua.png","class":"ace_uparrow"})
-            d = document.createElement("img")
-            $(d).attr({"src":"img/da.png","class":"ace_downarrow"})
-            
-            $(acelne).append(x)
-            $(acelne).append(u)
-            $(acelne).append(d)
-
-            gtop = $(".ace_active-line").offset().top
-            gleft = $(".ace_active-line").offset().left
-            gheight = $(".ace_active-line").height()
-            gwidth = $(".ace_active-line").width()
-
-            $(acelne).css({"position":"absolute","top":gtop,"left":gleft,"width":gwidth,"height":gheight})
-            $(acelne).attr({"id":"acelne"})
-
-            $("body").append(acelne)
-        
-
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
@@ -226,6 +241,9 @@ class window.EditorManager
                 return true
 
             commandInfo = @interpreter.scanCommand line
+            if commandInfo == null
+                clickEvent.stopPropagation()
+                return false
             command = commandInfo.command
             if command == null
                 @parameterPopUp.hide()
