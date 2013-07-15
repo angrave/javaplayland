@@ -4,12 +4,21 @@ if [ ! -d ../javaplayland/web/doppio-jvm ] ; then
     exit 1
 fi
 
-if [ ! -d ../javaplayland-web ] ; then
+if [ ! -d ../codemoo/ ] ; then
     echo 'No web target directory'
     exit 1
 fi
 
-rsync --exclude '*.DS_Store'  --exclude '*.git'  -av web/ ../javaplayland-web
 
-cp -pr gh-pages-config/ ../javaplayland-web/
-#git add -A ../javaplayland-web
+rsync --exclude '*.DS_Store'  --exclude '*.git'  -av web/ ../codemoo
+mv ../codemoo/index.html ../codemoo/index2.html
+
+cp -pr gh-pages-config/ ../codemoo/
+
+( cd ../codemoo; coffee -c scripts )
+( cd ../codemoo; coffee -c doppio-jvm/scripts/demo/ )
+
+
+( cd ../codemoo; git add -A . )
+
+echo \( cd ../codemoo\; git push origin gh-pages \)
