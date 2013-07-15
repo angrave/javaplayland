@@ -182,3 +182,22 @@ setUpJavaSandbox = (input, output) ->
     input.append run.get 0
     input.append abort.get 0
     return
+
+
+window.AboutPage = () ->
+    backFade = document.createElement("div")
+    refContainer = document.createElement("div")
+
+    $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
+    $(refContainer).css({width:'40%',height:'40%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+
+    $("body").prepend(backFade)
+    $(backFade).attr({id:'bF'})
+    $("body").prepend(refContainer)
+
+    closeClick = () ->
+        $(backFade).remove()
+        $(refContainer).remove()
+
+
+    $("#bF").click(closeClick)
