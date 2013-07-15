@@ -1,7 +1,7 @@
 {
-  "name": "Code Sequence Puzzle #8",
-  "description": "Create the correct sequence of code lines",
-  "task": "Work with parameters to functions!",
+  "name": "Puzzle #8",
+  "description": "Create your own recipe",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
