@@ -22,7 +22,10 @@
     }
   },
   "code": {
-    "shorthand": "gLgLgLggg"
+    "shorthand": "gLgLgLggg",
+    "comments": [ "Hint #1 There's more than one way to solve this puzzle",
+        "Hint #2 I wonder what happens if you go too far?",
+        "Hint #3 What will you do with each line? Up,Down,Delete?" ]
   },
   "game": {
     "characterBase": {
@@ -37,7 +40,7 @@
     }
   },
   "help": [
-    "Click on a command to change its <em>Parameters</em>"
+   
   ],
   "dyk": [],
   "depends": [
