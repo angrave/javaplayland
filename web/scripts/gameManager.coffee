@@ -394,6 +394,7 @@ class MapGameState
 
     gameWon: =>
         clearInterval clockHandle
+        playAudio 'victory.ogg'
         @stars += 1
         @score += 5
         @gameManager.gameWon @score, @stars
@@ -405,6 +406,7 @@ class MapGameState
         for name, character of @gameConfig.characters
             @visual.changeState character.index, 4
             character.moves = null
+        playAudio 'defeat.ogg'
         @startedGame = false
         alert "Try again!"
         clockHandle = setInterval @clock, 17
