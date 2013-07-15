@@ -23,13 +23,7 @@ class window.EditorManager
         editorDiv.append '<div id="ace-editor"></div>'
 
         if @editorConfig.buttons.length != 0
-            buttonField = jQuery('<div>', {id: 'buttons'})
-            if $.inArray('switchUp', @editorConfig.buttons) != -1
-                buttonField.append '<button id="switchUp">Up</button>'
-            if $.inArray('switchDown', @editorConfig.buttons) != -1
-                buttonField.append '<button id="switchDown">Down</button>'
-            if $.inArray('deleteLine', @editorConfig.buttons) != -1
-                buttonField.append '<button id="deleteLine">Delete</button>'
+            buttonField = jQuery '<div>', {id: 'buttons'}
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
                 buttonField.append '<br />'
                 buttonField.append jQuery('<div>', {
@@ -38,6 +32,36 @@ class window.EditorManager
             editorDiv.append buttonField.get 0
 
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
+        # New logic for up, down, and delete "buttons"
+        if $.inArray('switchUp', @editorConfig.buttons) != -1
+            switchUpImg = 'img/ua-usable.png'
+        else
+            switchUpImg = 'img/ua.png'
+        if $.inArray('switchDown', @editorConfig.buttons) != -1
+            switchDownImg = 'img/da-usable.png'
+        else
+            switchDownImg = 'img/da.png'
+        if $.inArray('deleteLine', @editorConfig.buttons) != -1
+            deleteImg = 'img/cx-usable.png'
+        else
+            deleteImg = 'img/cx/png'
+
+        lineEditingButtons = jQuery '<div>', {id: 'lineEdit'}
+        swUp = jQuery '<div>', {id: 'switchUp', class: 'switchUp'}
+        swUp.css 'background-image', "url(#{switchUpImg});"
+        lineEditingButtons.append swUp.get 0
+
+        del = jQuery '<div>', {id: 'deleteLine', class: 'deleteLine'}
+        del.css 'background-image', "url(#{deleteImg});"
+        lineEditingButtons.append del.get 0
+
+        swDown = jQuery '<div>', {id: 'switchDown', class: 'switchDown'}
+        swDown.css 'background-image', "url(#{switchDownImg});"
+        lineEditingButtons.append swDown.get 0
+
+        editorDiv.append lineEditingButtons.get 0
+
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
             @codeConfig.postfix, @editorConfig.freeformEditting
