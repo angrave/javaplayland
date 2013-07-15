@@ -103,6 +103,7 @@ root.storeGameCompletionData = (key, data) ->
     return
 
 root.showMap = () ->
+    root.currentGame.finishGame() if root.currentGame
     root.drawGameMap root.getPlayer()
     return
 

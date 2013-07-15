@@ -111,9 +111,12 @@ class window.GameManager
         return
 
     finishGame: ->
+        @gameState.stopGame()
         @codeEditor = null
         @interpreter = null
         @visual = null
+        @gameState = null
+        @commandMap = null
         return
 
     addEventListeners: ->
@@ -410,6 +413,15 @@ class MapGameState
         @startedGame = false
         alert "Try again!"
         clockHandle = setInterval @clock, 17
+        return
+
+    stopGame: =>
+        if clockHandle?
+            clearInterval clockHandle
+        for name, character of @gameConfig.characters
+            @visual.changeState character.index, 4
+            character.moves = null
+        @startedGame = false
         return
 
     computeStepInDirection: (direction, currentX, currentY) ->
