@@ -26,11 +26,11 @@ class window.GameManager
         $(vis).css({width:'35%',height:'90%','position':'absolute','top':'5%','right':'5%'})
 
         @gameDiv.append(editdiv)
-        @gameDiv.append '<button id="refOpen" style="position:absolute;top:40%;right:45%">Reference</button>'
-        @gameDiv.append '<button id="gmOp" style="position:absolute;top:48%;right:45%">Game Map</button>'
-        @gameDiv.append '<button id="about" style="position:absolute;top:56%;right:46%">About</button>'
-        $(editdiv).append '<button id="compileAndRun">Go</button>'
-        $(editdiv).append '<button id="resetState">Reset</button>'
+        @gameDiv.append '<img alt="Java reference" id="refOpen" style="position:absolute;top:40%;right:45%" src="/img/cc0/Spiral_bound_book-128px.png"/>'
+        @gameDiv.append '<img alt="Select level" id="gmOp" style="position:absolute;top:48%;right:45%" src="/img/cc0/treasuremap-128px.png">'
+        @gameDiv.append '<img alt="About" id="about" style="position:absolute;top:56%;right:46%" src="/img/freeware/info-48px.png"/>'
+        $(editdiv).append '<img alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png"/>'
+        $(editdiv).append '<img alt="Reset" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
         @gameDiv.append(vis)
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
