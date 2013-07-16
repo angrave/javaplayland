@@ -237,7 +237,7 @@ root.convertShorthandToCode = (gameData) ->
             shorthand = shorthand.substring result[0].length
         else
             shorthand = shorthand.substring 1
-    if initial.substring(initial.length - 1) != ';'
+    if shorthand != '' && initial.substring(initial.length - 1) != ';'
         initial += '();'
     gameData.code.initial = initial
     return
