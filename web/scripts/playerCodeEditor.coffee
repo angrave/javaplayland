@@ -26,10 +26,8 @@ class window.EditorManager
         if @editorConfig.buttons.length != 0
             buttonField = jQuery '<div>', {id: 'buttons'}
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
-                buttonField.append '<br />'
                 buttonField.append jQuery('<div>', {
                     id: 'insertButtons'}).get(0)
-            buttonField.append '<br />'
             editorDiv.append buttonField.get 0
 
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'

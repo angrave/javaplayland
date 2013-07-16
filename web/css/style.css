@@ -1,3 +1,19 @@
+#buttons {
+    width:97%;
+    position:absolute;
+    left:1.5%;
+    bottom:3%;
+    height: 12%;
+}
+
+#insertButtons {
+    height:100%;
+}
+
+button {
+    height:80%;
+}
+
 .ace_xbutton {
     float:right;
     margin:3px 3px 0 0;
