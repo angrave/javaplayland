@@ -29,7 +29,7 @@
   "code": {
     "shorthand": "",
 	"comments" : ["To solve this puzzle use the code buttons to create your own program.",
-	"Watch out! Your program can only use turnRight() a maximum of two times!"]
+	"Hint #1 You can write up to two turnRight() statements and one turnLeft()!"]
   },
   "game": {
     "characterBase": {
