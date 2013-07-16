@@ -161,24 +161,36 @@ setUpJavaSandbox = (input, output) ->
     log = console.log
     codeland.doppioAPI.setOutputFunctions stdout, log
 
-    run = jQuery '<button>', {
+    run = jQuery '<img>', {
         id: 'runCode',
-        text: 'Run',
+        src: '/img/freeware/button_play_green-48px.png',
+        alt: 'Run Button',
         click: (e) ->
-            textOutput.text ''
+            textOutput.text 'Running...'
+            jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
+           
             msg = ''
-            codeland.doppioAPI.run sandBoxEditor.getStudentCode()
+            finished_cb = ->           
+                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())            
+            codeland.doppioAPI.run sandBoxEditor.getStudentCode() finished_cb
+            
             e.preventDefault()
             return
     }
-    abort = jQuery '<button>', {
+    abort = jQuery '<img>', {
         id: 'abortCode',
-        text: 'Abort',
+        src: '/img/freeware/button_stop_red-48px.png',
+        alt: 'Abort Button',
         click: (e) ->
-            codeland.doppioAPI.abort()
+            aborted = -> 
+                stdout("Stopped")
+                jQuery('#runCode').show()
+                jQuery('#abortCode').hide()
+            codeland.doppioAPI.abort(aborted)
             e.preventDefault()
             return
     }
+    abort.hide()
     input.append run.get 0
     input.append abort.get 0
     return
