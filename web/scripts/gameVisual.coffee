@@ -72,14 +72,14 @@ class window.GameVisual
     startGame: (config) =>
         ar = config.animation.length
         objArray = []
-        for key, set of config.characters
+        for set in config.characters
             tmp = new charObj(imgArray[set.imgSet],set.dir,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
             objArray[objArray.length] = tmp
         return
 
     pushCharacter: (config, character) =>
         tmp = new charObj(imgArray[character.imgSet],character.dir,config.grid.border+(config.grid.gridUnit*character.x),config.grid.border+(config.grid.gridUnit*character.y),character.xOff,character.yOff,character.xSize,character.ySize)
-        objArray.push tmp
+        objArray[objArray.length] = tmp
 
     drawText = () ->
 

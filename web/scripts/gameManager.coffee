@@ -59,25 +59,22 @@ class window.GameManager
             achar = map.substring 0, 1
             if achar of @config.game.key
                 name = @config.game.key[achar]
-                character = @generateCharacter name, x, y
-                @config.game.characters[name] = character.game
-                @config.visual.characters[name] = character.visual
+                @generateCharacter name, x, y, true
             if achar == '\n'
                 y++
                 x = @config.game.offset.x
             else
                 x++
             map = map.substring 1
+        for key, character of @config.game.characters
+            character.index = @config.visual.characters.indexOf character.visual
         return
 
-    generateCharacter: (name, x, y, dir) ->
-        if not @characterIndex?
-            @characterIndex = 0
+    generateCharacter: (name, x, y, staysOnReset, dir) ->
         base = deepcopy @config.game.characterBase[name]
         visualBase = deepcopy @config.visual.visualBase[base.sprite]
         base.x = x
         base.y = y
-        base.index = @characterIndex
         visualBase.x = x
         visualBase.y = y
         if dir?
@@ -95,7 +92,21 @@ class window.GameManager
                 num++
                 name = baseName + num
                 numLength = num.toString().length
-        @characterIndex++
+        visualBase.name = name
+        base.visual = visualBase
+        if staysOnReset
+            if name == 'gflag'
+                @config.visual.characters.unshift visualBase
+            else if name == 'protagonist'
+                if @config.visual.characters.length > 0
+                    if @config.visual.characters[0].name = 'gflag'
+                        gflag = @config.visual.characters.shift()
+                        @config.visual.characters.unshift visualBase
+                        @config.visual.characters.unshift gflag
+                else @config.visual.characters.push visualBase
+            else
+                @config.visual.characters.push visualBase
+            @config.game.characters[name] = base
         return {'game': base, 'visual': visualBase}
 
     gameWon: (score, stars) ->
@@ -118,7 +129,7 @@ class window.GameManager
         return
 
     finishGame: ->
-        @gameState.stopGame()
+        @gameState?.stopGame()
         @codeEditor = null
         @interpreter = null
         @visual = null
@@ -234,7 +245,7 @@ class MapGameState
     leaveTrail: (placeTrail) ->
         if placeTrail? and not @protagonistDoneMoving
             char = @gameManager.generateCharacter 'trail',
-                placeTrail.x, placeTrail.y
+                placeTrail.x, placeTrail.y, false
             @visual.pushCharacter @gameManager.config.visual, char.visual
         return
 
