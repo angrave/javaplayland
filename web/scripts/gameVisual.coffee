@@ -148,15 +148,19 @@ class window.GameVisual
             $(lyr1).css("height",cobj.height())
             $(lyr2).css("width",cobj.height())
             $(lyr2).css("height",cobj.height())
-            tdist = $(lyr1).parent().parent().height() - cobj.height()
+            tdist = cobj.width() - cobj.height()
+            tdist = tdist / 2
+            $(lyr1).css({"left":tdist,"top":"0"})
+            $(lyr2).css({"left":tdist,"top":"0"})
         else
             $(lyr1).css("width",cobj.width())
             $(lyr1).css("height",cobj.width())
             $(lyr2).css("width",cobj.width())
             $(lyr2).css("height",cobj.width())
-            tdist = $(lyr1).parent().parent().height() - cobj.width()
-        tdist = tdist / 2
-        #$(lyr1).parent().css({"top":tdist})
+            tdist = cobj.height() - cobj.width()
+            tdist = tdist / 2
+            $(lyr2).css({"top":tdist,"left":"0"})
+            $(lyr1).css({"top":tdist,"left":"0"})
 
         if $(lyr1).css("z-index") == "3"
             @drawFrame(lyr2,config)
