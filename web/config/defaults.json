@@ -54,14 +54,14 @@
         "sprite": "gflag",
         "trigger": "victory"
       },
-      "pitGuard": {
-        "sprite": "guard",
-        "dir": 2,
+      "pit": {
+        "sprite": "pit",
+        "dir": 0,
         "trigger": "loss",
         "blocks": [
-          "guards"
+            "guards"
         ],
-        "group": "guards"
+        "group": "environment"
       },
       "guard": {
         "sprite": "guard",
@@ -75,7 +75,7 @@
     "key": {
       "P": "protagonist",
       "F": "gflag",
-      "X": "pitGuard",
+      "X": "pit",
       "G": "guard"
     }
   },
@@ -102,6 +102,13 @@
         "yOff": 2,
         "xSize": 26,
         "ySize": 26
+      },
+      "pit": {
+        "imgSet": 3,
+        "xOff": 0,
+        "yOff": 0,
+        "xSize": 30,
+        "ySize": 30
       }
     },
     "gameType": "grid",
