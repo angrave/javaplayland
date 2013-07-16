@@ -71,6 +71,9 @@ class window.DoppioApi
             Runs the given Java Code.
             Note, this does not recognize classes.
         ###
+        if @rs != null
+            @log? 'Already Running, not re-starting run'
+            return
         start_time = (new Date()).getTime()
         @log? 'Starting Run'
         fname = 'program.bsh'
