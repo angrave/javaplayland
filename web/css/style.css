@@ -18,7 +18,8 @@
     position: relative !important;
     border: 1px solid lightgray;
     height: 80%;
-    width: 100%;
+    width: 97%;
+    margin: 1.5% 0 0 1.5%;
 }
 
 .game_visual {

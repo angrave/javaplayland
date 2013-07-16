@@ -65,7 +65,7 @@ class window.EditorManager
         $(@acelne).append(u)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
-        $(@acelne).css({"z-index": -1})
+        $(@acelne).css({"display": "none"})
         $('body').append @acelne
 
         @setUpInsertButtons()
@@ -185,7 +185,7 @@ class window.EditorManager
             {"width":aglw,"height":aglh,"z-index": 20,
             "background-color":"white","position":"absolute",
             "right":aglpl,"bottom":aglh,"top":"#{offset.top}px",
-            "left":"#{offset.left}px"})
+            "left":"#{offset.left}px","display": "block"})
         return
 
     onEditorCursorMove: (cursorEvent) =>
