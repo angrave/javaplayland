@@ -167,6 +167,7 @@ setUpJavaSandbox = (input, output) ->
         src: '/img/freeware/button_play_green-48px.png',
         css: {'max-height':'19%', 'display':'block'},
         alt: 'Run Button',
+        title:'Run the program',
         click: (e) ->
             textOutput.text 'Running...'
             jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
@@ -184,6 +185,7 @@ setUpJavaSandbox = (input, output) ->
         src: '/img/freeware/button_stop_red-48px.png',
         css: {'max-height':'19%', 'display':'block'},
         alt: 'Abort Button',
+        title: 'Stop the currently running program',
         click: (e) ->
             aborted = ->
                 stdout("Stopped")
