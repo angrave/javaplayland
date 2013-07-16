@@ -54,35 +54,14 @@ class window.GameManager
     interpretGameConfigMap: ->
         x = @config.game.offset.x
         y = @config.game.offset.y
-        index = 0
         map = @config.game.map
         while map != ""
             achar = map.substring 0, 1
             if achar of @config.game.key
                 name = @config.game.key[achar]
-                base = deepcopy @config.game.characterBase[name]
-                visualBase = deepcopy @config.visual.visualBase[base.sprite]
-                base.x = x
-                base.y = y
-                base.index = index
-                visualBase.x = x
-                visualBase.y = y
-                if base.dir?
-                    visualBase.dir = base.dir
-                # In case another copy of this character already exists:
-                baseName = name
-                numLength = 1
-                while name of @config.game.characters
-                    if name == baseName
-                        name = name + '1'
-                    else
-                        num = parseInt name.substring(name.length - numLength), 10
-                        num++
-                        name = baseName + num
-                        numLength = num.toString().length
-                @config.game.characters[name] = base
-                @config.visual.characters[name] = visualBase
-                index++
+                character = @generateCharacter name, x, y
+                @config.game.characters[name] = character.game
+                @config.visual.characters[name] = character.visual
             if achar == '\n'
                 y++
                 x = @config.game.offset.x
@@ -90,6 +69,34 @@ class window.GameManager
                 x++
             map = map.substring 1
         return
+
+    generateCharacter: (name, x, y, dir) ->
+        if not @characterIndex?
+            @characterIndex = 0
+        base = deepcopy @config.game.characterBase[name]
+        visualBase = deepcopy @config.visual.visualBase[base.sprite]
+        base.x = x
+        base.y = y
+        base.index = @characterIndex
+        visualBase.x = x
+        visualBase.y = y
+        if dir?
+            base.dir = dir
+        if base.dir?
+            visualBase.dir = base.dir
+        # In case another copy of this character already exists:
+        baseName = name
+        numLength = 1
+        while name of @config.game.characters
+            if name == baseName
+                name = name + '1'
+            else
+                num = parseInt name.substring(name.length - numLength), 10
+                num++
+                name = baseName + num
+                numLength = num.toString().length
+        @characterIndex++
+        return {'game': base, 'visual': visualBase}
 
     gameWon: (score, stars) ->
         log "Game Won: #{@environment.key}"
@@ -193,10 +200,11 @@ class MapGameState
 
     clock: =>
         @tick++
-        if @startedGame and @tick % 30 == 0
-            @checkEvents @protagonistDoneMoving
-            for name, character of @gameConfig.characters
-                @runCharacterCommand character
+        if @startedGame
+            if @tick % 30 == 0
+                @checkEvents @protagonistDoneMoving
+                for name, character of @gameConfig.characters
+                    @runCharacterCommand character
         @visual.getFrame @gameManager.config.visual, @tick
         return
 
@@ -221,6 +229,13 @@ class MapGameState
             @runCharacterCommand character
         else
             @score++
+        return
+
+    leaveTrail: (placeTrail) ->
+        if placeTrail? and not @protagonistDoneMoving
+            char = @gameManager.generateCharacter 'trail',
+                placeTrail.x, placeTrail.y
+            @visual.pushCharacter @gameManager.config.visual, char.visual
         return
 
     checkEvents: (protagonistDoneMoving) ->
@@ -298,6 +313,8 @@ class MapGameState
         hitEvent = @checkCanMove(newx, newy, character)
         if !hitEvent
             @visual.changeState character.index, character.dir
+            if character == @protagonist
+                @leaveTrail {'x': character.x, 'y': character.y}
             character.x = newx
             character.y = newy
             moved = true
