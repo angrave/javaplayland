@@ -66,7 +66,6 @@ class window.EditorManager
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
         $(@acelne).css({"z-index": -1})
-        $("body").append(@acelne)
 
         @setUpInsertButtons()
         @addEventListeners()
@@ -173,44 +172,8 @@ class window.EditorManager
         return
 
     moveEditorButtons: =>
-        if @acelne != null
-            gtop = $(".ace_active-line").offset().top
-            gleft = $(".ace_active-line").offset().left
-            gheight = $(".ace_active-line").height()
-            gwidth = $(".ace_active-line").width()
-            $(@acelne).css(
-                {"position":"absolute","top":gtop,
-                "left":gleft,"width":gwidth,
-                "height":gheight, "z-index": 12})
-        else
-            @acelne = document.createElement("div")
-
-            x = document.createElement("img")
-            $(x).attr({"src":"#{@deleteImg}","class":"ace_xbutton"})
-            u = document.createElement("img")
-            $(u).attr({"src":"#{@switchUpImg}","class":"ace_uparrow"})
-            d = document.createElement("img")
-            $(d).attr({"src":"#{@switchDownImg}","class":"ace_downarrow"})
-
-            $(@acelne).append(x)
-            $(@acelne).append(u)
-            $(@acelne).append(d)
-
-            gtop = $(".ace_active-line").offset().top
-            gleft = $(".ace_active-line").offset().left
-            gheight = $(".ace_active-line").height()
-            gwidth = $(".ace_active-line").width()
-
-            $(@acelne).css(
-                {"position":"absolute",
-                "top":gtop, "left":gleft,
-                "width":gwidth, "height":gheight,
-                "z-index": 12})
-
-            $(@acelne).attr({"id":"acelne"})
-
-            $("body").append(@acelne)
-            return
+        
+        return
 
     onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
@@ -229,11 +192,20 @@ class window.EditorManager
             Return true: continue event propogation
             Return false: stop event propogation
         ###
+        row = clickEvent.$pos.row
+
+        $('.ace_gutter-layer').children().eq(row).append(@acelne)
+
+        aglw = $('.ace_gutter-layer').width()
+        aglh = $('.ace_gutter-cell').height()
+        aglpl = $('.ace_gutter-cell').css("padding-left")
+
+        $(@acelne).css({"width":aglw,"height":aglh,"z-index": 20,"background-color":"white","position":"relative","right":aglpl,"bottom":aglh})
+
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
         if inBounds
-            row = clickEvent.$pos.row
             line = clickEvent.editor.getSession().getLine row
             rowLength = line.length
             if rowLength == 0
