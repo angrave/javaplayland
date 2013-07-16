@@ -173,7 +173,7 @@ setUpJavaSandbox = (input, output) ->
             msg = ''
             finished_cb = ->           
                 jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())            
-            codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),'', finished_cb)
+            codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
             
             e.preventDefault()
             return
