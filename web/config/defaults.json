@@ -54,12 +54,15 @@
         "sprite": "gflag",
         "trigger": "victory"
       },
+      "trail": {
+        "sprite": "dot"
+      },
       "pit": {
         "sprite": "pit",
         "dir": 0,
         "trigger": "loss",
         "blocks": [
-            "guards"
+          "guards"
         ],
         "group": "environment"
       },
@@ -96,6 +99,14 @@
         "xSize": 26,
         "ySize": 26
       },
+      "dot": {
+        "dir": 0,
+        "imgSet": 4,
+        "xOff": 10,
+        "yOff": 10,
+        "xSize": 10,
+        "ySize": 10
+      },
       "guard": {
         "imgSet": 2,
         "xOff": 2,
@@ -104,6 +115,7 @@
         "ySize": 26
       },
       "pit": {
+        "dir": 0,
         "imgSet": 3,
         "xOff": 0,
         "yOff": 0,

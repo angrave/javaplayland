@@ -32,6 +32,9 @@
     ],
     "pit": [
       "img/pit2.png"
+    ],
+    "dot": [
+      "img/dot.png"
     ]
   },
   "possible chars": "npc3, 4, 6, skl1, avt1, 2, 3, 4 - Guard"

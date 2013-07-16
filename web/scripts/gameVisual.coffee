@@ -77,6 +77,9 @@ class window.GameVisual
             objArray[objArray.length] = tmp
         return
 
+    pushCharacter: (config, character) =>
+        tmp = new charObj(imgArray[character.imgSet],character.dir,config.grid.border+(config.grid.gridUnit*character.x),config.grid.border+(config.grid.gridUnit*character.y),character.xOff,character.yOff,character.xSize,character.ySize)
+        objArray.push tmp
 
     drawText = () ->
 
@@ -170,7 +173,7 @@ class window.GameVisual
 
     drawChar: (frame) ->
         td = frame.getContext('2d')
-        for obj in objArray
+        for obj in objArray by -1
             img = obj.current(@ticker)
             td.drawImage(img,obj.xpos+obj.xOff,obj.ypos+obj.yOff,obj.xSize,obj.ySize)
         return
