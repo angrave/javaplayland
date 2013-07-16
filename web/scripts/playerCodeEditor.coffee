@@ -66,6 +66,7 @@ class window.EditorManager
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
         $(@acelne).css({"z-index": -1})
+        $('body').append @acelne
 
         @setUpInsertButtons()
         @addEventListeners()
@@ -172,14 +173,27 @@ class window.EditorManager
         return
 
     moveEditorButtons: =>
-        
+        row = @editor.editor.getCursorPosition().row
+
+        offset = $('.ace_gutter-layer').children().eq(row).position()
+        $('.ace_gutter').append(@acelne)
+        aglw = $('.ace_gutter-layer').width()
+        aglh = $('.ace_gutter-cell').height()
+        aglpl = $('.ace_gutter-cell').css("padding-left")
+
+        $(@acelne).css(
+            {"width":aglw,"height":aglh,"z-index": 20,
+            "background-color":"white","position":"absolute",
+            "right":aglpl,"bottom":aglh,"top":"#{offset.top}px",
+            "left":"#{offset.left}px"})
         return
 
     onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
-        setTimeout @moveEditorButtons, 20
+        if not @movingButtons
+            setTimeout @moveEditorButtons, 20
 
         @parameterPopUp.hide()
         return
@@ -193,15 +207,6 @@ class window.EditorManager
             Return false: stop event propogation
         ###
         row = clickEvent.$pos.row
-
-        $('.ace_gutter-layer').children().eq(row).append(@acelne)
-
-        aglw = $('.ace_gutter-layer').width()
-        aglh = $('.ace_gutter-cell').height()
-        aglpl = $('.ace_gutter-cell').css("padding-left")
-
-        $(@acelne).css({"width":aglw,"height":aglh,"z-index": 20,"background-color":"white","position":"relative","right":aglpl,"bottom":aglh})
-
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
@@ -369,7 +374,7 @@ class window.PlayerCodeEditor
         return
 
     onCursorMoveListener: (callback) ->
-        @editSession.getSelection().on 'changeCursor', callback
+        @editor.on 'changeSelection', callback
         return
 
     switchUp: ({currentRow, currentColumn}) ->
