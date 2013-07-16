@@ -69,7 +69,7 @@ window.InitFloat = ->
 
     $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
     $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
-    $(output).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
+    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
 
     $(refContainer).prepend(dictionary)
     $(refContainer).prepend(input)
@@ -165,6 +165,7 @@ setUpJavaSandbox = (input, output) ->
     run = jQuery '<img>', {
         id: 'runCode',
         src: '/img/freeware/button_play_green-48px.png',
+        style: 'max-height:19%;display:block',
         alt: 'Run Button',
         click: (e) ->
             textOutput.text 'Running...'
@@ -181,6 +182,7 @@ setUpJavaSandbox = (input, output) ->
     abort = jQuery '<img>', {
         id: 'abortCode',
         src: '/img/freeware/button_stop_red-48px.png',
+        style: 'max-height:19%;display:block',
         alt: 'Abort Button',
         click: (e) ->
             aborted = -> 
