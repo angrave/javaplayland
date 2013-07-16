@@ -66,7 +66,7 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         @log? "Untarring took a total of #{end_untar-start_untar}ms."
 
-    run: (studentCode, finished_cb) =>
+    run: (studentCode, beanshellWrapperName, finished_cb) =>
         ###
             Runs the given Java Code.
             Note, this does not recognize classes.
@@ -76,8 +76,8 @@ class window.DoppioApi
         fname = 'program.bsh'
         node.fs.writeFileSync(fname, studentCode)
         stdin = -> "\n"
-        if @beanshellWrapperName?
-            class_args = [@beanshellWrapperName]
+        if beanshellWrapperName?
+            class_args = [beanshellWrapperName]
         else
             class_args = [fname]
         finish_cb = =>
@@ -103,7 +103,7 @@ class window.DoppioApi
             cb = =>
                 @log? 'Aborted Successfully'
                 @rs = null
-                finished_cb()
+                finished_cb() if finished_cb?
             @rs.async_abort(cb)
         else
             @log? 'No Run Detected'
