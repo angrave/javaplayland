@@ -69,10 +69,7 @@ window.InitFloat = ->
 
     $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
     $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
-    $(output).css(
-        {width:'50%',height:'40%',position:'absolute',
-        right:'5%',top:'50%','border':'1px solid black',
-        "overflow":"auto"})
+    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black',"overflow":"auto"})
 
     $(refContainer).prepend(dictionary)
     $(refContainer).prepend(input)
@@ -124,7 +121,7 @@ window.InitFloat = ->
 
         $(dictionary).animate({width:'35%',height:'90%',opacity:'1'})
         $(input).animate({width:'50%',height:'40%',opacity:'1'})
-        $(output).animate({width:'50%',height:'45%',opacity:'1',top:'50%'})
+        $(output).animate({width:'50%',height:'40%',opacity:'1',top:'50%'})
 
         $(".en").hover(enHover,lvHover)
         $(".en").click(enClick)
