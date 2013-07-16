@@ -186,6 +186,8 @@ class MapGameState
         @protagonist = @gameConfig.characters.protagonist
         @target = @gameConfig.characters.gflag
         @tick = 0
+        @tock = 0
+        @waitTime = 8
 
         for name, character of @gameConfig.characters
             if character.AI? and character.moves?
@@ -222,10 +224,11 @@ class MapGameState
                     for name, character of @gameConfig.characters
                         @visual.changeState character.index, 4
                     @waiting = false
-            if not @waiting and (@tick - 10) % 30 == 0
-                @tick -= 11
-        @visual.getFrame @gameManager.config.visual, @tick
+            if not @waiting and (@tick - @waitTime) % 30 == 0
+                @tick -= @waitTime + 1
+        @visual.getFrame @gameManager.config.visual, @tock
         @tick++
+        @tock++
         return
 
     runCharacterCommand: (character) ->
