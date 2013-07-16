@@ -66,7 +66,7 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         @log? "Untarring took a total of #{end_untar-start_untar}ms."
 
-    run: (studentCode) =>
+    run: (studentCode, finished_cb) =>
         ###
             Runs the given Java Code.
             Note, this does not recognize classes.
@@ -86,13 +86,14 @@ class window.DoppioApi
                 @log? 'Finished Run'
                 @log? "Took #{end_time - start_time}ms."
                 @rs = null
+            finished_cb()
             return
 
         @rs = new runtime.RuntimeState(@stdout, stdin, @bs_cl)
         jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
         return
 
-    abort: =>
+    abort: (finished_cb)=>
         ###
             Abort the current run.
         ###
@@ -102,6 +103,7 @@ class window.DoppioApi
             cb = =>
                 @log? 'Aborted Successfully'
                 @rs = null
+                finished_cb()
             @rs.async_abort(cb)
         else
             @log? 'No Run Detected'
