@@ -156,7 +156,7 @@ class window.GameVisual
             $(lyr2).css("height",cobj.width())
             tdist = $(lyr1).parent().parent().height() - cobj.width()
         tdist = tdist / 2
-        $(lyr1).parent().css({"top":tdist})
+        #$(lyr1).parent().css({"top":tdist})
 
         if $(lyr1).css("z-index") == "3"
             @drawFrame(lyr2,config)
