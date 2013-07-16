@@ -197,6 +197,7 @@ class MapGameState
             clearInterval clockHandle
         clockHandle = setInterval @clock, 17
         @startedGame = false
+        @waiting = false
         if not waitForCode then @start()
         return
 
@@ -210,13 +211,21 @@ class MapGameState
         return
 
     clock: =>
-        @tick++
         if @startedGame
             if @tick % 30 == 0
-                @checkEvents @protagonistDoneMoving
-                for name, character of @gameConfig.characters
-                    @runCharacterCommand character
+                if not @waiting
+                    @checkEvents @protagonistDoneMoving
+                    for name, character of @gameConfig.characters
+                        @runCharacterCommand character
+                    @waiting = true
+                else
+                    for name, character of @gameConfig.characters
+                        @visual.changeState character.index, 4
+                    @waiting = false
+            if not @waiting and (@tick - 10) % 30 == 0
+                @tick -= 11
         @visual.getFrame @gameManager.config.visual, @tick
+        @tick++
         return
 
     runCharacterCommand: (character) ->
