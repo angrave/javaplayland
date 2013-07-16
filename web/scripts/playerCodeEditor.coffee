@@ -177,7 +177,7 @@ class window.EditorManager
             gtop = $(".ace_active-line").offset().top
             gleft = $(".ace_active-line").offset().left
             gheight = $(".ace_active-line").height()
-            gwidth = $(".ace_active-line").width()
+            gwidth = $(".ace_scroller").width()
             $(@acelne).css(
                 {"position":"absolute","top":gtop,
                 "left":gleft,"width":gwidth,
