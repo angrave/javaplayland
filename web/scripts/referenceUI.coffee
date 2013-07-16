@@ -71,7 +71,7 @@ window.InitFloat = ->
     $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
     #$(ref).css({width:'35%',height:'30%',position:'absolute',left:'5%',top:'5',bottom:'80%','border':'1px solid black'})
     $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
-    $(output).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
+    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black',"overflow":"auto"})
 
     $(refContainer).prepend(dictionary)
     #$(refContainer).prepend(ref)
@@ -115,6 +115,7 @@ window.InitFloat = ->
     closeClick = () ->
         $(backFade).remove()
         $(refContainer).remove()
+        codeland.doppioAPI.abort()
     clClick = () ->
         $(this).unbind()
 
@@ -165,24 +166,75 @@ setUpJavaSandbox = (input, output) ->
     log = console.log
     codeland.doppioAPI.setOutputFunctions stdout, log
 
-    run = jQuery '<button>', {
+    run = jQuery '<img>', {
         id: 'runCode',
-        text: 'Run',
+        src: '/img/freeware/button_play_green-48px.png',
+        css: {'max-height':'19%', 'display':'block'},
+        alt: 'Run Button',
+        title:'Run the program',
         click: (e) ->
-            textOutput.text ''
+            textOutput.text 'Running...'
+            jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
+
             msg = ''
-            codeland.doppioAPI.run sandBoxEditor.getStudentCode()
+            finished_cb = ->
+                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())
+            codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
+
             e.preventDefault()
             return
     }
-    abort = jQuery '<button>', {
+    abort = jQuery '<img>', {
         id: 'abortCode',
-        text: 'Abort',
+        src: '/img/freeware/button_stop_red-48px.png',
+        css: {'max-height':'19%', 'display':'block'},
+        alt: 'Abort Button',
+        title: 'Stop the currently running program',
         click: (e) ->
-            codeland.doppioAPI.abort()
+            aborted = ->
+                stdout("Stopped")
+                jQuery('#runCode').show()
+                jQuery('#abortCode').hide()
+            codeland.doppioAPI.abort(aborted)
             e.preventDefault()
             return
     }
+    abort.hide()
     input.append run.get 0
     input.append abort.get 0
     return
+
+
+window.AboutPage = () ->
+
+	closeClick = () ->
+    	$(backFade).remove()
+    	$(refContainer).remove()
+
+    backFade = document.createElement("div")
+    refContainer = document.createElement("div")
+
+    $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
+    $(refContainer).css({width:'40%',height:'40%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+
+    $("body").prepend(backFade)
+    $(backFade).attr({id:'bF'})
+    $("body").prepend(refContainer)
+
+    header = document.createElement("div")
+    para = document.createElement("div")
+
+    $(header).css({"font-size":"26px","position":"absolute","width":"50%","top":"5%","left":"25%","text-align":"center"})
+    $(para).css({"font-size":"14px","position":"absolute","width":"90%","bottom":"12%","left":"5%","text-align":"center"})
+
+
+    header.innerHTML = "Legal Terms and Attributions"
+    para.innerHTML = "Copyright 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
+    licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
+    (Spiral Bound book, star icon, cow eat grass, treasure map)<br />
+    <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a><br />Original Content is licensed under MIT Expat License
+    <br />Creative Commons Licenses from findicons.com are licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>"
+
+	$(refContainer).append(header)
+	$(refContainer).append(para)
+	$("#bF").click(closeClick)

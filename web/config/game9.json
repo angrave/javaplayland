@@ -1,7 +1,7 @@
 {
-  "name": "Code Sequence Puzzle #9",
-  "description": "Create the correct sequence of code lines",
-  "task": "Work with parameters to functions!",
+  "name": "Puzzle #9",
+  "description": "My awesome go method takes an integer parameter",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
@@ -27,7 +27,13 @@
     }
   },
   "code": {
-    "shorthand": ""
+    "shorthand": "g(6)",
+	"comments" : ["go,turnRight and turnLeft are called \"methods\".",
+	"I just made a new 'go' method for you.",
+	"This go method takes a single integer parameter.",
+	"See what you think of go(6) and decide if you like it!",
+	"(You can always change the integer to a different value)"
+	]
   },
   "game": {
     "characterBase": {

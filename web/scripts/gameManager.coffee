@@ -5,7 +5,7 @@ if not deepcopy?
 
 class window.GameManager
     constructor: (@environment) ->
-        @config = @environment.description
+        @config = deepcopy @environment.description
 
         @editorDiv = 'codeEditor'
         @visualDiv = 'gameVisual'
@@ -18,19 +18,24 @@ class window.GameManager
         @gameDiv = jQuery @environment.gamediv
         editdiv = document.createElement("div")
         vis = document.createElement("div")
+        butdiv = document.createElement("div")
 
         $(editdiv).attr({'id':@editorDiv,'class':'code_editor'})
-        $(editdiv).css({width:'35%',height:'90%','position':'absolute','top':'5%','left':'5%'})
-
-        $(vis).attr({'id':@visualDiv,'class':'game_visual'})
-        $(vis).css({width:'35%',height:'90%','position':'absolute','top':'5%','right':'5%'})
-
+        $(editdiv).css({width:'30%',height:'80%','position':'absolute','top':'10%','left':'32.5%',"background-color":"#003366","border":"2px double rgb(204, 153, 51)"})
+        $(editdiv).append '<img style="position:absolute;bottom:0%;right:80%;" alt="Play Button" title="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png"/>'
+        $(editdiv).append '<img style="position:absolute;bottom:0%;right:20%;" alt="Reset Button" title="Reset code" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
         @gameDiv.append(editdiv)
-        @gameDiv.append '<button id="refOpen" style="position:absolute;top:40%;right:45%">Reference</button>'
-        @gameDiv.append '<button id="gmOp" style="position:absolute;top:48%;right:45%">Game Map</button>'
-        $(editdiv).append '<button id="compileAndRun">Go</button>'
-        $(editdiv).append '<button id="resetState">Reset</button>'
+
+        $(vis).attr({'id':@visualDiv})
+        $(vis).css({width:'30%',height:'80%','position':'absolute','top':'10%','left':'65%',"background-color":"#003366","border":"2px double rgb(204, 153, 51)"})
         @gameDiv.append(vis)
+        
+        $(butdiv).css({width:'20%',height:'80%','position':'absolute','top':'10%','left':'2.5%',"background-color":"#003366","border":"2px double rgb(204, 153, 51)"})
+        $(butdiv).append '<img alt="Java reference" title="Open Java Book" id="refOpen" style="width:30%;height:20%;position:absolute;top:15%;left:40%" src="/img/cc0/Spiral_bound_book-128px.png"/>'
+        $(butdiv).append '<img alt="Select Level Button" title="Select Game" id="gmOp" style="width:30%;height:20%;position:absolute;top:40%;left:40%" src="/img/cc0/treasuremap-128px.png">'
+        $(butdiv).append '<img alt="About" id="about" title="About" style="width:30%;height:20%;position:absolute;top:65%;left:40%" src="/img/freeware/info-48px.png"/>'
+        @gameDiv.append(butdiv)
+        
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
         @interpreter = new CodeInterpreter @config.editor.commands
@@ -51,46 +56,62 @@ class window.GameManager
         return
 
     interpretGameConfigMap: ->
-        @config.game = deepcopy @config.game
-        @config.visual = deepcopy @config.visual
         x = @config.game.offset.x
         y = @config.game.offset.y
-        index = 0
         map = @config.game.map
         while map != ""
             achar = map.substring 0, 1
             if achar of @config.game.key
                 name = @config.game.key[achar]
-                base = deepcopy @config.game.characterBase[name]
-                visualBase = deepcopy @config.visual.visualBase[base.sprite]
-                base.x = x
-                base.y = y
-                base.index = index
-                visualBase.x = x
-                visualBase.y = y
-                if base.dir?
-                    visualBase.dir = base.dir
-                # In case another copy of this character already exists:
-                baseName = name
-                numLength = 1
-                while name of @config.game.characters
-                    if name == baseName
-                        name = name + '1'
-                    else
-                        num = parseInt name.substring(name.length - numLength), 10
-                        num++
-                        name = baseName + num
-                        numLength = num.toString().length
-                @config.game.characters[name] = base
-                @config.visual.characters[name] = visualBase
-                index++
+                @generateCharacter name, x, y, true
             if achar == '\n'
                 y++
                 x = @config.game.offset.x
             else
                 x++
             map = map.substring 1
+        for key, character of @config.game.characters
+            character.index = @config.visual.characters.indexOf character.visual
         return
+
+    generateCharacter: (name, x, y, staysOnReset, dir) ->
+        base = deepcopy @config.game.characterBase[name]
+        visualBase = deepcopy @config.visual.visualBase[base.sprite]
+        base.x = x
+        base.y = y
+        visualBase.x = x
+        visualBase.y = y
+        if dir?
+            base.dir = dir
+        if base.dir?
+            visualBase.dir = base.dir
+        # In case another copy of this character already exists:
+        baseName = name
+        numLength = 1
+        while name of @config.game.characters
+            if name == baseName
+                name = name + '1'
+            else
+                num = parseInt name.substring(name.length - numLength), 10
+                num++
+                name = baseName + num
+                numLength = num.toString().length
+        visualBase.name = name
+        base.visual = visualBase
+        if staysOnReset
+            if name == 'gflag'
+                @config.visual.characters.unshift visualBase
+            else if name == 'protagonist'
+                if @config.visual.characters.length > 0
+                    if @config.visual.characters[0].name = 'gflag'
+                        gflag = @config.visual.characters.shift()
+                        @config.visual.characters.unshift visualBase
+                        @config.visual.characters.unshift gflag
+                else @config.visual.characters.push visualBase
+            else
+                @config.visual.characters.push visualBase
+            @config.game.characters[name] = base
+        return {'game': base, 'visual': visualBase}
 
     gameWon: (score, stars) ->
         log "Game Won: #{@environment.key}"
@@ -112,9 +133,12 @@ class window.GameManager
         return
 
     finishGame: ->
+        @gameState?.stopGame()
         @codeEditor = null
         @interpreter = null
         @visual = null
+        @gameState = null
+        @commandMap = null
         return
 
     addEventListeners: ->
@@ -122,6 +146,7 @@ class window.GameManager
         jQuery('#resetState').click @reset
         jQuery('#refOpen').click InitFloat
         jQuery('#gmOp').click codeland.showMap
+        jQuery('#about').click AboutPage
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
         @codeEditor.onCommandValidation @commandsValid
         return
@@ -165,6 +190,8 @@ class MapGameState
         @protagonist = @gameConfig.characters.protagonist
         @target = @gameConfig.characters.gflag
         @tick = 0
+        @tock = 0
+        @waitTime = 8
 
         for name, character of @gameConfig.characters
             if character.AI? and character.moves?
@@ -176,6 +203,7 @@ class MapGameState
             clearInterval clockHandle
         clockHandle = setInterval @clock, 17
         @startedGame = false
+        @waiting = false
         if not waitForCode then @start()
         return
 
@@ -189,12 +217,22 @@ class MapGameState
         return
 
     clock: =>
+        if @startedGame
+            if @tick % 30 == 0
+                if not @waiting
+                    @checkEvents @protagonistDoneMoving
+                    for name, character of @gameConfig.characters
+                        @runCharacterCommand character
+                    @waiting = true
+                else
+                    for name, character of @gameConfig.characters
+                        @visual.changeState character.index, 4
+                    @waiting = false
+            if not @waiting and (@tick - @waitTime) % 30 == 0
+                @tick -= @waitTime + 1
+        @visual.getFrame @gameManager.config.visual, @tock
         @tick++
-        if @startedGame and @tick % 30 == 0
-            @checkEvents @protagonistDoneMoving
-            for name, character of @gameConfig.characters
-                @runCharacterCommand character
-        @visual.getFrame @gameManager.config.visual, @tick
+        @tock++
         return
 
     runCharacterCommand: (character) ->
@@ -220,9 +258,16 @@ class MapGameState
             @score++
         return
 
+    leaveTrail: (placeTrail) ->
+        if placeTrail? and not @protagonistDoneMoving
+            char = @gameManager.generateCharacter 'trail',
+                placeTrail.x, placeTrail.y, false
+            @visual.pushCharacter @gameManager.config.visual, char.visual
+        return
+
     checkEvents: (protagonistDoneMoving) ->
         # Just doing player collisions at the moment.
-        triggers = {"victory": @gameWon, "loss": @gameWon}
+        triggers = {"victory": @gameWon, "loss": @gameLost}
         for name, character of @gameConfig.characters
             if character == @protagonist
                 continue
@@ -295,6 +340,8 @@ class MapGameState
         hitEvent = @checkCanMove(newx, newy, character)
         if !hitEvent
             @visual.changeState character.index, character.dir
+            if character == @protagonist
+                @leaveTrail {'x': character.x, 'y': character.y}
             character.x = newx
             character.y = newy
             moved = true
@@ -394,6 +441,7 @@ class MapGameState
 
     gameWon: =>
         clearInterval clockHandle
+        playAudio 'victory.ogg'
         @stars += 1
         @score += 5
         @gameManager.gameWon @score, @stars
@@ -405,9 +453,19 @@ class MapGameState
         for name, character of @gameConfig.characters
             @visual.changeState character.index, 4
             character.moves = null
+        playAudio 'defeat.ogg'
         @startedGame = false
         alert "Try again!"
         clockHandle = setInterval @clock, 17
+        return
+
+    stopGame: =>
+        if clockHandle?
+            clearInterval clockHandle
+        for name, character of @gameConfig.characters
+            @visual.changeState character.index, 4
+            character.moves = null
+        @startedGame = false
         return
 
     computeStepInDirection: (direction, currentX, currentY) ->

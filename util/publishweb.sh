@@ -13,7 +13,9 @@ fi
 rsync --exclude '*.DS_Store'  --exclude '*.git'  -av web/ ../codemoo
 mv ../codemoo/index.html ../codemoo/index2.html
 
+rsync -av LICENSE.txt ../codemoo/
 cp -pr gh-pages-config/ ../codemoo/
+
 
 ( cd ../codemoo; coffee -c scripts )
 ( cd ../codemoo; coffee -c doppio-jvm/scripts/demo/ )
