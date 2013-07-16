@@ -72,7 +72,62 @@
 			"Not Equal to (!=)": {
 				"NotEqualToDef": "Evaluates to true if the two given objects are different, false otherwise\n\nint size = 5;\nif(size != 10)\n\nThe code above first assigns the value of 5 to size, then checks and evaluates to see if size is not equal to 10. Since it is not equal to 10, the boolean expression will evaluate true"
 			}
+			,
+			"Greater than (>)": {
+				"GreaterDef": "Evaluates true if first object is greater than the second object, false otherwise\n\nint speed = 25;\nif(speed > 50)\n\nThe Code above assigns 25 to speed, then checks to see if speed is greater than 50. Since it is not, the boolean expression will evaluate to false"
+			}
+			,
+			"Less than (<)": {
+				"LessDef": "Evaluates true if first object is less than second object, false otherwise\n\nint grade = 6;\nif(grade < 8)\n\n The code above assigns 6 to grade, then checkcs and evaluates if grade is less than 9. Since it is, the boolean expression evaluates to true"
+			}
+			,
+			"Greater than or equal to (>=)": {
+				"GTETDef": "Evaluates true if first object is greater than or equal to second object, false otherwise\n\nint height = 5;\nif(height >= 5)\n\n The code above assigns 5 to height, then checks if height is greater than or equal to 5. Since it is equal, the boolean expression evaluates to true"
+			}
+			,
+			"Less than or equal to (<=)": {
+				"LTETDef": "Evaluates true if first object is less than or equal to the second object, false otherwise\n\nint width = 3;\nif(width <= 2)\n\nThe code assigns 3 to width, then checks and evaluates if width is less than or equal to 2. Since it is not, then boolean expression evaluates to false"
+			}
 		}
-
+		,
+		"Logical Operators": {
+			"LogicalDef": "Logical operators are applied to multiple boolean expressions to form compound boolean expressions evaluates to either true or false"
+			,
+			"NOT (!)": {
+				"NotDef": "Inverses the given boolean value. Evaluates to true if the given boolean expression is initially false, false otherwise\n\nboolean found = false;\nif(!found)\n\nThe code above assigns false to found, then inverses it so the boolean expression evaluates to true"
+			}
+			,
+			"AND (&&)": {
+				"AndDef": "Evaluates to true if all given boolean expressions evaluates to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x < 5 && y == false)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since both expressions evaluate to true, the overall boolean will evaluate to true"
+			}
+			,
+			"OR (||)": {
+				"OrDef": "Evaluates to true if at laest one of the given boolean expressions evalaute to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x > 2 || y)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since x is greater than 2, the overall boolean will evalaute to true"
+			}
+			,
+			"Extra Notes": {
+				"LogicalExtraNotesDef": "If there is a combination of logical operators, evalaute them one at a time, from left to right\n\nint x = 10;\nboolean y = false;\nint z = 15;\nif(x < 11 && y == true || z > 10)\n\nIn the code above, the first boolean expression, x < 11 will evalaute to true. THe second boolean expression will evalaute to false, since y is false. Since the first two boolean expressions are combined with an AND operator, that makes the first two compound expression evalaute to false. The third boolean expression, z > 10 is true, and since the first two compound expressions are linked to the third with an OR operator, the overall expression will evaluate to true"
+			}
+		}
+	}
+	,
+	"Conditionls": {
+		"CondDef": "Selection control structure that enables decision-making ability in a program based on certain pre-defined conditions"
+		,
+		"If else statements": {
+			"IfElseDef": "Conditions given to a program to execute selected commands\n\nint x = 6;\nif(x == 6)\n\tSystem.out.println(\"1\");\nelse if(x == 5)\n\tSystem.out.println(\"2\");\nelse\n\tSystem.out.println(\"3\");\n\nIn the code above, 1 will be printed because since x is 6, it satisfies the if condition, so only the codes immediately following the if statement will be executed, and the else if and else will be ignored. If x was assigned to be 5 however, the if statement will first be ignored, and when it comes to the else if, since it satisfies the condition, 2 will be printed and the else statement will be ignored. Lastly, if x was assigned to be any other value other than 6 and 5, the if and else if statements will be ignored, and upon reaching the else statement, the else statement accepts any value not accepted by preceding if and else if statements, so 4 will be printed"
+		}
+		,
+		"Loops": {
+			"LoopDef": "Performs certain commands multiple times based on a certain condition"
+			,
+			"For Loops": {
+				"ForDef": "Given a variable, increments or decrement the variable by a certain amount until it reaches a certain condition, while during that process, everytime a changes, certain lines of codes are executed\n\nfor(int i = 0; i < 10; i++)\n\tSystem.out.print(\"i\");\n\nIn the code above, the integer i is first initialized to be 0. THen it checks and see if i is less than 10. Since it is, it goes into the body of the for loop, and executes the System.out.print statement. Then it increments i by 1, and checks the condition i < 10 again. Then the loop will repeat itself until the condition fails, where it will then exit the loop. So \"0123456789\" will be printed"
+			}
+			,
+			"While Loops": {
+				"WhileDef": "Given a certain condition, perform certain commands multiple times\n\nint x = 0;\nwhile(x < 10)\n\tSystem.out.print(x++);\n\nIn the code above, x is declared as 0, then it will check if x is less than 10. Since it is, it will increment x by 1, and print the value. The While Loop will continue to do this until x >= 10, where the loop will then exit. So \"12345678910\" will be printed"
+			}
+		}
 	}
 }
