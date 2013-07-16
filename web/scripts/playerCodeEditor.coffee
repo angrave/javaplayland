@@ -6,6 +6,7 @@ class window.EditorManager
         Manages the code editor.
     ###
     constructor: (@editorDivId, @editorConfig, @codeConfig) ->
+        @acelne = null
         @onStudentCodeChangeCallback = null
         @commands = @editorConfig.commands
         @setUpEditor()
@@ -23,13 +24,7 @@ class window.EditorManager
         editorDiv.append '<div id="ace-editor"></div>'
 
         if @editorConfig.buttons.length != 0
-            buttonField = jQuery('<div>', {id: 'buttons'})
-            if $.inArray('switchUp', @editorConfig.buttons) != -1
-                buttonField.append '<button id="switchUp">Up</button>'
-            if $.inArray('switchDown', @editorConfig.buttons) != -1
-                buttonField.append '<button id="switchDown">Down</button>'
-            if $.inArray('deleteLine', @editorConfig.buttons) != -1
-                buttonField.append '<button id="deleteLine">Delete</button>'
+            buttonField = jQuery '<div>', {id: 'buttons'}
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
                 buttonField.append '<br />'
                 buttonField.append jQuery('<div>', {
@@ -38,10 +33,40 @@ class window.EditorManager
             editorDiv.append buttonField.get 0
 
         editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
+        # New logic for up, down, and delete "buttons"
+        if $.inArray('switchUp', @editorConfig.buttons) != -1
+            @switchUpImg = 'img/ua-usable.png'
+        else
+            @switchUpImg = 'img/ua.png'
+        if $.inArray('switchDown', @editorConfig.buttons) != -1
+            @switchDownImg = 'img/da-usable.png'
+        else
+            @switchDownImg = 'img/da.png'
+        if $.inArray('deleteLine', @editorConfig.buttons) != -1
+            @deleteImg = 'img/cx-usable.png'
+        else
+            @deleteImg = 'img/cx.png'
+
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
             @codeConfig.postfix, @editorConfig.freeformEditting
         @interpreter = new CodeInterpreter @commands
+
+        # Create editor buttons
+        @acelne = document.createElement("div")
+        x = document.createElement("img")
+        $(x).attr({"src":"#{@deleteImg}","class":"ace_xbutton"})
+        u = document.createElement("img")
+        $(u).attr({"src":"#{@switchUpImg}","class":"ace_uparrow"})
+        d = document.createElement("img")
+        $(d).attr({"src":"#{@switchDownImg}","class":"ace_downarrow"})
+        $(@acelne).append(x)
+        $(@acelne).append(u)
+        $(@acelne).append(d)
+        $(@acelne).attr({"id":"acelne"})
+        $(@acelne).css({"z-index": -1})
+        $('body').append @acelne
 
         @setUpInsertButtons()
         @addEventListeners()
@@ -79,14 +104,19 @@ class window.EditorManager
     addEventListeners: ->
         ed = @editor
         if $.inArray('switchUp', @editorConfig.buttons) != -1
-            jQuery('#switchUp').click ed.button ed.usesCurrentPosition ed.switchUp
+            jQuery('.ace_uparrow').click ed.button ed.usesCurrentPosition ed.switchUp
+        else
+            jQuery('.ace_uparrow').click ed.editor.focus
 
         if $.inArray('switchDown', @editorConfig.buttons) != -1
-            jQuery('#switchDown').click ed.button ed.usesCurrentPosition ed.switchDown
+            jQuery('.ace_downarrow').click ed.button ed.usesCurrentPosition ed.switchDown
+        else
+            jQuery('.ace_downarrow').click ed.editor.focus
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
-            jQuery('#deleteLine').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
-
+            jQuery('.ace_xbutton').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
+        else
+            jQuery('.ace_xbutton').click ed.editor.focus
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
@@ -142,11 +172,31 @@ class window.EditorManager
         @onCommandRemainingValid? valid
         return
 
+    moveEditorButtons: =>
+        row = @editor.editor.getCursorPosition().row
+
+        offset = $('.ace_gutter-layer').children().eq(row).position()
+        $('.ace_gutter').append(@acelne)
+        aglw = $('.ace_gutter-layer').width()
+        aglh = $('.ace_gutter-cell').height()
+        aglpl = $('.ace_gutter-cell').css("padding-left")
+
+        $(@acelne).css(
+            {"width":aglw,"height":aglh,"z-index": 20,
+            "background-color":"white","position":"absolute",
+            "right":aglpl,"bottom":aglh,"top":"#{offset.top}px",
+            "left":"#{offset.left}px"})
+        return
+
     onEditorCursorMove: (cursorEvent) =>
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
+        if not @movingButtons
+            setTimeout @moveEditorButtons, 20
+
         @parameterPopUp.hide()
+        return
 
     onEditorClick: (inBounds, clickEvent) =>
         ###
@@ -156,11 +206,11 @@ class window.EditorManager
             Return true: continue event propogation
             Return false: stop event propogation
         ###
+        row = clickEvent.$pos.row
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
         if inBounds
-            row = clickEvent.$pos.row
             line = clickEvent.editor.getSession().getLine row
             rowLength = line.length
             if rowLength == 0
@@ -168,6 +218,9 @@ class window.EditorManager
                 return true
 
             commandInfo = @interpreter.scanCommand line
+            if commandInfo == null
+                clickEvent.stopPropagation()
+                return false
             command = commandInfo.command
             if command == null
                 @parameterPopUp.hide()
@@ -226,6 +279,7 @@ class window.EditorManager
 
             @parameterPopUp.show()
             setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
+            clickEvent.stopPropagation()
             return false
         else
             @parameterPopUp.hide()
@@ -314,12 +368,13 @@ class window.PlayerCodeEditor
             if clickEvent.$pos.row < @codePrefixLength or\
                clickEvent.$pos.row >= @editSession.getLength() - @codeSuffixLength
                 inBounds = false
+
             return callback inBounds, clickEvent
             )
         return
 
     onCursorMoveListener: (callback) ->
-        @editSession.getSelection().on 'changeCursor', callback
+        @editor.on 'changeSelection', callback
         return
 
     switchUp: ({currentRow, currentColumn}) ->

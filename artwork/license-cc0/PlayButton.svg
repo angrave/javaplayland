@@ -1,0 +1,36 @@
+<svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:undefined="http://www.inkscape.org/namespaces/inkscape">
+ <defs>
+  <linearGradient y2="0.35881" x2="0.56406" y1="0.94506" x1="0.67219" id="imagebot_48" xlink:href="#imagebot_63"/>
+  <linearGradient y2="1.00002" x2="0.49998" y1="-0.00003" x1="0.49998" id="imagebot_50" xlink:href="#imagebot_63"/>
+  <filter id="imagebot_54">
+   <feGaussianBlur id="imagebot_194" stdDeviation="1.54827" />
+  </filter>
+  <linearGradient id="imagebot_191">
+   <stop stop-color="#286a27" id="imagebot_193" offset="0"/>
+   <stop stop-color="#264826" id="imagebot_192" offset="1"/>
+  </linearGradient>
+  <linearGradient y2="-0.01797" x2="0.49954" y1="1.03449" x1="0.49954" id="imagebot_57" xlink:href="#imagebot_191"/>
+  <linearGradient id="imagebot_188">
+   <stop stop-color="#8fe68c" id="imagebot_190" offset="0"/>
+   <stop stop-color="#29902b" id="imagebot_189" offset="1"/>
+  </linearGradient>
+  <radialGradient r="37.70889" fy="-27.63166" fx="531.03717" cy="-27.63166" cx="531.03717" gradientTransform="matrix(0.870558, 0, 0, 0.870558, 18.85, -130.374)" gradientUnits="userSpaceOnUse" id="imagebot_56" xlink:href="#imagebot_188"/>
+  <linearGradient id="imagebot_63">
+   <stop stop-color="#ffffff" offset="0" id="imagebot_141"/>
+   <stop stop-color="#ffffff" stop-opacity="0" offset="1" id="imagebot_140"/>
+  </linearGradient>
+ </defs>
+ <g id="imagebot_2" label="Layer 1">
+  <g label="Play" transform="translate(-58.8438, -0.0117188) matrix(0.67755, 0, 0, 0.6764, -242.967, 135.545)" id="imagebot_46">
+   <path fill="url(#imagebot_56)" fill-rule="nonzero" stroke="url(#imagebot_57)" stroke-width="2.95432" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="0" id="imagebot_55" d="M516.858,-164.682 A35.7089,35.7089 0 1,1 516.85,-165.418"/>
+   <g id="imagebot_51" transform="translate(-54.858701,58.82327)">
+    <path opacity="0.5" fill="#000000" fill-rule="nonzero" stroke="#000000" stroke-width="3.076" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="0" filter="url(#imagebot_54)" id="imagebot_53" d="M523.42303,-241.28365L523.42303,-202.95888L556.35974,-221.9749L523.42303,-241.28365z"/>
+    <path fill="#d6ffdc" fill-rule="nonzero" stroke="#33543c" stroke-width="3.07619" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="0" d="M521.65521,-243.05142L521.65521,-204.72664L554.59198,-223.74268L521.65521,-243.05142z" id="imagebot_52"/>
+   </g>
+   <path fill="url(#imagebot_50)" fill-rule="nonzero" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="0" id="imagebot_49" d="M581.24176,-21.20122A23.68808,17.85445 0 1 1 533.8656,-21.20122A23.68808,17.85445 0 1 1 581.24176,-21.20122z" transform="matrix(1.0149254,0,0,1.039604,-84.726682,-157.13675)"/>
+   <path fill="url(#imagebot_48)" fill-rule="nonzero" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="4" stroke-dashoffset="0" d="M451.4166,-150.26926C458.51779,-134.47141 476.85907,-126.84623 493.16943,-133.22124C509.47092,-139.59274 517.78137,-157.61841 512.30579,-174.03735C507.88171,-162.93147 499.03207,-153.62636 487.02783,-148.93445C475.01193,-144.23796 462.20569,-145.09352 451.4166,-150.26926z" id="imagebot_47"/>
+  </g>
+  <title>Layer 1</title>
+ </g>
+ <metadata></metadata>
+</svg>
