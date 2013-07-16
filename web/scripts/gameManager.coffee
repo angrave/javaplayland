@@ -186,6 +186,8 @@ class MapGameState
         @protagonist = @gameConfig.characters.protagonist
         @target = @gameConfig.characters.gflag
         @tick = 0
+        @tock = 0
+        @waitTime = 8
 
         for name, character of @gameConfig.characters
             if character.AI? and character.moves?
@@ -197,6 +199,7 @@ class MapGameState
             clearInterval clockHandle
         clockHandle = setInterval @clock, 17
         @startedGame = false
+        @waiting = false
         if not waitForCode then @start()
         return
 
@@ -210,13 +213,22 @@ class MapGameState
         return
 
     clock: =>
-        @tick++
         if @startedGame
             if @tick % 30 == 0
-                @checkEvents @protagonistDoneMoving
-                for name, character of @gameConfig.characters
-                    @runCharacterCommand character
-        @visual.getFrame @gameManager.config.visual, @tick
+                if not @waiting
+                    @checkEvents @protagonistDoneMoving
+                    for name, character of @gameConfig.characters
+                        @runCharacterCommand character
+                    @waiting = true
+                else
+                    for name, character of @gameConfig.characters
+                        @visual.changeState character.index, 4
+                    @waiting = false
+            if not @waiting and (@tick - @waitTime) % 30 == 0
+                @tick -= @waitTime + 1
+        @visual.getFrame @gameManager.config.visual, @tock
+        @tick++
+        @tock++
         return
 
     runCharacterCommand: (character) ->

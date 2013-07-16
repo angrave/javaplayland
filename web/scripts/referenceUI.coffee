@@ -69,7 +69,7 @@ window.InitFloat = ->
 
     $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
     $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
-    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
+    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black',"overflow":"auto"})
 
     $(refContainer).prepend(dictionary)
     $(refContainer).prepend(input)
@@ -165,27 +165,27 @@ setUpJavaSandbox = (input, output) ->
     run = jQuery '<img>', {
         id: 'runCode',
         src: '/img/freeware/button_play_green-48px.png',
-        style: 'max-height:19%;display:block',
+        css: {'max-height':'19%', 'display':'block'},
         alt: 'Run Button',
         click: (e) ->
             textOutput.text 'Running...'
             jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
-           
+
             msg = ''
-            finished_cb = ->           
-                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())            
+            finished_cb = ->
+                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())
             codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
-            
+
             e.preventDefault()
             return
     }
     abort = jQuery '<img>', {
         id: 'abortCode',
         src: '/img/freeware/button_stop_red-48px.png',
-        style: 'max-height:19%;display:block',
+        css: {'max-height':'19%', 'display':'block'},
         alt: 'Abort Button',
         click: (e) ->
-            aborted = -> 
+            aborted = ->
                 stdout("Stopped")
                 jQuery('#runCode').show()
                 jQuery('#abortCode').hide()
@@ -200,7 +200,7 @@ setUpJavaSandbox = (input, output) ->
 
 
 window.AboutPage = () ->
-	
+
 	closeClick = () ->
     	$(backFade).remove()
     	$(refContainer).remove()
@@ -223,11 +223,11 @@ window.AboutPage = () ->
 
 
     header.innerHTML = "Legal Terms and Attributions"
-    para.innerHTML = "Copyright 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are 
+    para.innerHTML = "Copyright 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
     licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
     (Spiral Bound book, star icon, cow eat grass, treasure map)<br />
     <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a><br />Original Content is licensed under MIT Expat License
-    <br />Creative Commons Licenses from findicons.com are licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>"	
+    <br />Creative Commons Licenses from findicons.com are licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>"
 
 	$(refContainer).append(header)
 	$(refContainer).append(para)
