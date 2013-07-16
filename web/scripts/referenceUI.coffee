@@ -8,7 +8,7 @@ dictionary item that is clicked in the list.
 window.dictionary = (text,cont) ->
     #appends a div for the paragraph content, to be further developed to contain code snippets and videos
     info = document.createElement("div")
-    $(info).css({"width":"100%","height":"35%","position":"absolute","top":"65%","border-top":"1px solid black"})
+    $(info).css({"overflow":"auto","white-space": "pre-wrap", "width":"100%","height":"35%","position":"absolute","top":"65%","border-top":"1px solid black"})
     $(cont).append(info)
     #the attache function accepts a key and data and creates the content for the info div
     attache = (k,d) ->
@@ -64,20 +64,24 @@ window.InitFloat = ->
     $("body").prepend(refContainer)
 
     dictionary = document.createElement("div")
+    ref = document.createElement("div")
     input = document.createElement("div")
     output = document.createElement("div")
 
     $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
+    #$(ref).css({width:'35%',height:'30%',position:'absolute',left:'5%',top:'5',bottom:'80%','border':'1px solid black'})
     $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
     $(output).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'50%','border':'1px solid black'})
 
     $(refContainer).prepend(dictionary)
+    #$(refContainer).prepend(ref)
     $(refContainer).prepend(input)
     $(refContainer).prepend(output)
 
     en1 = document.createElement("img")
     en2 = document.createElement("img")
     en3 = document.createElement("img")
+    en4 = document.createElement("img")
 
     $(en1).attr({'src':'img/enlarge1.png',class:'en'})
     $(en2).attr({'src':'img/enlarge1.png',class:'en'})
@@ -133,7 +137,7 @@ window.InitFloat = ->
     $(".en").click(enClick)
     $("#bF").click(closeClick)
 
-    window.dictionary("config/dictionary.json",dictionary)
+    window.dictionary("dictionary.json",dictionary)
 
     setUpJavaSandbox input, output
     return
