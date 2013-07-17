@@ -22,7 +22,7 @@
   },
   "code": {
     "shorthand": "RRggg",
-    "comments" : [
+    "comments" : [ "Puzzle #2",
      "English uses ! for commands : Fetch the Ball! Run!\nbut notice Java statements end with a semicolon ; instead"
      ]
   },
