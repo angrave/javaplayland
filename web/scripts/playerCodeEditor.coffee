@@ -300,6 +300,10 @@ class window.EditorManager
         @parameterPopUp.hide()
         return
 
+    editorGoToLine: (row) ->
+        @editor.gotoLine row
+        return
+
 
 class window.PlayerCodeEditor
     ###
@@ -337,6 +341,11 @@ class window.PlayerCodeEditor
 
     getStudentCode: ->
         return @editor.getValue()
+
+    gotoLine: (row) ->
+        column = @editor.getCursorPosition().column
+        @editor.gotoLine row, column, true
+        return
 
     enableKeyboardShortcuts: ->
         ###

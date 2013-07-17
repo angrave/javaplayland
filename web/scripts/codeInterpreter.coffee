@@ -33,6 +33,7 @@ class window.CodeInterpreter
 
     executeCommands: (commandMap) ->
         for commandCard in @commandStack
+            commandCard.parameters.push commandCard.line
             commandMap[commandCard.command].apply commandMap, commandCard.parameters
         commandMap.finishedParsingStartGame()
         return
@@ -48,7 +49,7 @@ class window.CodeInterpreter
         for command of @commands
             @usesRemaining[command] = @commands[command]['maxUses']
 
-        currentLine = 0
+        currentLine = 1
         while text != ""
             result = null
             for command of @commands
@@ -56,7 +57,11 @@ class window.CodeInterpreter
                 if result != null
                     @usesRemaining[command]--
                     parameters = @processCommand command, result[1]
-                    @commandStack.push {command: command, parameters: parameters}
+                    @commandStack.push {
+                        command: command,
+                        parameters: parameters,
+                        line: currentLine
+                    }
                     break
 
             if result == null
