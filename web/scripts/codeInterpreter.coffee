@@ -64,18 +64,32 @@ class window.CodeInterpreter
                     }
                     break
 
+            # Remove whitespace
             if result == null
                 result = /^\s+/.exec text
                 if result != null
                     if result[0].indexOf('\n') != -1
                         currentLine++
 
+            # Recognize a semicolon
             if result == null
                 result = /^;/.exec text
 
+            # Ignore single comments
             if result == null
-                # We do not recognize this line, ignore it.
-                result = /^.*\n/.exec text
+                result = /^\/\/.*(?:\n || $)/.exec text
+                if result != null
+                    currentLine++
+
+            # Ignore Mult-Line comments
+            if result == null
+                result = /^\/\*(.*\n)*\*\//.exec text
+                if result != null
+                    currentLine++
+
+            # We do not recognize this line, ignore it.
+            if result == null
+                result = /^.*(?:\n || $)/.exec text
                 if result != null
                     currentLine++
 
