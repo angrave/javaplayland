@@ -23,13 +23,14 @@
   "code": {
     "shorthand": "RRggg", 
     "comments": [ "Puzzle #3", "Notice the two forward slashes, \"//\" on the left?",
-       "They mean this text is just a comment.",
+       "The slashes mean this text is just a comment, not executable code.",
    
       "We write comments in programs to help other programmers ", 
       "or ourselves understand our code and ideas and choices we made.",
        "Comments are ignored when the program runs.",
-       "For programmers though, they are often worth reading.",
-       "Time to play... Hint: Go back to go forward!" ]
+       "For programmers though, they are often worth reading.","",
+       "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!",
+       "Yes - It is possible!" ]
   },
   "game": {
     "characterBase": {
