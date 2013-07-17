@@ -28,8 +28,8 @@
 			"StringDef": "String is a variable type that is used to store a sequence of characters or numbers\n\nString s = \"Hello World!\";\n\nThis will create a String variable s that will store the value \"Hello World!\""
 		}
 		,
-		"Null": {
-			"NullDef": "Null is the default value that will be set to any uninitialized variables\n\nint y;\n\nThis will create an int variable y that will be null since it is not initialized"
+		"null": {
+			"nullDef": "Null is a special value for reference variables\n\nString s = null;\n\nThis will create an String variable s that will be null meaning that s does not point to any particular String object."
 		}
 	}
 	,
@@ -126,7 +126,7 @@
 			}
 			,
 			"While Loops": {
-				"WhileDef": "Given a certain condition, perform certain commands multiple times\n\nint x = 0;\nwhile(x < 10)\n\tSystem.out.print(x++);\n\nIn the code above, x is declared as 0, then it will check if x is less than 10. Since it is, it will increment x by 1, and print the value. The While Loop will continue to do this until x >= 10, where the loop will then exit. So \"12345678910\" will be printed"
+				"WhileDef": "Given a certain condition, perform certain commands multiple times<pre>\n\nint x = 0;\nwhile(x < 10)\n{\tSystem.out.print(x);\n\tx=x+1;\n}\n</pre>In the code above, x is declared as 0, then it will check if x is less than 10. Each time round the loop it will print the x value and increment x by 1. The While loop will repeat this code until x is 10. So \"123456789\" will be printed"
 			}
 		}
 	}

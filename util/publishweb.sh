@@ -11,16 +11,19 @@ fi
 
 
 rsync --exclude '*.DS_Store'  --exclude '*.git'  -av web/ ../codemoo
-mv ../codemoo/index.html ../codemoo/index2.html
+mv ../codemoo/index.html ../codemoo/index2.html 
+perl -p -i -e "s/WebTrafficAnalyticsHere/script/g"  ../codemoo/index2.html
 
 rsync -av LICENSE.txt ../codemoo/
 cp -pr gh-pages-config/ ../codemoo/
+rm ../codemoo/_*
+
 
 
 ( cd ../codemoo; coffee -c scripts )
 ( cd ../codemoo; coffee -c doppio-jvm/scripts/demo/ )
 
 
-( cd ../codemoo; git add -A . )
-
+#( cd ../codemoo; git add -A . )
+#( cd ../codemoo; git commit -m 'Publish' )
 echo \( cd ../codemoo\; git push origin gh-pages \)
