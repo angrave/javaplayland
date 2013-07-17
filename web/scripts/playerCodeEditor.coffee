@@ -186,7 +186,9 @@ class window.EditorManager
         offset = aglh*row
 
         $(@acelne).css(
-            {"width":"15px";"max-height":aglh*2.6,"z-index": 20,"position":"relative","top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
+            {"width":"15px";"max-height":aglh*2.6,
+            "z-index": 20,"position":"relative",
+            "top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
             "left":"32px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
