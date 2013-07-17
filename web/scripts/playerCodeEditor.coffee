@@ -64,14 +64,9 @@ class window.EditorManager
         $(@acelne).append(x)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
-        $(@acelne).css({"display": "none"})
-        $('body').append @acelne
-        soffset = () ->
-            t = $("#acelne").position().top - $(".ace_scrollbar").scrollTop() + @poffset
-            $("#acelne").css({"top": t+"px"})
-            @poffset = $(".ace_scrollbar").scrollTop()
-
-        $(".ace_scrollbar").scroll(() -> soffset())
+        $(@acelne).css({"display": "block"})
+        $('.ace_editor').append(@acelne)
+        $(".ace_scrollbar").scroll(() => @moveEditorButtons())
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
@@ -176,18 +171,21 @@ class window.EditorManager
         @onCommandRemainingValid? valid
         return
 
-    moveEditorButtons: =>
+    moveEditorButtons: () =>
         row = @editor.editor.getCursorPosition().row
-
-        $('.ace_editor').append(@acelne)
+        maxrows = @editor.editSession.getLength()
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
-        aglpl = $('.ace_gutter-cell').css("padding-left")
         offset = aglh*row
+
+        if maxrows == row + 1
+            $(".ace_downarrow").css({"display":"none"})
+        else
+            $(".ace_downarrow").css({"display":"block"})
 
         $(@acelne).css(
             {"width":"15px";"max-height":aglh*2.6,"z-index": 20,"position":"relative","top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
-            "left":"32px","display": "block"})
+            "left":aglw-15+"px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
 
@@ -196,7 +194,7 @@ class window.EditorManager
             @parameterPopUp = jQuery('#parameter-pop-up')
 
         if not @movingButtons
-            setTimeout @moveEditorButtons, 20
+            setTimeout @moveEditorButtons, 0
 
         @parameterPopUp.hide()
         return
