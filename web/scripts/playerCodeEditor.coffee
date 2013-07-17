@@ -181,7 +181,7 @@ class window.EditorManager
             {"width":"15px";"max-height":aglh*2.6,
             "z-index": 20,"position":"relative",
             "top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
-            "left":"32px","display": "block"})
+            "left":aglw-15+"px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
 
