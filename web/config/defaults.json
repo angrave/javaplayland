@@ -89,7 +89,8 @@
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,
-        "ySize": 26
+        "ySize": 26,
+        "animated": false
       },
       "gflag": {
         "dir": 0,
@@ -97,7 +98,8 @@
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,
-        "ySize": 26
+        "ySize": 26,
+        "animated": true
       },
       "dot": {
         "dir": 0,
@@ -105,14 +107,16 @@
         "xOff": 10,
         "yOff": 10,
         "xSize": 10,
-        "ySize": 10
+        "ySize": 10,
+        "animated": false
       },
       "guard": {
         "imgSet": 2,
         "xOff": 2,
         "yOff": 2,
         "xSize": 26,
-        "ySize": 26
+        "ySize": 26,
+        "animated": true
       },
       "pit": {
         "dir": 0,
@@ -120,7 +124,8 @@
         "xOff": 0,
         "yOff": 0,
         "xSize": 30,
-        "ySize": 30
+        "ySize": 30,
+        "animated": false
       }
     },
     "gameType": "grid",
