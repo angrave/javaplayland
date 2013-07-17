@@ -1,54 +1,46 @@
 {
 	"Basic Syntax": {
 		"Semicolons": {
-			"SemColDef": "The end of all Java codes will typically end with a semicolon(;), with several exceptions such as loops or conditional statements\n\nint x = 2;\ny = x + 7;\nreturn x;"
+			"SemColDef": "You separate most Java statements with a semicolon(;),\n<code>int x=5;\nSystem.out.print(x+10);\nreturn x>3;</code>.\nGotchas\nDon't add a semicolon after while or if. <code>int x=0;\nwhile(x<10)<b>;</b>\nx=x+1;\nSystem.out.println(\"The loop runs forever (x will always be zero)...\");</code>"
 		}
 		,
-		"Brackets": {
-			"BracketDef": "Whenever there is a open bracket (left bracket) to contain certain lines of code, there must be a close bracket (right bracket) to compliment and contain the lines of code\n\nif(x > 5) {\n\tif(y < 6) {\n\t\treturn x+y;\n\t}\n}"
+		"Brackets and Parentheses": {
+			"BracketDef": "Java uses three kinds of brackets [] {} and () and they each mean something different. You need to use them in matching pairs. For example <tt>((1+2)/2</tt> is incomplete because it is missing the closing ). <li>Parentheses () are used to group mathematical expressions and also to call a method.</li><li>Calling a method may take no parameters (e.g. <tt>turnLeft()</tt>), or one or more parameters <tt>go(3) Math.max(2,3)</tt>.</li><li>\"Squiggly brackets\" {} are used to group a sequence of statements into a method, or group a sequence of statements to be used by a loop or if condition.</li><li>Square brackets [] are used to select an item from an array.</li>Gotchas\nMake sure you use the right one otherwise the compiler will get confused and complain."
 		}
 	}
 	,
 	"Variables": {
-		"VarDef": "Variables in Java are essentially the same as variables in mathematics in the sense that they are used to represent a value"
+		"VarDef": "Java variables store something in memory and have a name so you can use it's value again later. There are two kinds primitives or references to an object (we will call them pointers). A primitive variable means the bit sequence stored in memory represents a value. Java supports a handful of primitive types, including int,boolean,char,float and double. These types tell the Java machine how to represent and store a value as bits. The boolean type can only store <tt>true</tt> or <tt>false</tt>. An int type can store an integer value between -two billion and +two billion.<br>Pointers are special.  They don't hold a value directly. Instead they store the memory address of where to find an object i.e. they point to another item in memory. Pointers can hold the special value <tt>null</tt> (meaning they don't point to anything) but primitives cannot. "
 		,
+		"Primitive Types" : {
 		"Integer": {
 			"IntDef": "Integer is a variable type that is used to store integer values\n\nint x = 6;\n\nThis will create an int variable x, and set its value to the integer 6"
 		}
 		,
 		"Double": {
-			"DoubleDef": "Double is a variable typn that is used to store floating-point numbers, also commonly known as decimal numbers\n\ndouble tempDoub = 3.14;\n\nThis will create a double variable tempDoub, and set its value to the decimal 3.14"
+			"DoubleDef": "Double is a variable type that is used to store floating-point numbers, also commonly known as decimal numbers\n\ndouble temp = 3.14;\n\nThis will create a double variable temp, and set its value to the decimal 3.14"
 		}
 		,
 		"Boolean": {
 			"BoolDef": "Boolean is a variable type that is used to store one of two values, either true or false\n\nboolean bool = false;\n\nThis will create a boolean variable bool, and set its value to false"
 		}
-		,
+		} ,
+		"Pointers": {
+		"Arrays" :  "An array pointer points to a sequence of values. For example, \n<code>int[] ptr = new int[] {1,2,3};</code>\n\n This creates a new integer array and then initializes the variable 'ptr' to point to the new array.",
 		"String": {
-			"StringDef": "String is a variable type that is used to store a sequence of characters or numbers\n\nString s = \"Hello World!\";\n\nThis will create a String variable s that will store the value \"Hello World!\""
+			"StringDef": "A String pointer that is used to store a sequence of characters such as \"Hi\"\n<code>String s = \"Hello World!\";</code>\n\nThis will create a String variable s that <em>points to</em> the \"Hello World!\" object."
 		}
 		,
 		"null": {
-			"nullDef": "Null is a special value for reference variables\n\nString s = null;\n\nThis will create an String variable s that will be null meaning that s does not point to any particular String object."
+			"nullDef": "<tt>null</tt> is a special value you can use with pointer ('reference') variables.\n<code>String s = null;</code>\nThis creates a String variable named 's' that will be null meaning that it does not point to any particular String object."
+		}
 		}
 	}
 	,
 	"Operators": {
 		"Arithmetic Operators": {
-			"ArithDef": "Mathematics operators used for integers and doubles"
-			,
-			"Addition (+)": {
-				"AddDef": "Basic mathematics addition operation\n\n3 + 4 ---> 7\n2.5 + 3.5 ---> 6.0"
-			}
-			,
-			"Subtration (-)": {
-				"SubDef": "Basic mathematics subtraction operation\n\n3 - 4 ---> -1\n3.6 - 2.3 ---> 1.3"
-			}
-			,
-			"Multiplication (*)": {
-				"MultDef": "Basic mathematics multiplication operation\n\n3 * 4 ---> 12\n2.2 * 3.3 ---> 7.26"
-			}
-			,
+			"ArithDef": "Java understands the basic rules of adding, subtracting and multiplying. So you can write <tt>2 + 2</tt> <tt>5==3</tt> and it will calculate the result (<tt>4</tt> and <tt>false></tt> respectively)."
+			,			
 			"Division (/)": {
 				"DivDef": "Basic mathematics division operation\n\n4/2 ---> 2\n6.3/2.1 ---> 3.0"
 			}
@@ -94,7 +86,7 @@
 			"LogicalDef": "Logical operators are applied to multiple boolean expressions to form compound boolean expressions evaluates to either true or false"
 			,
 			"NOT (!)": {
-				"NotDef": "Inverses the given boolean value. Evaluates to true if the given boolean expression is initially false, false otherwise\n\nboolean found = false;\nif(!found)\n\nThe code above assigns false to found, then inverses it so the boolean expression evaluates to true"
+				"NotDef": "Negates the given boolean value. Evaluates to true if the given boolean expression is initially false, false otherwise\n\nboolean found = false;\nif(!found)\n\nThe code above assigns false to found, then negates it so the boolean expression evaluates to true"
 			}
 			,
 			"AND (&&)": {
@@ -102,11 +94,11 @@
 			}
 			,
 			"OR (||)": {
-				"OrDef": "Evaluates to true if at laest one of the given boolean expressions evalaute to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x > 2 || y)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since x is greater than 2, the overall boolean will evalaute to true"
+				"OrDef": "Evaluates to true if at least one of the given boolean expressions evaluate to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x > 2 || y)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since x is greater than 2, the overall boolean will evaluate to true"
 			}
 			,
 			"Extra Notes": {
-				"LogicalExtraNotesDef": "If there is a combination of logical operators, evalaute them one at a time, from left to right\n\nint x = 10;\nboolean y = false;\nint z = 15;\nif(x < 11 && y == true || z > 10)\n\nIn the code above, the first boolean expression, x < 11 will evalaute to true. THe second boolean expression will evalaute to false, since y is false. Since the first two boolean expressions are combined with an AND operator, that makes the first two compound expression evalaute to false. The third boolean expression, z > 10 is true, and since the first two compound expressions are linked to the third with an OR operator, the overall expression will evaluate to true"
+				"LogicalExtraNotesDef": "If there is a combination of logical operators, evaluate them one at a time, from left to right\n\nint x = 10;\nboolean y = false;\nint z = 15;\nif(x < 11 && y == true || z > 10)\n\nIn the code above, the first boolean expression, x < 11 will evaluate to true. THe second boolean expression will evaluate to false, since y is false. Since the first two boolean expressions are combined with an AND operator, that makes the first two compound expression evaluate to false. The third boolean expression, z > 10 is true, and since the first two compound expressions are linked to the third with an OR operator, the overall expression will evaluate to true"
 			}
 		}
 	}
