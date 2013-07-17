@@ -1,8 +1,31 @@
 <html>
 <head></head>
 <body>
-<pre>
-	Code Moo will be published here on Wednesday
-</pre>
+
+
+<pre id='mesg'>To use this website you need to enable Javascript in your browser.</pre>
+
+<script>
+  var mesg =  document.getElementById('mesg');
+  mesg.innerHTML='';
+  var browserOK = true;
+  if (navigator.appName == 'Microsoft Internet Explorer')
+  {
+    var ua = navigator.userAgent;
+    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+    if (re.exec(ua) != null) {
+      rv = parseFloat( RegExp.$1 );
+    }
+    browserOK = false;
+  }
+  if(!browserOK)
+     window.location.href="index2.html";
+  else {
+	alert("To use this website please use a modern browser such as FireFox or Chrome");
+mesgText = "We suggest you install and use a modern browser such as <a href='www.mozilla.org/'>Firefox</a> or <a href='www.google.com/chrome/'>Chrome</a>.\n" +
+"<a id='continueanyway' href='index2.html' >Continue</a> anyway.";
+mesg.innerHTML=mesgText;
+}
+</script>
 </body>
 </html>
