@@ -64,14 +64,9 @@ class window.EditorManager
         $(@acelne).append(x)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
-        $(@acelne).css({"display": "none"})
-        $('body').append @acelne
-        soffset = () ->
-            t = $("#acelne").position().top - $(".ace_scrollbar").scrollTop() + @poffset
-            $("#acelne").css({"top": t+"px"})
-            @poffset = $(".ace_scrollbar").scrollTop()
-
-        $(".ace_scrollbar").scroll(() -> soffset())
+        $(@acelne).css({"display": "block"})
+        $('.ace_editor').append(@acelne)
+        $(".ace_scrollbar").scroll(() => @moveEditorButtons())
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
@@ -172,12 +167,15 @@ class window.EditorManager
 
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
-
-        $('.ace_editor').append(@acelne)
+        maxrows = @editor.editSession.getLength()
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
-        aglpl = $('.ace_gutter-cell').css("padding-left")
         offset = aglh*row
+
+        if maxrows == row + 1
+            $(".ace_downarrow").css({"display":"none"})
+        else
+            $(".ace_downarrow").css({"display":"block"})
 
         $(@acelne).css(
             {"width":"15px";"max-height":aglh*2.6,
