@@ -70,7 +70,8 @@ class window.EditorManager
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
-        setTimeout @moveEditorButtons, 0
+        @moveEditorButtonDelay = 30
+        setTimeout @moveEditorButtons, @moveEditorButtonDelay
         return
 
     setUpInsertButtons: ->
@@ -116,6 +117,16 @@ class window.EditorManager
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
         ed.onCursorMoveListener @onEditorCursorMove
+        updateMove = =>
+            setTimeout @moveEditorButtons, @moveEditorButtonDelay
+            return
+        ed.editSession.on 'changeScrollTop', updateMove
+        normalResize = ed.editor.renderer.onResize.bind ed.editor.renderer
+        addOurResize = (force, gutterWidth, width, height) ->
+            normalResize(force, gutterWidth, width, height)
+            updateMove()
+            return
+        ed.editor.renderer.onResize = addOurResize
         return
 
     resetEditor: =>
@@ -172,7 +183,7 @@ class window.EditorManager
         maxrows = @editor.editSession.getLength()
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
-        offset = aglh*row
+        aalt = $('.ace_gutter-active-line').position().top
 
         if maxrows == row + 1
             $(".ace_downarrow").css({"display":"none"})
@@ -182,7 +193,7 @@ class window.EditorManager
         $(@acelne).css(
             {"width":"15px";"max-height":aglh*2.6,
             "z-index": 20,"position":"relative",
-            "top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
+            "top":aalt-aglh*1.05+"px",
             "left":aglw-15+"px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
@@ -191,7 +202,7 @@ class window.EditorManager
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
-        @moveEditorButtons()
+        setTimeout @moveEditorButtons, @moveEditorButtonDelay
 
         @parameterPopUp.hide()
         return
@@ -341,8 +352,8 @@ class window.PlayerCodeEditor
         @resetState()
         @onChangeCallback = null
         @editor.on 'change', @onChange
-        @editor.focus()
         @gotoLine @codePrefixLength + 1
+        return
 
     getStudentCode: ->
         return @editor.getValue()
