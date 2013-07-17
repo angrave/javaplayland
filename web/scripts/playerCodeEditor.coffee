@@ -191,8 +191,7 @@ class window.EditorManager
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
-        if not @movingButtons
-            setTimeout @moveEditorButtons, 20
+        @moveEditorButtons()
 
         @parameterPopUp.hide()
         return
