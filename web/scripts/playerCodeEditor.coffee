@@ -70,7 +70,8 @@ class window.EditorManager
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
-        @moveEditorButtons()
+        setTimeout @moveEditorButtons, 0
+        return
 
     setUpInsertButtons: ->
         ###
@@ -323,14 +324,17 @@ class window.PlayerCodeEditor
             jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
         if @wrapCode
-            @codeText = @codePrefix + codeText + '\n' + @codeSuffix
+            if @codePrefix != ""
+                @codeText = @codePrefix + codeText
+            if @codeSuffix != ""
+                @codeText += '\n' + @codeSuffix
         else
             @codePrefix = ""
             @codeSuffix = ""
             @codeText = codeText
 
-        @codePrefixLength = codePrefix.split('\n').length - 1
-        @codeSuffixLength = codeSuffix.split('\n').length - 1
+        @codePrefixLength = @codePrefix.split('\n').length - 1
+        @codeSuffixLength = @codeSuffix.split('\n').length - 1
 
         @enableKeyboardShortcuts()
 
@@ -349,12 +353,13 @@ class window.PlayerCodeEditor
         return
 
     enableKeyboardShortcuts: ->
-        ###
-            Not currently enabled as it would be difficult to prevent
-            keyboard shortcuts from changing uneditable areas.
-        ###
-        # @editor.commands.commands.movelinesup['readOnly'] = true
-        # @editor.commands.commands.movelinesdown['readOnly'] = true
+        @editor.commands.commands.movelinesup['readOnly'] = true
+        @editor.commands.commands.movelinesdown['readOnly'] = true
+        return
+
+    disableKeyboardShorcuts: ->
+        @editor.commands.commands.movelinesup['readOnly'] = false
+        @editor.commands.commands.movelinesdown['readOnly'] = false
         return
 
     onChangeListener: (@onChangeCallback) ->
@@ -384,6 +389,10 @@ class window.PlayerCodeEditor
     onCursorMoveListener: (callback) ->
         @editor.on 'changeSelection', callback
         return
+
+    # onMove: (cursorEvent) ->
+    #     if @onMoveCallback != null
+    #         @onMoveCallback cursorEvent
 
     switchUp: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()

@@ -247,8 +247,9 @@ root.addHintsToCode = (gameData) ->
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
         one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
-        gameData.code.initial = one + '\n' + gameData.code.initial
-        # gameData.code.prefix = one + '\n'
+        # gameData.code.initial = one + '\n' + gameData.code.initial
+        gameData.code.prefix = one + '\n'
+        gameData.code.show = true
     return
 
 root.getGameDescriptions = ->
