@@ -56,6 +56,7 @@ class window.GameManager
         @environment.visualMaster.container.id = @visualDiv
         @visual = new GameVisual @environment.visualMaster, @environment.frameRate
         @interpretGameConfigMap()
+        @codeEditor.editor.editor.focus()
         @addEventListeners()
         return
 
