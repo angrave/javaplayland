@@ -23,6 +23,7 @@ if [ true ] ; then
         rm -rf  $TGT/$build
         mkdir -p $TGT/$build
         for i in $FILES ; do
+            echo $SRC/$build/$i
             cp -a $SRC/$build/$i $TGT/$build
         done
     done
