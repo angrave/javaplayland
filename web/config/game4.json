@@ -1,7 +1,7 @@
 {
   "name": "Puzzle #4",
   "description": "Ingredients: May contains bugs! Delete Delete!",
-  "task": "Re-order existing code that only uses a small set of statements",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
@@ -25,9 +25,10 @@
   },
   "code": {
     "shorthand": "RRRRggLg",
-    "comments" : ["There's 'bug'! Time to debug this code!", 
+    "comments" : ["Puzzle #4","There's 'bug'! Time to debug this code!", 
     "Hint #1 In this game you must DELETE the unnecessary statements.",
-    "Hint #2 Use the reset button if you delete too much."	 ]
+    "Click on a statement and select the small red X to delete a line of code.",
+    "Hint #2 Use the reset button on the far left if you delete too much."	 ]
   },
   "game": {
     "characterBase": {

@@ -25,8 +25,8 @@
   },
   "code": {
     "shorthand": "LRRggRgLgggLRgg",
-    "comments" : [ "Programmers need to think carefully to make their programs work correctly" ,
-"You need to carefully follow what changes as each statement is run, one by one."]
+    "comments" : [ "Puzzle #6","Programmers must think carefully so their programs work correctly" ,
+"Often you need to check each and every step of your program."]
   },
   "game": {
     "characterBase": {

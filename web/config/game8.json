@@ -28,7 +28,7 @@
   },
   "code": {
     "shorthand": "",
-	"comments" : ["To solve this puzzle use the code buttons to create your own program.",
+	"comments" : [ "Puzzle #8","To solve this puzzle use the code buttons to create your own program.",
 	"Hint #1 You can write up to two turnRight() statements and one turnLeft()!"]
   },
   "game": {

@@ -1,7 +1,7 @@
 {
   "name": "Puzzle #3",
   "description": "I refuse to comment!",
-  "task": "Re-order existing code that only uses a small set of statements",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
@@ -22,10 +22,15 @@
   },
   "code": {
     "shorthand": "RRggg", 
-    "comments": [ "Writing two forward slashes at the start means this just a comment line.",
-      "We write comments in programs to help other programmers understand our code and ideas.",
+    "comments": [ "Puzzle #3", "Notice the two forward slashes, \"//\" on the left?",
+       "The slashes mean this text is just a comment, not executable code.",
+   
+      "We write comments in programs to help other programmers ", 
+      "or ourselves understand our code and ideas and choices we made.",
        "Comments are ignored when the program runs.",
-       "Time to play... Hint: Go back to go forward!" ]
+       "For programmers though, they are often worth reading.","",
+       "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!",
+       "Yes - It is possible!" ]
   },
   "game": {
     "characterBase": {

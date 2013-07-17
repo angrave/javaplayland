@@ -4,11 +4,12 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 #IE Support ....
-if console.log == null
-    console.log = -> return
+
+if ! console?
+    console = { log: -> }
+
 #Chrome support: 'this' must be the console object
-root.log = (msg) ->
-    console.log.call(console,msg)
+root.log = console.log.bind(console) 
 
 root.initialize = (UIcont) ->
     root.gameSelectionScrollPosition = 0

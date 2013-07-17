@@ -7,7 +7,7 @@ class window.DoppioApi
         (this is usually accomplished with jQuery(document).onReady)
     ###
 
-    constructor: (@stdout, @log, @beanshellWrapperName) ->
+    constructor: (@stdout, logIgnore, @beanshellWrapperName) ->
         ###
             Sets up Doppio environment.
             @stdout (msg) ->
@@ -16,6 +16,7 @@ class window.DoppioApi
                 A function that will receive log messages such as total execution
                 time or abort requests. Set to null to disable logging.
         ###
+        
         @load_mini_rt()
         @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         jvm.set_classpath '/home/doppio/vendor/classes/', './'
@@ -64,7 +65,7 @@ class window.DoppioApi
             return
         untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
         end_untar = (new Date()).getTime()
-        @log? "Untarring took a total of #{end_untar-start_untar}ms."
+        console?.log "Untarring took a total of #{end_untar-start_untar}ms."
 
     run: (studentCode, beanshellWrapperName, finished_cb) =>
         ###
@@ -72,10 +73,10 @@ class window.DoppioApi
             Note, this does not recognize classes.
         ###
         if @rs != null
-            @log? 'Already Running, not re-starting run'
+            console?.log 'Already Running, not re-starting run'
             return
         start_time = (new Date()).getTime()
-        @log? 'Starting Run'
+        console?.log 'Starting Run'
         fname = 'program.bsh'
         node.fs.writeFileSync(fname, studentCode)
         stdin = -> "\n"
@@ -86,8 +87,8 @@ class window.DoppioApi
         finish_cb = =>
             end_time = (new Date()).getTime()
             if @rs != null
-                @log? 'Finished Run'
-                @log? "Took #{end_time - start_time}ms."
+                console?.log 'Finished Run'
+                console?.log "Took #{end_time - start_time}ms."
                 @rs = null
             finished_cb()
             return
@@ -100,14 +101,14 @@ class window.DoppioApi
         ###
             Abort the current run.
         ###
-        @log? 'User Abort Requested'
+        console?.log 'User Abort Requested'
         if @rs
-            @log? 'Aborting Run'
+            console?.log 'Aborting Run'
             cb = =>
-                @log? 'Aborted Successfully'
+                console?.log 'Aborted Successfully'
                 @rs = null
                 finished_cb() if finished_cb?
             @rs.async_abort(cb)
         else
-            @log? 'No Run Detected'
+            console?.log 'No Run Detected'
         return
