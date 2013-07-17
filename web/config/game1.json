@@ -22,7 +22,7 @@
   },
   "code": {
     "shorthand": "gR",
-     "comments" : [
+     "comments" : [ "Puzzle #1",
        "Can you fix this Java code so that your avatar\nreaches the flag?",
        "To run your Java code click the play button.",
        "To change the order of the go and turnRight statements click on \nthis code and use the up and down arrows to the left." ]
