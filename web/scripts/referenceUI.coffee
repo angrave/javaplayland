@@ -214,7 +214,7 @@ window.AboutPage = () ->
     refContainer = document.createElement("div")
 
     $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
-    $(refContainer).css({width:'40%',height:'40%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+    $(refContainer).css({ width:'40%',height:'40%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
 
     $("body").prepend(backFade)
     $(backFade).attr({id:'bF'})
@@ -223,12 +223,11 @@ window.AboutPage = () ->
     header = document.createElement("div")
     para = document.createElement("div")
 
-    $(header).css({"font-size":"26px","position":"absolute","width":"50%","top":"5%","left":"25%","text-align":"center"})
-    $(para).css({"font-size":"14px","position":"absolute","width":"90%","bottom":"12%","left":"5%","text-align":"center"})
-
-
+    $(header).css({"position":"static","overflow":"auto","font-size":"26px","width":"100%","left":"25%","text-align":"center"})
+    $(para).css({"overflow":"auto","max-height":"60%","position":"static"})
+    
     header.innerHTML = "Legal Terms and Attributions"
-    para.innerHTML = "Copyright 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
+    para.innerHTML = "Copyright (C) 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
     licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
     (Spiral Bound book, star icon, cow eat grass, treasure map)<br />
     <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a><br />Original Content is licensed under MIT Expat License
