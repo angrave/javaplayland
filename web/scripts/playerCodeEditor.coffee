@@ -318,6 +318,7 @@ class window.PlayerCodeEditor
             and their event handlers.
         ###
         @editor = ace.edit @editorDivId
+        window.dbgAce = @editor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
