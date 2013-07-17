@@ -54,8 +54,8 @@
             {
               "command": "move",
               "arguments": [
-                1,
-                "character"
+                "character",
+                1
               ]
             }
           ],
@@ -76,8 +76,8 @@
               {
                 "command": "move",
                 "arguments": [
-                  1,
-                  "character"
+                  "character",
+                  1
                 ]
               }
             ]

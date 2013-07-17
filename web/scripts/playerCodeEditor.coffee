@@ -64,14 +64,9 @@ class window.EditorManager
         $(@acelne).append(x)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
-        $(@acelne).css({"display": "none"})
-        $('body').append @acelne
-        soffset = () ->
-            t = $("#acelne").position().top - $(".ace_scrollbar").scrollTop() + @poffset
-            $("#acelne").css({"top": t+"px"})
-            @poffset = $(".ace_scrollbar").scrollTop()
-
-        $(".ace_scrollbar").scroll(() -> soffset())
+        $(@acelne).css({"display": "block"})
+        $('.ace_editor').append(@acelne)
+        $(".ace_scrollbar").scroll(() => @moveEditorButtons())
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
@@ -109,18 +104,12 @@ class window.EditorManager
         ed = @editor
         if $.inArray('switchUp', @editorConfig.buttons) != -1
             jQuery('.ace_uparrow').click ed.button ed.usesCurrentPosition ed.switchUp
-        else
-            jQuery('.ace_uparrow').click ed.editor.focus
 
         if $.inArray('switchDown', @editorConfig.buttons) != -1
             jQuery('.ace_downarrow').click ed.button ed.usesCurrentPosition ed.switchDown
-        else
-            jQuery('.ace_downarrow').click ed.editor.focus
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
             jQuery('.ace_xbutton').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
-        else
-            jQuery('.ace_xbutton').click ed.editor.focus
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
@@ -178,12 +167,15 @@ class window.EditorManager
 
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
-
-        $('.ace_editor').append(@acelne)
+        maxrows = @editor.editSession.getLength()
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
-        aglpl = $('.ace_gutter-cell').css("padding-left")
         offset = aglh*row
+
+        if maxrows == row + 1
+            $(".ace_downarrow").css({"display":"none"})
+        else
+            $(".ace_downarrow").css({"display":"block"})
 
         $(@acelne).css(
             {"width":"15px";"max-height":aglh*2.6,
@@ -197,8 +189,7 @@ class window.EditorManager
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
-        if not @movingButtons
-            setTimeout @moveEditorButtons, 20
+        @moveEditorButtons()
 
         @parameterPopUp.hide()
         return
@@ -307,6 +298,10 @@ class window.EditorManager
         @parameterPopUp.hide()
         return
 
+    editorGoToLine: (row) ->
+        @editor.gotoLine row
+        return
+
 
 class window.PlayerCodeEditor
     ###
@@ -345,6 +340,11 @@ class window.PlayerCodeEditor
 
     getStudentCode: ->
         return @editor.getValue()
+
+    gotoLine: (row) ->
+        column = @editor.getCursorPosition().column
+        @editor.gotoLine row, column, true
+        return
 
     enableKeyboardShortcuts: ->
         ###
