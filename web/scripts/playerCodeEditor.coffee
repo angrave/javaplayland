@@ -184,8 +184,10 @@ class window.EditorManager
             $(".ace_downarrow").css({"display":"block"})
 
         $(@acelne).css(
-            {"width":"15px";"max-height":aglh*2.6,"z-index": 20,"position":"relative","top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
-            "left":aglw-15+"px","display": "block"})
+            {"width":"15px";"max-height":aglh*2.6,
+            "z-index": 20,"position":"relative",
+            "top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
+            "left":"32px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
 

@@ -24,6 +24,6 @@ rm ../codemoo/_*
 ( cd ../codemoo; coffee -c doppio-jvm/scripts/demo/ )
 
 
-#( cd ../codemoo; git add -A . )
-#( cd ../codemoo; git commit -m 'Publish' )
+( cd ../codemoo; git add -A . )
+( cd ../codemoo; git commit -m 'Publish' )
 echo \( cd ../codemoo\; git push origin gh-pages \)
