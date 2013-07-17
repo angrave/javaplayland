@@ -70,6 +70,7 @@ class window.EditorManager
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
+        @moveEditorButtons()
 
     setUpInsertButtons: ->
         ###
@@ -336,6 +337,7 @@ class window.PlayerCodeEditor
         @onChangeCallback = null
         @editor.on 'change', @onChange
         @editor.focus()
+        @gotoLine @codePrefixLength + 1
 
     getStudentCode: ->
         return @editor.getValue()

@@ -9,7 +9,7 @@ if ! console?
     console = { log: -> }
 
 #Chrome support: 'this' must be the console object
-root.log = console.log.bind(console) 
+root.log = console.log.bind(console)
 
 root.initialize = (UIcont) ->
     root.gameSelectionScrollPosition = 0
@@ -248,6 +248,8 @@ root.addHintsToCode = (gameData) ->
         # Also ensures newlines in the data are properly commented out
         one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
         gameData.code.initial = one + '\n' + gameData.code.initial
+        # gameData.code.prefix = one + '\n'
+    return
 
 root.getGameDescriptions = ->
     if root.gameDescriptions?
