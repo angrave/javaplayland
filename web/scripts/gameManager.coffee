@@ -253,6 +253,8 @@ class MapGameState
             return
         if character.moves.length > 0
             command = character.moves.splice(0, 1)[0]
+            if command.line?
+                @gameManager.codeEditor.editorGoToLine command.line
             result = command.exec()
             if character.AI?
                 if not result.success
@@ -307,7 +309,6 @@ class MapGameState
     _stand: (character) ->
         if not character?
             character = @protagonist
-
         character.moves.push {
             key: 'stand',
             exec: ((char) ->
@@ -317,7 +318,7 @@ class MapGameState
         }
         return
 
-    move: (steps, character) ->
+    move: (character, steps, line) ->
         if not character?
             character = @protagonist
 
@@ -326,10 +327,11 @@ class MapGameState
             character.moves.pop()
         character.moves.push {
             key: 'startMove',
-            exec: ((char) ->
+            exec: (((char) ->
                 success = @_move(char)
                 return {success: success, continueExecution: false}
-                ).bind @, character
+                ).bind @, character),
+            line: line
         }
         for i in [1...steps] by 1
             @_moving(character)
@@ -391,7 +393,7 @@ class MapGameState
                     return true
         return false
 
-    turn: (direction, character) ->
+    turn: (character, direction, line) ->
         if not character?
             character = @protagonist
 
@@ -401,15 +403,16 @@ class MapGameState
 
         character.moves.push {
             key: 'turn',
-            exec: ((dir, char) ->
-                continueExec = @_turn dir, char
+            exec: (((dir, char) ->
+                continueExec = @_turn char, dir
                 return {success: true, continueExecution: continueExec}
-                ).bind @, direction, character
+                ).bind @, direction, character),
+            line: line
         }
         @_stand character
         return
 
-    turnRight: (character) ->
+    turnRight: (character, line) ->
         if not character?
             character = @protagonist
 
@@ -419,15 +422,16 @@ class MapGameState
 
         character.moves.push {
             key: 'turn',
-            exec: ((char) ->
-                continueExec = @_turn ((char.dir + 1) % 4), char
+            exec: (((char) ->
+                continueExec = @_turn char, ((char.dir + 1) % 4)
                 return {success: true, continueExecution: continueExec}
-                ).bind @, character
+                ).bind @, character),
+            line: line
         }
         @_stand(character)
         return
 
-    turnLeft: (character) ->
+    turnLeft: (character, line) ->
         if not character?
             character = @protagonist
 
@@ -437,15 +441,16 @@ class MapGameState
 
         character.moves.push {
             key: 'turn',
-            exec: ((char) ->
-                continueExec = @_turn ((char.dir + 3) % 4), char
+            exec: (((char) ->
+                continueExec = @_turn char, ((char.dir + 3) % 4)
                 return {success: true, continueExecution: continueExec}
-                ).bind @, character
+                ).bind @, character),
+            line: line
         }
         @_stand(character)
         return
 
-    _turn: (direction, character) ->
+    _turn: (character, direction) ->
         if not character?
             character = @protagonist
 
@@ -507,47 +512,50 @@ class MapGameCommands
         @gameState.start()
         return
 
-    go: (steps) =>
+    go: (steps, line) =>
         steps = 1 if steps is undefined
+        if line is undefined
+            line = steps
+            steps = 1
         # log "Go #{steps} steps."
-        @gameState.move steps
+        @gameState.move @gameState.protagonist, steps, line
 
-    turn: (dir) =>
+    turn: (dir, line) =>
         # log "turn '#{dir}'"
         return if dir is undefined
         d = $.inArray(dir, ['N','E','S','W'])
         if d >= 0
-            @gameState.turn d
+            @gameState.turn @gameState.protagonist, d, line
         else
             d = $.inArray(dir, ['North','East','South','West'])
             if d >= 0
-                @gameState.turn d
+                @gameState.turn @gameState.protagonist, d, line
             else if !isNaN d
-                @gameState.turn (4 + dir % 4) % 4
+                @gameState.turn @gameState.protagonist, (4 + dir % 4) % 4, line
         return
 
-    turnRight: =>
+    turnRight: (line) =>
         # log "turnRight"
-        @gameState.turnRight()
+        @gameState.turnRight @gameState.protagonist, line
         return
 
-    turnLeft: =>
+    turnLeft: (line) =>
         # log "turnLeft"
-        @gameState.turnLeft()
+        @gameState.turnLeft @gameState.protagonist, line
         return
 
-    turnAndGo: (direction, steps) =>
+    turnAndGo: (direction, steps, line) =>
         # log "turnAndGo #{direction} #{steps}"
-        @turn direction
-        @go steps
+        @turn direction, line
+        @go steps, line
         return
 
-    goNorth: (steps) => @turnAndGo 0, steps
-    goEast:  (steps) => @turnAndGo 1, steps
-    goSouth: (steps) => @turnAndGo 2, steps
-    goWest:  (steps) => @turnAndGo 3, steps
+    goNorth: (steps, line) => @turnAndGo 0, steps
+    goEast:  (steps, line) => @turnAndGo 1, steps
+    goSouth: (steps, line) => @turnAndGo 2, steps
+    goWest:  (steps, line) => @turnAndGo 3, steps
 
     # used in sequence4
-    mysteryA: => @goEast 4
-    mysteryB: => @goSouth 1
-    mysteryC: => @goWest 2
+    mysteryA: (line) => @goEast 4, line
+    mysteryB: (line) => @goSouth 1, line
+    mysteryC: (line) => @goWest 2, line
