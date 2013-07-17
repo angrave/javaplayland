@@ -22,5 +22,5 @@ cp -pr gh-pages-config/ ../codemoo/
 
 
 ( cd ../codemoo; git add -A . )
-
+( cd ../codemoo; git commit -m 'Publish' )
 echo \( cd ../codemoo\; git push origin gh-pages \)
