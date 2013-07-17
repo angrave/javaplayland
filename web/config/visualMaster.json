@@ -7,14 +7,14 @@
   },
   "preLoading": {
     "protagonist": [
-      "img/wmn1_bk1.gif",
       "img/wmn1_bk2.gif",
-      "img/wmn1_rt1.gif",
+      "img/wmn1_bk1.gif",
       "img/wmn1_rt2.gif",
-      "img/wmn1_fr1.gif",
+      "img/wmn1_rt1.gif",
       "img/wmn1_fr2.gif",
-      "img/wmn1_lf1.gif",
-      "img/wmn1_lf2.gif"
+      "img/wmn1_fr1.gif",
+      "img/wmn1_lf2.gif",
+      "img/wmn1_lf1.gif"
     ],
     "vicflag": [
       "img/vicflag1.png",

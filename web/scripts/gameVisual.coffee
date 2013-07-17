@@ -73,12 +73,21 @@ class window.GameVisual
         ar = config.animation.length
         objArray = []
         for set in config.characters
-            tmp = new charObj(imgArray[set.imgSet],set.dir,config.grid.border+(config.grid.gridUnit*set.x),config.grid.border+(config.grid.gridUnit*set.y),set.xOff,set.yOff,set.xSize,set.ySize)
+            tmp = new charObj(
+                imgArray[set.imgSet],set.dir,
+                config.grid.border+(config.grid.gridUnit*set.x),
+                config.grid.border+(config.grid.gridUnit*set.y),
+                set.xOff,set.yOff,set.xSize,set.ySize,set.animated)
             objArray[objArray.length] = tmp
         return
 
     pushCharacter: (config, character) =>
-        tmp = new charObj(imgArray[character.imgSet],character.dir,config.grid.border+(config.grid.gridUnit*character.x),config.grid.border+(config.grid.gridUnit*character.y),character.xOff,character.yOff,character.xSize,character.ySize)
+        tmp = new charObj(
+            imgArray[character.imgSet],character.dir,
+            config.grid.border+(config.grid.gridUnit*character.x),
+            config.grid.border+(config.grid.gridUnit*character.y),
+            character.xOff,character.yOff,character.xSize,
+            character.ySize,character.animated)
         objArray[objArray.length] = tmp
 
     drawText = () ->
@@ -91,6 +100,10 @@ class window.GameVisual
     ###
     charFace: (char, direction) ->
         objArray[char].imFace(direction)
+        return
+
+    charAnimate: (char) ->
+        objArray[char].toggleAnimation()
         return
 
     ###
@@ -115,16 +128,23 @@ class window.GameVisual
     #More documenation to be added when the code is more concrete and permanent
     ###
     class charObj
-        constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize) ->
+        constructor: (@animarray,@dir,@xpos,@ypos,@xOff,@yOff,@xSize,@ySize,@animated) ->
+            @antickerAdd = 0
             @ldir = @dir
             @cstate = 4
+            return
 
         absPos: (@xpos,@ypos) ->
             return
 
+        toggleAnimation: ->
+            @animated = not @animated
+            @antickerAdd = ar
+            return
+
         current: (anticker) ->
             num = 0
-            if (anticker % (2 * ar)) >= ar
+            if @animated and ((anticker + @antickerAdd) % (2 * ar)) >= ar
                 num = 1
             num = num + (2 * @dir)
             num = num % @animarray.length
