@@ -466,8 +466,8 @@ class window.PlayerCodeEditor
         ###
         @editor.setValue @codeText
         @editor.clearSelection()
-        @editor.gotoLine 0, 0, false
         @reIndentCode()
+        @gotoLine @codePrefixLength + 1
         return
 
     reIndentCode: =>
