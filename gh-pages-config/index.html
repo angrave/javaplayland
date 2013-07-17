@@ -8,7 +8,9 @@
 <script>
   var mesg =  document.getElementById('mesg');
   mesg.innerHTML='';
-  var browserOK = true;
+  var canvas2DSupported = !!window.CanvasRenderingContext2D;;
+  var browserOK = canvas2DSupported
+  
   if (navigator.appName == 'Microsoft Internet Explorer')
   {
     var ua = navigator.userAgent;
@@ -18,7 +20,7 @@
     }
     browserOK = false;
   }
-  if(!browserOK)
+  if(browserOK)
      window.location.href="index2.html";
   else {
 	alert("To use this website please use a modern browser such as FireFox or Chrome");
