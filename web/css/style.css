@@ -16,17 +16,17 @@ button {
 
 .ace_xbutton {
     float:right;
-    margin:3px 3px 0 0;
+    margin:6px 0px;
 }
 
 .ace_uparrow {
     float:right;
-    margin:3px 3px 0 0;
+    margin:0px 0px 0px 0;
 }
 
 .ace_downarrow {
     float:right;
-    margin:3px 3px 0 0;
+    margin:0px 0px 0 0;
 }
 
 

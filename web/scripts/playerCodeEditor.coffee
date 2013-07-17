@@ -7,6 +7,7 @@ class window.EditorManager
     ###
     constructor: (@editorDivId, @editorConfig, @codeConfig) ->
         @acelne = null
+        @poffset = 0
         @onStudentCodeChangeCallback = null
         @commands = @editorConfig.commands
         @setUpEditor()
@@ -59,13 +60,18 @@ class window.EditorManager
         $(u).attr({"src":"#{@switchUpImg}","class":"ace_uparrow"})
         d = document.createElement("img")
         $(d).attr({"src":"#{@switchDownImg}","class":"ace_downarrow"})
-        $(@acelne).append(x)
         $(@acelne).append(u)
+        $(@acelne).append(x)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
         $(@acelne).css({"display": "none"})
         $('body').append @acelne
+        soffset = () ->
+            t = $("#acelne").position().top - $(".ace_scrollbar").scrollTop() + @poffset
+            $("#acelne").css({"top": t+"px"})
+            @poffset = $(".ace_scrollbar").scrollTop()
 
+        $(".ace_scrollbar").scroll(() -> soffset())
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
@@ -173,17 +179,16 @@ class window.EditorManager
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
 
-        offset = $('.ace_gutter-layer').children().eq(row).position()
-        $('.ace_gutter').append(@acelne)
+        $('.ace_editor').append(@acelne)
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
         aglpl = $('.ace_gutter-cell').css("padding-left")
+        offset = aglh*row
 
         $(@acelne).css(
-            {"width":aglw,"height":aglh,"z-index": 20,
-            "background-color":"white","position":"absolute",
-            "right":aglpl,"bottom":aglh,"top":"#{offset.top}px",
-            "left":"#{offset.left}px","display": "block"})
+            {"width":"15px";"max-height":aglh*2.6,"z-index": 20,"position":"relative","top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
+            "left":"32px","display": "block"})
+        @poffset = $(".ace_scrollbar").scrollTop()
         return
 
     onEditorCursorMove: (cursorEvent) =>
