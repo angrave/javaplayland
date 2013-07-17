@@ -109,18 +109,12 @@ class window.EditorManager
         ed = @editor
         if $.inArray('switchUp', @editorConfig.buttons) != -1
             jQuery('.ace_uparrow').click ed.button ed.usesCurrentPosition ed.switchUp
-        else
-            jQuery('.ace_uparrow').click ed.editor.focus
 
         if $.inArray('switchDown', @editorConfig.buttons) != -1
             jQuery('.ace_downarrow').click ed.button ed.usesCurrentPosition ed.switchDown
-        else
-            jQuery('.ace_downarrow').click ed.editor.focus
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
             jQuery('.ace_xbutton').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
-        else
-            jQuery('.ace_xbutton').click ed.editor.focus
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
