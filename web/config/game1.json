@@ -1,7 +1,7 @@
 {
   "name": "Puzzle #1",
   "description": "Programming is easy?",
-  "task": "Re-order existing code that only uses a small set of statements",
+  "task": "",
   "tags": "intro",
   "editor": {
     "freeformEditting": false,
@@ -23,8 +23,9 @@
   "code": {
     "shorthand": "gR",
      "comments" : [
+       "Can you fix this Java code so that your avatar\nreaches the flag?",
        "To run your Java code click the play button.",
-       "To fix the sequence of go and turnRight statements click on \nthis code and use the up and down buttons." ]
+       "To change the order of the go and turnRight statements click on \nthis code and use the up and down arrows to the left." ]
   },
   "game": {
     "characterBase": {
