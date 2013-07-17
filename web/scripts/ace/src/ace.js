@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -59,7 +59,7 @@ var _define = function(module, deps, payload) {
         _define.modules = {};
         _define.payloads = {};
     }
-
+    
     _define.payloads[module] = payload;
     _define.modules[module] = null;
 };
@@ -135,7 +135,7 @@ var lookup = function(parentId, moduleName) {
             _define.modules[moduleName] = exports;
             delete _define.payloads[moduleName];
         }
-        module = _define.modules[moduleName] = exports;
+        module = _define.modules[moduleName] = exports || module;
     }
     return module;
 };
@@ -143,7 +143,7 @@ var lookup = function(parentId, moduleName) {
 function exportAce(ns) {
     var require = function(module, callback) {
         return _require("", module, callback);
-    };
+    };    
 
     var root = global;
     if (ns) {
@@ -236,7 +236,7 @@ require("./regexp");
 require("./es5-shim");
 
 });
-
+ 
 define('ace/lib/regexp', ['require', 'exports', 'module' ], function(require, exports, module) {
 
     var real = {
@@ -375,7 +375,7 @@ if ([1,2].splice(0).length != 2) {
             return a;
         }
         var array = [], lengthBefore;
-
+        
         array.splice.apply(array, makeArray(20));
         array.splice.apply(array, makeArray(26));
 
@@ -416,7 +416,7 @@ if ([1,2].splice(0).length != 2) {
 
             var removed = this.slice(pos, pos+removeCount);
             var insert = slice.call(arguments, 2);
-            var add = insert.length;
+            var add = insert.length;            
             if (pos === length) {
                 if (add) {
                     this.push.apply(this, insert);
@@ -1090,9 +1090,9 @@ exports.importCssString = function importCssString(cssText, id, doc) {
     doc = doc || document;
     if (id && exports.hasCssString(id, doc))
         return null;
-
+    
     var style;
-
+    
     if (doc.createStyleSheet) {
         style = doc.createStyleSheet();
         style.cssText = cssText;
@@ -1126,7 +1126,7 @@ exports.importCssStylsheet = function(uri, doc) {
 exports.getInnerWidth = function(element) {
     return (
         parseInt(exports.computedStyle(element, "paddingLeft"), 10) +
-        parseInt(exports.computedStyle(element, "paddingRight"), 10) +
+        parseInt(exports.computedStyle(element, "paddingRight"), 10) + 
         element.clientWidth
     );
 };
@@ -1444,6 +1444,9 @@ function normalizeCommandKeys(callback, e, keyCode) {
         keyCode = 0;
     }
 
+    if (!useragent.isMac && pressedKeys[91] || pressedKeys[92])
+        hashId |= 8;
+
     if (hashId & 8 && (keyCode == 91 || keyCode == 93)) {
         keyCode = 0;
     }
@@ -1453,6 +1456,7 @@ function normalizeCommandKeys(callback, e, keyCode) {
     return callback(e, hashId, keyCode);
 }
 
+var pressedKeys = Object.create(null);
 exports.addCommandKeyListener = function(el, callback) {
     var addListener = exports.addListener;
     if (useragent.isOldGecko || (useragent.isOpera && !("KeyboardEvent" in window))) {
@@ -1467,6 +1471,7 @@ exports.addCommandKeyListener = function(el, callback) {
         var lastDefaultPrevented = null;
 
         addListener(el, "keydown", function(e) {
+            pressedKeys[e.keyCode] = true;
             var result = normalizeCommandKeys(callback, e, e.keyCode);
             lastDefaultPrevented = e.defaultPrevented;
             return result;
@@ -1477,6 +1482,14 @@ exports.addCommandKeyListener = function(el, callback) {
                 exports.stopEvent(e);
                 lastDefaultPrevented = null;
             }
+        });
+
+        addListener(el, "keyup", function(e) {
+            pressedKeys[e.keyCode] = null;
+        });
+
+        addListener(el, "focus", function(e) {
+            pressedKeys = Object.create(null);
         });
     }
 };
@@ -1653,10 +1666,10 @@ var ua = navigator.userAgent;
 exports.isWin = (os == "win");
 exports.isMac = (os == "mac");
 exports.isLinux = (os == "linux");
-exports.isIE =
+exports.isIE = 
     (navigator.appName == "Microsoft Internet Explorer" || navigator.appName.indexOf("MSAppHost") >= 0)
     && parseFloat(navigator.userAgent.match(/MSIE ([0-9]+[\.0-9]+)/)[1]);
-
+    
 exports.isOldIE = exports.isIE && exports.isIE < 9;
 exports.isGecko = exports.isMozilla = window.controllers && window.navigator.product === "Gecko";
 exports.isOldGecko = exports.isGecko && parseInt((navigator.userAgent.match(/rv\:(\d+)/)||[])[1], 10) < 4;
@@ -2782,7 +2795,7 @@ var Editor = function(renderer, session) {
         this.session.unfold({row: lineNumber - 1, column: column || 0});
 
         this.$blockScrolling += 1;
-        this.exitMultiSelectMode && this.exitMultiSelectMode()
+        this.exitMultiSelectMode && this.exitMultiSelectMode();
         this.moveCursorTo(lineNumber - 1, column || 0);
         this.$blockScrolling -= 1;
 
@@ -3163,7 +3176,7 @@ exports.copyArray = function(array){
     for (var i=0, l=array.length; i<l; i++) {
         if (array[i] && typeof array[i] == "object")
             copy[i] = this.copyObject( array[i] );
-        else
+        else 
             copy[i] = array[i];
     }
     return copy;
@@ -3173,7 +3186,7 @@ exports.deepCopy = function (obj) {
     if (typeof obj != "object") {
         return obj;
     }
-
+    
     var copy = obj.constructor();
     for (var key in obj) {
         if (typeof obj[key] == "object") {
@@ -3329,7 +3342,7 @@ var TextInput = function(parentNode, host) {
     var tempStyle = '';
     var isSelectionEmpty = true;
     try { var isFocused = document.activeElement === text; } catch(e) {}
-
+    
     event.addListener(text, "blur", function() {
         host.onBlur();
         isFocused = false;
@@ -3455,7 +3468,7 @@ var TextInput = function(parentNode, host) {
     this.setInputHandler = function(cb) {inputHandler = cb};
     this.getInputHandler = function() {return inputHandler};
     var afterContextMenu = false;
-
+    
     var sendText = function(data) {
         if (inputHandler) {
             data = inputHandler(data);
@@ -3478,7 +3491,7 @@ var TextInput = function(parentNode, host) {
                 data = data.slice(0, -1);
             if (data[data.length - 1] == PLACEHOLDER[0])
                 data = data.slice(0, -1);
-
+            
             if (data)
                 host.onTextInput(data);
         }
@@ -3647,15 +3660,15 @@ var TextInput = function(parentNode, host) {
             if (c.lastValue)
                 host.undo();
             return str;
-        }
+        }        
         host.onCompositionEnd();
         host.removeListener("mousedown", onCompositionEnd);
         if (e.type == "compositionend" && c.range) {
             host.selection.setRange(c.range);
         }
     };
-
-
+    
+    
 
     var syncComposition = lang.delayedCall(onCompositionUpdate, 50);
 
@@ -3688,7 +3701,7 @@ var TextInput = function(parentNode, host) {
         var move = function(e) {
             text.style.left = e.clientX - left - 2 + "px";
             text.style.top = Math.min(e.clientY - top - 2, maxTop) + "px";
-        };
+        }; 
         move(e);
 
         if (e.type != "mousedown")
@@ -3758,7 +3771,6 @@ var MouseHandler = function(editor) {
     event.addListener(gutterEl, "click", this.onMouseEvent.bind(this, "gutterclick"));
     event.addListener(gutterEl, "dblclick", this.onMouseEvent.bind(this, "gutterdblclick"));
     event.addListener(gutterEl, "mousemove", this.onMouseEvent.bind(this, "guttermousemove"));
-
 };
 
 (function() {
@@ -3793,7 +3805,7 @@ var MouseHandler = function(editor) {
 
         this.x = ev.x;
         this.y = ev.y;
-
+        
         this.isMousePressed = true;
         var renderer = this.editor.renderer;
         if (renderer.$keepTextAreaAtCursor)
@@ -3821,7 +3833,7 @@ var MouseHandler = function(editor) {
         var onCaptureInterval = function() {
             self[self.state] && self[self.state]();
         };
-
+        
         if (useragent.isOldIE && ev.domEvent.type == "dblclick") {
             return setTimeout(function() {onCaptureEnd(ev.domEvent);});
         }
@@ -4107,7 +4119,7 @@ function DefaultHandlers(mouseHandler) {
             return;
         var t = ev.domEvent.timeStamp;
         var dt = t - (this.$lastScrollTime||0);
-
+        
         var editor = this.editor;
         var isScrolable = editor.renderer.isScrollableBy(ev.wheelX * ev.speed, ev.wheelY * ev.speed);
         if (isScrolable || dt < 200) {
@@ -4278,29 +4290,29 @@ var useragent = require("../lib/useragent");
 var MouseEvent = exports.MouseEvent = function(domEvent, editor) {
     this.domEvent = domEvent;
     this.editor = editor;
-
+    
     this.x = this.clientX = domEvent.clientX;
     this.y = this.clientY = domEvent.clientY;
 
     this.$pos = null;
     this.$inSelection = null;
-
+    
     this.propagationStopped = false;
     this.defaultPrevented = false;
 };
 
-(function() {
-
+(function() {  
+    
     this.stopPropagation = function() {
         event.stopPropagation(this.domEvent);
         this.propagationStopped = true;
     };
-
+    
     this.preventDefault = function() {
         event.preventDefault(this.domEvent);
         this.defaultPrevented = true;
     };
-
+    
     this.stop = function() {
         this.stopPropagation();
         this.preventDefault();
@@ -4308,16 +4320,16 @@ var MouseEvent = exports.MouseEvent = function(domEvent, editor) {
     this.getDocumentPosition = function() {
         if (this.$pos)
             return this.$pos;
-
+        
         this.$pos = this.editor.renderer.screenToTextCoordinates(this.clientX, this.clientY);
         return this.$pos;
     };
     this.inSelection = function() {
         if (this.$inSelection !== null)
             return this.$inSelection;
-
+            
         var editor = this.editor;
-
+        
         if (editor.getReadOnly()) {
             this.$inSelection = false;
         }
@@ -4338,11 +4350,11 @@ var MouseEvent = exports.MouseEvent = function(domEvent, editor) {
     this.getShiftKey = function() {
         return this.domEvent.shiftKey;
     };
-
+    
     this.getAccelKey = useragent.isMac
         ? function() { return this.domEvent.metaKey; }
         : function() { return this.domEvent.ctrlKey; };
-
+    
 }).call(MouseEvent.prototype);
 
 });
@@ -4742,7 +4754,7 @@ EventEmitter._dispatchEvent = function(eventName, e) {
         if (e.propagationStopped)
             break;
     }
-
+    
     if (defaultHandler && !e.defaultPrevented)
         return defaultHandler(e, this);
 };
@@ -4770,7 +4782,7 @@ EventEmitter.setDefaultHandler = function(eventName, callback) {
     var handlers = this._defaultHandlers
     if (!handlers)
         handlers = this._defaultHandlers = {_disabled_: {}};
-
+    
     if (handlers[eventName]) {
         var old = handlers[eventName];
         var disabled = handlers._disabled_[eventName];
@@ -4778,7 +4790,7 @@ EventEmitter.setDefaultHandler = function(eventName, callback) {
             handlers._disabled_[eventName] = disabled = [];
         disabled.push(old);
         var i = disabled.indexOf(callback);
-        if (i != -1)
+        if (i != -1) 
             disabled.splice(i, 1);
     }
     handlers[eventName] = callback;
@@ -4788,7 +4800,7 @@ EventEmitter.removeDefaultHandler = function(eventName, callback) {
     if (!handlers)
         return;
     var disabled = handlers._disabled_[eventName];
-
+    
     if (handlers[eventName] == callback) {
         var old = handlers[eventName];
         if (disabled)
@@ -4970,11 +4982,11 @@ var KeyBinding = function(editor) {
             if (!toExecute || !toExecute.command)
                 continue;
             if (toExecute.command == "null") {
-                success = toExecute.passEvent != true;
+                success = true;
             } else {
-                success = commands.exec(toExecute.command, this.$editor, toExecute.args, e);
+                success = commands.exec(toExecute.command, this.$editor, toExecute.args, e);                
             }
-            if (success && e && hashId != -1)
+            if (success && e && hashId != -1 && toExecute.passEvent != true)
                 event.stopEvent(e);
             if (success)
                 break;
@@ -5217,7 +5229,7 @@ var EditSession = function(text, mode) {
         if (this.$syncInformUndoManager)
             this.$syncInformUndoManager();
     };
-
+    
     this.$defaultUndoManager = {
         undo: function() {},
         redo: function() {},
@@ -7031,11 +7043,11 @@ var Selection = function(session) {
 
         if (column == line.length) {
             var l = this.doc.getLength();
-            do {
+            do {    
                 row++;
                 rightOfCursor = this.doc.getLine(row)
             } while (row < l && /^\s*$/.test(rightOfCursor))
-
+            
             if (!/^\s+/.test(rightOfCursor))
                 rightOfCursor = ""
             column = 0;
@@ -7056,11 +7068,11 @@ var Selection = function(session) {
 
         var line = this.session.getLine(row).substring(0, column);
         if (column == 0) {
-            do {
+            do {    
                 row--;
                 line = this.doc.getLine(row);
             } while (row > 0 && /^\s*$/.test(line))
-
+            
             column = line.length;
             if (!/\s+$/.test(line))
                 line = ""
@@ -7438,6 +7450,8 @@ var Mode = function() {
         var ignoreBlankLines = true;
         var shouldRemove = true;
         var minIndent = Infinity;
+        var tabSize = session.getTabSize();
+        var insertAtTabStop = false;
 
         if (!this.lineCommentStart) {
             if (!this.blockComment)
@@ -7476,23 +7490,50 @@ var Mode = function() {
         } else {
             if (Array.isArray(this.lineCommentStart)) {
                 var regexpStart = this.lineCommentStart.map(lang.escapeRegExp).join("|");
-                var lineCommentStart = this.lineCommentStart[0] + " ";
+                var lineCommentStart = this.lineCommentStart[0];
             } else {
                 var regexpStart = lang.escapeRegExp(this.lineCommentStart);
-                var lineCommentStart = this.lineCommentStart + " ";
+                var lineCommentStart = this.lineCommentStart;
             }
             regexpStart = new RegExp("^(\\s*)(?:" + regexpStart + ") ?");
+            
+            insertAtTabStop = session.getUseSoftTabs();
 
             var uncomment = function(line, i) {
                 var m = line.match(regexpStart);
-                m && doc.removeInLine(i, m[1].length, m[0].length);
+                if (!m) return;
+                var start = m[1].length, end = m[0].length;
+                if (!shouldInsertSpace(line, start, end) && m[0][end - 1] == " ")
+                    end--;
+                doc.removeInLine(i, start, end);
             };
+            var commentWithSpace = lineCommentStart + " ";
             var comment = function(line, i) {
-                if (!ignoreBlankLines || /\S/.test(line))
-                    doc.insertInLine({row: i, column: minIndent}, lineCommentStart);
+                if (!ignoreBlankLines || /\S/.test(line)) {
+                    if (shouldInsertSpace(line, minIndent, minIndent))
+                        doc.insertInLine({row: i, column: minIndent}, commentWithSpace);
+                    else
+                        doc.insertInLine({row: i, column: minIndent}, lineCommentStart);
+                }
             };
             var testRemove = function(line, i) {
                 return regexpStart.test(line);
+            };
+            
+            var shouldInsertSpace = function(line, before, after) {
+                var spaces = 0;
+                while (before-- && line.charAt(before) == " ")
+                    spaces++;
+                if (spaces % tabSize != 0)
+                    return false;
+                var spaces = 0;
+                while (line.charAt(after++) == " ")
+                    spaces++;
+                if (tabSize > 2)
+                    return spaces % tabSize != tabSize - 1;
+                else
+                    return spaces % tabSize == 0;
+                return true;
             };
         }
 
@@ -7520,6 +7561,9 @@ var Mode = function() {
             ignoreBlankLines = false;
             shouldRemove = false;
         }
+
+        if (insertAtTabStop && minIndent % tabSize != 0)
+            minIndent = Math.floor(minIndent / tabSize) * tabSize;
 
         iter(shouldRemove ? uncomment : comment);
     };
@@ -7628,7 +7672,8 @@ var Mode = function() {
 
     this.$delegator = function(method, args, defaultHandler) {
         var state = args[0];
-
+        if (typeof state != "string")
+            state = state[0];
         for (var i = 0; i < this.$embeds.length; i++) {
             if (!this.$modes[this.$embeds[i]]) continue;
 
@@ -7694,7 +7739,7 @@ var Tokenizer = function(rules) {
                 if (rule.token.length == 1 || matchcount == 1) {
                     rule.token = rule.token[0];
                 } else if (matchcount - 1 != rule.token.length) {
-                    throw new Error("number of classes and regexp groups in '" +
+                    throw new Error("number of classes and regexp groups in '" + 
                         rule.token + "'\n'" + rule.regex +  "' doesn't match\n"
                         + (matchcount - 1) + "!=" + rule.token.length);
                 } else {
@@ -7730,7 +7775,7 @@ var Tokenizer = function(rules) {
                 rule.onMatch = null;
             rule.__proto__ = null;
         }
-
+        
         splitterRurles.forEach(function(rule) {
             rule.splitRegex = this.createSplitterRegexp(rule.regex, flag);
         }, this);
@@ -7912,7 +7957,7 @@ var Tokenizer = function(rules) {
                     token = {
                         value: line.substring(lastIndex, lastIndex += 2000),
                         type: "overflow"
-                    }
+                    }    
                 }
                 currentState = "start";
                 stack = [];
@@ -8083,7 +8128,7 @@ var TextHighlightRules = function() {
                     i--;
                     toInsert = null
                 }
-
+                
                 if (rule.keywordMap) {
                     rule.token = this.createKeywordMapper(
                         rule.keywordMap, rule.defaultToken || "text", rule.caseInsensitive
@@ -8138,7 +8183,7 @@ var Behaviour = function() {
         }
         this.$behaviours[name][action] = callback;
     }
-
+    
     this.addBehaviours = function (behaviours) {
         for (var key in behaviours) {
             for (var action in behaviours[key]) {
@@ -8146,13 +8191,13 @@ var Behaviour = function() {
             }
         }
     }
-
+    
     this.remove = function (name) {
         if (this.$behaviours && this.$behaviours[name]) {
             delete this.$behaviours[name];
         }
     }
-
+    
     this.inherit = function (mode, filter) {
         if (typeof mode === "function") {
             var behaviours = new mode().getBehaviours(filter);
@@ -8161,7 +8206,7 @@ var Behaviour = function() {
         }
         this.addBehaviours(behaviours);
     }
-
+    
     this.getBehaviours = function (filter) {
         if (!filter) {
             return this.$behaviours;
@@ -8241,23 +8286,23 @@ var TokenIterator = function(session, initialRow, initialColumn) {
     this.$tokenIndex = token ? token.index : -1;
 };
 
-(function() {
+(function() { 
     this.stepBackward = function() {
         this.$tokenIndex -= 1;
-
+        
         while (this.$tokenIndex < 0) {
             this.$row -= 1;
             if (this.$row < 0) {
                 this.$row = 0;
                 return null;
             }
-
+                
             this.$rowTokens = this.$session.getTokens(this.$row);
             this.$tokenIndex = this.$rowTokens.length - 1;
         }
-
+            
         return this.$rowTokens[this.$tokenIndex];
-    };
+    };   
     this.stepForward = function() {
         this.$tokenIndex += 1;
         var rowCount;
@@ -8273,31 +8318,31 @@ var TokenIterator = function(session, initialRow, initialColumn) {
             this.$rowTokens = this.$session.getTokens(this.$row);
             this.$tokenIndex = 0;
         }
-
+            
         return this.$rowTokens[this.$tokenIndex];
-    };
+    };      
     this.getCurrentToken = function () {
         return this.$rowTokens[this.$tokenIndex];
-    };
+    };      
     this.getCurrentTokenRow = function () {
         return this.$row;
-    };
+    };     
     this.getCurrentTokenColumn = function() {
         var rowTokens = this.$rowTokens;
         var tokenIndex = this.$tokenIndex;
         var column = rowTokens[tokenIndex].start;
         if (column !== undefined)
             return column;
-
+            
         column = 0;
         while (tokenIndex > 0) {
             tokenIndex -= 1;
             column += rowTokens[tokenIndex].value.length;
         }
-
-        return column;
+        
+        return column;  
     };
-
+            
 }).call(TokenIterator.prototype);
 
 exports.TokenIterator = TokenIterator;
@@ -8645,9 +8690,9 @@ var Document = function(text) {
         var index = 0;
         var row = Math.min(pos.row, lines.length);
         for (var i = startRow || 0; i < row; ++i)
-            index += lines[i].length;
+            index += lines[i].length + newlineLength;
 
-        return index + newlineLength * i + pos.column;
+        return index + pos.column;
     };
 
 }).call(Document.prototype);
@@ -8953,7 +8998,7 @@ var SearchHighlight = function(regExp, clazz, type) {
 
 (function() {
     this.MAX_RANGES = 500;
-
+    
     this.setRegexp = function(regExp) {
         if (this.regExp+"" == regExp+"")
             return;
@@ -9058,11 +9103,11 @@ function Folding() {
     this.getAllFolds = function() {
         var folds = [];
         var foldLines = this.$foldData;
-
+        
         function addFold(fold) {
             folds.push(fold);
         }
-
+        
         for (var i = 0; i < foldLines.length; i++)
             for (var j = 0; j < foldLines[i].folds.length; j++)
                 addFold(foldLines[i].folds[j]);
@@ -9171,7 +9216,7 @@ function Folding() {
         var foldData = this.$foldData;
         var added = false;
         var fold;
-
+        
         if (placeholder instanceof Fold)
             fold = placeholder;
         else {
@@ -9236,7 +9281,7 @@ function Folding() {
         else
             this.$updateRowLengthCache(foldLine.start.row, foldLine.start.row);
         this.$modified = true;
-        this._emit("changeFold", { data: fold });
+        this._emit("changeFold", { data: fold, action: "add" });
 
         return fold;
     };
@@ -9285,7 +9330,7 @@ function Folding() {
                 this.$updateRowLengthCache(startRow, endRow);
         }
         this.$modified = true;
-        this._emit("changeFold", { data: fold });
+        this._emit("changeFold", { data: fold, action: "remove" });
     };
 
     this.removeFolds = function(folds) {
@@ -9301,7 +9346,7 @@ function Folding() {
     };
 
     this.expandFold = function(fold) {
-        this.removeFold(fold);
+        this.removeFold(fold);        
         fold.subFolds.forEach(function(subFold) {
             fold.restoreRange(subFold);
             this.addFold(subFold);
@@ -9482,12 +9527,12 @@ function Folding() {
                 } while(token && re.test(token.type));
                 iterator.stepForward();
             }
-
+            
             range.start.row = iterator.getCurrentTokenRow();
             range.start.column = iterator.getCurrentTokenColumn() + 2;
 
             iterator = new TokenIterator(this, row, column);
-
+            
             if (dir != -1) {
                 do {
                     token = iterator.stepForward();
@@ -9530,12 +9575,12 @@ function Folding() {
     this.setFoldStyle = function(style) {
         if (!this.$foldStyles[style])
             throw new Error("invalid fold style: " + style + "[" + Object.keys(this.$foldStyles).join(", ") + "]");
-
+        
         if (this.$foldStyle == style)
             return;
 
         this.$foldStyle = style;
-
+        
         if (style == "manual")
             this.unfold();
         var mode = this.$foldMode;
@@ -9546,24 +9591,24 @@ function Folding() {
     this.$setFolding = function(foldMode) {
         if (this.$foldMode == foldMode)
             return;
-
+            
         this.$foldMode = foldMode;
-
+        
         this.removeListener('change', this.$updateFoldWidgets);
         this._emit("changeAnnotation");
-
+        
         if (!foldMode || this.$foldStyle == "manual") {
             this.foldWidgets = null;
             return;
         }
-
+        
         this.foldWidgets = [];
         this.getFoldWidget = foldMode.getFoldWidget.bind(foldMode, this, this.$foldStyle);
         this.getFoldWidgetRange = foldMode.getFoldWidgetRange.bind(foldMode, this, this.$foldStyle);
-
+        
         this.$updateFoldWidgets = this.updateFoldWidgets.bind(this);
         this.on('change', this.$updateFoldWidgets);
-
+        
     };
 
     this.getParentFoldRangeData = function (row, ignoreCurrent) {
@@ -9620,7 +9665,7 @@ function Folding() {
                 return;
             }
         }
-
+        
         if (siblings) {
             var data = this.getParentFoldRangeData(row);
             if (data.range) {
@@ -9632,11 +9677,11 @@ function Folding() {
             var endRow = range ? range.end.row : this.getLength();
             this.foldAll(row + 1, range.end.row, all ? 10000 : 0);
         } else if (range) {
-            if (all)
+            if (all) 
                 range.collapseChildren = 10000;
             this.addFold("...", range);
         }
-
+        
         if (!range)
             (e.target || e.srcElement).className += " ace_invalid"
     };
@@ -9958,7 +10003,7 @@ oop.inherits(Fold, RangeList);
 
         return fold;
     };
-
+    
     this.restoreRange = function(range) {
         return restoreRange(range, this.start);
     };
@@ -10049,11 +10094,11 @@ var RangeList = function() {
     this.merge = function() {
         var removed = [];
         var list = this.ranges;
-
+        
         list = list.sort(function(a, b) {
             return comparePoints(a.start, b.start);
         });
-
+        
         var next = list[0], range;
         for (var i = 1; i < list.length; i++) {
             range = next;
@@ -10075,7 +10120,7 @@ var RangeList = function() {
             next = range;
             i--;
         }
-
+        
         this.ranges = list;
 
         return removed;
@@ -10160,12 +10205,12 @@ var RangeList = function() {
                 break;
 
             if (r.start.row == startRow && r.start.column >= start.column ) {
-
+                
                 r.start.column += colDiff;
                 r.start.row += lineDif;
             }
             if (r.end.row == startRow && r.end.column >= start.column) {
-                if (r.end.column == start.column && colDiff > 0 && i < n - 1) {
+                if (r.end.column == start.column && colDiff > 0 && i < n - 1) {                
                     if (r.end.column > r.start.column && r.end.column == ranges[i+1].start.column)
                         r.end.column -= colDiff;
                 }
@@ -10212,7 +10257,7 @@ function BracketMatch() {
         else
             return this.$findOpeningBracket(match[2], position);
     };
-
+    
     this.getBracketRange = function(pos) {
         var line = this.getLine(pos.row);
         var before = true, range;
@@ -10249,7 +10294,7 @@ function BracketMatch() {
             }
             range.cursor = range.start;
         }
-
+        
         return range;
     };
 
@@ -10272,7 +10317,7 @@ function BracketMatch() {
             token = iterator.stepForward();
         if (!token)
             return;
-
+        
          if (!typeRe){
             typeRe = new RegExp(
                 "(\\.?" +
@@ -10282,9 +10327,9 @@ function BracketMatch() {
         }
         var valueIndex = position.column - iterator.getCurrentTokenColumn() - 2;
         var value = token.value;
-
+        
         while (true) {
-
+        
             while (valueIndex >= 0) {
                 var chr = value.charAt(valueIndex);
                 if (chr == openBracket) {
@@ -10305,11 +10350,11 @@ function BracketMatch() {
 
             if (token == null)
                 break;
-
+                
             value = token.value;
             valueIndex = value.length - 1;
         }
-
+        
         return null;
     };
 
@@ -10360,7 +10405,7 @@ function BracketMatch() {
 
             valueIndex = 0;
         }
-
+        
         return null;
     };
 }
@@ -10428,7 +10473,7 @@ var Search = function() {
                 for (var j = 0; j < len; j++)
                     if (lines[row + j].search(re[j]) == -1)
                         break;
-
+                
                 var startLine = lines[row];
                 var line = lines[row + len - 1];
                 var startIndex = startLine.match(re[0])[0].length;
@@ -10458,7 +10503,7 @@ var Search = function() {
 
             while (i < j && ranges[j].end.column > endColumn && ranges[j].end.row == range.end.row)
                 j--;
-
+            
             ranges = ranges.slice(i, j + 1);
             for (i = 0, j = ranges.length; i < j; i++) {
                 ranges[i].start.row += range.start.row;
@@ -10481,7 +10526,7 @@ var Search = function() {
         var match = re.exec(input);
         if (!match || match[0].length != input.length)
             return null;
-
+        
         replacement = input.replace(re, replacement);
         if (options.preserveCase) {
             replacement = replacement.split("");
@@ -10494,7 +10539,7 @@ var Search = function() {
             }
             replacement = replacement.join("");
         }
-
+        
         return replacement;
     };
 
@@ -10553,7 +10598,7 @@ var Search = function() {
         };
     };
 
-    this.$assembleRegExp = function(options) {
+    this.$assembleRegExp = function(options, $disableFakeMultiline) {
         if (options.needle instanceof RegExp)
             return options.re = options.needle;
 
@@ -10570,7 +10615,7 @@ var Search = function() {
 
         var modifier = options.caseSensitive ? "g" : "gi";
 
-        options.$isMultiLine = /[\n\r]/.test(needle);
+        options.$isMultiLine = !$disableFakeMultiline && /[\n\r]/.test(needle);
         if (options.$isMultiLine)
             return options.re = this.$assembleMultilineRegExp(needle, modifier);
 
@@ -10607,7 +10652,7 @@ var Search = function() {
         var start = options.start;
         if (!start)
             start = range ? range[backwards ? "end" : "start"] : session.selection.getRange();
-
+         
         if (start.start)
             start = start[skipCurrent != backwards ? "end" : "start"];
 
@@ -10649,7 +10694,7 @@ var Search = function() {
                     if (callback(session.getLine(row), row))
                         return;
             };
-
+        
         return {forEach: forEach};
     };
 
@@ -11175,7 +11220,7 @@ exports.commands = [{
     exec: function(editor) { editor.jumpToMatching(true); },
     multiSelectAction: "forEach",
     readOnly: true
-},
+}, 
 {
     name: "cut",
     exec: function(editor) {
@@ -11425,12 +11470,14 @@ overflow: hidden;\
 font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;\
 font-size: 12px;\
 line-height: normal;\
+color: black;\
 }\
 .ace_scroller {\
 position: absolute;\
 overflow: hidden;\
 top: 0;\
 bottom: 0;\
+background-color: inherit;\
 }\
 .ace_content {\
 position: absolute;\
@@ -11539,7 +11586,6 @@ text-align: right;\
 pointer-events: auto;\
 }\
 .ace_text-layer {\
-color: black;\
 font: inherit !important;\
 }\
 .ace_cjk {\
@@ -11995,6 +12041,8 @@ var VirtualRenderer = function(container, theme) {
 
         if (this.session.getUseWrapMode() && this.adjustWrapLimit())
             this.$loop.schedule(this.CHANGE_FULL);
+        else
+            this.$loop.schedule(this.CHANGE_MARKER);
     };
     this.adjustWrapLimit = function() {
         var availableWidth = this.$size.scrollerWidth - this.$padding * 2;
@@ -12084,7 +12132,7 @@ var VirtualRenderer = function(container, theme) {
         var style = this.$printMarginEl.style;
         style.left = ((this.characterWidth * this.$printMarginColumn) + this.$padding) + "px";
         style.visibility = this.$showPrintMargin ? "visible" : "hidden";
-
+        
         if (this.session && this.session.$wrap == -1)
             this.adjustWrapLimit();
     };
@@ -12585,24 +12633,26 @@ var VirtualRenderer = function(container, theme) {
             afterLoad(theme);
         }
 
-        function afterLoad(theme) {
-            if (!theme.cssClass)
+        function afterLoad(module) {
+            if (_self.$themeValue != theme)
+                return;
+            if (!module.cssClass)
                 return;
             dom.importCssString(
-                theme.cssText,
-                theme.cssClass,
+                module.cssText,
+                module.cssClass,
                 _self.container.ownerDocument
             );
 
             if (_self.theme)
                 dom.removeCssClass(_self.container, _self.theme.cssClass);
-            _self.$theme = theme.cssClass;
+            _self.$theme = module.cssClass;
 
-            _self.theme = theme;
-            dom.addCssClass(_self.container, theme.cssClass);
-            dom.setCssClass(_self.container, "ace_dark", theme.isDark);
+            _self.theme = module;
+            dom.addCssClass(_self.container, module.cssClass);
+            dom.setCssClass(_self.container, "ace_dark", module.isDark);
 
-            var padding = theme.padding || 4;
+            var padding = module.padding || 4;
             if (_self.$padding && padding != _self.$padding)
                 _self.setPadding(padding);
             if (_self.$size) {
@@ -12610,7 +12660,7 @@ var VirtualRenderer = function(container, theme) {
                 _self.onResize();
             }
 
-            _self._dispatchEvent('themeLoaded',{theme:theme});
+            _self._dispatchEvent('themeLoaded',{theme:module});
         }
     };
     this.getTheme = function() {
@@ -12655,7 +12705,7 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
             this.$updatePrintMargin();
         },
         get: function() {
-            return this.$showPrintMargin && this.$printMarginColumn;
+            return this.$showPrintMargin && this.$printMarginColumn; 
         }
     },
     showGutter: {
@@ -12739,7 +12789,7 @@ var Gutter = function(parentEl) {
     this.element.className = "ace_layer ace_gutter-layer";
     parentEl.appendChild(this.element);
     this.setShowFoldWidgets(this.$showFoldWidgets);
-
+    
     this.gutterWidth = 0;
 
     this.$annotations = [];
@@ -12778,7 +12828,7 @@ var Gutter = function(parentEl) {
             var rowInfo = this.$annotations[row];
             if (!rowInfo)
                 rowInfo = this.$annotations[row] = {text: []};
-
+           
             var annoText = annotation.text;
             annoText = annoText ? lang.escapeHTML(annoText) : annotation.html || "";
 
@@ -12838,7 +12888,7 @@ var Gutter = function(parentEl) {
             html.push(
                 "<div class='ace_gutter-cell ",
                 breakpoints[i] || "", decorations[i] || "", annotation.className,
-                "' style='height:", this.session.getRowLength(i) * config.lineHeight, "px;'>",
+                "' style='height:", this.session.getRowLength(i) * config.lineHeight, "px;'>", 
                 lastLineNumber = i + firstLineNumber
             );
 
@@ -12862,10 +12912,10 @@ var Gutter = function(parentEl) {
 
         this.element = dom.setInnerHtml(this.element, html.join(""));
         this.element.style.height = config.minHeight + "px";
-
+        
         if (this.session.$useWrapMode)
             lastLineNumber = this.session.getLength();
-
+        
         var gutterWidth = ("" + lastLineNumber).length * config.characterWidth;
         var padding = this.$padding || this.$computePadding();
         gutterWidth += padding.left + padding.right;
@@ -12886,7 +12936,7 @@ var Gutter = function(parentEl) {
         this.$showFoldWidgets = show;
         this.$padding = null;
     };
-
+    
     this.getShowFoldWidgets = function() {
         return this.$showFoldWidgets;
     };
@@ -12897,7 +12947,7 @@ var Gutter = function(parentEl) {
         var style = dom.computedStyle(this.element.firstChild);
         this.$padding = {}
         this.$padding.left = parseInt(style.paddingLeft) + 1;
-        this.$padding.right = parseInt(style.paddingRight);
+        this.$padding.right = parseInt(style.paddingRight);  
         return this.$padding;
     };
 
@@ -12923,10 +12973,8 @@ var Range = require("../range").Range;
 var dom = require("../lib/dom");
 
 var Marker = function(parentEl) {
-    var x,u,d;
     this.element = dom.createElement("div");
     this.element.className = "ace_layer ace_marker-layer";
-
     parentEl.appendChild(this.element);
 };
 
@@ -12940,7 +12988,7 @@ var Marker = function(parentEl) {
     this.setSession = function(session) {
         this.session = session;
     };
-
+    
     this.setMarkers = function(markers) {
         this.markers = markers;
     };
@@ -13074,7 +13122,7 @@ var Marker = function(parentEl) {
             "left:0;right:0;", extraStyle || "", "'></div>"
         );
     };
-
+    
     this.drawScreenLineMarker = function(stringBuilder, range, clazz, config, extraStyle) {
         var top = this.$getTop(range.start.row, config);
         var height = config.lineHeight;
@@ -14121,7 +14169,7 @@ var EditSession = require("./edit_session").EditSession;
                     var start = range.end, end = range.start;
                 else
                     var start = range.start, end = range.end;
-
+                
                 this.addRange(Range.fromPoints(end, end));
                 this.addRange(Range.fromPoints(start, start));
                 return;
@@ -14321,7 +14369,7 @@ var Editor = require("./editor").Editor;
             result = command.multiSelectAction(editor, e.args || {});
         }
         return result;
-    };
+    }; 
     this.forEachSelection = function(cmd, args, $byLines) {
         if (this.inVirtualSelectionMode)
             return;
@@ -14330,7 +14378,7 @@ var Editor = require("./editor").Editor;
         var selection = this.selection;
         var rangeList = selection.rangeList;
         var result;
-
+        
         var reg = selection._eventRegistry;
         selection._eventRegistry = {};
 
@@ -14354,24 +14402,24 @@ var Editor = require("./editor").Editor;
         this.inVirtualSelectionMode = false;
         selection._eventRegistry = reg;
         selection.mergeOverlappingRanges();
-
+        
         var anim = this.renderer.$scrollAnimation;
         this.onCursorChange();
         this.onSelectionChange();
         if (anim && anim.from == anim.to)
             this.renderer.animateScrolling(anim.from);
-
+        
         return result;
     };
     this.exitMultiSelectMode = function() {
-        if (this.inVirtualSelectionMode)
+        if (!this.inMultiSelectMode || this.inVirtualSelectionMode)
             return;
         this.multiSelect.toSingleRange();
     };
 
     this.getCopyText = function() {
         var text = "";
-        if (this.inMultiSelectMode) {
+        if (this.inMultiSelectMode && !this.inVirtualSelectionMode) {
             var ranges = this.multiSelect.rangeList.ranges;
             var buf = [];
             for (var i = 0; i < ranges.length; i++) {
@@ -14384,7 +14432,7 @@ var Editor = require("./editor").Editor;
         } else if (!this.selection.isEmpty()) {
             text = this.session.getTextRange(this.getSelectionRange());
         }
-
+        this._signal("copy", text);
         return text;
     };
     this.onPaste = function(text) {
@@ -14398,10 +14446,10 @@ var Editor = require("./editor").Editor;
         var lines = text.split(/\r\n|\r|\n/);
         var ranges = this.selection.rangeList.ranges;
 
-        if (lines.length > ranges.length || (lines.length <= 2 && !lines[1]))
+        if (lines.length > ranges.length || lines.length < 2 || !lines[1])
             return this.commands.exec("insertstring", this, text);
 
-        for (var i = ranges.length; i--; ) {
+        for (var i = ranges.length; i--;) {
             var range = ranges[i];
             if (!range.isEmpty())
                 this.session.remove(range);
@@ -14729,7 +14777,7 @@ function onMouseDown(e) {
         e.editor.textInput.onContextMenu(e.domEvent);
         return;
     }
-
+    
     if (!ctrl && !alt) {
         if (button == 0 && e.editor.inMultiSelectMode)
             e.editor.exitMultiSelectMode();
@@ -14768,12 +14816,12 @@ function onMouseDown(e) {
         rectSel.forEach(editor.addSelectionMarker, editor);
         editor.updateSelectionMarkers();
     };
-
+    
     var session = editor.session;
     var screenAnchor = editor.renderer.pixelToScreenCoordinates(mouseX, mouseY);
     var screenCursor = screenAnchor;
 
-
+    
 
     if (ctrl && !shift && !alt && button == 0) {
         if (!isMultiSelect && inSelection)
@@ -14915,14 +14963,14 @@ var WorkerClient = function(topLevelNamespaces, mod, classname) {
     this.changeListener = this.changeListener.bind(this);
     this.onMessage = this.onMessage.bind(this);
     this.onError = this.onError.bind(this);
+    if (require.nameToUrl && !require.toUrl)
+        require.toUrl = require.nameToUrl;
 
     var workerUrl;
-    if (config.get("packaged")) {
+    if (config.get("packaged") || !require.toUrl) {
         workerUrl = config.moduleUrl(mod, "worker");
     } else {
         var normalizePath = this.$normalizePath;
-        if (require.nameToUrl && !require.toUrl)
-            require.toUrl = require.nameToUrl;
         workerUrl = normalizePath(require.toUrl("ace/worker/worker.js", null, "_"));
 
         var tlns = {};
@@ -15055,7 +15103,7 @@ var UIWorkerClient = function(topLevelNamespaces, mod, classname) {
     var sender = Object.create(EventEmitter);
     var _self = this;
 
-    this.$worker = {}
+    this.$worker = {};
     this.$worker.terminate = function() {};
     this.$worker.postMessage = function(e) {
         _self.messageBuffer.push(e);
@@ -15110,13 +15158,13 @@ var PlaceHolder = function(session, length, pos, others, mainClass, othersClass)
     this.$onUpdate = this.onUpdate.bind(this);
     this.doc.on("change", this.$onUpdate);
     this.$others = others;
-
+    
     this.$onCursorChange = function() {
         setTimeout(function() {
             _self.onCursorChange();
         });
     };
-
+    
     this.$pos = pos;
     var undoStack = session.getUndoManager().$undoStack || session.getUndoManager().$undostack || {length: -1};
     this.$undoStackDepth =  undoStack.length;
@@ -15175,7 +15223,7 @@ var PlaceHolder = function(session, length, pos, others, mainClass, othersClass)
         if (this.$updating) return;
         this.$updating = true;
         var lengthDiff = delta.action === "insertText" ? range.end.column - range.start.column : range.start.column - range.end.column;
-
+        
         if(range.start.column >= this.pos.column && range.start.column <= this.pos.column + this.length + 1) {
             var distanceFromStart = range.start.column - this.pos.column;
             this.length += lengthDiff;
@@ -15238,7 +15286,7 @@ var PlaceHolder = function(session, length, pos, others, mainClass, othersClass)
             this.hideOtherMarkers();
             this._emit("cursorLeave", event);
         }
-    };
+    };    
     this.detach = function() {
         this.session.removeMarker(this.markerId);
         this.hideOtherMarkers();
@@ -15370,7 +15418,7 @@ background: #e8e8e8;\
 .ace-tm .ace_fold {\
 background-color: #6B72E6;\
 }\
-.ace-tm .ace_scroller {\
+.ace-tm {\
 background-color: #FFFFFF;\
 }\
 .ace-tm .ace_cursor {\
@@ -15497,3 +15545,4 @@ dom.importCssString(exports.cssText, exports.cssClass);
                         ace[key] = a[key];
                 });
             })();
+        
