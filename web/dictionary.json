@@ -1,11 +1,11 @@
 {
 	"Basic Syntax": {
 		"Semicolons": {
-			"SemColDef": "You separate most Java statements with a semicolon(;),\n<code>int x=5;\nSystem.out.print(x+10);\nreturn x>3;</code>.\nGotchas\nDon't add a semicolon after while, for or if. <code>int x=0;\nwhile(x<10)<b>;</b>\nx=x+1;\nSystem.out.println(\"The loop runs forever (x will always be zero)...\");</code>"
+			"SemColDef": "You separate most Java statements with a semicolon(;),\n<code>int x=5;\nSystem.out.print(x+10);\nreturn x>3;</code>.\nGotchas\nDon't add a semicolon after while or if. <code>int x=0;\nwhile(x<10)<b>;</b>\nx=x+1;\nSystem.out.println(\"The loop runs forever (x will always be zero)...\");</code>"
 		}
 		,
 		"Brackets and Parentheses": {
-			"BracketDef": "Java uses three kinds of brackets [] {} and () and they each mean something different. You need to use them in matching pairs. For example <tt>((1+2)/2</tt> is incomplete because it is missing the closing ). <li>Parentheses () are used to group mathematical expressions and also to call a method.</li><li>Calling a method may take no parameters (e.g. <tt>turnLeft()</tt>), or one or more parameters <tt>go(3) Math.max(2,3)</tt>.</li><li>\"Squiggly brackets\" {} are used to group a sequence of statements into a method, or group a sequence of statements to be used by a loop or if condition.</li><li>Square brackets [] are used to select an item from an array.</li>Gotchas\nMake sure you use the right one otherwise the compiler will get confused and complain."
+			"BracketDef": "Java uses three kinds of brackets [] {} and () and they each mean something different. You need to use them in matching pairs. For example <tt>((1+2)/2</tt> is incomplete because it is missing the closing ).\nParentheses () are used to group mathematical expressions and also to call a method.Calling a method may take no parameters (e.g. <tt>turnLeft()</tt>), or one or more parameters <tt>go(3) Math.max(2,3)</tt>.\n\"Squiggly brackets\" {} are used to group a sequence of statements into a method, or group a sequence of statements to be used by a loop or if condition.\nSquare brackets [] are used to select an item from an array.Gotchas\nMake sure you use the right one otherwise the compiler will get confused and complain."
 		}
 	}
 	,
@@ -14,90 +14,90 @@
 		,
 		"Primitive Types" : {
 		"Integer": {
-			"IntDef": "Integer is a variable type that is used to store integer values<li><code>int x = 6;\nSystem.out.println(x);</code></li>This will create an integer variable x, and set its value to 6. It will then print out the value of x"
+			"IntDef": "Integer is a variable type that is used to store integer values<li><tt>int x = 6;</tt></li>This will create an <tt>int</tt> variable x, and set its value to the integer 6"
 		}
 		,
 		"Double": {
-			"DoubleDef": "Double is a variable type that is used to store floating-point numbers, also commonly known as decimal numbers<li><code>double temp = 3.14;\nSystem.out.println(temp);</code></li>This will create a double variable temp, and set its value to the decimal 3.14. It will then print out the value of temp"
+			"DoubleDef": "Double is a variable type that is used to store floating-point numbers, also commonly known as decimal numbers<li><tt>double temp = 3.14;</tt></li>This will create a double variable temp, and set its value to the <tt>double</tt> 3.14"
 		}
 		,
 		"Boolean": {
-			"BoolDef": "Boolean is a variable type that is used to store one of two values, either <tt>true</tt> or <tt>false</tt><li><code>boolean bool = false;\nSystem.out.println(bool);</code></li>This will create a boolean variable bool, and set its value to <tt>false</tt>. It will then print out the value of bool"
+			"BoolDef": "Boolean is a variable type that is used to store one of two values, either <tt>true</tt> or <tt>false</tt><li><tt>boolean bool = false;</tt></li>This will create a <tt>boolean</tt> variable bool, and set its value to <tt>false</tt>"
 		}
 		} ,
 		"Pointers": {
-		"Arrays": {
-		 	"ArrayDef": "An array pointer points to a sequence of values. For example, \n<code>int[] ptr = new int[] {1,2,3};</code>\n\nThis creates a new integer array and then initializes the variable 'ptr' to point to the new array."
+		"Arrays" : {
+			"ArrayDef": "An <tt>array</tt> pointer points to a sequence of values. For example, <li><code>int[] ptr = new int[] {1,2,3};</code></li> This creates a new integer <tt>array</tt> and then initializes the variable 'ptr' to point to the new array."
 		}
 		,
 		"String": {
-			"StringDef": "A String pointer that is used to store a sequence of characters such as \"Hi\"\n<code>String s = \"Hello World!\";</code>\nThis will create a String variable s that <em>points to</em> the \"Hello World!\" object."
+			"StringDef": "A <tt>String</tt> pointer that is used to store a sequence of characters such as \"Hi\"<li><tt>String s = \"Hello World!\";</tt></li>This will create a String variable s that <em>points to</em> the \"Hello World!\" object."
 		}
 		,
 		"null": {
-			"nullDef": "<tt>null</tt> is a special value you can use with pointer ('reference') variables.\n<code>String s = null;</code>\nThis creates a String variable named 's' that will be null meaning that it does not point to any particular String object."
+			"nullDef": "<tt>null</tt> is a special value you can use with pointer ('reference') variables.<li><tt>String s = null;</tt></li>This creates a String variable named 's' that will be <tt>null</tt> meaning that it does not point to any particular <tt>String</tt> object."
 		}
 		}
 	}
 	,
 	"Operators": {
 		"Arithmetic Operators": {
-			"ArithDef": "Java understands the basic rules of adding, subtracting and multiplying. So you can write <tt>2 + 2</tt>, <tt>5==3</tt> and it will calculate the result (<tt>4</tt> and <tt>false></tt> respectively)."
+			"ArithDef": "Java understands the basic rules of adding, subtracting and multiplying. So you can write <tt>2 + 2</tt>, <tt>5==3</tt> and it will calculate the result (<tt>4</tt> and <tt>false</tt> respectively)."
 			,			
 			"Division (/)": {
-				"DivDef": "Basic mathematics division operation<li><code>4 / 2\n6.3 / 2.1</code></li>The above expressions will evaluate to 2 and 3.0 respectively"
+				"DivDef": "Basic mathematics division operation<li><tt>4 / 2<li>6.3 / 2.1</tt></li>The above expressions will evaluate to 2 and 3.0 respectively"
 			}
 			,
 			"Modules (%)": {
-				"ModDef": "Performs a division operation, then retrieves the remainder from the the expression<li><tt>5 % 3\n6 % 3</tt></li>The above expressions will evaluate to 2 and 0 respectively"
+				"ModDef": "Performs a division operation, then retrieves the remainder from the the expression<li><tt>5 % 3<li>6 % 3</tt></li>The above expressions will evaluate to 2 and 0 respectively"
 			}
 			,
 			"Extra Notes": {
-				"ArithExtraNotes": "Performing arithmetic operations on two integeres will result in an integer by truncating the solution when necessary.<li><tt>6 / 4\n10 / 4</tt></li>Although the above expressions should technically evaluate to 1.5 and 2.5 respectively, it will instead evaluate to 1 and 2 after truncating.<li>Performing arithmetic operations on two doubles will result in a double</li><li><tt>7.0 / 3.5\n3.0 * 2.0</tt></li>The above expressions will evaluate to 2.0 and 6.0 respectively.<li>Using arithmetic operations on an integer and a double will always result in a double</li><li><tt>3.0 / 4\n2.0 * 8</tt></li>The above expressions will evaluate to 0.75 and 16.0 respectively"
+				"ArithExtraNotes": "Performing arithmetic operations on two integeres will result in an integer by truncating the solution when necessary.<li><tt>6 / 4<li>10 / 4</tt></li>Although the above expressions should technically evaluate to 1.5 and 2.5 respectively, it will instead evaluate to 1 and 2 after truncating.<li>Performing arithmetic operations on two doubles will result in a double</li><li><tt>7.0 / 3.5\n3.0 * 2.0</tt></li>The above expressions will evaluate to 2.0 and 6.0 respectively.<li>Using arithmetic operations on an integer and a double will always result in a double</li><li><tt>3.0 / 4\n2.0 * 8</tt></li>The above expressions will evaluate to 0.75 and 16.0 respectively"
 			}
 		}
 		,
 		"Relational Operators": {
-			"RelationalDef": "Relational Operators are used in expressions that will either evaluate to <tt>true</tt> or <tt>false</tt>"
+			"RelationalDef": "Relational Operators are used in expressions that will either evaluate to true or false"
 			,
 			"Equal to (==)": {
-				"EqualToDef": "Evaluates to <tt>true</tt> if the two given objects are the same. Evaulates <tt>false</tt> otherwise<li><code>int var = 20;\nif(var == 20)\nSystem.out.println(\"Var is 20!\")</code></li>The code first assigns the value 20 to var, then checks and evaluates to see if var is indeed 20. Since it is, the boolean expression var == 20 will evaluate <tt>true</tt> and\"Var is 20!\" is printed"
+				"EqualToDef": "Evaluates to true if the two given objects are the same, false otherwise\n\nint var = 20;\nif(var == 20)\n\nThe code above first assigns the value 20 to var, then checks and evaluates to see if var is indeed 20. Since it is, the boolean expression var == 20 will evaluate true"
 			}
-			,	
+			,
 			"Not Equal to (!=)": {
-				"NotEqualToDef": "Evaluates to <tt>true</tt> if the two given objects are different. Evaulates <tt>false</tt> otherwise<li><code>int size = 5;\nif(size != 10)\nSystem.out.println(\"Size is not 10!\")</code></li>The code first assigns the value of 5 to size, then checks and evaluates to see if size is not equal to 10. Since it is not equal to 10, the boolean expression will evaluate <tt>true</tt> and \"Size is not 10!\" is printed"
+				"NotEqualToDef": "Evaluates to true if the two given objects are different, false otherwise\n\nint size = 5;\nif(size != 10)\n\nThe code above first assigns the value of 5 to size, then checks and evaluates to see if size is not equal to 10. Since it is not equal to 10, the boolean expression will evaluate true"
 			}
 			,
 			"Greater than (>)": {
-				"GreaterDef": "Evaluates <tt>true</tt> if first object is greater than the second object. Evaluates <tt>false</tt> otherwise<li><code>int speed = 25;\nif(speed > 30)\nSystem.out.println(\"Speed is fast!\")\nelse\nSystem.out.println(\"Speed is slow...\")</code></li>The code assigns 25 to speed, then checks to see if speed is greater than 50. Since it is not, the boolean expression will evaluate to <tt>false</tt> and \"Speed is slow...\" will be printed instead<li>\nNOTE: Take a look at the If else statements section under Conditionals if If else statements are confusing!"
+				"GreaterDef": "Evaluates true if first object is greater than the second object, false otherwise\n\nint speed = 25;\nif(speed > 50)\n\nThe Code above assigns 25 to speed, then checks to see if speed is greater than 50. Since it is not, the boolean expression will evaluate to false"
 			}
 			,
 			"Less than (<)": {
-				"LessDef": "Evaluates <tt>true</tt> if the first object is less than second object. Evalautes <tt>false</tt> otherwise<li><code>int grade = 6;\nif(grade < 9)\nSystem.out.println(\"Not yet in high school\")</code></li>The code assigns 6 to grade, then checks and evaluates if grade is less than 9. Since it is, the boolean expression evaluates to <tt>true</tt> and \"Not yet in high school\" will be printed"
+				"LessDef": "Evaluates true if first object is less than second object, false otherwise\n\nint grade = 6;\nif(grade < 8)\n\n The code above assigns 6 to grade, then checkcs and evaluates if grade is less than 9. Since it is, the boolean expression evaluates to true"
 			}
 			,
 			"Greater than or equal to (>=)": {
-				"GTETDef": "Evaluates <tt>true</tt> if the first object is greater than or equal to second object. Evaluates <tt>false</tt> otherwise<li><code>int height = 5;\nif(height >= 5)\nSystem.out.println(\"Not that short!\")</code></li>The code assigns 5 to height, then checks if height is greater than or equal to 5. Since it is equal, the boolean expression evaluates to <tt>true</tt> and \"Not that short!\" will be printed"
+				"GTETDef": "Evaluates true if first object is greater than or equal to second object, false otherwise\n\nint height = 5;\nif(height >= 5)\n\n The code above assigns 5 to height, then checks if height is greater than or equal to 5. Since it is equal, the boolean expression evaluates to true"
 			}
 			,
 			"Less than or equal to (<=)": {
-				"LTETDef": "Evaluates <tt>true</tt> if the first object is less than or equal to the second object. Evaulates <tt>false</tt> otherwise<li><code>int width = 3;\nif(width <= 4)\nSystem.out.println(\"Small width!\")</code></li>The code assigns 3 to width, then checks and evaluates if width is less than or equal to 4. Since it is, then boolean expression evaluates to <tt>false</tt> and prints \"Small width!\""
+				"LTETDef": "Evaluates true if first object is less than or equal to the second object, false otherwise\n\nint width = 3;\nif(width <= 2)\n\nThe code assigns 3 to width, then checks and evaluates if width is less than or equal to 2. Since it is not, then boolean expression evaluates to false"
 			}
 		}
 		,
 		"Logical Operators": {
-			"LogicalDef": "Logical operators are applied to multiple boolean expressions to form compound boolean expressions that evaluates to either <tt>true</tt> or <tt>false</tt>"
+			"LogicalDef": "Logical operators are applied to multiple boolean expressions to form compound boolean expressions evaluates to either true or false"
 			,
 			"NOT (!)": {
-				"NotDef": "Negates the given boolean value. Evaluates to <tt>true</tt> if the given boolean expression is initially <tt>false</tt>. Evaluate <tt>false</tt> if the initial value is <tt>true</tt><li><code>boolean found = false;\nif(!found)\nSystem.out.println(\"Found it!\")</code></li>The code assigns <tt>false</tt> to found, then negates it so the boolean expression evaluates to <tt>true</tt> so that \"Found it!\" will be printed"
+				"NotDef": "Negates the given boolean value. Evaluates to true if the given boolean expression is initially false, false otherwise\n\nboolean found = false;\nif(!found)\n\nThe code above assigns false to found, then negates it so the boolean expression evaluates to true"
 			}
 			,
 			"AND (&&)": {
-				"AndDef": "Evaluates to <tt>true</tt> if all given boolean expressions connected by the AND operator evaluates to <tt>true</tt>. Evaluates <tt>false</tt> if there is at least one expression that evaluates <tt>false</tt><li><code>int x = 3;\nboolean y = false;\nif(x < 5 && !)\nSystem.out.println(\"All true!\")</code></li>The code assigns 3 to x, and <tt>false</tt> to y. Then it checks the boolean expression and since both expressions evaluate to <tt>true</tt>, the overall boolean will evaluate to <tt>true</tt>"
+				"AndDef": "Evaluates to true if all given boolean expressions evaluates to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x < 5 && y == false)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since both expressions evaluate to true, the overall boolean will evaluate to true"
 			}
 			,
 			"OR (||)": {
-				"OrDef": "Evaluates to <tt>true</tt> if at least one of the given boolean expressions evaluate to <tt>true</tt>. Evaluates <tt>false</tt> if every boolean expression is <tt>false</tt><li><code>int x = 3;\nboolean y = false;\nif(x > 2 || y)\nSystem.out.println(\"Still true!\")</code></li>The code above assigns 3 to x, and <tt>false</tt> to y. Then it checks the boolean expression and since at least one expression is <tt>true</tt> (x > 2), the overall boolean will evaluate to <tt>true</tt>"
+				"OrDef": "Evaluates to true if at least one of the given boolean expressions evaluate to true, false otherwise\n\nint x = 3;\nboolean y = false;\nif(x > 2 || y)\n\nThe code above assigns 3 to x, and false to y. Then it checks the boolean expression and since x is greater than 2, the overall boolean will evaluate to true"
 			}
 			,
 			"Extra Notes": {
