@@ -4,26 +4,34 @@ if [ ! -d ../javaplayland/web/doppio-jvm ] ; then
     exit 1
 fi
 
-if [ ! -d ../codemoo/ ] ; then
+TGT=../codemoo
+
+if [ ! -d $TGT/ ] ; then
     echo 'No web target directory'
     exit 1
 fi
 
 
-rsync --exclude '*.DS_Store'  --exclude '*.git'  -av web/ ../codemoo
-mv ../codemoo/index.html ../codemoo/index2.html 
-perl -p -i -e "s/WebTrafficAnalyticsHere/script/g"  ../codemoo/index2.html
+rsync --delete --exclude '*.DS_Store'  --exclude '*.git'  -av web/ $TGT
+mv $TGT/index.html $TGT/index2.html 
+perl -p -i -e "s/WebTrafficAnalyticsHere/script/g"  $TGT/index2.html
 
-rsync -av LICENSE.txt ../codemoo/
-cp -pr gh-pages-config/ ../codemoo/
-rm ../codemoo/_*
-
-
-
-( cd ../codemoo; coffee -c scripts )
-( cd ../codemoo; coffee -c doppio-jvm/scripts/demo/ )
+rsync -av LICENSE.txt $TGT/
+cp -pr gh-pages-config/ $TGT/
+rm $TGT/_*
 
 
-( cd ../codemoo; git add -A . )
-( cd ../codemoo; git commit -m 'Publish' )
-echo \( cd ../codemoo\; git push origin gh-pages \)
+#Compile
+( cd $TGT; coffee -c scripts )
+( cd $TGT; coffee -c doppio-jvm/scripts/demo/ )
+#Stamp
+
+date >$TGT/publish-date.txt
+git log -n 5 --oneline >$TGT/publish-recentcommits.txt
+
+
+
+( cd $TGT; git add -A . )
+( cd $TGT; git commit -m 'Publish' )
+echo "Files commited. Copy-paste the following to publish"
+echo \( cd $TGT\; git push origin gh-pages \)
