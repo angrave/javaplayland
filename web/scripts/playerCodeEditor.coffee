@@ -128,6 +128,14 @@ class window.EditorManager
             updateMove()
             return
         ed.editor.renderer.onResize = addOurResize
+
+        # Touch Handlers
+        @ongoingTouches = []
+        jQuery('.ace_scroller').bind "touchstart", @handleTouchStart
+        jQuery('.ace_scroller').bind "touchend", @handleTouchEnd
+        jQuery('.ace_scroller').bind "touchcancel", @handleTouchCancel
+        jQuery('.ace_scroller').bind "touchleave", @handleTouchEnd
+        jQuery('.ace_scroller').bind "touchmove", @handleTouchMove
         return
 
     resetEditor: =>
@@ -322,6 +330,45 @@ class window.EditorManager
         @editor.gotoLine row
         return
 
+    handleTouchStart: (evt) =>
+        for touch in evt.originalEvent.changedTouches
+            @ongoingTouches.push touch
+        return
+
+    handleTouchMove: (evt) =>
+        evt.preventDefault()
+        touches = evt.originalEvent.changedTouches
+        for touch in touches
+            id = @onGoingTouchIndexByID touch.identifier
+            verticalDistance = @ongoingTouches[id].pageY - touch.pageY
+            horizontalDistance = @ongoingTouches[id].pageX - touch.pageX
+            @editor.editor.renderer.scrollBy horizontalDistance, verticalDistance
+            @ongoingTouches.splice id, 1, touch
+        return
+
+    handleTouchEnd: (evt) =>
+        touches = evt.originalEvent.changedTouches
+        for touch in touches
+            id = @onGoingTouchIndexByID touch.identifier
+            verticalDistance = @ongoingTouches[id].pageY - touch.pageY
+            horizontalDistance = @ongoingTouches[id].pageX - touch.pageX
+            @editor.editor.renderer.scrollBy horizontalDistance, verticalDistance
+            @ongoingTouches.splice id, 1
+        return
+
+    handleTouchCancel: (evt) =>
+        touches = evt.originalEvent.changedTouches
+        for touch in touches
+            id = @onGoingTouchIndexByID touch.identifier
+            @ongoingTouches.splice id, 1
+        return
+
+    onGoingTouchIndexByID: (idToFind) =>
+        for i in [0...@ongoingTouches.length] by 1
+            id = @ongoingTouches[i].identifier
+            if id == i
+                return i
+        return -1 # Not Found
 
 class window.PlayerCodeEditor
     ###
