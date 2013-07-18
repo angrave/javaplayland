@@ -56,7 +56,8 @@ class window.GameVisual
     #preload all the necessary images.  Sounds will eventually be included in here as well.
     ###
     initResources: (config) ->
-        univImg[0] = "img/x.png"
+        univImg[0] = new Image()
+        univImg[0].src = "img/fallen.png"
         tmp = []
         for key,imgar of config
             tmp = []
@@ -118,6 +119,9 @@ class window.GameVisual
     changeState: (char,state) ->
         objArray[char].chngState(state)
 
+    getState: (char) ->
+        objArray[char].state()
+
     ###
     #charObj is a class representing the characters that can move around the canvas.  It keeps track of the direction the character is facing,
     #the x and y coordinate in pixels, an array of the image objects pertaining to the character, the appropriate image for different frames,
@@ -157,13 +161,19 @@ class window.GameVisual
             objState[0] = @animarray[num]
             objState[1] = @xSize
             objState[2] = @ySize
+            objState[3] = @xOff
+            objState[4] = @yOff
 
             if @cstate == 5
-                @fallticker++
-                objState[1] = @xSize/(@fallticker)
-                objState[2] = @ySize/(@fallticker)
                 if @fallticker > 20
                     objState[0] = univImg[0]
+                else
+                    @fallticker++
+                    objState[1] = @xSize-(@fallticker)
+                    objState[2] = @ySize-(@fallticker)
+                    objState[3] = @xOff+@fallticker/2
+                    objState[4] = @yOff+@fallticker/2
+
             else
                 @fallticker = 0
 
@@ -218,7 +228,7 @@ class window.GameVisual
         td = frame.getContext('2d')
         for obj in objArray by -1
             s = obj.current(@ticker)
-            td.drawImage(s[0],obj.xpos+obj.xOff,obj.ypos+obj.yOff,s[1],s[2])
+            td.drawImage(s[0],obj.xpos+s[3],obj.ypos+s[4],s[1],s[2])
         return
 
     chckMv: (config) ->

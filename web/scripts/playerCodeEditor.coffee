@@ -479,7 +479,8 @@ class window.PlayerCodeEditor
             return
         line = text.getLine currentRow
         command = @interpreter.identifyCommand line
-        @commands[command]['usesRemaining']++
+        if command?
+            @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
@@ -521,6 +522,7 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @reIndentCode()
         @gotoLine @codePrefixLength + 1
+        @editor.renderer.scrollToRow @codePrefixLength
         for name, command of @commands
             command['usesRemaining'] = command['maxUses']
         return
