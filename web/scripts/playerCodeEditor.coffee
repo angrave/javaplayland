@@ -47,10 +47,10 @@ class window.EditorManager
         else
             @deleteImg = 'img/cx.png'
 
+        @interpreter = new CodeInterpreter @commands
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
-            @codeConfig.postfix, @editorConfig.freeformEditting
-        @interpreter = new CodeInterpreter @commands
+            @codeConfig.postfix, @editorConfig.freeformEditting, @interpreter
 
         # Create editor buttons
         @acelne = document.createElement("div")
@@ -64,17 +64,15 @@ class window.EditorManager
         $(@acelne).append(x)
         $(@acelne).append(d)
         $(@acelne).attr({"id":"acelne"})
-        $(@acelne).css({"display": "none"})
-        $('body').append @acelne
-        soffset = () ->
-            t = $("#acelne").position().top - $(".ace_scrollbar").scrollTop() + @poffset
-            $("#acelne").css({"top": t+"px"})
-            @poffset = $(".ace_scrollbar").scrollTop()
-
-        $(".ace_scrollbar").scroll(() -> soffset())
+        $(@acelne).css({"display": "block"})
+        $('.ace_editor').append(@acelne)
+        $(".ace_scrollbar").scroll(() => @moveEditorButtons())
         @setUpInsertButtons()
         @addEventListeners()
         @onStudentCodeChange()
+        @moveEditorButtonDelay = 30
+        setTimeout @moveEditorButtons, @moveEditorButtonDelay
+        return
 
     setUpInsertButtons: ->
         ###
@@ -109,22 +107,27 @@ class window.EditorManager
         ed = @editor
         if $.inArray('switchUp', @editorConfig.buttons) != -1
             jQuery('.ace_uparrow').click ed.button ed.usesCurrentPosition ed.switchUp
-        else
-            jQuery('.ace_uparrow').click ed.editor.focus
 
         if $.inArray('switchDown', @editorConfig.buttons) != -1
             jQuery('.ace_downarrow').click ed.button ed.usesCurrentPosition ed.switchDown
-        else
-            jQuery('.ace_downarrow').click ed.editor.focus
 
         if $.inArray('deleteLine', @editorConfig.buttons) != -1
             jQuery('.ace_xbutton').click ed.button ed.usesTextDocument ed.usesCurrentRow ed.deleteLine
-        else
-            jQuery('.ace_xbutton').click ed.editor.focus
 
         ed.onChangeListener @onStudentCodeChange
         ed.onClickListener @onEditorClick
         ed.onCursorMoveListener @onEditorCursorMove
+        updateMove = =>
+            setTimeout @moveEditorButtons, @moveEditorButtonDelay
+            return
+        ed.editSession.on 'changeScrollTop', updateMove
+
+        normalResize = ed.editor.renderer.onResize.bind ed.editor.renderer
+        addOurResize = (force, gutterWidth, width, height) ->
+            normalResize(force, gutterWidth, width, height)
+            updateMove()
+            return
+        ed.editor.renderer.onResize = addOurResize
         return
 
     resetEditor: =>
@@ -142,10 +145,13 @@ class window.EditorManager
             When the student code changes, run it through the
             interpreter to figure out commands remaining.
         ###
-        if @scanTimer?
-            window.clearTimeout @scanTimer
-            @scanTimer = null
-        @scanTimer = window.setTimeout @scan, 500
+        if @editorConfig.freeformEditting
+            if @scanTimer?
+                window.clearTimeout @scanTimer
+                @scanTimer = null
+            @scanTimer = window.setTimeout @scan, 300
+        else
+        @UpdateCommandsStatus null
         if @onStudentCodeChangeCallback?
             @onStudentCodeChangeCallback changeData
         return
@@ -165,7 +171,10 @@ class window.EditorManager
             button = buttonField.find "##{command}"
             line = @editor.createBlankFunctionHeader command
 
-            usesRemaining = remaining[command]
+            if remaining != null
+                usesRemaining = remaining[command]
+            else
+                usesRemaining = @commands[command]['usesRemaining']
             if usesRemaining <= 0
                 button.attr 'disabled', true
                 if usesRemaining < 0
@@ -178,18 +187,21 @@ class window.EditorManager
 
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
-
-        $('.ace_editor').append(@acelne)
+        maxrows = @editor.editSession.getLength()
         aglw = $('.ace_gutter-layer').width()
         aglh = $('.ace_gutter-cell').height()
-        aglpl = $('.ace_gutter-cell').css("padding-left")
-        offset = aglh*row
+        aalt = $('.ace_gutter-active-line').position().top
+
+        if maxrows == row + 1
+            $(".ace_downarrow").css({"display":"none"})
+        else
+            $(".ace_downarrow").css({"display":"block"})
 
         $(@acelne).css(
             {"width":"15px";"max-height":aglh*2.6,
             "z-index": 20,"position":"relative",
-            "top":offset-12-$(".ace_scrollbar").scrollTop()+"px",
-            "left":"32px","display": "block"})
+            "top":aalt-aglh*1.5+"px",
+            "left":aglw-15+"px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
 
@@ -197,8 +209,7 @@ class window.EditorManager
         if @parameterPopUp == undefined
             @parameterPopUp = jQuery('#parameter-pop-up')
 
-        if not @movingButtons
-            setTimeout @moveEditorButtons, 20
+        setTimeout @moveEditorButtons, @moveEditorButtonDelay
 
         @parameterPopUp.hide()
         return
@@ -307,17 +318,22 @@ class window.EditorManager
         @parameterPopUp.hide()
         return
 
+    editorGoToLine: (row) ->
+        @editor.gotoLine row
+        return
+
 
 class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit) ->
+    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit, @interpreter) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
         ###
         @editor = ace.edit @editorDivId
+        window.dbgAce = @editor
         @editSession = @editor.getSession()
         @editSession.setMode 'ace/mode/java'
         @editSession.setUseSoftTabs true
@@ -326,32 +342,42 @@ class window.PlayerCodeEditor
             jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
         if @wrapCode
-            @codeText = @codePrefix + codeText + '\n' + @codeSuffix
+            if @codePrefix != ""
+                @codeText = @codePrefix + codeText
+            if @codeSuffix != ""
+                @codeText += '\n' + @codeSuffix
         else
             @codePrefix = ""
             @codeSuffix = ""
             @codeText = codeText
 
-        @codePrefixLength = codePrefix.split('\n').length - 1
-        @codeSuffixLength = codeSuffix.split('\n').length - 1
+        @codePrefixLength = @codePrefix.split('\n').length - 1
+        @codeSuffixLength = @codeSuffix.split('\n').length - 1
 
         @enableKeyboardShortcuts()
 
         @resetState()
         @onChangeCallback = null
         @editor.on 'change', @onChange
-        @editor.focus()
+        @gotoLine @codePrefixLength + 1
+        return
 
     getStudentCode: ->
         return @editor.getValue()
 
+    gotoLine: (row) ->
+        column = @editor.getCursorPosition().column
+        @editor.gotoLine row, column, true
+        return
+
     enableKeyboardShortcuts: ->
-        ###
-            Not currently enabled as it would be difficult to prevent
-            keyboard shortcuts from changing uneditable areas.
-        ###
-        # @editor.commands.commands.movelinesup['readOnly'] = true
-        # @editor.commands.commands.movelinesdown['readOnly'] = true
+        @editor.commands.commands.movelinesup['readOnly'] = true
+        @editor.commands.commands.movelinesdown['readOnly'] = true
+        return
+
+    disableKeyboardShorcuts: ->
+        @editor.commands.commands.movelinesup['readOnly'] = false
+        @editor.commands.commands.movelinesdown['readOnly'] = false
         return
 
     onChangeListener: (@onChangeCallback) ->
@@ -405,6 +431,8 @@ class window.PlayerCodeEditor
         if currentRow >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         line = text.getLine currentRow
+        command = @interpreter.identifyCommand line
+        @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
@@ -416,6 +444,7 @@ class window.PlayerCodeEditor
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
+        @commands[command]['usesRemaining']--
         printLine = (@createBlankFunctionHeader command) + ';'
         text.insertLines currentRow + 1, [printLine]
 
@@ -443,8 +472,10 @@ class window.PlayerCodeEditor
         ###
         @editor.setValue @codeText
         @editor.clearSelection()
-        @editor.gotoLine 0, 0, false
         @reIndentCode()
+        @gotoLine @codePrefixLength + 1
+        for name, command of @commands
+            command['usesRemaining'] = command['maxUses']
         return
 
     reIndentCode: =>
