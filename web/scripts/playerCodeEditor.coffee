@@ -47,10 +47,10 @@ class window.EditorManager
         else
             @deleteImg = 'img/cx.png'
 
+        @interpreter = new CodeInterpreter @commands
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
-            @codeConfig.postfix, @editorConfig.freeformEditting
-        @interpreter = new CodeInterpreter @commands
+            @codeConfig.postfix, @editorConfig.freeformEditting, @interpreter
 
         # Create editor buttons
         @acelne = document.createElement("div")
@@ -121,6 +121,7 @@ class window.EditorManager
             setTimeout @moveEditorButtons, @moveEditorButtonDelay
             return
         ed.editSession.on 'changeScrollTop', updateMove
+
         normalResize = ed.editor.renderer.onResize.bind ed.editor.renderer
         addOurResize = (force, gutterWidth, width, height) ->
             normalResize(force, gutterWidth, width, height)
@@ -144,10 +145,13 @@ class window.EditorManager
             When the student code changes, run it through the
             interpreter to figure out commands remaining.
         ###
-        if @scanTimer?
-            window.clearTimeout @scanTimer
-            @scanTimer = null
-        @scanTimer = window.setTimeout @scan, 500
+        if @editorConfig.freeformEditting
+            if @scanTimer?
+                window.clearTimeout @scanTimer
+                @scanTimer = null
+            @scanTimer = window.setTimeout @scan, 300
+        else
+        @UpdateCommandsStatus null
         if @onStudentCodeChangeCallback?
             @onStudentCodeChangeCallback changeData
         return
@@ -167,7 +171,10 @@ class window.EditorManager
             button = buttonField.find "##{command}"
             line = @editor.createBlankFunctionHeader command
 
-            usesRemaining = remaining[command]
+            if remaining != null
+                usesRemaining = remaining[command]
+            else
+                usesRemaining = @commands[command]['usesRemaining']
             if usesRemaining <= 0
                 button.attr 'disabled', true
                 if usesRemaining < 0
@@ -320,7 +327,7 @@ class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit) ->
+    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit, @interpreter) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -401,10 +408,6 @@ class window.PlayerCodeEditor
         @editor.on 'changeSelection', callback
         return
 
-    # onMove: (cursorEvent) ->
-    #     if @onMoveCallback != null
-    #         @onMoveCallback cursorEvent
-
     switchUp: ({currentRow, currentColumn}) ->
         maxRow = @editSession.getLength()
         if currentRow - 1 < @codePrefixLength or currentRow >= maxRow - @codeSuffixLength
@@ -428,6 +431,8 @@ class window.PlayerCodeEditor
         if currentRow >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         line = text.getLine currentRow
+        command = @interpreter.identifyCommand line
+        @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
@@ -439,6 +444,7 @@ class window.PlayerCodeEditor
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
+        @commands[command]['usesRemaining']--
         printLine = (@createBlankFunctionHeader command) + ';'
         text.insertLines currentRow + 1, [printLine]
 
@@ -468,6 +474,8 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @reIndentCode()
         @gotoLine @codePrefixLength + 1
+        for name, command of @commands
+            command['usesRemaining'] = command['maxUses']
         return
 
     reIndentCode: =>
