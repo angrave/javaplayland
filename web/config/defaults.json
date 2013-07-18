@@ -60,7 +60,7 @@
       "pit": {
         "sprite": "pit",
         "dir": 0,
-        "trigger": "loss",
+        "trigger": "fall",
         "blocks": [
           "guards"
         ],
