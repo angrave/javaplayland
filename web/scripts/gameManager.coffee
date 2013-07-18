@@ -475,7 +475,8 @@ class MapGameState
         if clockHandle?
             clearInterval clockHandle
         for name, character of @gameConfig.characters
-            @visual.changeState character.index, 4
+            if @visual.getState(character.index) != 5
+                @visual.changeState character.index, 4
             character.moves = null
         playAudio 'defeat.ogg'
         @startedGame = false
@@ -484,6 +485,8 @@ class MapGameState
         return
 
     protagonistFalls: =>
+        for name, character of @gameConfig.characters
+            character.moves = null
         @visual.changeState @protagonist.index, 5
         setTimeout @gameLost, 400
         return
