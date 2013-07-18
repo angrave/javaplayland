@@ -522,6 +522,7 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @reIndentCode()
         @gotoLine @codePrefixLength + 1
+        @editor.renderer.scrollToRow @codePrefixLength
         for name, command of @commands
             command['usesRemaining'] = command['maxUses']
         return
