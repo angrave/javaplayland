@@ -1,6 +1,7 @@
 class window.GameVisual
     ticker = 0 #counts the number of frames that have passed
     imgArray = [] #array of arrays of preloaded images
+    univImg = [] #array of universally used images
     objArray = [] #array of objects that permeate the game board
     frameClock = null #reference to the setInterval object that runs the game
     lyr1 = null #object for referencing the first of the two canvas objects to be used as a frame
@@ -55,6 +56,7 @@ class window.GameVisual
     #preload all the necessary images.  Sounds will eventually be included in here as well.
     ###
     initResources: (config) ->
+        univImg[0] = "img/x.png"
         tmp = []
         for key,imgar of config
             tmp = []
@@ -125,6 +127,7 @@ class window.GameVisual
     #   < 3 4 1 >
     #       2
     #       v
+    #   5 -> Falling Animation
     #More documenation to be added when the code is more concrete and permanent
     ###
     class charObj
@@ -132,6 +135,7 @@ class window.GameVisual
             @antickerAdd = 0
             @ldir = @dir
             @cstate = 4
+            @fallticker = 0
             return
 
         absPos: (@xpos,@ypos) ->
@@ -143,12 +147,27 @@ class window.GameVisual
             return
 
         current: (anticker) ->
+            objState = []
             num = 0
             if @animated and ((anticker + @antickerAdd) % (2 * ar)) >= ar
                 num = 1
             num = num + (2 * @dir)
             num = num % @animarray.length
-            return @animarray[num]
+
+            objState[0] = @animarray[num]
+            objState[1] = @xSize
+            objState[2] = @ySize
+
+            if @cstate == 5
+                @fallticker++
+                objState[1] = @xSize/(@fallticker)
+                objState[2] = @ySize/(@fallticker)
+                if @fallticker > 20
+                    objState[0] = univImg[0]
+            else
+                @fallticker = 0
+
+            return objState
 
         imFace: (@dir) ->
             return
@@ -198,8 +217,8 @@ class window.GameVisual
     drawChar: (frame) ->
         td = frame.getContext('2d')
         for obj in objArray by -1
-            img = obj.current(@ticker)
-            td.drawImage(img,obj.xpos+obj.xOff,obj.ypos+obj.yOff,obj.xSize,obj.ySize)
+            s = obj.current(@ticker)
+            td.drawImage(s[0],obj.xpos+obj.xOff,obj.ypos+obj.yOff,s[1],s[2])
         return
 
     chckMv: (config) ->
