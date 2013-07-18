@@ -479,7 +479,8 @@ class window.PlayerCodeEditor
             return
         line = text.getLine currentRow
         command = @interpreter.identifyCommand line
-        @commands[command]['usesRemaining']++
+        if command?
+            @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
