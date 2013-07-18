@@ -325,7 +325,7 @@ var supportedModes = {
     Erlang:      ["erl|hrl"],
     EJS:         ["ejs"],
     Forth:       ["frt|fs|ldr"],
-    FreeMarker:  ["ftl"],
+    ftl:         ["ftl"],
     Glsl:        ["glsl|frag|vert"],
     golang:      ["go"],
     Groovy:      ["groovy"],
@@ -403,7 +403,8 @@ var nameOverrides = {
     golang: "Go",
     C_Cpp: "C/C++",
     coffee: "CoffeeScript",
-    HTML_Ruby: "HTML (Ruby)"
+    HTML_Ruby: "HTML (Ruby)",
+    ftl: "FreeMarker"
 };
 var modesByName = {};
 for (var name in supportedModes) {
@@ -463,8 +464,8 @@ module.exports.themes = [
     "kr_theme",
     "merbivore",
     "merbivore_soft",
-    "monokai",
     "mono_industrial",
+    "monokai",
     "pastel_on_dark",
     "solarized_dark",
     "solarized_light",
