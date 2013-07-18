@@ -283,7 +283,7 @@ class MapGameState
 
     checkEvents: (protagonistDoneMoving) ->
         # Just doing player collisions at the moment.
-        triggers = {"victory": @gameWon, "loss": @gameLost}
+        triggers = {"victory": @gameWon, "loss": @gameLost, "fall": @protagonistFalls}
         for name, character of @gameConfig.characters
             if character == @protagonist
                 continue
@@ -483,6 +483,11 @@ class MapGameState
         clockHandle = setInterval @clock, 17
         return
 
+    protagonistFalls: =>
+        @visual.changeState @protagonist.index, 5
+        setTimeout @gameLost, 400
+        return
+
     stopGame: =>
         if clockHandle?
             clearInterval clockHandle
@@ -551,10 +556,10 @@ class MapGameCommands
         @go steps, line
         return
 
-    goNorth: (steps, line) => @turnAndGo 0, steps
-    goEast:  (steps, line) => @turnAndGo 1, steps
-    goSouth: (steps, line) => @turnAndGo 2, steps
-    goWest:  (steps, line) => @turnAndGo 3, steps
+    goNorth: (steps, line) => @turnAndGo 0, steps, line
+    goEast:  (steps, line) => @turnAndGo 1, steps, line
+    goSouth: (steps, line) => @turnAndGo 2, steps, line
+    goWest:  (steps, line) => @turnAndGo 3, steps, line
 
     # used in sequence4
     mysteryA: (line) => @goEast 4, line
