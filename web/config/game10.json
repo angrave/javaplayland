@@ -1,6 +1,6 @@
 {
-  "name": "Puzzle #9",
-  "description": "My awesome go method takes an integer parameter",
+  "name": "Puzzle #10",
+  "description": "Find the correct sequence of code lines",
   "task": "",
   "tags": "intro",
   "editor": {
@@ -12,28 +12,27 @@
       "insertButtons"
     ],
     "commands": {
-      "go": {
-        "inputs": 1,
-        "maxUses": 6
-      },
-      "turnLeft": {
+      "mysteryA": {
         "inputs": 0,
-        "maxUses": 2
+        "maxUses": 5
       },
-      "turnRight": {
+      "mysteryB": {
         "inputs": 0,
-        "maxUses": 3
+        "maxUses": 5
+      },
+      "mysteryC": {
+        "inputs": 0,
+        "maxUses": 5
       }
     }
   },
   "code": {
-    "shorthand": "g(6)",
-	"comments" : [ "Puzzle #9","go,turnRight and turnLeft are called \"methods\".",
-	"I just made a new 'go' method for you.",
-	"This go method takes a single integer parameter.",
-	"See what you think of go(6) and decide if you like it!",
-	"(You can always change the integer to a different value)"
-	]
+    "shorthand": "",
+    "comments": [
+      "Puzzle #10",
+      "I've forgotten what these commands do!",
+      "See if you can figure it out and get to the flag."
+    ]
   },
   "game": {
     "characterBase": {
@@ -41,8 +40,17 @@
         "dir": 1
       },
       "guard": {
-        "dir": 0,
+        "dir": 0
+        },
+      "guardMoving": {
+        "sprite": "guard",
+        "dir": 3,
+        "trigger": "loss",
         "moves": [],
+        "blocks": [
+          "guards"
+        ],
+        "group": "guards",
         "AI": {
           "normal": [
             {
@@ -85,15 +93,19 @@
         }
       }
     },
-    "map": "XXXXXXXXXX\nX>P......X\nX.XXXX.X.X\nX.X....X.X\nX.XX.XXX.X\nX.XX.XXX.X\nXGXX...XXX\nX.X.X....X\nX.....FX.X\nXXXXXXXXXX",
     "offset": {
-      "x": 0,
-      "y": 0
+        "x": 2,
+        "y": 4
+    },
+    "map": "P\n\n\n...gG\n....F",
+    "key": {
+      "G": "guard",
+      "g": "guardMoving"
     }
   },
   "help": [],
   "dyk": [],
   "depends": [
-    "game8"
+    "game9"
   ]
 }

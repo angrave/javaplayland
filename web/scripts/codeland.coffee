@@ -9,7 +9,7 @@ if ! console?
     console = { log: -> }
 
 #Chrome support: 'this' must be the console object
-root.log = console.log.bind(console) 
+root.log = console.log.bind(console)
 
 root.initialize = (UIcont) ->
     root.gameSelectionScrollPosition = 0
@@ -35,12 +35,18 @@ root.drawGameMap = (player) ->
     descriptions = root.getGameDescriptions()
     mapDiv = $(root.UIcont)
     mapDiv.empty()
+    
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
     addGameToMap = (game) ->
         # console.log "Game: #{game}"
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
+    tmp1 = document.getElementById("gameSelection")
+    
+    $('<span style="font-size:200%">Choose your Java Game</span><br>').prependTo tmp1
+    $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
+
     $('#gameSelection').animate {
         scrollTop: root.gameSelectionScrollPosition
     }, 0
@@ -248,6 +254,10 @@ root.addHintsToCode = (gameData) ->
         # Also ensures newlines in the data are properly commented out
         one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
         gameData.code.initial = one + '\n' + gameData.code.initial
+        # To prevent comments from being edited
+        #gameData.code.prefix = one + '\n'
+        #gameData.code.show = true
+    return
 
 root.getGameDescriptions = ->
     if root.gameDescriptions?
