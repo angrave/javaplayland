@@ -35,12 +35,18 @@ root.drawGameMap = (player) ->
     descriptions = root.getGameDescriptions()
     mapDiv = $(root.UIcont)
     mapDiv.empty()
+    
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
     addGameToMap = (game) ->
         # console.log "Game: #{game}"
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
+    tmp1 = document.getElementById("gameSelection")
+    
+    $('<span style="font-size:200%">Choose your Java Game</span><br>').prependTo tmp1
+    $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
+
     $('#gameSelection').animate {
         scrollTop: root.gameSelectionScrollPosition
     }, 0
