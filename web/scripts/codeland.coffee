@@ -21,11 +21,25 @@ root.initialize = (UIcont) ->
     return
 
 root.initializeDoppio = ->
-    root.doppioWrapper = 'wrapper.bsh'
-    node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
+    # root.doppioWrapper = 'wrapper.bsh'
+    # node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
+    root.doppioReady = false
     root.doppioAPI = new DoppioApi null, root.log
+    root.doppioAPI.run root.quest.commandBeanshell, null, root.wrapperCompiled
     # classes.doppio.JavaScript.eval("console.log(1);");
     # root.doppioAPI = new DoppioApi null, console.log, null
+    return
+
+root.wrapperCompiled = =>
+    root.doppioReady = true
+    console.log 'Finished Compiling Wrapper'
+    if root.wrapperCompiledCallback?
+        console.log 'Found Wrapper Callback, running'
+        root.wrapperCompiledCallback
+    return
+
+root.waitForWrapper = (callback) ->
+    root.wrapperCompiledCallback = callback
     return
 
 root.reference = () ->
@@ -35,7 +49,7 @@ root.drawGameMap = (player) ->
     descriptions = root.getGameDescriptions()
     mapDiv = $(root.UIcont)
     mapDiv.empty()
-    
+
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
     addGameToMap = (game) ->
@@ -43,7 +57,7 @@ root.drawGameMap = (player) ->
         sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
     tmp1 = document.getElementById("gameSelection")
-    
+
     $('<span style="font-size:200%">Choose your Java Game</span><br>').prependTo tmp1
     $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
@@ -73,6 +87,7 @@ root.startGame = (game) ->
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
+        backEnd: 'doppio'
     }
 
     managerString  = description?.manager ?= 'GameManager'
@@ -111,6 +126,7 @@ root.storeGameCompletionData = (key, data) ->
 
 root.showMap = () ->
     root.currentGame.finishGame() if root.currentGame
+    root.wrapperCompiledCallback = null if root.wrapperCompiledCallback?
     root.currentGame = null
     root.drawGameMap root.getPlayer()
     return

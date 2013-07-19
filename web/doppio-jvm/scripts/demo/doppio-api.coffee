@@ -16,11 +16,12 @@ class window.DoppioApi
                 A function that will receive log messages such as total execution
                 time or abort requests. Set to null to disable logging.
         ###
-        
+
         @load_mini_rt()
         @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         jvm.set_classpath '/home/doppio/vendor/classes/', './'
-        @rs = null
+        @rs = new runtime.RuntimeState(@stdout, stdin, @bs_cl)
+        @running = false
         return
 
     setOutputFunctions: (@stdout, @log) ->
@@ -72,7 +73,7 @@ class window.DoppioApi
             Runs the given Java Code.
             Note, this does not recognize classes.
         ###
-        if @rs != null
+        if @running
             console?.log 'Already Running, not re-starting run'
             return
         start_time = (new Date()).getTime()
@@ -86,14 +87,14 @@ class window.DoppioApi
             class_args = [fname]
         finish_cb = =>
             end_time = (new Date()).getTime()
-            if @rs != null
+            if @running
                 console?.log 'Finished Run'
                 console?.log "Took #{end_time - start_time}ms."
-                @rs = null
+                @running = false
             finished_cb()
             return
 
-        @rs = new runtime.RuntimeState(@stdout, stdin, @bs_cl)
+        @running = true
         jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
         return
 
@@ -102,11 +103,11 @@ class window.DoppioApi
             Abort the current run.
         ###
         console?.log 'User Abort Requested'
-        if @rs
+        if @running
             console?.log 'Aborting Run'
             cb = =>
                 console?.log 'Aborted Successfully'
-                @rs = null
+                @running = false
                 finished_cb() if finished_cb?
             @rs.async_abort(cb)
         else

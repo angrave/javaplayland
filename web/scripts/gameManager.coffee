@@ -180,12 +180,24 @@ class window.GameManager
         return
 
     runStudentCode: =>
-        @codeEditor.scan()
-        if not @canRun
-            return
-        @interpreter.scanText @codeEditor.getStudentCode()
-        @startGame true
-        @interpreter.executeCommands @commandMap
+        code = @codeEditor.getStudentCode()
+        if @environment.backEnd == 'interpreter'
+            @codeEditor.scan()
+            if not @canRun
+                return
+            @interpreter.scanText code
+            @startGame true
+            @interpreter.executeCommands @commandMap
+        else if @environment.backEnd == 'doppio'
+            stdout = log = console.log
+            @environment.codeland.doppioAPI.setOutputFunctions stdout, log
+            finish_cb = ->
+                return
+            if not @environment.codeland.doppioReady
+                @environment.codeland.waitForWrapper @runStudentCode
+                console.log 'Waiting for Doppio to be compiled'
+                return
+            @environment.codeland.doppioAPI.run code, null, finish_cb
         return
 
 class MapGameState
