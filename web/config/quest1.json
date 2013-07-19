@@ -9,7 +9,8 @@
     "game7",
     "game8",
     "game9",
-    "game10"
+    "game10",
+    "game11"
   ],
   "commands": [
     "go(I)V",

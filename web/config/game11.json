@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #10",
+  "name": "Puzzle #11",
   "description": "Find the correct sequence of code lines",
   "task": "",
   "tags": "intro",
@@ -12,15 +12,19 @@
       "insertButtons"
     ],
     "commands": {
-      "mysteryA": {
+      "mysteryGo": {
         "inputs": 0,
         "maxUses": 5
       },
-      "mysteryB": {
+      "goSouth": {
         "inputs": 0,
         "maxUses": 5
       },
-      "mysteryC": {
+      "jump": {
+        "inputs": 0,
+        "maxUses": 2
+      },
+      "mysteryMove": {
         "inputs": 0,
         "maxUses": 5
       }
@@ -29,9 +33,10 @@
   "code": {
     "shorthand": "",
     "comments": [
-      "Puzzle #10",
-      "I've forgotten what these commands do!",
-      "See if you can figure it out and get to the flag."
+      "Puzzle #11",
+      "Sometimes programmers have to experiment and test.",
+      "Play this level to discover what these commands do",
+      "See if you can figure it out and get to the flag..."
     ]
   },
   "game": {
@@ -95,9 +100,9 @@
     },
     "offset": {
         "x": 2,
-        "y": 4
+        "y": 1
     },
-    "map": "P\n\n\n...gG\n....F",
+    "map": "P\n\n\n\n\n\n...gG\n....F",
     "key": {
       "G": "guard",
       "g": "guardMoving"
@@ -106,6 +111,6 @@
   "help": [],
   "dyk": [],
   "depends": [
-    "game9"
+    "game10"
   ]
 }
