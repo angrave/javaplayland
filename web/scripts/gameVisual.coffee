@@ -173,9 +173,9 @@ class window.GameVisual
                     objState[2] = @ySize-(@fallticker)
                     objState[3] = @xOff+@fallticker/2
                     objState[4] = @yOff+@fallticker/2
-
             else
                 @fallticker = 0
+
 
             return objState
 
@@ -232,19 +232,24 @@ class window.GameVisual
         return
 
     chckMv: (config) ->
+
         for obj in objArray
-            if obj.state() == 0
+            if obj.state() >= 6 && obj.state() <= 9
+                mr = 2*config.animation.pixMoveRate
+            else
+                mr = config.animation.pixMoveRate
+            if obj.state() == 0 || obj.state() == 6
                 obj.imFace(0)
-                obj.ypos = obj.ypos - config.animation.pixMoveRate
-            if obj.state() == 1
+                obj.ypos = obj.ypos - mr
+            if obj.state() == 1 || obj.state() == 7
                 obj.imFace(1)
-                obj.xpos = obj.xpos + config.animation.pixMoveRate
-            if obj.state() == 2
+                obj.xpos = obj.xpos + mr
+            if obj.state() == 2 || obj.state() == 8
                 obj.imFace(2)
-                obj.ypos = obj.ypos + config.animation.pixMoveRate
-            if obj.state() == 3
+                obj.ypos = obj.ypos + mr
+            if obj.state() == 3 || obj.state() == 9
                 obj.imFace(3)
-                obj.xpos = obj.xpos - config.animation.pixMoveRate
+                obj.xpos = obj.xpos - mr
         return
 
     swapFrames: (f1,f2) ->
