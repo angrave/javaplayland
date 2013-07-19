@@ -214,7 +214,7 @@ window.AboutPage = () ->
     refContainer = document.createElement("div")
 
     $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
-    $(refContainer).css({ width:'40%',height:'40%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+    $(refContainer).css({ width:'60%',height:'60%',left:'30%',top:'30%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
 
     $("body").prepend(backFade)
     $(backFade).attr({id:'bF'})
@@ -224,14 +224,34 @@ window.AboutPage = () ->
     para = document.createElement("div")
 
     $(header).css({"position":"static","overflow":"auto","font-size":"26px","width":"100%","left":"25%","text-align":"center"})
-    $(para).css({"overflow":"auto","max-height":"60%","position":"static"})
+    $(para).css({"overflow":"auto","max-height":"75%","position":"static"})
     
     header.innerHTML = "Legal Terms and Attributions"
-    para.innerHTML = "Copyright (C) 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
-    licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
-    (Spiral Bound book, star icon, cow eat grass, treasure map)<br />
-    <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a><br />Original Content is licensed under MIT Expat License
-    <br />Creative Commons Licenses from findicons.com are licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>"
+    para.innerHTML = "
+        Copyright (C) 2013 The Board of Trustees at the University of Illinois
+    <br/>
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    <br/>
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    <br/>
+        THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<hr>
+    
+    
+    <em>Third-party open-source content</em><br/>
+    Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
+    ('game over','level completed' sounds; Spiral Bound book, star icon, cow eat grass, treasure map icons)<br />
+    <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a>
+    <br/>
+    The undo-yellow arrow image byJack Cai from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
+    <hr>
+    
+    <em>Acknowledgements</em><br>
+    We wish to thank Holly, Maggie and Abby and the other participants at the 2013 UofI Computer Science Summer G.A.M.E.S Camp for their game ideas,feedback and testing.
+    
+    
+    <br/>
+    "
 
 	$(refContainer).append(header)
 	$(refContainer).append(para)
