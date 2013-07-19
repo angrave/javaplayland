@@ -9,12 +9,12 @@ TGT=web/doppio-jvm
 DOPPIO=$BASE/vendor/doppio
 COFFEEC=coffee
 
-SOURCEPATH=src/beanshellextras/
-CLASSPATH=$TGT/vengor/classes
+SOURCEPATH=$BASE/src/
+CLASSPATH=$TGT/vendor/classes/
 
 # Todo insert your javac here
-# -g:none ; no debug info 
-javac -sourcepath SOURCEPATH -classpath $CLASSPATH -d  $CLASSPATH  Mine.java
+# -g:none ; no debug info
+javac -sourcepath $SOURCEPATH -classpath $CLASSPATH -d $CLASSPATH  $BASE/src/codemoo/Preload.java $BASE/src/codemoo/Run.java || exit 1
 
 #Classes should be relative to $TGT/vengor/classes
 # e.g. bsh.Interpreter.class is at $TGT/vengor/classes/bshInterpreter.class
