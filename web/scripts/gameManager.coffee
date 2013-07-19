@@ -245,8 +245,8 @@ class MapGameState
     clock: =>
         if @startedGame
             if @tick % 30 == 0
+                @checkEvents()
                 if not @waiting
-                    @checkEvents @protagonistDoneMoving
                     for name, character of @gameConfig.characters
                         @runCharacterCommand character
                     @waiting = true
@@ -274,9 +274,8 @@ class MapGameState
                     if character.AI.failed[command.key]?
                         for aiCommand in character.AI.failed[command.key]
                             @executeAICommand character, aiCommand
-        else
-            if character == @protagonist
-                @protagonistDoneMoving = true
+        if character == @protagonist and character.moves.length == 0
+            @protagonistDoneMoving = true
         if character.AI? and character.moves.length == 0
             for aiCommand in character.AI.normal
                 @executeAICommand character, aiCommand
@@ -293,8 +292,12 @@ class MapGameState
             @visual.pushCharacter @gameManager.config.visual, char.visual
         return
 
-    checkEvents: (protagonistDoneMoving) ->
+    checkEvents: ->
         # Just doing player collisions at the moment.
+        if @protagonist.x < 0 or @protagonist.x >= @gameManager.config.visual.grid.gridX\
+          or @protagonist.y < 0 or @protagonist.y >= @gameManager.config.visual.grid.gridY
+            @gameLost()
+
         triggers = {"victory": @gameWon, "loss": @gameLost, "fall": @protagonistFalls}
         for name, character of @gameConfig.characters
             if character == @protagonist
@@ -303,11 +306,12 @@ class MapGameState
                 if character.trigger?
                     if character.trigger != "victory" or\
                         (character.trigger == "victory" and\
-                            protagonistDoneMoving)
+                            @protagonistDoneMoving)
                         triggers[character.trigger]()
         if @protagonistDoneMoving and @protagonist.moving
             @visual.charAnimate @protagonist.index
             @protagonist.moving = false
+            @gameLost()
         return
 
     start: ->
@@ -383,15 +387,13 @@ class MapGameState
         return moved
 
     checkCanMove: (newX, newY, character) ->
-        if newX < 0 or newX >= @gameManager.config.visual.grid.gridX\
-          or newY < 0 or newY >= @gameManager.config.visual.grid.gridY
+        ###
+            Returns true if the character CAN'T move.
+        ###
+        if character != @protagonist and\
+          (newX < 0 or newX >= @gameManager.config.visual.grid.gridX\
+          or newY < 0 or newY >= @gameManager.config.visual.grid.gridY)
             # Player is out of bounds of grid.
-            if character == @protagonist
-                if newX < -1 or newX >= @gameManager.config.visual.grid.gridX + 1\
-                  or newY < -1 or newY >= @gameManager.config.visual.grid.gridY + 1
-                    @gameLost()
-                else
-                    return false
             return true
 
         if character.group?
@@ -476,22 +478,27 @@ class MapGameState
         return
 
     gameWon: =>
+        if not @startedGame
+            return
         clearInterval clockHandle
         playAudio 'victory.ogg'
         @stars += 1
         @score += 5
+        @startedGame = false
         @gameManager.gameWon @score, @stars
         return
 
     gameLost: =>
+        if not @startedGame
+            return
         if clockHandle?
             clearInterval clockHandle
         for name, character of @gameConfig.characters
             if @visual.getState(character.index) != 5
                 @visual.changeState character.index, 4
             character.moves = null
-        playAudio 'defeat.ogg'
         @startedGame = false
+        playAudio 'defeat.ogg'
         alert "Try again!"
         clockHandle = setInterval @clock, 17
         return
