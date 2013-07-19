@@ -7,7 +7,7 @@ class window.DoppioApi
         (this is usually accomplished with jQuery(document).onReady)
     ###
 
-    constructor: (@stdout, logIgnore, @beanshellWrapperName) ->
+    constructor: (@stdout, logIgnore) ->
         ###
             Sets up Doppio environment.
             @stdout (msg) ->
@@ -20,11 +20,21 @@ class window.DoppioApi
         @load_mini_rt()
         @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
         jvm.set_classpath '/home/doppio/vendor/classes/', './'
-        @rs = new runtime.RuntimeState(@stdout, stdin, @bs_cl)
+        stdin = -> "\n"
+        @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
         @running = false
         return
 
-    setOutputFunctions: (@stdout, @log) ->
+    setOutputFunctions: (stdout, @log) ->
+        if not @running
+            @stdout = stdout
+        else
+            console?.log 'Currently running, will not update output'
+        return
+
+    output: (msg) =>
+        if @stdout?
+            @stdout msg
         return
 
     read_classfile: (cls, cb, failure_cb) ->
@@ -49,7 +59,7 @@ class window.DoppioApi
         try
             data = node.fs.readFileSync("/home/doppio/preload.tar")
         catch e
-            console.error e
+            console?.error e
         if data == null
             throw new Error "No mini-rt data"
 
@@ -68,7 +78,7 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         console?.log "Untarring took a total of #{end_untar-start_untar}ms."
 
-    run: (studentCode, beanshellWrapperName, finished_cb) =>
+    run: (studentCode, finished_cb) =>
         ###
             Runs the given Java Code.
             Note, this does not recognize classes.
@@ -78,13 +88,9 @@ class window.DoppioApi
             return
         start_time = (new Date()).getTime()
         console?.log 'Starting Run'
-        fname = 'program.bsh'
-        node.fs.writeFileSync(fname, studentCode)
-        stdin = -> "\n"
-        if beanshellWrapperName?
-            class_args = [beanshellWrapperName]
-        else
-            class_args = [fname]
+        # fname = 'program.bsh'
+        # node.fs.writeFileSync(fname, studentCode)
+        class_args = [studentCode]
         finish_cb = =>
             end_time = (new Date()).getTime()
             if @running
@@ -93,9 +99,27 @@ class window.DoppioApi
                 @running = false
             finished_cb()
             return
-
         @running = true
-        jvm.run_class(@rs, 'bsh/Interpreter', class_args, finish_cb)
+        jvm.run_class(@rs, 'codemoo/Run', class_args, finish_cb)
+        return
+
+    preload: (preloadFunctions, finished_cb) ->
+        if @running
+            console?.log 'Busy Running'
+            return
+        console?.log 'Starting Preload'
+        class_args = [preloadFunctions]
+        finish_cb = =>
+            end_time = (new Date()).getTime()
+            if @running
+                console?.log 'Preloading Finished'
+                console?.log "Took #{end_time - start_time}ms."
+            @running = false
+            finished_cb()
+            return
+        @running = true
+        start_time = (new Date()).getTime()
+        jvm.run_class(@rs, 'codemoo/Preload', class_args, finish_cb)
         return
 
     abort: (finished_cb)=>

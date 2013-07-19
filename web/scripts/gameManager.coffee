@@ -197,7 +197,7 @@ class window.GameManager
                 @environment.codeland.waitForWrapper @runStudentCode
                 console.log 'Waiting for Doppio to be compiled'
                 return
-            @environment.codeland.doppioAPI.run code, null, finish_cb
+            @environment.codeland.doppioAPI.run code, finish_cb
         return
 
 class MapGameState

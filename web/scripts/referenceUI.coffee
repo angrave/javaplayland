@@ -159,7 +159,6 @@ setUpJavaSandbox = (input, output) ->
     msg = ""
     stdout = (str) ->
         msg += str
-
         textOutput.text msg
         return
     log = console.log
@@ -178,8 +177,7 @@ setUpJavaSandbox = (input, output) ->
             msg = ''
             finished_cb = ->
                 jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())
-            codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
-
+            codeland.doppioAPI.run sandBoxEditor.getStudentCode(), finished_cb
             e.preventDefault()
             return
     }
@@ -194,7 +192,7 @@ setUpJavaSandbox = (input, output) ->
                 stdout("Stopped")
                 jQuery('#runCode').show()
                 jQuery('#abortCode').hide()
-            codeland.doppioAPI.abort(aborted)
+            codeland.doppioAPI.abort aborted
             e.preventDefault()
             return
     }
@@ -225,7 +223,7 @@ window.AboutPage = () ->
 
     $(header).css({"position":"static","overflow":"auto","font-size":"26px","width":"100%","left":"25%","text-align":"center"})
     $(para).css({"overflow":"auto","max-height":"60%","position":"static"})
-    
+
     header.innerHTML = "Legal Terms and Attributions"
     para.innerHTML = "Copyright (C) 2013 The Board of Trustees at the University of Illinois<br />Creative Commons Licenses from openclipart.org are
     licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>

@@ -21,13 +21,9 @@ root.initialize = (UIcont) ->
     return
 
 root.initializeDoppio = ->
-    # root.doppioWrapper = 'wrapper.bsh'
-    # node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
     root.doppioReady = false
     root.doppioAPI = new DoppioApi null, root.log
-    root.doppioAPI.run root.quest.commandBeanshell, null, root.wrapperCompiled
-    # classes.doppio.JavaScript.eval("console.log(1);");
-    # root.doppioAPI = new DoppioApi null, console.log, null
+    root.doppioAPI.preload root.quest.commandBeanshell, root.wrapperCompiled
     return
 
 root.wrapperCompiled = =>
