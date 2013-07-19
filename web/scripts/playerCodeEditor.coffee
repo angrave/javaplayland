@@ -72,6 +72,7 @@ class window.EditorManager
         @onStudentCodeChange()
         @moveEditorButtonDelay = 30
         setTimeout @moveEditorButtons, @moveEditorButtonDelay
+        @editor.gotoLine @findFirstNonCommentLine(@codeConfig.initial)
         return
 
     setUpInsertButtons: ->
@@ -370,6 +371,29 @@ class window.EditorManager
                 return i
         return -1 # Not Found
 
+#Helper method for constructor so that we can insert code on the first non-comment line
+#Not a real parser e.g. print("/*") would be mistaken for a multiline comment.
+    findFirstNonCommentLine: (src) ->
+        lines = src.split('\n')
+        count=0
+        inMLC = false #Multi-line comment
+        for line in src.split('\n')
+            count +=1
+            if(line.match(/^S*$/))
+                continue # Ignore empty lines
+            isSLC =  !!line.match(/^\s*\/\//)
+                        
+            countStartMLC = line.split('/*').length-1 
+            countEndMLC = line.split('*/').length-1
+            
+            if(inMLC) 
+                if(!isSLC) 
+                    inMLC = countStartMLC >countEndMLC
+            else 
+                if( (!isSLC && !(inMLC=countStartMLC > countEndMLC)))
+                    break 
+        return count
+        
 class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
