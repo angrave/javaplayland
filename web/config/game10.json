@@ -1,6 +1,6 @@
 {
   "name": "Puzzle #10",
-  "description": "Find the correct sequence of code lines",
+  "description": "Maze",
   "task": "",
   "tags": "intro",
   "editor": {
@@ -12,95 +12,38 @@
       "insertButtons"
     ],
     "commands": {
-      "mysteryA": {
-        "inputs": 0,
-        "maxUses": 5
+      "go": {
+        "inputs": 1,
+        "maxUses": 6
       },
-      "mysteryB": {
+      "jump": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 1
       },
-      "mysteryC": {
+      "turnRight": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 20
       }
     }
   },
   "code": {
     "shorthand": "",
-    "comments": [
-      "Puzzle #10",
-      "I've forgotten what these commands do!",
-      "See if you can figure it out and get to the flag."
-    ]
+	"comments" : [ "No comment"
+	]
   },
   "game": {
     "characterBase": {
       "protagonist": {
-        "dir": 1
+        "dir": 0
       },
       "guard": {
         "dir": 0
-        },
-      "guardMoving": {
-        "sprite": "guard",
-        "dir": 3,
-        "trigger": "loss",
-        "moves": [],
-        "blocks": [
-          "guards"
-        ],
-        "group": "guards",
-        "AI": {
-          "normal": [
-            {
-              "command": "_stand",
-              "arguments": [
-                "character"
-              ]
-            },
-            {
-              "command": "move",
-              "arguments": [
-                "character",
-                1
-              ]
-            }
-          ],
-          "failed": {
-            "startMove": [
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "move",
-                "arguments": [
-                  "character",
-                  1
-                ]
-              }
-            ]
-          }
-        }
       }
     },
+    "map": "XXXXXXXXXX\nX.G..P...X\nX.XXXXXX.X\nX.XXFXXX.X\nX.XX.XXXGX\nX.XX.XXX.X\nX........X\nXXXXXXXXXX\n",
     "offset": {
-        "x": 2,
-        "y": 4
-    },
-    "map": "P\n\n\n...gG\n....F",
-    "key": {
-      "G": "guard",
-      "g": "guardMoving"
+      "x": 0,
+      "y": 0
     }
   },
   "help": [],
