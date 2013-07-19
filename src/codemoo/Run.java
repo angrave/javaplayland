@@ -15,6 +15,7 @@ public class Run {
         }
         try {
             Preload.interpret.eval(args[0]);
+            classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.finishedParsingStartGame()");
         }
         catch (bsh.EvalError e) {
             System.out.print("Threw " + e);

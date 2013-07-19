@@ -197,6 +197,7 @@ class window.GameManager
                 @environment.codeland.waitForWrapper @runStudentCode
                 console.log 'Waiting for Doppio to be compiled'
                 return
+            @startGame true
             @environment.codeland.doppioAPI.run code, finish_cb
         return
 
@@ -549,7 +550,8 @@ class MapGameCommands
         @gameState.move @gameState.protagonist, steps, line
 
     turn: (dir, line) =>
-        # log "turn '#{dir}'"
+        if not line?
+            line = 0
         return if dir is undefined
         d = $.inArray(dir, ['N','E','S','W'])
         if d >= 0
@@ -574,6 +576,8 @@ class MapGameCommands
 
     turnAndGo: (direction, steps, line) =>
         # log "turnAndGo #{direction} #{steps}"
+        if not line?
+            line = 0
         @turn direction, line
         @go steps, line
         return
