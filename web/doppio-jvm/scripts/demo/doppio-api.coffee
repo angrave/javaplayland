@@ -29,7 +29,10 @@ class window.DoppioApi
         if not @running
             @stdout = stdout
         else
-            console?.log 'Currently running, will not update output'
+            console?.log 'Currently running'
+            if not @updateOutput
+                console?.log 'Will update output when finished'
+                @updateOutput = stdout
         return
 
     output: (msg) =>
@@ -97,6 +100,9 @@ class window.DoppioApi
                 console?.log 'Finished Run'
                 console?.log "Took #{end_time - start_time}ms."
                 @running = false
+            if @updateOutput?
+                @setOutputFunctions @updateOutput, @log
+                @updateOutput = null
             finished_cb()
             return
         @running = true
@@ -115,6 +121,9 @@ class window.DoppioApi
                 console?.log 'Preloading Finished'
                 console?.log "Took #{end_time - start_time}ms."
             @running = false
+            if @updateOutput?
+                @setOutputFunctions @updateOutput, @log
+                @updateOutput = null
             finished_cb()
             return
         @running = true

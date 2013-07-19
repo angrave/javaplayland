@@ -31,7 +31,7 @@ root.wrapperCompiled = =>
     console.log 'Finished Compiling Wrapper'
     if root.wrapperCompiledCallback?
         console.log 'Found Wrapper Callback, running'
-        root.wrapperCompiledCallback
+        root.wrapperCompiledCallback()
     return
 
 root.waitForWrapper = (callback) ->
