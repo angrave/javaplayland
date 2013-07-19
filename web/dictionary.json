@@ -5,7 +5,7 @@
 		}
 		,
 		"Brackets and Parentheses": {
-			"BracketDef": "Java uses three kinds of brackets [] {} and () and they each mean something different. You need to use them in matching pairs. For example <tt>((1+2)/2</tt> is incomplete because it is missing the closing ). <li>Parentheses () are used to group mathematical expressions and also to call a method.</li><li>Calling a method may take no parameters (e.g. <tt>turnLeft()</tt>), or one or more parameters <tt>go(3) Math.max(2,3)</tt>.</li><li>\"Squiggly brackets\" {} are used to group a sequence of statements into a method, or group a sequence of statements to be used by a loop or if condition.</li><li>Square brackets [] are used to select an item from an array.</li>Gotchas\nMake sure you use the right one otherwise the compiler will get confused and complain."
+			"BracketDef": "Java uses three kinds of brackets [] {} and () and they each mean something different. You need to use them in matching pairs. For example <tt>((1+2)/2</tt> is incomplete because it is missing the closing ).\nParentheses () are used to group mathematical expressions and also to call a method.Calling a method may take no parameters (e.g. <tt>turnLeft()</tt>), or one or more parameters <tt>go(3) Math.max(2,3)</tt>.\n\"Squiggly brackets\" {} are used to group a sequence of statements into a method, or group a sequence of statements to be used by a loop or if condition.\nSquare brackets [] are used to select an item from an array.Gotchas\nMake sure you use the right one otherwise the compiler will get confused and complain."
 		}
 	}
 	,
@@ -14,43 +14,46 @@
 		,
 		"Primitive Types" : {
 		"Integer": {
-			"IntDef": "Integer is a variable type that is used to store integer values\n\nint x = 6;\n\nThis will create an int variable x, and set its value to the integer 6"
+			"IntDef": "Integer is a variable type that is used to store integer values<li><tt>int x = 6;</tt></li>This will create an <tt>int</tt> variable x, and set its value to the integer 6"
 		}
 		,
 		"Double": {
-			"DoubleDef": "Double is a variable type that is used to store floating-point numbers, also commonly known as decimal numbers\n\ndouble temp = 3.14;\n\nThis will create a double variable temp, and set its value to the decimal 3.14"
+			"DoubleDef": "Double is a variable type that is used to store floating-point numbers, also commonly known as decimal numbers<li><tt>double temp = 3.14;</tt></li>This will create a double variable temp, and set its value to the <tt>double</tt> 3.14"
 		}
 		,
 		"Boolean": {
-			"BoolDef": "Boolean is a variable type that is used to store one of two values, either true or false\n\nboolean bool = false;\n\nThis will create a boolean variable bool, and set its value to false"
+			"BoolDef": "Boolean is a variable type that is used to store one of two values, either <tt>true</tt> or <tt>false</tt><li><tt>boolean bool = false;</tt></li>This will create a <tt>boolean</tt> variable bool, and set its value to <tt>false</tt>"
 		}
 		} ,
 		"Pointers": {
-		"Arrays" :  "An array pointer points to a sequence of values. For example, \n<code>int[] ptr = new int[] {1,2,3};</code>\n\n This creates a new integer array and then initializes the variable 'ptr' to point to the new array.",
+		"Arrays" : {
+			"ArrayDef": "An <tt>array</tt> pointer points to a sequence of values. For example, <li><code>int[] ptr = new int[] {1,2,3};</code></li> This creates a new integer <tt>array</tt> and then initializes the variable 'ptr' to point to the new array."
+		}
+		,
 		"String": {
-			"StringDef": "A String pointer that is used to store a sequence of characters such as \"Hi\"\n<code>String s = \"Hello World!\";</code>\n\nThis will create a String variable s that <em>points to</em> the \"Hello World!\" object."
+			"StringDef": "A <tt>String</tt> pointer that is used to store a sequence of characters such as \"Hi\"<li><tt>String s = \"Hello World!\";</tt></li>This will create a String variable s that <em>points to</em> the \"Hello World!\" object."
 		}
 		,
 		"null": {
-			"nullDef": "<tt>null</tt> is a special value you can use with pointer ('reference') variables.\n<code>String s = null;</code>\nThis creates a String variable named 's' that will be null meaning that it does not point to any particular String object."
+			"nullDef": "<tt>null</tt> is a special value you can use with pointer ('reference') variables.<li><tt>String s = null;</tt></li>This creates a String variable named 's' that will be <tt>null</tt> meaning that it does not point to any particular <tt>String</tt> object."
 		}
 		}
 	}
 	,
 	"Operators": {
 		"Arithmetic Operators": {
-			"ArithDef": "Java understands the basic rules of adding, subtracting and multiplying. So you can write <tt>2 + 2</tt> <tt>5==3</tt> and it will calculate the result (<tt>4</tt> and <tt>false></tt> respectively)."
+			"ArithDef": "Java understands the basic rules of adding, subtracting and multiplying. So you can write <tt>2 + 2</tt>, <tt>5==3</tt> and it will calculate the result (<tt>4</tt> and <tt>false</tt> respectively)."
 			,			
 			"Division (/)": {
-				"DivDef": "Basic mathematics division operation\n\n4/2 ---> 2\n6.3/2.1 ---> 3.0"
+				"DivDef": "Basic mathematics division operation<li><tt>4 / 2<li>6.3 / 2.1</tt></li>The above expressions will evaluate to 2 and 3.0 respectively"
 			}
 			,
 			"Modules (%)": {
-				"ModDef": "Gives the remainder from a division operation\n\n5 % 3 ---> 2\n6 % 3 ---> 0"
+				"ModDef": "Performs a division operation, then retrieves the remainder from the the expression<li><tt>5 % 3<li>6 % 3</tt></li>The above expressions will evaluate to 2 and 0 respectively"
 			}
 			,
 			"Extra Notes": {
-				"ArithExtraNotes": "Performing arithmetic operations on two integeres will result in an integer by truncating the solution when necessary, while performing arithmetic operations on two doubles will result in a double\n\n6 / 4 ---> 1\n\nThe above solution is equal to 1 because although 6/4 is technically equal to 1.5, since both 6 and 4 are integers, the solution must also be an integer and therefore is truncated to 1\n\n7.0 / 3.5 ---> 2.0\n\nThe above solution is equal to 2.0 because although the solution could technically be just 2, since both 7.0 and 3.5 are doubles, the solution must also be a double\n\nUsing arithmetic operations on an integer and a double will result in a double\n\n3.0 / 4 ---> 0.75"
+				"ArithExtraNotes": "Performing arithmetic operations on two integeres will result in an integer by truncating the solution when necessary.<li><tt>6 / 4<li>10 / 4</tt></li>Although the above expressions should technically evaluate to 1.5 and 2.5 respectively, it will instead evaluate to 1 and 2 after truncating.<li>Performing arithmetic operations on two doubles will result in a double</li><li><tt>7.0 / 3.5\n3.0 * 2.0</tt></li>The above expressions will evaluate to 2.0 and 6.0 respectively.<li>Using arithmetic operations on an integer and a double will always result in a double</li><li><tt>3.0 / 4\n2.0 * 8</tt></li>The above expressions will evaluate to 0.75 and 16.0 respectively"
 			}
 		}
 		,
