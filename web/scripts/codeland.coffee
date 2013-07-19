@@ -23,7 +23,10 @@ root.initialize = (UIcont) ->
 root.initializeDoppio = ->
     root.doppioReady = false
     root.doppioAPI = new DoppioApi null, root.log
-    root.doppioAPI.preload root.quest.commandBeanshell, root.wrapperCompiled
+    if root.quest.backEnd == 'doppio'
+        root.doppioAPI.preload root.quest.commandBeanshell, root.wrapperCompiled
+    else
+        root.doppioAPI.preload "", -> return
     return
 
 root.wrapperCompiled = =>
@@ -83,7 +86,7 @@ root.startGame = (game) ->
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        backEnd: 'doppio'
+        backEnd: root.quest.backEnd
     }
 
     managerString  = description?.manager ?= 'GameManager'
@@ -91,6 +94,7 @@ root.startGame = (game) ->
     root.currentGame = new window[managerString](env)
 
     root.currentGame.startGame()
+    return
 
 deepcopy = (src) -> $.extend(true, {}, src)
 
@@ -266,9 +270,6 @@ root.addHintsToCode = (gameData) ->
         # Also ensures newlines in the data are properly commented out
         one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
         gameData.code.initial = one + '\n' + gameData.code.initial
-        # To prevent comments from being edited
-        #gameData.code.prefix = one + '\n'
-        #gameData.code.show = true
     return
 
 root.getGameDescriptions = ->

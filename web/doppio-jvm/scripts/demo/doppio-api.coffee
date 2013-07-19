@@ -81,18 +81,16 @@ class window.DoppioApi
         end_untar = (new Date()).getTime()
         console?.log "Untarring took a total of #{end_untar-start_untar}ms."
 
-    run: (studentCode, finished_cb) =>
+    run: (studentCode, gameContext, finished_cb) =>
         ###
             Runs the given Java Code.
-            Note, this does not recognize classes.
         ###
         if @running
             console?.log 'Already Running, not re-starting run'
+            finished_cb false
             return
         start_time = (new Date()).getTime()
         console?.log 'Starting Run'
-        # fname = 'program.bsh'
-        # node.fs.writeFileSync(fname, studentCode)
         class_args = [studentCode]
         finish_cb = =>
             end_time = (new Date()).getTime()
@@ -103,15 +101,19 @@ class window.DoppioApi
             if @updateOutput?
                 @setOutputFunctions @updateOutput, @log
                 @updateOutput = null
-            finished_cb()
+            finished_cb true
             return
         @running = true
-        jvm.run_class(@rs, 'codemoo/Run', class_args, finish_cb)
+        if gameContext
+            jvm.run_class(@rs, 'codemoo/RunGame', class_args, finish_cb)
+        else
+            jvm.run_class(@rs, 'codemoo/Run', class_args, finish_cb)
         return
 
     preload: (preloadFunctions, finished_cb) ->
         if @running
             console?.log 'Busy Running'
+            finished_cb false
             return
         console?.log 'Starting Preload'
         class_args = [preloadFunctions]
@@ -120,11 +122,11 @@ class window.DoppioApi
             if @running
                 console?.log 'Preloading Finished'
                 console?.log "Took #{end_time - start_time}ms."
-            @running = false
+                @running = false
             if @updateOutput?
                 @setOutputFunctions @updateOutput, @log
                 @updateOutput = null
-            finished_cb()
+            finished_cb true
             return
         @running = true
         start_time = (new Date()).getTime()
@@ -145,4 +147,5 @@ class window.DoppioApi
             @rs.async_abort(cb)
         else
             console?.log 'No Run Detected'
+            finished_cb() if finished_cb?
         return

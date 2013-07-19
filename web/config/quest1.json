@@ -11,6 +11,7 @@
     "game9",
     "game10"
   ],
+  "backEnd": "interpreter",
   "commands": [
     "go(I)V",
     "turn(I)V",

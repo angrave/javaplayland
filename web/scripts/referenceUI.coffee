@@ -175,9 +175,11 @@ setUpJavaSandbox = (input, output) ->
             jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
 
             msg = ''
-            finished_cb = ->
-                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())
-            codeland.doppioAPI.run sandBoxEditor.getStudentCode(), finished_cb
+            finished_cb = (ran) ->
+                setTimeout ( ->
+                    jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())), 1000
+                return
+            codeland.doppioAPI.run sandBoxEditor.getStudentCode(), false, finished_cb
             e.preventDefault()
             return
     }
@@ -192,6 +194,7 @@ setUpJavaSandbox = (input, output) ->
                 stdout("Stopped")
                 jQuery('#runCode').show()
                 jQuery('#abortCode').hide()
+                return
             codeland.doppioAPI.abort aborted
             e.preventDefault()
             return
