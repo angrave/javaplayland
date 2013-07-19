@@ -28,9 +28,9 @@
   },
   "code": {
     "shorthand": "",
-    "initial": "/* These are multi-line comments!\nturnRight() and turnLeft() and go() inside should be ignored\n*/",
+    "initial": "",
 	"comments" : [ "Puzzle #8","To solve this puzzle use the code buttons to create your own program.",
-	"Hint #1 You can write up to two turnRight() statements and one turnLeft()!"]
+	"Hint #1 You can write a maximum of two turnRight() statements and one turnLeft()!"]
   },
   "game": {
     "characterBase": {
