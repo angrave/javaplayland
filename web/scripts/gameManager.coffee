@@ -218,7 +218,6 @@ class MapGameState
         clockHandle = setInterval @clock, 17
         @startedGame = false
         @waiting = false
-        if not waitForCode then @start()
         return
 
     executeAICommand: (character, command) ->
@@ -231,6 +230,7 @@ class MapGameState
         return
 
     clock: =>
+        console.log @startedGame
         if @startedGame
             if @tick % 30 == 0
                 if not @waiting
@@ -293,6 +293,8 @@ class MapGameState
                         (character.trigger == "victory" and\
                             protagonistDoneMoving)
                         triggers[character.trigger]()
+        if @protagonistDoneMoving == true && @startedGame == true
+            @gameLost()
         if @protagonistDoneMoving and @protagonist.moving
             @visual.charAnimate @protagonist.index
             @protagonist.moving = false
@@ -472,8 +474,7 @@ class MapGameState
         return
 
     gameLost: =>
-        if clockHandle?
-            clearInterval clockHandle
+        clearInterval clockHandle
         for name, character of @gameConfig.characters
             if @visual.getState(character.index) != 5
                 @visual.changeState character.index, 4
