@@ -3,13 +3,14 @@ log = (mesg) ->  console.log mesg if debugging
 if not deepcopy?
     deepcopy = (src) -> $.extend(true, {},src)
 
-class window.GridGameManager
+class window.gameManager
     constructor: (@environment) ->
         @config = deepcopy @environment.description
 
         @editorDiv = 'codeEditor'
         @visualDiv = 'gameVisual'
         @setUpGame()
+        return
 
     setUpGame: ->
         ###
@@ -346,7 +347,7 @@ class MapGameState
         if character.moves.length > 0 and
           character.moves[character.moves.length - 1].key == 'stand'
             character.moves.pop()
-            
+
         character.moves.push {
             key: 'jumping',
             exec: ((char) ->
@@ -432,7 +433,7 @@ class MapGameState
         else
             @visual.changeState character.index, 4
         return moved
-    
+
 
     checkCanMove: (newX, newY, character) ->
         ###

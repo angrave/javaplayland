@@ -41,7 +41,7 @@
     }
   },
   "defaults": {
-    "manager": "GridGameManager",
+    "manager": "gameManager",
     "game": {
       "characters": {},
       "characterBase": {
