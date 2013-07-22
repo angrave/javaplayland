@@ -88,8 +88,8 @@ root.startGame = (game) ->
     env = {
         key: game
         description : description
-        visualMaster: root.visualMaster
-        frameRate: root.visualMaster.frameRate
+        visualMaster: root.visualMasters[game]
+        frameRate: root.visualMasters[game].frameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
@@ -197,6 +197,7 @@ root.loadJSONConfigs = () ->
                         return
                 }
             root.quests = {}
+            root.visualMasters = {}
             questIndex = 0
             for quest in data.quests
                 jQuery.ajax {
@@ -221,7 +222,8 @@ root.loadJSONConfigs = () ->
                                 success: (gameData) ->
                                     try
                                         root.addToObject root.baseDefaults, gameData
-                                        root.addToObject root.gameDefaults[gameData.gameType], gameData
+                                        root.addToObject root.gameDefaults[gameData.gameType].defaults, gameData
+                                        root.visualMasters[game] = root.gameDefaults[gameData.gameType].visualMaster
                                         root.convertShorthandToCode gameData
                                         root.addHintsToCode gameData
                                         root.gameDescriptions[game] = gameData
@@ -236,19 +238,6 @@ root.loadJSONConfigs = () ->
             root.currentQuest = root.quests[0]
             return
         }
-
-    jQuery.ajax {
-        dataType: 'json',
-        url: 'config/visualMaster.json',
-        async: false,
-        error : ->
-            configFail = true
-            console.log "Could not read visualMaster.json"
-            return
-        success: (data) ->
-            root.visualMaster = data
-            return
-    }
     if configFail
         root.gameDescriptions = null
         throw "Configuration Exception"
