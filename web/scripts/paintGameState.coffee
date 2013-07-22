@@ -77,3 +77,11 @@ class PaintGameCommands
     finishedParsingStartGame: ->
         @gameState.start()
         return
+
+    drawPixel: (x, y, color) ->
+        console.log "drawPixel(#{x},#{y},#{color}) called"
+        return
+
+    getPixel: (x, y) ->
+        console.log "getPixel(#{x},#{y}) called"
+        return
