@@ -1,3 +1,7 @@
+body {
+    font-family: bitter;
+}
+
 #buttons {
     width:97%;
     position:absolute;
