@@ -3,7 +3,7 @@ package codemoo;
 import bsh.Interpreter;
 import bsh.EvalError;
 
-public class Run {
+public class RunGame {
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("No Code Given to Run!");
