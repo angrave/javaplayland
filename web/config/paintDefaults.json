@@ -62,6 +62,7 @@
     "code": {
       "prefix": "void paint() {\n",
       "postfix": "}",
+      "hiddenPostFix": "paint();",
       "show": true,
       "shorthandKey": [
         {

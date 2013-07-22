@@ -50,7 +50,8 @@ class window.EditorManager
         @interpreter = new CodeInterpreter @commands
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
-            @codeConfig.postfix, @editorConfig.freeformEditting, @interpreter
+            @codeConfig.postfix, @codeConfig.hiddenPostFix, \
+            @editorConfig.freeformEditting, @interpreter
 
         # Create editor buttons
         @acelne = document.createElement("div")
@@ -401,7 +402,9 @@ class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit, @interpreter) ->
+    constructor: (
+            @editorDivId, @commands, codeText, @wrapCode, @codePrefix,
+            @codeSuffix, @hiddenSuffix, @freeEdit, @interpreter) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -437,7 +440,10 @@ class window.PlayerCodeEditor
         return
 
     getStudentCode: ->
-        return @editor.getValue()
+        code = @editor.getValue()
+        if @hiddenSuffix?
+            code += '\n' + @hiddenSuffix
+        return code
 
     gotoLine: (row) ->
         column = @editor.getCursorPosition().column
