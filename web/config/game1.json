@@ -26,9 +26,9 @@
        "Can you fix this Java code so that your avatar\nreaches the flag?",
        "You can run this entire Java program, just click the green play button on the far left (Try it now!).",
        "The initial code is incorrect: Move the statements up and down to fix the sequence of statements.",
-       "You can change the ordering of the two lines of code: \nSelect a line of code, \nClick the small up/down arrows that eppear over the line numbers to swap their order.",
+       "You can change the ordering of the two lines of code: \nSelect a line of code, \nClick the small up and down arrows that appear over the line numbers to swap their order.",
        "Re-run your code to see if it's now correct. Hint: The avatar always starts from the same place.",
-       "Change the order of the go and turnRight statements: Click on \n a line of code. Move it up and down, then re-run your program!" ]
+       "Change the order of the go() and turnRight() statements: Click on \n a line of code. Move it up and down, then re-run your program!" ]
   },
   "game": {
     "characterBase": {
