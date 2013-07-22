@@ -1,0 +1,28 @@
+{
+  "gameType": "paint",
+  "visualMaster": {
+    "frameRate": 17,
+    "container": {
+      "width": 300,
+      "height": 300,
+      "id": "gameVisual"
+    },
+    "preLoading": {}
+  },
+  "defaults": {
+    "manager": "PaintGameManager",
+    "game": {},
+    "visual": {},
+    "gameType": "paint",
+    "grid": {
+      "gridUnit": 30,
+      "border": 30,
+      "gridX": 8,
+      "gridY": 8
+    },
+    "animation": {
+      "length": 30,
+      "pixMoveRate": 1
+    }
+  }
+}

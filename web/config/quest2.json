@@ -1,0 +1,8 @@
+{
+  "games": [
+    "game21.json"
+  ],
+  "backEnd": "doppio",
+  "commands": [],
+  "commandBeanshell": ""
+}
