@@ -44,8 +44,8 @@ class window.PaintGameState
         gameName = @gameManager.gameName()
         gameNumber = parseInt gameName.charAt gameName.length - 1, 10
         gameNumber++
-        if gameNumber == 12
-            gameNumber = 1
+        if gameNumber == 22
+            gameNumber = 21
         gameName = gameName.slice 0, gameName.length - 1
         gameName = gameName.concat gameNumber
         window.objCloud 400, "Well Done!",

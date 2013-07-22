@@ -14,7 +14,7 @@
     }
   },
   "code": {
-    "shorthand": "gR",
+    "shorthand": "d(0,0,\"red\")d(7,0,\"blue\")d(0,7,\"green\")",
     "comments": [
       "No Comment"
     ]

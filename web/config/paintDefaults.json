@@ -59,6 +59,18 @@
     }
   },
   "defaults": {
+    "code": {
+      "shorthandKey": [
+        {
+          "regex": "^d",
+          "repl": "drawPixel"
+        },
+        {
+          "regex": "^g",
+          "repl": "getPixel"
+        }
+      ]
+    },
     "gameState": "PaintGameState",
     "game": {
       "characters": {},

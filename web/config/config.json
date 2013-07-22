@@ -3,45 +3,7 @@
     "code": {
       "prefix": "",
       "postfix": "",
-      "show": false,
-      "shorthandKey": [
-        {
-          "regex": "^tAG",
-          "repl": "turnAndGo"
-        },
-        {
-          "regex": "^R",
-          "repl": "turnRight"
-        },
-        {
-          "regex": "^L",
-          "repl": "turnLeft"
-        },
-        {
-          "regex": "^t",
-          "repl": "turn"
-        },
-        {
-          "regex": "^N",
-          "repl": "goNorth"
-        },
-        {
-          "regex": "^E",
-          "repl": "goEast"
-        },
-        {
-          "regex": "^S",
-          "repl": "goSouth"
-        },
-        {
-          "regex": "^W",
-          "repl": "goWest"
-        },
-        {
-          "regex": "^g",
-          "repl": "go"
-        }
-      ]
+      "show": false
     }
   },
   "gameTypes": [
