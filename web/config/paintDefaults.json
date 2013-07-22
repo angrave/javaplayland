@@ -9,52 +9,52 @@
     },
     "preLoading": {
       "black": [
-        "blackPixel.png"
+        "img/blackPixel.png"
       ],
       "blackBoarder": [
-        "blackPixelBoarder.png"
+        "img/blackPixelBoarder.png"
       ],
       "blue": [
-        "bluePixel.png"
+        "img/bluePixel.png"
       ],
       "blueBoarder": [
-        "bluePixelBoarder.png"
+        "img/bluePixelBoarder.png"
       ],
       "green": [
-        "greenPixel.png"
+        "img/greenPixel.png"
       ],
       "greenBoarder": [
-        "greenPixelBoarder.png"
+        "img/greenPixelBoarder.png"
       ],
       "lightBlue": [
-        "lightBluePixel.png"
+        "img/lightBluePixel.png"
       ],
       "lightBlueBoarder": [
-        "lightBluePixelBoarder.png"
+        "img/lightBluePixelBoarder.png"
       ],
       "pink": [
-        "pinkPixel.png"
+        "img/pinkPixel.png"
       ],
       "pinkBoarder": [
-        "pinkPixelBoarder.png"
+        "img/pinkPixelBoarder.png"
       ],
       "purple": [
-        "purplePixel.png"
+        "img/purplePixel.png"
       ],
       "purpleBoarder": [
-        "purplePixelBoarder.png"
+        "img/purplePixelBoarder.png"
       ],
       "red": [
-        "redPixel.png"
+        "img/redPixel.png"
       ],
       "redBoarder": [
-        "redPixelBoarder.png"
+        "img/redPixelBoarder.png"
       ],
       "yellow": [
-        "yellowPixel.png"
+        "img/yellowPixel.png"
       ],
       "yellowBoarder": [
-        "yellowPixelBoarder.png"
+        "img/yellowPixelBoarder.png"
       ]
     }
   },
@@ -64,68 +64,52 @@
       "characters": {},
       "characterBase": {
         "black": {
-          "sprite": "black",
-          "dir": 0
+          "sprite": "black"
         },
         "blackBoarder": {
-          "sprite": "blackBoarder",
-          "dir": 0
+          "sprite": "blackBoarder"
         },
         "blue": {
-          "sprite": "blue",
-          "dir": 0
+          "sprite": "blue"
         },
         "blueBoarder": {
-          "sprite": "blueBoarder",
-          "dir": 0
+          "sprite": "blueBoarder"
         },
         "green": {
-          "sprite": "green",
-          "dir": 0
+          "sprite": "green"
         },
         "greenBoarder": {
-          "sprite": "greenBoarder",
-          "dir": 0
+          "sprite": "greenBoarder"
         },
         "lightBlue": {
-          "sprite": "lightBlue",
-          "dir": 0
+          "sprite": "lightBlue"
         },
         "lightBlueBoarder": {
-          "sprite": "lightBlueBoarder",
-          "dir": 0
+          "sprite": "lightBlueBoarder"
         },
         "pink": {
-          "sprite": "pink",
-          "dir": 0
+          "sprite": "pink"
         },
         "pinkBoarder": {
-          "sprite": "pinkBoarder",
-          "dir": 0
+          "sprite": "pinkBoarder"
         },
         "purple": {
-          "sprite": "purple",
-          "dir": 0
+          "sprite": "purple"
         },
         "purpleBoarder": {
-          "sprite": "purpleBoarder",
-          "dir": 0
+          "sprite": "purpleBoarder"
         },
         "red": {
-          "sprite": "red",
-          "dir": 0
+          "sprite": "red"
         },
         "redBoarder": {
-          "sprite": "redBoarder",
-          "dir": 0
+          "sprite": "redBoarder"
         },
         "yellow": {
-          "sprite": "yellow",
-          "dir": 0
+          "sprite": "yellow"
         },
         "yellowBoarder": {
-          "sprite": "yellowBoarder",
-          "dir": 0
+          "sprite": "yellowBoarder"
         }
       },
       "key": {
@@ -158,6 +142,152 @@
       "animation": {
         "length": 30,
         "pixMoveRate": 1
+      },
+      "visualBase": {
+        "black": {
+          "imgSet": 0,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blackBoarder": {
+          "imgSet": 1,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blue": {
+          "imgSet": 2,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blueBoarder": {
+          "imgSet": 3,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "green": {
+          "imgSet": 4,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "greenBoarder": {
+          "imgSet": 5,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "lightBlue": {
+          "imgSet": 6,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "lightBlueBoarder": {
+          "imgSet": 7,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "pink": {
+          "imgSet": 8,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "pinkBoarder": {
+          "imgSet": 9,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "purple": {
+          "imgSet": 10,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "purpleBoarder": {
+          "imgSet": 11,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "red": {
+          "imgSet": 12,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "redBoarder": {
+          "imgSet": 13,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "yellow": {
+          "imgSet": 14,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "yellowBoarder": {
+          "imgSet": 15,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        }
       },
       "characters": []
     },

@@ -72,7 +72,7 @@ class window.GameManager
 
         @visual.startGame @config.visual
         @gameState = new window[@gameStateBase](@, waitForCode)
-        @commandMap = @gameState.getGridCommands()
+        @commandMap = @gameState.getGameCommands()
         return
 
     interpretGameConfigMap: ->

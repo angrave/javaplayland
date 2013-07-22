@@ -45,9 +45,11 @@
     }
   },
   "gameTypes": [
-    "gridDefaults.json"
+    "gridDefaults.json",
+    "paintDefaults.json"
   ],
   "quests": [
+    "quest2.json",
     "quest1.json"
   ]
 }

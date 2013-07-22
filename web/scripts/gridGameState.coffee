@@ -35,7 +35,7 @@ class window.GridGameState
         if not waitForCode then @start()
         return
 
-    getGridCommands: ->
+    getGameCommands: ->
         return @gameCommands
 
     executeAICommand: (character, command) ->

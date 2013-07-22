@@ -1,8 +1,11 @@
 {
   "games": [
-    "game21.json"
+    "game21"
   ],
   "backEnd": "doppio",
-  "commands": [],
+  "commands": [
+    "drawPixel(I,I,Ljava/lang/String;)V",
+    "getColor(I,I)Ljava/lang/String;"
+  ],
   "commandBeanshell": ""
 }

@@ -1,0 +1,33 @@
+{
+  "name": "Picture #1",
+  "description": "A New Challenge",
+  "task": "",
+  "tags": "paint",
+  "gameType": "paint",
+  "editor": {
+    "freeformEditting": true,
+    "buttons": [
+      "switchUp",
+      "switchDown"
+    ],
+    "commands": {
+    }
+  },
+  "code": {
+    "shorthand": "gR",
+    "comments": [
+      "No Comment"
+    ]
+  },
+  "game": {
+    "map": "G\nR",
+    "offset": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  "dyk": [
+    "Colors are colerful (Replace with better dyk)"
+  ],
+  "depends": []
+}
