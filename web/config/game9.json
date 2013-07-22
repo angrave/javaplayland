@@ -3,6 +3,7 @@
   "description": "My awesome go method takes an integer parameter",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -28,12 +29,14 @@
   },
   "code": {
     "shorthand": "g(6)",
-	"comments" : [ "Puzzle #9","go,turnRight and turnLeft are called \"methods\".",
-	"I just made a new 'go' method for you.",
-	"This go method takes a single integer parameter.",
-	"See what you think of go(6) and decide if you like it!",
-	"(You can always change the integer to a different value)"
-	]
+    "comments": [
+      "Puzzle #9",
+      "go,turnRight and turnLeft are called \"methods\".",
+      "I just made a new 'go' method for you.",
+      "This go method takes a single integer parameter.",
+      "See what you think of go(6) and decide if you like it!",
+      "(You can always change the integer to a different value)"
+    ]
   },
   "game": {
     "characterBase": {

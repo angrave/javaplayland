@@ -3,6 +3,7 @@
   "description": "Not hard, once it's working?",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -27,9 +28,12 @@
   },
   "code": {
     "shorthand": "gggggLLLRR",
-    "comments" : [ "Puzzle #7","Think like a careful programmer \n - check every statement is correct!" ,
-"Re-arrange or delete these statements to win this level.",
-"Don't forgot the reset button if you need to start over."]
+    "comments": [
+      "Puzzle #7",
+      "Think like a careful programmer \n - check every statement is correct!",
+      "Re-arrange or delete these statements to win this level.",
+      "Don't forgot the reset button if you need to start over."
+    ]
   },
   "game": {
     "characterBase": {

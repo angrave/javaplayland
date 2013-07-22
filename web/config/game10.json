@@ -3,6 +3,7 @@
   "description": "Find the correct sequence of code lines",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -41,7 +42,7 @@
       },
       "guard": {
         "dir": 0
-        },
+      },
       "guardMoving": {
         "sprite": "guard",
         "dir": 3,
@@ -94,8 +95,8 @@
       }
     },
     "offset": {
-        "x": 2,
-        "y": 4
+      "x": 2,
+      "y": 4
     },
     "map": "P\n\n\n...gG\n....F",
     "key": {

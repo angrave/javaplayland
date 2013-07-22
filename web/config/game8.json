@@ -3,6 +3,7 @@
   "description": "Create your own recipe",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -29,8 +30,11 @@
   "code": {
     "shorthand": "",
     "initial": "",
-	"comments" : [ "Puzzle #8","To solve this puzzle use the code buttons to create your own program.",
-	"Hint #1 You can write a maximum of two turnRight() statements and one turnLeft()!"]
+    "comments": [
+      "Puzzle #8",
+      "To solve this puzzle use the code buttons to create your own program.",
+      "Hint #1 You can write a maximum of two turnRight() statements and one turnLeft()!"
+    ]
   },
   "game": {
     "characterBase": {

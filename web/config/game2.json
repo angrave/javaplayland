@@ -3,6 +3,7 @@
   "description": "Not too hard?",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -22,11 +23,12 @@
   },
   "code": {
     "shorthand": "RRggg",
-    "comments" : [ "Puzzle #2",
-     "Another puzzle, another programming puzzle!",
-	"Move the code lines up and down to change the order of go and turnRight,\nThen press play to run your entire Java code",
-     "English uses ! for commands : Fetch the Ball! Run!\nbut notice Java statements end with a semicolon ; instead"
-     ]
+    "comments": [
+      "Puzzle #2",
+      "Another puzzle, another programming puzzle!",
+      "Move the code lines up and down to change the order of go and turnRight,\nThen press play to run your entire Java code",
+      "English uses ! for commands : Fetch the Ball! Run!\nbut notice Java statements end with a semicolon ; instead"
+    ]
   },
   "game": {
     "characterBase": {

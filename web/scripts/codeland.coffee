@@ -22,11 +22,17 @@ root.initialize = (UIcont) ->
 
 root.initializeDoppio = ->
     root.doppioReady = false
+    root.doppioPreloaded = false
     root.doppioAPI = new DoppioApi null, root.log
-    if root.quest.backEnd == 'doppio'
-        root.doppioAPI.preload root.quest.commandBeanshell, root.wrapperCompiled
-    else
-        root.doppioAPI.preload "", -> return
+    return
+
+root.preloadDoppio = ->
+    if root.doppioPreloaded == false
+        if root.currentQuest.backEnd == 'doppio'
+            root.doppioAPI.preload root.currentQuest.commandBeanshell, root.wrapperCompiled
+        else
+            root.doppioAPI.preload "", -> return
+        root.doppioPreloaded = true
     return
 
 root.wrapperCompiled = =>
@@ -68,6 +74,7 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
+    root.preloadDoppio()
     root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
@@ -86,7 +93,7 @@ root.startGame = (game) ->
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        backEnd: root.quest.backEnd
+        backEnd: root.currentQuest.backEnd
     }
 
     managerString  = description?.manager ?= 'GameManager'
@@ -165,61 +172,83 @@ root.loadJSONConfigs = () ->
     if not root.gameDescriptions?
         root.gameDescriptions = {}
     configFail = false
-    jQuery.ajax({
+    jQuery.ajax {
         dataType: 'json',
-        url: 'config/defaults.json',
+        url: 'config/config.json',
         async: false,
         error : () ->
             configFail = true
-            console.log 'Could not read defaults.json'
-
-        success: (data) ->
-            root.gameDefaults = data
+            console.log 'Could not read config.json'
             return
-        })
-
-    jQuery.ajax({
-        dataType: 'json',
-        url: 'config/quest1.json',
-        async: false,
-        error : ->
-            configFail = true
-            console.log "Could not read quest1.json"
-
         success: (data) ->
-            root.quest = data
-            for game in data.games
-                jQuery.ajax({
+            root.baseDefaults = data.defaults
+            root.gameDefaults = {}
+            for type in data.gameTypes
+                jQuery.ajax {
                     dataType: 'json',
-                    url: "config/#{game}.json"
+                    url: "config/#{type}",
                     async: false,
-                    error: ( jqXHR, textStatus, errorThrown ) ->
+                    error : ->
                         configFail = true
-                        console.log "Could not read " + game + ':'+textStatus
-                    success: (gameData) ->
-                        try
-                            root.addToObject root.gameDefaults, gameData
-                            root.convertShorthandToCode gameData
-                            root.addHintsToCode gameData
-                            root.gameDescriptions[game] = gameData
-                            return
-                        catch error
-                            configFail = true
-                            console.log error
-                    })
+                        console.log "Could not read #{type}"
+                        return
+                    success: (data) ->
+                        root.gameDefaults[data.gameType] = data
+                        return
+                }
+            root.quests = {}
+            questIndex = 0
+            for quest in data.quests
+                jQuery.ajax {
+                    dataType: 'json',
+                    url: "config/#{quest}",
+                    async: false,
+                    error : ->
+                        configFail = true
+                        console.log "Could not read #{quest}"
+                        return
+                    success: (data) ->
+                        root.quests[questIndex++] = data
+                        for game in data.games
+                            jQuery.ajax {
+                                dataType: 'json',
+                                url: "config/#{game}.json"
+                                async: false,
+                                error: ( jqXHR, textStatus, errorThrown ) ->
+                                    configFail = true
+                                    console.log "Could not read " + game + ':'+textStatus
+                                    return
+                                success: (gameData) ->
+                                    try
+                                        root.addToObject root.baseDefaults, gameData
+                                        root.addToObject root.gameDefaults[gameData.gameType], gameData
+                                        root.convertShorthandToCode gameData
+                                        root.addHintsToCode gameData
+                                        root.gameDescriptions[game] = gameData
+                                        return
+                                    catch error
+                                        configFail = true
+                                        console.log error
+                                    return
+                            }
+                        return
+                }
+            root.currentQuest = root.quests[0]
             return
-    });
-    jQuery.ajax({
+        }
+
+    jQuery.ajax {
         dataType: 'json',
         url: 'config/visualMaster.json',
         async: false,
         error : ->
             configFail = true
             console.log "Could not read visualMaster.json"
+            return
         success: (data) ->
             root.visualMaster = data
             return
-        })
+    }
     if configFail
         root.gameDescriptions = null
         throw "Configuration Exception"

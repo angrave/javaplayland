@@ -3,6 +3,7 @@
   "description": "I refuse to comment!",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -21,16 +22,19 @@
     }
   },
   "code": {
-    "shorthand": "RRggg", 
-    "comments": [ "Puzzle #3", "Notice the two forward slashes, \"//\" on the left?",
-       "The slashes mean this text is just a comment, not executable code.",
-   
-      "We write comments in programs to help other programmers ", 
+    "shorthand": "RRggg",
+    "comments": [
+      "Puzzle #3",
+      "Notice the two forward slashes, \"//\" on the left?",
+      "The slashes mean this text is just a comment, not executable code.",
+      "We write comments in programs to help other programmers ",
       "or ourselves understand our code and ideas and choices we made.",
-       "Comments are ignored when the program runs.",
-       "For programmers though, they are often worth reading.","",
-       "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!",
-       "Yes - It is possible!" ]
+      "Comments are ignored when the program runs.",
+      "For programmers though, they are often worth reading.",
+      "",
+      "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!",
+      "Yes - It is possible!"
+    ]
   },
   "game": {
     "characterBase": {
@@ -44,9 +48,7 @@
       "y": 4
     }
   },
-  
-  "dyk": [
-  ],
+  "dyk": [],
   "depends": [
     "game2"
   ]

@@ -3,7 +3,7 @@ log = (mesg) ->  console.log mesg if debugging
 if not deepcopy?
     deepcopy = (src) -> $.extend(true, {},src)
 
-class window.GameManager
+class window.GridGameManager
     constructor: (@environment) ->
         @config = deepcopy @environment.description
 
