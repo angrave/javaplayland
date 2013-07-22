@@ -95,11 +95,13 @@ root.startGame = (game) ->
         player : root.getPlayer()
         codeland : this
         backEnd: root.currentQuest.backEnd
+        gameState: description.gameState
     }
 
-    managerString  = description?.manager ?= 'GameManager'
+    # managerString  = description?.manager ?= 'GameManager'
 
-    root.currentGame = new window[managerString](env)
+    # root.currentGame = new window[managerString](env)
+    root.currentGame = new GameManager env
 
     root.currentGame.startGame()
     return

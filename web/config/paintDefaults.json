@@ -7,22 +7,160 @@
       "height": 300,
       "id": "gameVisual"
     },
-    "preLoading": {}
+    "preLoading": {
+      "black": [
+        "blackPixel.png"
+      ],
+      "blackBoarder": [
+        "blackPixelBoarder.png"
+      ],
+      "blue": [
+        "bluePixel.png"
+      ],
+      "blueBoarder": [
+        "bluePixelBoarder.png"
+      ],
+      "green": [
+        "greenPixel.png"
+      ],
+      "greenBoarder": [
+        "greenPixelBoarder.png"
+      ],
+      "lightBlue": [
+        "lightBluePixel.png"
+      ],
+      "lightBlueBoarder": [
+        "lightBluePixelBoarder.png"
+      ],
+      "pink": [
+        "pinkPixel.png"
+      ],
+      "pinkBoarder": [
+        "pinkPixelBoarder.png"
+      ],
+      "purple": [
+        "purplePixel.png"
+      ],
+      "purpleBoarder": [
+        "purplePixelBoarder.png"
+      ],
+      "red": [
+        "redPixel.png"
+      ],
+      "redBoarder": [
+        "redPixelBoarder.png"
+      ],
+      "yellow": [
+        "yellowPixel.png"
+      ],
+      "yellowBoarder": [
+        "yellowPixelBoarder.png"
+      ]
+    }
   },
   "defaults": {
-    "manager": "PaintGameManager",
-    "game": {},
-    "visual": {},
-    "gameType": "paint",
-    "grid": {
-      "gridUnit": 30,
-      "border": 30,
-      "gridX": 8,
-      "gridY": 8
+    "gameState": "PaintGameState",
+    "game": {
+      "characters": {},
+      "characterBase": {
+        "black": {
+          "sprite": "black",
+          "dir": 0
+        },
+        "blackBoarder": {
+          "sprite": "blackBoarder",
+          "dir": 0
+        },
+        "blue": {
+          "sprite": "blue",
+          "dir": 0
+        },
+        "blueBoarder": {
+          "sprite": "blueBoarder",
+          "dir": 0
+        },
+        "green": {
+          "sprite": "green",
+          "dir": 0
+        },
+        "greenBoarder": {
+          "sprite": "greenBoarder",
+          "dir": 0
+        },
+        "lightBlue": {
+          "sprite": "lightBlue",
+          "dir": 0
+        },
+        "lightBlueBoarder": {
+          "sprite": "lightBlueBoarder",
+          "dir": 0
+        },
+        "pink": {
+          "sprite": "pink",
+          "dir": 0
+        },
+        "pinkBoarder": {
+          "sprite": "pinkBoarder",
+          "dir": 0
+        },
+        "purple": {
+          "sprite": "purple",
+          "dir": 0
+        },
+        "purpleBoarder": {
+          "sprite": "purpleBoarder",
+          "dir": 0
+        },
+        "red": {
+          "sprite": "red",
+          "dir": 0
+        },
+        "redBoarder": {
+          "sprite": "redBoarder",
+          "dir": 0
+        },
+        "yellow": {
+          "sprite": "yellow",
+          "dir": 0
+        },
+        "yellowBoarder": {
+          "sprite": "yellowBoarder",
+          "dir": 0
+        }
+      },
+      "key": {
+        "b": "black",
+        "B": "blackBoarder",
+        "u": "blue",
+        "U": "blueBoarder",
+        "g": "green",
+        "G": "greenBoarder",
+        "l": "lightBlue",
+        "L": "lightBlueBoarder",
+        "p": "pink",
+        "P": "pinkBoarder",
+        "q": "purple",
+        "Q": "purpleBoarder",
+        "r": "red",
+        "R": "redBoarder",
+        "y": "yellow",
+        "Y": "yellowBoarder"
+      }
     },
-    "animation": {
-      "length": 30,
-      "pixMoveRate": 1
-    }
+    "visual": {
+      "gameType": "paint",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 8,
+        "gridY": 8
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": []
+    },
+    "gameType": "paint"
   }
 }
