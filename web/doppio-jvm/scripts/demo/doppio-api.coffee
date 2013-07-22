@@ -23,6 +23,7 @@ class window.DoppioApi
         stdin = -> "\n"
         @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
         @running = false
+        @preloaded = false
         return
 
     setOutputFunctions: (stdout, @log) ->
@@ -86,8 +87,12 @@ class window.DoppioApi
             Runs the given Java Code.
         ###
         if @running
-            console?.log 'Already Running, not re-starting run'
-            finished_cb false
+            if @preloaded
+                console?.log 'Already Running, not re-starting run'
+                finished_cb false
+            else
+                console?.log 'Not finished preloading, will run after preload finishes'
+                @firstRun = @run.bind @, studentCode, gameContext, finished_cb
             return
         start_time = (new Date()).getTime()
         console?.log 'Starting Run'
@@ -127,6 +132,10 @@ class window.DoppioApi
                 @setOutputFunctions @updateOutput, @log
                 @updateOutput = null
             finished_cb true
+            @preloaded = true
+            if @firstRun
+                @firstRun()
+                @firstRun = null
             return
         @running = true
         start_time = (new Date()).getTime()
@@ -139,12 +148,16 @@ class window.DoppioApi
         ###
         console?.log 'User Abort Requested'
         if @running
-            console?.log 'Aborting Run'
-            cb = =>
-                console?.log 'Aborted Successfully'
-                @running = false
+            if @preloaded
+                console?.log 'Aborting Run'
+                cb = =>
+                    console?.log 'Aborted Successfully'
+                    @running = false
+                    finished_cb() if finished_cb?
+                @rs.async_abort(cb)
+            else
+                console?.log 'Cannot Abort Preloading'
                 finished_cb() if finished_cb?
-            @rs.async_abort(cb)
         else
             console?.log 'No Run Detected'
             finished_cb() if finished_cb?

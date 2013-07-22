@@ -320,7 +320,6 @@ root.getGameSequence = ->
     addGame(g) for g,ignore of games
     return root.gameSequence
 
-
 root.canPlay = (game) ->
     player = root.getPlayer()
     #If already completed then no need to check dependencies
