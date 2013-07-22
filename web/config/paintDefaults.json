@@ -60,6 +60,9 @@
   },
   "defaults": {
     "code": {
+      "prefix": "void paint() {\n",
+      "postfix": "}",
+      "show": true,
       "shorthandKey": [
         {
           "regex": "^d",
