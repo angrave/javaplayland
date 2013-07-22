@@ -130,6 +130,9 @@ class window.EditorManager
             return
         ed.editor.renderer.onResize = addOurResize
 
+        # Prevents Folding
+        ed.editor.setShowFoldWidgets false
+
         # Touch Handlers
         @ongoingTouches = []
         jQuery('.ace_scroller').bind "touchstart", @handleTouchStart
@@ -382,18 +385,18 @@ class window.EditorManager
             if(line.match(/^S*$/))
                 continue # Ignore empty lines
             isSLC =  !!line.match(/^\s*\/\//)
-                        
-            countStartMLC = line.split('/*').length-1 
+
+            countStartMLC = line.split('/*').length-1
             countEndMLC = line.split('*/').length-1
-            
-            if(inMLC) 
-                if(!isSLC) 
+
+            if(inMLC)
+                if(!isSLC)
                     inMLC = countStartMLC >countEndMLC
-            else 
+            else
                 if( (!isSLC && !(inMLC=countStartMLC > countEndMLC)))
-                    break 
+                    break
         return count
-        
+
 class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
