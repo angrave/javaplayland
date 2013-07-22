@@ -16,6 +16,7 @@ class window.GridGameManager
             Sets up everything for the game to run.
         ###
         @gameDiv = jQuery @environment.gamediv
+        @gameDiv.empty()
         editdiv = document.createElement("div")
         vis = document.createElement("div")
         butdiv = document.createElement("div")
@@ -59,6 +60,9 @@ class window.GridGameManager
         @codeEditor.editor.editor.focus()
         @addEventListeners()
         return
+
+    gameName: () =>
+        return @environment.key
 
     startGame: (waitForCode) =>
         if not waitForCode?
@@ -143,7 +147,6 @@ class window.GridGameManager
             stars : stars,
             passed : true
         }
-        @finishGame()
         return
 
     finishGame: ->
@@ -244,7 +247,7 @@ class MapGameState
         return
 
     clock: =>
-        if @startedGame
+        if @startedGame == true
             if @tick % 30 == 0
                 @checkEvents()
                 if not @waiting
@@ -336,6 +339,23 @@ class MapGameState
         }
         return
 
+    jump: (character, steps, line) ->
+        if not character?
+            character = @protagonist
+
+        if character.moves.length > 0 and
+          character.moves[character.moves.length - 1].key == 'stand'
+            character.moves.pop()
+            
+        character.moves.push {
+            key: 'jumping',
+            exec: ((char) ->
+                success = @_jump(char)
+                return {success: success, continueExecution: false}
+                ).bind @, character
+        }
+
+
     move: (character, steps, line) ->
         if not character?
             character = @protagonist
@@ -386,6 +406,33 @@ class MapGameState
         else
             @visual.changeState character.index, 4
         return moved
+
+#Refactor...
+#_jump logic is similar to _move except we move two squares before the hit test
+# character+5 to show jumping
+    _jump: (character) ->
+        if not character?
+            character = @protagonist
+
+        # Top Left: 0,0
+        moved = false
+        [xx, yy] = @computeStepInDirection(character.dir,
+            character.x, character.y)
+        [newx, newy] = @computeStepInDirection(character.dir,
+                xx, yy)
+        hitEvent = @checkCanMove(newx, newy, character)
+        if !hitEvent
+            @visual.changeState character.index, character.dir+6
+            if character == @protagonist
+                @leaveTrail {xx,yy}
+                @leaveTrail {'x': character.x, 'y': character.y}
+            character.x = newx
+            character.y = newy
+            moved = true
+        else
+            @visual.changeState character.index, 4
+        return moved
+    
 
     checkCanMove: (newX, newY, character) ->
         ###
@@ -481,12 +528,19 @@ class MapGameState
     gameWon: =>
         if not @startedGame
             return
-        clearInterval clockHandle
         playAudio 'victory.ogg'
         @stars += 1
         @score += 5
         @startedGame = false
         @gameManager.gameWon @score, @stars
+        gn = @gameManager.gameName()
+        num = parseInt(gn.charAt(gn.length-1))
+        num++
+        if num == 12
+            num = 1
+        gn = gn.slice(0,gn.length-1)
+        gn = gn.concat(num)
+        window.objCloud(400,"Try again!","body","30%","30%",3,gn,@gameManager)
         return
 
     gameLost: =>
@@ -500,7 +554,7 @@ class MapGameState
             character.moves = null
         @startedGame = false
         playAudio 'defeat.ogg'
-        alert "Try again!"
+        window.objCloud(400,"Try again!","body","30%","30%",3,"none",@gameManager)
         clockHandle = setInterval @clock, 17
         return
 
@@ -582,12 +636,14 @@ class MapGameCommands
         @go steps, line
         return
 
+    jump: (line) =>
+        @gameState.jump @gameState.protagonist, line
+        return
+
     goNorth: (steps, line) => @turnAndGo 0, steps, line
     goEast:  (steps, line) => @turnAndGo 1, steps, line
     goSouth: (steps, line) => @turnAndGo 2, steps, line
     goWest:  (steps, line) => @turnAndGo 3, steps, line
 
-    # used in sequence4
-    mysteryA: (line) => @goEast 4, line
-    mysteryB: (line) => @goSouth 1, line
-    mysteryC: (line) => @goWest 2, line
+    mysteryGo: (line) => @goEast 4, line
+    mysteryMove: (line) => @goWest 2, line
