@@ -16,7 +16,8 @@ class window.gameSelector
             "white-space": "nowrap",
             "border":"1px dashed blue",
             "font-family":"Monospace",
-            "margin:5px"
+            "margin:5px",
+            "cursor": "pointer"
             })
             #display and whitespace to try to avoid wrapping (may not work in IE)
 #            if cont.width() < 1600
@@ -31,7 +32,7 @@ class window.gameSelector
             src = '/img/stare.png'
  
             $(span).click(-> codeland.startGame(game) )            
-            $(span).append count + "."
+            $(span).append count + ' '
             $(span).append  desc.title
             if player?.passed is true
                 src = '/img/star.png'
@@ -39,8 +40,8 @@ class window.gameSelector
                     id: 'star',
                     src: src,
                     style: 'max-height:16px',
-                    alt: "Start Game",
-                    title : desc.description
+                    alt: "Start Game"
+                    
                 }
                 $(span).append img.get 0
             
