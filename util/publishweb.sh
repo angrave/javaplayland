@@ -11,20 +11,6 @@ if [ ! -d $TGT/ ] ; then
     exit 1
 fi
 
-CURRENTBRANCH=`git rev-parse --abbrev-ref HEAD`
-EXPECTEDBRANCH='master'
-if [ "$CURRENTBRANCH" != "$EXPECTEDBRANCH" ] ; then
-    echo "Expected branch $EXPECTEDBRANCH , but found $CURRENTBRANCH"
-    exit 2
-fi
-
-GITSTATUS=$(git status --porcelain)
-
-if [ -n "$GITSTATUS" ]; then 
-    echo "Commit your changes first:"
-    echo $GITSTATUS
-    exit 3
-fi
 
 rsync --delete --exclude '*.DS_Store'  --exclude '*.git'  -av web/ $TGT
 mv $TGT/index.html $TGT/index2.html 

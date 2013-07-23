@@ -18,7 +18,6 @@ class window.GameManager
             Sets up everything for the game to run.
         ###
         @gameDiv = jQuery @environment.gamediv
-        @gameDiv.empty()
         editdiv = document.createElement("div")
         vis = document.createElement("div")
         butdiv = document.createElement("div")
@@ -149,6 +148,7 @@ class window.GameManager
             stars : stars,
             passed : true
         }
+        @finishGame()
         return
 
     finishGame: ->

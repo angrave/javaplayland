@@ -176,7 +176,6 @@ class window.GameVisual
             else
                 @fallticker = 0
 
-
             return objState
 
         imFace: (@dir) ->
@@ -232,7 +231,6 @@ class window.GameVisual
         return
 
     chckMv: (config) ->
-
         for obj in objArray
             if obj.state() >= 6 && obj.state() <= 9
                 mr = 2*config.animation.pixMoveRate
