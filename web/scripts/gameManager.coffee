@@ -22,7 +22,7 @@ class window.GameManager
 
         $(editdiv).attr({'id':@editorDiv,'class':'code_editor'})
         $(editdiv).css({
-            width:'60%',height:'80%','position':'absolute',
+            width:'55%',height:'80%','position':'absolute',
             'top':'10%','left':'8%',"background-color":"#366CA3",
             "border":"4px double #3F80C0"})
 
