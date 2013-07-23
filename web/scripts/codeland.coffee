@@ -5,8 +5,8 @@ root.UIcont = null
 
 #IE Support ....
 
-if ! console?
-    console = { log: -> }
+# if ! console?
+    # console = { log: -> }
 
 #Chrome support: 'this' must be the console object
 root.log = console.log.bind(console)
@@ -27,9 +27,9 @@ root.initializeDoppio = ->
     root.doppioAPI = new DoppioApi null, root.log
     return
 
-root.preloadDoppio = ->
+root.preloadDoppio = (backEnd) ->
     if root.doppioPreloaded == false
-        if root.currentQuest.backEnd == 'doppio'
+        if backEnd == 'doppio'
             root.doppioAPI.preload root.currentQuest.commandBeanshell, root.wrapperCompiled
         else
             root.doppioAPI.preload "", -> return
@@ -38,9 +38,9 @@ root.preloadDoppio = ->
 
 root.wrapperCompiled = =>
     root.doppioReady = true
-    console.log 'Finished Compiling Wrapper'
+    console.log 'Finished Preloading Doppio'
     if root.wrapperCompiledCallback?
-        console.log 'Found Wrapper Callback, running'
+        console.log 'Found Callback, running'
         root.wrapperCompiledCallback()
     return
 
@@ -77,7 +77,6 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
-    root.preloadDoppio()
     root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
@@ -89,6 +88,7 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
+    root.preloadDoppio description.backEnd
     env = {
         key: game
         description : description

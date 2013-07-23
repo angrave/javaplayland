@@ -33,6 +33,12 @@ class window.PaintGameState
         @startedGame = true
         return
 
+    drawPixel: (x, y, color) ->
+        char = @gameManager.generateCharacter color,
+                x, y, false
+        @visual.pushCharacter @gameManager.config.visual, char.visual
+        return
+
     gameWon: =>
         if not @startedGame
             return
@@ -79,7 +85,7 @@ class PaintGameCommands
         return
 
     drawPixel: (x, y, color) ->
-        console.log "drawPixel(#{x},#{y},#{color}) called"
+        @gameState.drawPixel x, y, color
         return
 
     getPixel: (x, y) ->
