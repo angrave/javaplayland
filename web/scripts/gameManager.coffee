@@ -148,7 +148,6 @@ class window.GameManager
             stars : stars,
             passed : true
         }
-        @finishGame()
         return
 
     finishGame: ->
@@ -158,6 +157,7 @@ class window.GameManager
         @visual = null
         @gameState = null
         @commandMap = null
+        @gameDiv.empty()
         return
 
     addEventListeners: ->

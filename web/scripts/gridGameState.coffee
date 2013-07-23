@@ -334,14 +334,14 @@ class window.GridGameState
         @score += 5
         @startedGame = false
         @gameManager.gameWon @score, @stars
-        gn = @gameManager.gameName()
-        num = parseInt(gn.charAt(gn.length-1))
-        num++
-        if num == 12
-            num = 1
-        gn = gn.slice(0,gn.length-1)
-        gn = gn.concat(num)
-        window.objCloud(400,"Try again!","body","30%","30%",3,gn,@gameManager)
+        gamename = @gameManager.gameName()
+        number = parseInt(gamename.charAt(gamename.length-1))
+        number++
+        if number == 12
+            number = 1
+        gamename = gamename.slice(0,gamename.length-1)
+        gamename = gamename.concat(number)
+        window.objCloud 400, "Well Done!", "body", "30%", "30%" ,3 , gamename, @gameManager
         return
 
     gameLost: =>
