@@ -77,6 +77,11 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
+    for quest, index in root.quests
+        found = quest.games.indexOf game
+        if found != -1
+            root.currentQuest = root.quests[index]
+            break
     root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
@@ -201,7 +206,7 @@ root.loadJSONConfigs = () ->
                         root.gameDefaults[data.gameType] = data
                         return
                 }
-            root.quests = {}
+            root.quests = []
             root.visualMasters = {}
             questIndex = 0
             for quest in data.quests

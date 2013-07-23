@@ -334,14 +334,13 @@ class window.GridGameState
         @score += 5
         @startedGame = false
         @gameManager.gameWon @score, @stars
-        gamename = @gameManager.gameName()
-        number = parseInt(gamename.charAt(gamename.length-1))
-        number++
-        if number == 12
-            number = 1
-        gamename = gamename.slice(0,gamename.length-1)
-        gamename = gamename.concat(number)
-        window.objCloud 400, "Well Done!", "body", "30%", "30%" ,3 , gamename, @gameManager
+
+        gameName = @gameManager.gameName()
+        gameIndex = @gameManager.environment.codeland.currentQuest.games.indexOf gameName
+        gameIndex = ++gameIndex % @gameManager.environment.codeland.currentQuest.games.length
+        gameName = @gameManager.environment.codeland.currentQuest.games[gameIndex]
+        window.objCloud 400, "Well Done!",
+            "body", "30%", "30%", 3, gameName, @gameManager
         return
 
     gameLost: =>

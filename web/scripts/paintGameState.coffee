@@ -78,13 +78,11 @@ class window.PaintGameState
         @score += 5
         @startedGame = false
         @gameManager.gameWon @score, @stars
+
         gameName = @gameManager.gameName()
-        gameNumber = parseInt gameName.charAt gameName.length - 1, 10
-        gameNumber++
-        if gameNumber == 22
-            gameNumber = 21
-        gameName = gameName.slice 0, gameName.length - 1
-        gameName = gameName.concat gameNumber
+        gameIndex = @gameManager.environment.codeland.currentQuest.games.indexOf gameName
+        gameIndex = ++gameIndex % @gameManager.environment.codeland.currentQuest.games.length
+        gameName = @gameManager.environment.codeland.currentQuest.games[gameIndex]
         window.objCloud 400, "Well Done!",
             "body", "30%", "30%", 3, gameName, @gameManager
         return
