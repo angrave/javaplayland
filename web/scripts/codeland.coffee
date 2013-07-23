@@ -12,6 +12,7 @@ if ! console?
 root.log = console.log.bind(console)
 
 root.initialize = (UIcont) ->
+    $('#copyrightinfo').click -> window.AboutPage()
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
     root.initializeDoppio()

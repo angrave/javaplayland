@@ -240,18 +240,18 @@ window.AboutPage = () ->
     
     <em>Third-party open-source content</em><br/>
     Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
-    ('game over','level completed' sounds; Spiral Bound book, star icon, cow eat grass, treasure map icons)<br />
-    <a href='https://github.com/int3/doppio/blob/master/LICENSE'>Doppio Java Virtual Machine</a>
+    ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br />
+    The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.
     <br/>
-    The undo-yellow arrow image byJack Cai from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
+    The yellow arrow icon by Jack Cai downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
     <hr>
     
     <em>Acknowledgements</em><br>
-    We wish to thank Holly, Maggie and Abby and the other participants at the 2013 UofI Computer Science Summer G.A.M.E.S Camp for their game ideas,feedback and testing.
+    We wish to thank Holly, Maggie and Abby and the other participants at the 2013 University of Illinois Computer Science Summer G.A.M.E.S Camp for their game ideas, feedback and testing.
     
     <br>
-    <em>Software development</em><br>
-    Original software created by University of Illinois students and faculty Chris, Fabbian, James and Lawrence.
+    <em>Software development and bug contribution</em><br>
+    Original software created by University of Illinois students and faculty, Chris, Fabbian, James and Lawrence.
     <br/>
     "
 
