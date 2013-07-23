@@ -249,7 +249,9 @@ window.AboutPage = () ->
     <em>Acknowledgements</em><br>
     We wish to thank Holly, Maggie and Abby and the other participants at the 2013 UofI Computer Science Summer G.A.M.E.S Camp for their game ideas,feedback and testing.
     
-    
+    <br>
+    <em>Software development</em><br>
+    Original software created by University of Illinois students and faculty Chris, Fabbian, James and Lawrence.
     <br/>
     "
 
