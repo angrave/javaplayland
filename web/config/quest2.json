@@ -2,7 +2,6 @@
   "games": [
     "game21"
   ],
-  "backEnd": "doppio",
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
     "getColor(I,I)Ljava/lang/String;"

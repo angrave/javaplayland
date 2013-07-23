@@ -4,6 +4,7 @@
   "task": "",
   "tags": "intro",
   "gameType": "grid",
+  "backEnd": "interpreter",
   "editor": {
     "freeformEditting": false,
     "buttons": [
@@ -48,7 +49,7 @@
       "y": 4
     }
   },
-  
+
   "dyk": [
   ],
   "depends": [

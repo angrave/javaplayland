@@ -4,6 +4,7 @@
   "task": "",
   "tags": "paint",
   "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [

@@ -94,7 +94,7 @@ root.startGame = (game) ->
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
-        backEnd: root.currentQuest.backEnd
+        backEnd: description.backEnd
         gameState: description.gameState
     }
 

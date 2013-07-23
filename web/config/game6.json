@@ -4,6 +4,7 @@
   "task": "Work with parameters to functions!",
   "tags": "intro",
   "gameType": "grid",
+  "backEnd": "interpreter",
   "editor": {
     "freeformEditting": false,
     "buttons": [
