@@ -11,6 +11,7 @@ class window.PaintGameState
         @score = 0
         @stars = 0
         @tick = 0
+        @commands = []
 
         if clockHandle?
             clearInterval clockHandle
@@ -23,10 +24,21 @@ class window.PaintGameState
         return @gameCommands
 
     clock: =>
-        # if @startedGame == true
-            # if @tick % 30 == 0
+        if @startedGame == true
+            if @tick % 30 == 0
+                @checkEvents()
+                if @commands.length > 0
+                    command = @commands.splice(0, 1)[0]
+                    command.exec()
+                else
+                    @finishedExecuting = true
         @visual.getFrame @gameManager.config.visual, @tick
         @tick++
+        return
+
+    checkEvents: ->
+        if @finishedExecuting
+            return
         return
 
     start: ->
@@ -34,6 +46,13 @@ class window.PaintGameState
         return
 
     drawPixel: (x, y, color) ->
+        @commands.push {
+            key: 'drawPixel',
+            exec: @_drawPixel.bind @, x, y, color
+        }
+        return
+
+    _drawPixel: (x, y, color) ->
         char = @gameManager.generateCharacter color,
                 x, y, false
         @visual.pushCharacter @gameManager.config.visual, char.visual
