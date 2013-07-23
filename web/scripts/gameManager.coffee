@@ -16,6 +16,7 @@ class window.GameManager
             Sets up everything for the game to run.
         ###
         @gameDiv = jQuery @environment.gamediv
+        @gameDiv.empty()
         editdiv = document.createElement("div")
         vis = document.createElement("div")
         butdiv = document.createElement("div")
@@ -59,6 +60,9 @@ class window.GameManager
         @codeEditor.editor.editor.focus()
         @addEventListeners()
         return
+
+    gameName: () =>
+        return @environment.key
 
     startGame: (waitForCode) =>
         if not waitForCode?
@@ -143,7 +147,6 @@ class window.GameManager
             stars : stars,
             passed : true
         }
-        @finishGame()
         return
 
     finishGame: ->
@@ -231,7 +234,7 @@ class MapGameState
         return
 
     clock: =>
-        if @startedGame
+        if @startedGame == true
             if @tick % 30 == 0
                 @checkEvents()
                 if not @waiting
@@ -512,12 +515,19 @@ class MapGameState
     gameWon: =>
         if not @startedGame
             return
-        clearInterval clockHandle
         playAudio 'victory.ogg'
         @stars += 1
         @score += 5
         @startedGame = false
         @gameManager.gameWon @score, @stars
+        gn = @gameManager.gameName()
+        num = parseInt(gn.charAt(gn.length-1))
+        num++
+        if num == 12
+            num = 1
+        gn = gn.slice(0,gn.length-1)
+        gn = gn.concat(num)
+        window.objCloud(400,"Try again!","body","30%","30%",3,gn,@gameManager)
         return
 
     gameLost: =>
@@ -531,7 +541,7 @@ class MapGameState
             character.moves = null
         @startedGame = false
         playAudio 'defeat.ogg'
-        alert "Try again!"
+        window.objCloud(400,"Try again!","body","30%","30%",3,"none",@gameManager)
         clockHandle = setInterval @clock, 17
         return
 

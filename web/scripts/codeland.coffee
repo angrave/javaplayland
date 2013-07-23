@@ -62,8 +62,9 @@ root.startGame = (game) ->
 
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
-    root.gameSelectionScrollPosition = tmp1.scrollTop
-    root.UIcont.removeChild(tmp1)
+    if tmp1 != null
+        root.gameSelectionScrollPosition = tmp1.scrollTop
+        root.UIcont.removeChild(tmp1)
 
     #Todo FADE IN
 
@@ -109,7 +110,6 @@ root.store = (key, val) ->
 root.storeGameCompletionData = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
     root.updatePlayer((p)-> p.games[key] = data)
-    root.showMap()
     return
 
 root.showMap = () ->
