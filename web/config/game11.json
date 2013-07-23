@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #11",
+  "title": "Mystery Method? Experiment!",
   "description": "Find the correct sequence of code lines",
   "task": "",
   "tags": "intro",
@@ -33,7 +33,7 @@
   "code": {
     "shorthand": "",
     "comments": [
-      "Puzzle #11",
+      "Java Puzzle #11 - 'Mystery Method? Experiment!'",
       "Sometimes programmers have to experiment and test.",
       "Play this level to discover what these commands do",
       "See if you can figure it out and get to the flag..."

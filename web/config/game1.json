@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #1",
+  "title": "Jump-in",
   "description": "Programming is easy?",
   "task": "",
   "tags": "intro",
@@ -22,7 +22,7 @@
   },
   "code": {
     "shorthand": "gR",
-     "comments" : [ "Java Code Puzzle #1",
+     "comments" : [ "Java Code Puzzle #1 - 'Jump-in'",
        "Can you fix this Java code so that your avatar\nreaches the flag?",
        "You can run this entire Java program, just click the green play button on the far left (Try it now!).",
        "The initial code is incorrect: Move the statements up and down to fix the sequence of statements.",

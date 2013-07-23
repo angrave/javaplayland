@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #9",
+  "title": "Amazing parameter",
   "description": "My awesome go method takes an integer parameter",
   "task": "",
   "tags": "intro",
@@ -28,7 +28,7 @@
   },
   "code": {
     "shorthand": "g(6)",
-	"comments" : [ "Puzzle #9","go,turnRight and turnLeft are called \"methods\".",
+	"comments" : [ "Java Puzzle #9 - 'Amazing parameter'","go,turnRight and turnLeft are called \"methods\".",
 	"I just made a new 'go' method for you.",
 	"This go method takes a single integer parameter.",
 	"See what you think of go(6) and decide if you like it!",

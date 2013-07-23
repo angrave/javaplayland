@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #6",
+  "title": "Code reader",
   "description": "To write code, you must also read code and run it in your head!",
   "task": "Work with parameters to functions!",
   "tags": "intro",
@@ -25,7 +25,7 @@
   },
   "code": {
     "shorthand": "LRRggRgLgggLRgg",
-    "comments" : [ "Puzzle #6","Programmers must think carefully so their programs work correctly" ,
+    "comments" : [ "Puzzle #6 - 'Code reader'","Programmers must think carefully so their programs work correctly" ,
 "Often you need to check each and every step of your program."]
   },
   "game": {
