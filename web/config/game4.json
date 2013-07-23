@@ -1,6 +1,6 @@
 {
-  "name": "Puzzle #4",
-  "description": "Ingredients: May contains bugs! Delete Delete!",
+  "title": "Too much code",
+  "description": "Too much code",
   "task": "",
   "tags": "intro",
   "gameType": "grid",
@@ -27,13 +27,10 @@
   },
   "code": {
     "shorthand": "RRRRggLg",
-    "comments": [
-      "Puzzle #4",
-      "There's 'bug'! Time to debug this code!",
-      "Hint #1 In this game you must DELETE the unnecessary statements.",
-      "Click on a statement and select the small red X to delete a line of code.",
-      "Hint #2 Use the reset button on the far left if you delete too much."
-    ]
+    "comments" : ["Puzzle #4 - 'Too much code'","There's 'bug'! Time to debug this code!", 
+    "Hint #1 In this game you must DELETE the unnecessary statements.",
+    "Click on a statement and select the small red X to delete a line of code.",
+    "Hint #2 Use the reset button on the far left if you delete too much."	 ]
   },
   "game": {
     "characterBase": {
@@ -47,7 +44,9 @@
       "y": 4
     }
   },
-  "help": [],
+  "help": [
+    
+  ],
   "dyk": [],
   "depends": [
     "game3"

@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #5",
+  "title": "Three solutions",
   "description": "Two correct and many incorrect ways to write this program",
   "task": "",
   "tags": "intro",
@@ -25,16 +25,12 @@
   },
   "code": {
     "shorthand": "gLgLgLggg",
-    "comments": [
-      "Puzzle #5",
-      "Hint #1 There's more than one program that solves this puzzle.",
-      "The speed of the program often depends on ",
-      "the number of statements the processor (CPU)",
-      "will need to run (or \"execute\").",
-      "Can you see three solutions? Which one is fastest? Slowest?",
-      "Hint #2 I wonder what happens if you go too far?",
-      "Hint #3 What will you do with each line? Up,Down,Delete?"
-    ]
+    "comments": [ "Puzzle #5 - 'Three solutions'","Hint #1 There's more than one program that solves this puzzle.",
+        "The speed of the program often depends on ",
+        "the number of statements the processor (CPU)","will need to run (or \"execute\").",
+        "Can you see three solutions? Which one is fastest? Slowest?",
+        "Hint #2 I wonder what happens if you go too far?",
+        "Hint #3 What will you do with each line? Up,Down,Delete?" ]
   },
   "game": {
     "characterBase": {
@@ -48,7 +44,9 @@
       "y": 4
     }
   },
-  "help": [],
+  "help": [
+   
+  ],
   "dyk": [],
   "depends": [
     "game4"

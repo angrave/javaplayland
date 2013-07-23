@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #10",
+  "title": "Three solutions? Jump for joy!",
   "description": "Maze",
   "task": "",
   "tags": "intro",
@@ -30,7 +30,7 @@
   },
   "code": {
     "shorthand": "",
-	"comments" : [ "No comment"
+	"comments" : [ "Java Puzzle #10 - 'Three solutions?Jump for joy!'"
 	]
   },
   "game": {

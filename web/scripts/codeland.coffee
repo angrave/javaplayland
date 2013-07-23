@@ -12,6 +12,7 @@ if ! console?
 root.log = console.log.bind(console)
 
 root.initialize = (UIcont) ->
+    $('#copyrightinfo').click -> window.AboutPage()
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
     root.initializeDoppio()
@@ -57,9 +58,11 @@ root.drawGameMap = (player) ->
 
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
+    count = 0
     addGameToMap = (game) ->
         # console.log "Game: #{game}"
-        sel.buildDiv(game, descriptions[game], player.games[game], root.canPlay(game), codeland)
+        count = count + 1
+        sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
     tmp1 = document.getElementById("gameSelection")
 
