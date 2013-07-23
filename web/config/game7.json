@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #7",
+  "title": "Code reader's revenge",
   "description": "Not hard, once it's working?",
   "task": "",
   "tags": "intro",
@@ -27,7 +27,7 @@
   },
   "code": {
     "shorthand": "gggggLLLRR",
-    "comments" : [ "Puzzle #7","Think like a careful programmer \n - check every statement is correct!" ,
+    "comments" : [ "Puzzle #7 - 'Code reader's revenge'","Think like a careful programmer \n - check every statement is correct!" ,
 "Re-arrange or delete these statements to win this level.",
 "Don't forgot the reset button if you need to start over."]
   },
