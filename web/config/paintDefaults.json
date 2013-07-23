@@ -83,49 +83,57 @@
           "sprite": "black"
         },
         "blackBoarder": {
-          "sprite": "blackBoarder"
+          "sprite": "blackBoarder",
+          "match": "black"
         },
         "blue": {
           "sprite": "blue"
         },
         "blueBoarder": {
-          "sprite": "blueBoarder"
+          "sprite": "blueBoarder",
+          "match": "blue"
         },
         "green": {
           "sprite": "green"
         },
         "greenBoarder": {
-          "sprite": "greenBoarder"
+          "sprite": "greenBoarder",
+          "match": "green"
         },
         "lightBlue": {
           "sprite": "lightBlue"
         },
         "lightBlueBoarder": {
-          "sprite": "lightBlueBoarder"
+          "sprite": "lightBlueBoarder",
+          "match": "lightBlue"
         },
         "pink": {
           "sprite": "pink"
         },
         "pinkBoarder": {
-          "sprite": "pinkBoarder"
+          "sprite": "pinkBoarder",
+          "match": "pink"
         },
         "purple": {
           "sprite": "purple"
         },
         "purpleBoarder": {
-          "sprite": "purpleBoarder"
+          "sprite": "purpleBoarder",
+          "match": "purple"
         },
         "red": {
           "sprite": "red"
         },
         "redBoarder": {
-          "sprite": "redBoarder"
+          "sprite": "redBoarder",
+          "match": "red"
         },
         "yellow": {
           "sprite": "yellow"
         },
         "yellowBoarder": {
-          "sprite": "yellowBoarder"
+          "sprite": "yellowBoarder",
+          "match": "yellow"
         }
       },
       "key": {

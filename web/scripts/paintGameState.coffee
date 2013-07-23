@@ -11,13 +11,18 @@ class window.PaintGameState
         @score = 0
         @stars = 0
         @tick = 0
+        @finishedExecuting = false
+        @startedExecuting = false
         @commands = []
+        @picture = []
+        for i in [0..@gameManager.config.visual.grid.gridY] by 1
+            temp = [@gameManager.config.visual.grid.gridX]
+            @picture.push temp
 
         if clockHandle?
             clearInterval clockHandle
         clockHandle = setInterval @clock, 17
-        @startedGame = false
-        if not waitForCode then @start()
+        @startedGame = if waitForCode then false else true
         return
 
     getGameCommands: ->
@@ -31,17 +36,23 @@ class window.PaintGameState
                     command = @commands.splice(0, 1)[0]
                     command.exec()
                 else
-                    @finishedExecuting = true
+                    @finishedExecuting = @startedExecuting
         @visual.getFrame @gameManager.config.visual, @tick
         @tick++
         return
 
     checkEvents: ->
         if @finishedExecuting
-            return
+            won = true
+            for name, pixel of @gameConfig.characters
+                if (pixel.match?) and (pixel.match != @picture[pixel.x][pixel.y])
+                        won = false
+            if won
+                @gameWon()
         return
 
     start: ->
+        @startedExecuting = true
         @startedGame = true
         return
 
@@ -56,6 +67,7 @@ class window.PaintGameState
         char = @gameManager.generateCharacter color,
                 x, y, false
         @visual.pushCharacter @gameManager.config.visual, char.visual
+        @picture[x][y] = color
         return
 
     gameWon: =>
