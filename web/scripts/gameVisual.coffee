@@ -59,13 +59,14 @@ class window.GameVisual
         univImg[0] = new Image()
         univImg[0].src = "img/fallen.png"
         tmp = []
+        index = 0
         for key,imgar of config
             tmp = []
             for fi in imgar
                 imgo = new Image()
                 imgo.src = fi
                 tmp[tmp.length] = imgo
-            imgArray[imgArray.length] = tmp
+            imgArray[index++] = tmp
         return
 
     ###
