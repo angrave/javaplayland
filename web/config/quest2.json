@@ -1,6 +1,6 @@
 {
   "games": [
-    "game21"
+    "color0"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
