@@ -86,19 +86,35 @@ class window.EditorManager
 
         buttonField = jQuery('#insertButtons')
         buttons = []
+        if @commands.shorthand?
+            for line in @commands.shorthand
+                command = {
+                    usesRemaining: 1,
+                    inputs: 0,
+                    maxUses: 1,
+                    rawText: true
+                }
+                @commands[line] = command
+                @editor.commands[line] = command
+            delete @commands.shorthand
         for command of @commands
-            line = @editor.createBlankFunctionHeader(command) + ';'
-            usesRemaining = @commands[command]['usesRemaining']
             codeEditor = @editor
+            if @commands[command].rawText?
+                line = command
+                funct = codeEditor.insertLine
+            else
+                line = @editor.createBlankFunctionHeader(command) + ';'
+                funct = codeEditor.insertCommand
+            usesRemaining = @commands[command]['usesRemaining']
             button = jQuery '<button>', {
                 id: command,
                 value: command,
                 text: "#{line}: #{usesRemaining}",
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
-                        codeEditor.usesTextDocument codeEditor.insertLine)
+                        codeEditor.usesTextDocument funct )
                     .call(codeEditor,
-                            codeEditor.createNamedArguments({command: e.currentTarget.value}))
+                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
                     return false
             }
             buttons.push button.get 0
@@ -520,14 +536,28 @@ class window.PlayerCodeEditor
         text.removeLines currentRow, currentRow
         return
 
-    insertLine: ({text, command, currentRow}) ->
+    insertCommand: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
-        @commands[command]['usesRemaining']--
-        printLine = (@createBlankFunctionHeader command) + ';'
+        @commands[line]['usesRemaining']--
+        printLine = (@createBlankFunctionHeader line) + ';'
         text.insertLines currentRow + 1, [printLine]
+
+        if text.getLength() == 2 and text.getLine(currentRow) == ""
+            text.removeNewLine currentRow
+
+        @editor.gotoLine currentRow + 2, 0, false
+        return
+
+    insertLine: ({text, line, currentRow}) ->
+        maxRow = @editSession.getLength()
+        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
+            return
+
+        @commands[line]['usesRemaining']--
+        text.insertLines currentRow + 1, [line]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow

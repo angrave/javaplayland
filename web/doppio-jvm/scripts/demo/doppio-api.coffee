@@ -81,6 +81,7 @@ class window.DoppioApi
         untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
         end_untar = (new Date()).getTime()
         console?.log "Untarring took a total of #{end_untar-start_untar}ms."
+        return
 
     run: (studentCode, gameContext, finished_cb) =>
         ###

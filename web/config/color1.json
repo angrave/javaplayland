@@ -20,7 +20,7 @@
         "drawPixel(0,7,\"yellow\");",
         "drawPixel(0,7,\"blue\");",
         "drawPixel(7,0,\"blue\");",
-        "drawPixel(7,7,\"white\");"
+        "drawPixel(7,7,\"purple\");"
       ]
     }
   },
@@ -34,7 +34,7 @@
     ]
   },
   "game": {
-    "colormap": [
+    "map": [
       "R......U",
       "",
       "",
@@ -43,7 +43,11 @@
       "",
       "",
       "Y......Q"
-    ]
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
   },
   "dyk": [],
   "depends": []

@@ -231,6 +231,7 @@ root.loadJSONConfigs = () ->
                                         root.addToObject root.baseDefaults, gameData
                                         root.addToObject root.gameDefaults[gameData.gameType].defaults, gameData
                                         root.visualMasters[game] = root.gameDefaults[gameData.gameType].visualMaster
+                                        root.stringifyConfigArrays gameData
                                         root.convertShorthandToCode gameData
                                         root.addHintsToCode gameData
                                         root.gameDescriptions[game] = gameData
@@ -257,6 +258,13 @@ root.addToObject = (source, destination) ->
                 root.addToObject value, destination[key]
         else
             destination[key] = value
+    return
+
+root.stringifyConfigArrays = (gameData) ->
+    gameData.game.map = gameData.game.map.join '\n' if gameData?.game.map?.join?
+    gameData.code.prefix = gameData.code.prefix.join '\n' if gameData?.code.prefix.join?
+    gameData.code.postfix = gameData.code.postfix.join '\n' if gameData?.code.postfix.join?
+    gameData.code.initial = gameData.code.initial.join '\n' if gameData?.code.initial?.join?
     return
 
 root.convertShorthandToCode = (gameData) ->
