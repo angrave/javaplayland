@@ -91,7 +91,15 @@ if canUsePostMessage()
         event.cancelBubble = true
       if (timeouts.length > 0)
         fn = timeouts.shift()
-        fn()
+        try 
+            fn()
+        catch err
+             vDebug = ""; 
+             for prop in err
+                vDebug += "property: "+ prop+ " value: ["+ err[prop]+ "]\n"; 
+             vDebug += "toString(): " + " value: [" + err.toString() + "]"; 
+             console?.log vDebug
+
 
   if window.addEventListener
     # IE10 and all modern browsers

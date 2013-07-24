@@ -13,6 +13,10 @@ if [ -h $TGT/classes/ ] ; then
 fi
 
 BASE=`pwd`
+STAGING=vendor/untracked/
+EXCLUDELIST=util/exclude-classes.txt
+INCLUDELIST=util/include-classes.txt
+
 TGT=web/doppio-jvm
 DOPPIO=$BASE/vendor/doppio
 COFFEEC=coffee
@@ -21,8 +25,9 @@ mkdir -p $TGT/classes
 mkdir -p $TGT/vendor
 
 
-
-if [ ! -f $TGT/vendor/classes/java/lang/Object.class ]; then
+###########################
+mkdir -p $STAGING/jdk-classes
+if [ ! -f $STAGING/jdk-classes/java/lang/Object.class ]; then
   DOWNLOAD_DIR=`mktemp -d jdk-download.XXX`
   cd $DOWNLOAD_DIR
     DEBS_DOMAIN="http://security.ubuntu.com/ubuntu/pool/main/o/openjdk-6"
@@ -36,35 +41,44 @@ if [ ! -f $TGT/vendor/classes/java/lang/Object.class ]; then
   for JAR in ${JARS[@]}; do
     JAR_PATH=`find $DOWNLOAD_DIR/usr -name $JAR | head -1`
     echo "Extracting the Java class library from $JAR_PATH"
-    unzip -qq -o -d $TGT/classes/ "$JAR_PATH"
+    unzip -qq -o -d $STAGING/jdk-classes/ "$JAR_PATH"
   done
-  if [ ! -e java_home ]; then
-    JH=$DOWNLOAD_DIR/usr/lib/jvm/java-6-openjdk-common/jre
-    # a number of .properties files are symlinks to /etc; copy the targets over
-    # so we do not need to depend on /etc's existence
-    for LINK in `find $JH -type l`; do
-      DEST=`readlink $LINK`
-      if [ "`expr "$DEST" : '/etc'`" != "0" ]; then
-        test -e "$DOWNLOAD_DIR/$DEST" && mv "$DOWNLOAD_DIR/$DEST" $LINK
-      fi
-    done
-    mv $JH java_home
-  fi
+  
+  # if [ ! -e java_home ]; then
+  #     JH=$DOWNLOAD_DIR/usr/lib/jvm/java-6-openjdk-common/jre
+  #     # a number of .properties files are symlinks to /etc; copy the targets over
+  #     # so we do not need to depend on /etc's existence
+  #     for LINK in `find $JH -type l`; do
+  #       DEST=`readlink $LINK`
+  #       if [ "`expr "$DEST" : '/etc'`" != "0" ]; then
+  #         test -e "$DOWNLOAD_DIR/$DEST" && mv "$DOWNLOAD_DIR/$DEST" $LINK
+  #       fi
+  #     done
+  #     mv $JH java_home
+  #   fi
   rm -rf "$DOWNLOAD_DIR"
 fi
 
 
 # Download Beanshell 2
-if [ ! -d $TGT/vendor/classes/bsh ]; then
+mkdir -p $STAGING/bsh-classes
+if [ ! -d "$STAGING/bsh-classes/bsh" ]; then
     BSH2_JAR_URL="http://beanshell2.googlecode.com/files/bsh-2.1b5.jar"
     DOWNLOAD_DIR=`mktemp -d bsh-download.XXX`
-    mkdir -p $DOWNLOAD_DIR
-    wget -O p $DOWNLOAD_DIR/bsh2.jar $BSH2_JAR_URL
-    unzip -qq -o -d $TGT/vendor/classes/ $DOWNLOAD_DIR/bsh2.jar
+    mkdir -p "$DOWNLOAD_DIR"
+    wget -O $DOWNLOAD_DIR/bsh2.jar $BSH2_JAR_URL
+    unzip -qq -o -d $STAGING/bsh-classes $DOWNLOAD_DIR/bsh2.jar
     rm -rf "$DOWNLOAD_DIR"
 fi   
+###########################
+rm -rf "$TGT/vendor/classes"
+mkdir -p "$TGT/vendor/classes"
 
-mkdir -p $TGT/vendor/classes/classes/doppio/
+rsync -a --exclude-from "$EXCLUDELIST" "$STAGING/bsh-classes/" "$TGT/vendor/classes"
+rsync -a --exclude-from "$EXCLUDELIST" "$STAGING/jdk-classes/" "$TGT/vendor/classes"
+rsync -a --files-from   "$INCLUDELIST" "$STAGING/jdk-classes/" "$TGT/vendor/classes"
+
+mkdir -p "$TGT/vendor/classes/classes/doppio/"
 cp $DOPPIO/classes/doppio/*.class $TGT/vendor/classes/classes/doppio/
 
 #Todo fix doppio filesystem (file listing entries are now relative to doppio-jvm/sys)

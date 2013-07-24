@@ -1,5 +1,5 @@
 {
-  "name": "Puzzle #3",
+  "title": "Look behind you",
   "description": "I refuse to comment!",
   "task": "",
   "tags": "intro",
@@ -22,7 +22,7 @@
   },
   "code": {
     "shorthand": "RRggg", 
-    "comments": [ "Puzzle #3", "Notice the two forward slashes, \"//\" on the left?",
+    "comments": [ "Java Puzzle #3 - 'Look behind you'", "Notice the two forward slashes, \"//\" on the left?",
        "The slashes mean this text is just a comment, not executable code.",
    
       "We write comments in programs to help other programmers ", 

@@ -1,6 +1,6 @@
 {
-  "name": "Puzzle #11",
-  "description": "Find the correct sequence of code lines",
+  "title": "Three solutions? Jump for joy!",
+  "description": "Maze",
   "task": "",
   "tags": "intro",
   "editor": {
@@ -12,100 +12,38 @@
       "insertButtons"
     ],
     "commands": {
-      "mysteryGo": {
-        "inputs": 0,
-        "maxUses": 5
-      },
-      "goSouth": {
-        "inputs": 0,
-        "maxUses": 5
+      "go": {
+        "inputs": 1,
+        "maxUses": 6
       },
       "jump": {
         "inputs": 0,
-        "maxUses": 2
+        "maxUses": 1
       },
-      "mysteryMove": {
+      "turnRight": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 20
       }
     }
   },
   "code": {
     "shorthand": "",
-    "comments": [
-      "Puzzle #11",
-      "Sometimes programmers have to experiment and test.",
-      "Play this level to discover what these commands do",
-      "See if you can figure it out and get to the flag..."
-    ]
+	"comments" : [ "Java Puzzle #11 - 'Three solutions?Jump for joy!'"
+	]
   },
   "game": {
     "characterBase": {
       "protagonist": {
-        "dir": 1
+        "dir": 0
       },
       "guard": {
         "dir": 0
-        },
-      "guardMoving": {
-        "sprite": "guard",
-        "dir": 3,
-        "trigger": "loss",
-        "moves": [],
-        "blocks": [
-          "guards"
-        ],
-        "group": "guards",
-        "AI": {
-          "normal": [
-            {
-              "command": "_stand",
-              "arguments": [
-                "character"
-              ]
-            },
-            {
-              "command": "move",
-              "arguments": [
-                "character",
-                1
-              ]
-            }
-          ],
-          "failed": {
-            "startMove": [
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "turnRight",
-                "arguments": [
-                  "character"
-                ]
-              },
-              {
-                "command": "move",
-                "arguments": [
-                  "character",
-                  1
-                ]
-              }
-            ]
-          }
-        }
       }
     },
+    "map": "XXXXXXXXXX\nX.G..P...X\nX.XXXXXX.X\nX.XXFXXX.X\nX.XX.XXXGX\nX.XX.XXX.X\nX........X\nXXXXXXXXXX\n",
     "offset": {
-        "x": 2,
-        "y": 1
-    },
-    "map": "P\n\n\n\n\n\n...gG\n....F",
-    "key": {
-      "G": "guard",
-      "g": "guardMoving"
+      "x": 0,
+      "y": 0
     }
   },
   "help": [],
