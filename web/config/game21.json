@@ -1,5 +1,5 @@
 {
-  "name": "Picture #1",
+  "title": "Picture #1",
   "description": "A New Challenge",
   "task": "",
   "tags": "paint",
@@ -11,8 +11,7 @@
       "switchUp",
       "switchDown"
     ],
-    "commands": {
-    }
+    "commands": {}
   },
   "code": {
     "shorthand": "d(0,0,\"red\")d(7,0,\"blue\")d(0,7,\"green\")",

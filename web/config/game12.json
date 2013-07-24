@@ -3,6 +3,8 @@
   "description": "Find the correct sequence of code lines",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
   "editor": {
     "freeformEditting": false,
     "buttons": [
