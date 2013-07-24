@@ -24,6 +24,9 @@ class window.EditorManager
         editorDiv = jQuery "##{@editorDivId}"
         editorDiv.append '<div id="ace-editor"></div>'
 
+        @acelne = document.createElement("div")
+        $(@acelne).append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+
         if @editorConfig.buttons.length != 0
             buttonField = jQuery '<div>', {id: 'buttons'}
             if $.inArray('insertButtons', @editorConfig.buttons) != -1
@@ -31,7 +34,7 @@ class window.EditorManager
                     id: 'insertButtons'}).get(0)
             editorDiv.append buttonField.get 0
 
-        editorDiv.append '<div id="parameter-pop-up" class="pop-up-container"></div>'
+        
 
         # New logic for up, down, and delete "buttons"
         if $.inArray('switchUp', @editorConfig.buttons) != -1
@@ -53,7 +56,7 @@ class window.EditorManager
             @codeConfig.postfix, @editorConfig.freeformEditting, @interpreter
 
         # Create editor buttons
-        @acelne = document.createElement("div")
+
         x = document.createElement("img")
         $(x).attr({"src":"#{@deleteImg}","class":"ace_xbutton"})
         u = document.createElement("img")
@@ -73,6 +76,9 @@ class window.EditorManager
         @moveEditorButtonDelay = 30
         setTimeout @moveEditorButtons, @moveEditorButtonDelay
         @editor.gotoLine @findFirstNonCommentLine(@codeConfig.initial)
+
+
+
         return
 
     setUpInsertButtons: ->
@@ -302,8 +308,8 @@ class window.EditorManager
             editorOffset = jQuery('#ace-editor').position()
             gutterOffset = @editor.editor.renderer.$gutterLayer.gutterWidth + \
                 @editor.editor.renderer.$gutterLayer.$padding?.left
-            @parameterPopUp.css 'top', row * 12 + editorOffset.top - 3
-            @parameterPopUp.css 'left', rowLength * 6 + gutterOffset + editorOffset.left
+            @parameterPopUp.css 'top', "12px"
+            @parameterPopUp.css 'left', gutterOffset + 5
 
             @parameterPopUp.show()
             setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
