@@ -1,4 +1,4 @@
-window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
+root.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	cont = document.createElement("div")
 	text = document.createElement("div")
 	cloud = document.createElement("img")
@@ -57,3 +57,37 @@ window.playAudio = (name) ->
 	sound = document.createElement("video")
 	$(sound).attr({"src":"audio/"+name,"autoplay":"true"})
 	return
+
+
+window.appendBar = (d) ->
+
+	coffeeisdumb = () ->
+		if $(edge).attr("src") == "img/listarrow1.png"
+			$(cont).animate({"left":"0px"}
+			$(cont).animate({"left":"10px"})
+			$(edge).attr({"src":"img/listarrow2.png"})
+		else
+			$(cont).animate({"left":"0px"})
+			$(cont).animate({"left":"-170px"})
+			$(edge).attr({"src":"img/listarrow1.png"})
+
+
+	cont = document.createElement("div")
+	edge = document.createElement("img")
+
+	$(cont).css({"width":"200px","height":'80%','position':'absolute','top':'10%','left':'-170px',"z-index":"280","background-color":"#366CA3","border":"4px double #3F80C0"})
+	$(edge).attr({"width":"30px","src":"img/listarrow1.png"})
+	$(edge).css({'position':'absolute','top':'40%','right':'0px'})
+
+	$(cont).append '<img alt="Java reference" id="refOpen" style=";width:30%;height:15%;position:absolute;top:45%;left:10%;" src="/img/cc0/Spiral_bound_book-128px.png"/>'
+	$(cont).append '<img alt="Select level" id="gmOp" style="width:30%;height:15%;position:absolute;top:25%;left:10%" src="/img/cc0/treasuremap-128px.png">'
+	$(cont).append '<img alt="About" id="about" style="width:30%;height:15%;position:absolute;top:25%;left:56%" src="/img/freeware/info-48px.png"/>'
+	$(cont).append(edge)
+
+	$('#refOpen').click InitFloat
+	$('#gmOp').click codeland.showMap
+	$('#about').click AboutPage
+
+	$(edge).click(() -> coffeeisdumb())
+
+	$(d).append(cont)

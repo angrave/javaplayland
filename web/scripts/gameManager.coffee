@@ -42,9 +42,6 @@ class window.GameManager
             'top':'10%','left':'2.5%',"background-color":"#366CA3",
             "border":"4px double #3F80C0"})
         #border:4px double rgba(39,79,118,100);background-color:rgba(39,79,118,40);padding:4px
-        $(butdiv).append '<img alt="Java reference" id="refOpen" style=";width:30%;height:15%;position:absolute;top:45%;left:10%;" src="/img/cc0/Spiral_bound_book-128px.png"/>'
-        $(butdiv).append '<img alt="Select level" id="gmOp" style="width:30%;height:15%;position:absolute;top:25%;left:10%" src="/img/cc0/treasuremap-128px.png">'
-        $(butdiv).append '<img alt="About" id="about" style="width:30%;height:15%;position:absolute;top:25%;left:56%" src="/img/freeware/info-48px.png"/>'
         $(butdiv).append '<img style="width:30%;height:15%;position:absolute;top:5%;left:10%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png"/>'
         $(butdiv).append '<img style="width:30%;height:15%;position:absolute;top:5%;left:56%" alt="Reset" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
 
@@ -161,9 +158,6 @@ class window.GameManager
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
         jQuery('#resetState').click @reset
-        jQuery('#refOpen').click InitFloat
-        jQuery('#gmOp').click codeland.showMap
-        jQuery('#about').click AboutPage
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
         @codeEditor.onCommandValidation @commandsValid
         return
