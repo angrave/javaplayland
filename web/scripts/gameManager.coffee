@@ -527,7 +527,7 @@ class MapGameState
         gn = gn.concat(num)
         ma = []
         ma[0] = "Congratulations!"
-        window.objCloud(400,ma,"body","30%","30%",3,gn,@gameManager)
+        window.objCloud(400,ma,"body","30%","30%",1.5,gn,@gameManager)
         return
 
     gameLost: =>
