@@ -173,11 +173,15 @@ setUpJavaSandbox = (input, output) ->
         title:'Run the program',
         click: (e) ->
             textOutput.text 'Running...'
-            jQuery('#runCode').hide(2000, ->  jQuery('#abortCode').show() )
+            jQuery('#runCode').hide()
+            jQuery('#abortCode').show()
 
             msg = ''
             finished_cb = ->
-                jQuery('#abortCode').hide(500 , -> jQuery('#runCode').show())
+                #Hide Running... if nothing was printed
+                stdout('')
+                jQuery('#abortCode').hide();
+                jQuery('#runCode').show()
             codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
 
             e.preventDefault()

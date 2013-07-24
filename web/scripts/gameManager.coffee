@@ -151,6 +151,7 @@ class window.GameManager
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
         jQuery('#resetState').click @reset
+        jQuery('#help').click @helpTips
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
         @codeEditor.onCommandValidation @commandsValid
         return
@@ -177,6 +178,16 @@ class window.GameManager
         @startGame true
         @interpreter.executeCommands @commandMap
         return
+
+    helpTips:=>
+        ma = @config?.code?.comments
+        if ma
+            if ma.length > 1
+                title =ma[0]
+                ma = ma[1..]
+                ma[0] = title + '<br>' + ma[0]
+            conf = {widthpx:600,mesgs:ma,parentTag:"body",xoffset:"30%",yoffset:"30%",textscaling:0.7,nextgame:"none",gameManager: @gameManager}
+            window.objCloud(conf.widthpx,conf.mesgs,conf.parentTag,conf.xoffset,conf.yoffset,conf.textscaling,conf.nextgame,conf.gameManager)
 
 class MapGameState
     clockHandle = null
