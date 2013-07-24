@@ -58,6 +58,8 @@ class window.GameVisual
     initResources: (config) ->
         univImg[0] = new Image()
         univImg[0].src = "img/fallen.png"
+        univImg[1] = new Image()
+        univImg[1].src = "img/shadow.png"
         tmp = []
         for key,imgar of config
             tmp = []
@@ -140,7 +142,23 @@ class window.GameVisual
             @ldir = @dir
             @cstate = 4
             @fallticker = 0
+            @juheight = 0
+            @crest = false
             return
+
+        jHeight: () ->
+            if @crest == false
+                if @juheight == 15
+                    @crest = true
+                    return 15
+                @juheight++
+            else
+                @juheight--
+            if @juheight == 1 && @crest == true
+                @juheight = 0
+                @crest == false
+                return 1
+            return @juheight
 
         absPos: (@xpos,@ypos) ->
             return
@@ -228,7 +246,11 @@ class window.GameVisual
         td = frame.getContext('2d')
         for obj in objArray by -1
             s = obj.current(@ticker)
-            td.drawImage(s[0],obj.xpos+s[3],obj.ypos+s[4],s[1],s[2])
+            if obj.state() >= 6 && obj.state() <= 9
+                td.drawImage(univImg[1],obj.xpos+s[3],obj.ypos+s[4],s[1],s[2])
+                td.drawImage(s[0],obj.xpos+s[3],obj.ypos+s[4]-obj.jHeight(),s[1],s[2])
+            else
+                td.drawImage(s[0],obj.xpos+s[3],obj.ypos+s[4],s[1],s[2])
         return
 
     chckMv: (config) ->
