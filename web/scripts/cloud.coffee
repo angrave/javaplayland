@@ -1,4 +1,24 @@
+
+window.playAudio = (name) ->
+	sound = document.createElement("video")
+	$(sound).attr({"src":"audio/"+name,"autoplay":"true"})
+	return
+
 window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
+	tipnum = 0
+	rb = () ->
+		if tipnum == par.length - 1
+			tipnum = 0
+		else 
+			tipnum++
+		text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[tipnum]+"</p>"
+
+	lb = () ->
+		if tipnum == 0
+			tipnum = par.length - 1
+		else 
+			tipnum--
+		text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[tipnum]+"</p>"
 	cont = document.createElement("div")
 	text = document.createElement("div")
 	cloud = document.createElement("img")
@@ -6,10 +26,39 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	xbcloud = document.createElement("img")
 	subbd = document.createElement("div")
 
+	if par.length > 1
+		ntc = document.createElement("div")
+		nti = document.createElement("img")
+		ntl = document.createElement("img")
+		ntr = document.createElement("img")
+
+
+		$(ntc).css({"position":"absolute","z-index":"310","bottom":"-10%","right":"-5%","width":dim/2,"height":dim/7})
+		$(nti).attr({"src":"img/subcloud.png","width":"100%", "height":"100%"})
+		$(nti).css({"position":"absolute","top":"0%","right":"0%"})
+
+		$(ntl).attr({"src":"img/larrow.png","width":"15%"})
+		$(ntl).css({"position":"absolute","z-index":"302", "top":"30%","left":"30%"})
+		$(ntr).attr({"src":"img/rarrow.png","width":"15%"})
+		$(ntr).css({"position":"absolute","z-index":"302", "top":"30%","right":"30%"})
+
+
+		$(ntc).append(nti)
+		$(ntc).append(ntl)
+		$(ntc).append(ntr)
+		$(cont).append(ntc)
+
+		$(ntr).click(() -> rb())
+
+		$(ntl).click(() -> lb())
+
+
+
 	if obj = "body"
 		backdrop = document.createElement("div")
 		$(backdrop).css({"position":"absolute","z-index":"290","width":"100%","height":"100%","background-color":"black","opacity":".5","top":"0","left":"0"})
 		$(obj).append(backdrop)
+
 	if ng != "none"
 		ngco = document.createElement("div")
 		ngi = document.createElement("img")
@@ -48,12 +97,7 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 
 	$(xb).click(() -> $(cont).remove();$(backdrop).remove())
 
-	text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par+"</p>"
+	text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[0]+"</p>"
 	return
 
 
-
-window.playAudio = (name) ->
-	sound = document.createElement("video")
-	$(sound).attr({"src":"audio/"+name,"autoplay":"true"})
-	return
