@@ -1,0 +1,44 @@
+{
+  "title": "Variable math",
+  "description": "",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp","switchDown","delete"
+    ],
+    "commands": {
+		"shorthand": [
+"y = 2 * y;",
+"y = x - 1 ; ",
+"y = x + 1;",
+"x = y;",
+"drawPixel(x , y , \"red\");",
+"drawPixel(x , y , \"white\");"
+]
+}
+  },
+  "code": {
+	"prefix": [
+"void paint() {",
+"\tint x = 4;",
+"\tint y = 1;"
+	],
+	"postfix": "}",
+    "comments" : [ "Color Puzzle 8 - 'Variable math",
+       "//  x = 2*y Means calculate 2 times value of variable 'y' and then store the result in variable named 'x'." ]
+  },
+  "game": {
+    "colormap": [
+"",
+"....r",
+".....",
+".....",
+".....",
+".w...",
+".ww.."
+]
+  },
+  
+  "dyk": [],
+  "depends": ["color6"]
+}
