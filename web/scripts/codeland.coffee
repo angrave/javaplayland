@@ -25,14 +25,12 @@ root.initializeDoppio = ->
     root.doppioReady = false
     root.doppioPreloaded = false
     root.doppioAPI = new DoppioApi null, root.log
+    root.preloadDoppio()
     return
 
-root.preloadDoppio = (backEnd) ->
+root.preloadDoppio = ->
     if root.doppioPreloaded == false
-        if backEnd == 'doppio'
-            root.doppioAPI.preload root.currentQuest.commandBeanshell, root.wrapperCompiled
-        else
-            root.doppioAPI.preload "", -> return
+        root.doppioAPI.preload root.currentQuest.commandBeanshell, root.wrapperCompiled
         root.doppioPreloaded = true
     return
 
@@ -93,7 +91,6 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
-    root.preloadDoppio description.backEnd
     env = {
         key: game
         description : description
