@@ -1,0 +1,173 @@
+GAME P1:
+PURPOSE: Learn grid
+INSERT:
+dp(0,0,"red");
+dp(0,7,"yellow");
+dp(7,0,"blue");
+dp(7,7,"white");
+
+
+Preamble:
+void paint() { // put your code in here
+
+Postamble: }
+
+DESIRED:
+r......b
+(6 empty rows?)
+y......w
+
+
+----------
+GAME P2:
+"Hidden masterpiece"
+PURPOSE: Simple re-instatement of importance of correct sequence
+SWAP only (no delete). No buttons
+
+void paint() {
+dp(5,5,"blue");
+dp(5,5,"white");
+dp(1,1,"red");
+dp(1,1,"yellow");
+dp(3,3,"red");
+dp(3,3,"yellow");
+}
+Preamble (as above)
+
+DESIRED
+r
+..y
+....b
+----------
+GAME P3:
+"String you along"
+PURPOSE: Use a string variable to hold current paint color
+4 INSERT Buttons
+dp(3,3,color);
+dp(3,4,color);
+dp(4,3,color);
+dp(4,4,color);
+color = "blue"; // color now points to the word blue.
+
+COMMENTS:
+// Use a String variable to re-use a color name.
+
+READONLY CODE:
+"void paint() {
+String color = "yellow"; // Make a string variable named color that points to the word 'yellow'
+
+// Write your statements inside this method
+
+--------
+GAME P4
+"int you along"
+8 insert buttons:
+dp(x,y,"yellow");
+dp(x,y,"blue");
+dp(x,y,"red");
+dp(x,y,"white");
+x=5; // x is now 5
+y=5;
+x=2'
+y=2;
+
+DESIRED:
+w..r
+....
+....
+y..b
+
+
+READONLY CODE:
+"void paint() {
+int x = 2;
+int y = 2;
+// Statements must go inside a method!
+"
+
+
+------------------------------------------------
+GAME P6
+"x plus two"
+INSERT BUTTONS:
+dp(x + 0,y,theColor);
+dp(x + 2,y,theColor);
+String paintColor = "red";
+y=6;
+paintColor = "white"
+paintColor = "blue";
+
+
+READONLY CODE:
+"void paint() {
+int x = 3;
+int y = 3;
+// Statements must go inside a method!
+"
+
+DESIRED:
+w.r
+...
+b.b
+
+
+
+------------------------------------------------
+GAME P8
+"Assign"
+
+INSERT BUTTONS
+y = 2 * y;
+y = x - 1 ; 
+y = x + 1;
+x = y
+dp(x , y , "red")
+dp(x , y , "white")
+dp(x , y , "blue")
+
+...r
+....
+....
+....
+w...
+ww..
+
+SOLUTION:
+y = x - 1
+dp(x , y , "red")
+y = 2 * y;
+
+
+READONLY CODE:
+"void paint() {
+int x = 4;
+int y = 1;
+// Hint: Use temp to keep a copy of the value before its overwritten 
+------------------------------------------------
+GAME P10
+"Swap two values"
+
+INSERT BUTTONS
+y = x ; 
+x = y ;
+temp = y;
+temp = x;
+x = temp;
+y = temp;
+
+dp(x , y , "blue")
+dp(x , y , "white")
+
+...b
+....
+....
+w...
+
+
+READONLY CODE:
+"void paint() {
+int x = 6;
+int y = 3;
+int temp =0;
+// Hint: Use temp to keep a copy of the value before its overwritten 
+------------------------------------------------

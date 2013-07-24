@@ -1,0 +1,42 @@
+{
+  "title": "Parameter plus 2",
+  "description": "",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp","switchDown","delete"
+    ],
+    "commands": {
+		"shorthand": [
+"drawPixel(col + 0, row, theColor);",
+"drawPixel(col + 2, row, theColor);",
+"String paintColor = \"red\";",
+"y=6;",
+"paintColor = \"white\";",
+"paintColor = \"blue\";"
+]
+}
+  },
+  "code": {
+	"prefix": [
+"void paint() {",
+"\tint col = 3; //Column across (x)",
+"\tint row = 3; //Row down (y)",
+"// Statements must go inside a method!"
+],
+	"postfix": "}",
+    "comments" : [ "Color Puzzle 6 - 'Parameter plus 2'",
+       "// Parameter values can be mathematical expressions" ]
+  },
+  "game": {
+    "colormap": [
+"","","",
+"...w.r",
+"",
+"...b.b"
+]
+  },
+  
+  "dyk": [],
+  "depends": ["color4"]
+}
