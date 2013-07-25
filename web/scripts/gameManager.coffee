@@ -36,9 +36,9 @@ class window.GameManager
         @gameDiv.append(vis)
 
 
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;left:1%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png" title="Run code"/>'
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;left:8%" alt="Reset" title="Restart level (reset code back to original)" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;left:15%" alt="Help/Tips" title="Help/Tips" id="help" src="/img/freeware/info-48px.png"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png" title="Run code"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:8%" alt="Reset" title="Restart level (reset code back to original)" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:15%" alt="Help/Tips" title="Help/Tips" id="help" src="/img/freeware/info-48px.png"/>'
 
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
