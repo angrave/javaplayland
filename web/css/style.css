@@ -5,7 +5,7 @@ body {
 #buttons {
     width:75% !important;
     position:absolute;
-    right:1.5% !important;
+    left:1.5% !important;
     bottom:3%;
     height: 12%;
 }
