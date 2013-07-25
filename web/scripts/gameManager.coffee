@@ -61,6 +61,11 @@ class window.GameManager
         @visual.startGame @config.visual
         @gameState = new MapGameState @, waitForCode
         @commandMap = new MapGameCommands @gameState
+
+#        player = @environment.player
+#        if(! player.games[@environment.key].seenTips)
+#            player.games[@environment.key].seenTips = true
+        @helpTips()
         return
 
     interpretGameConfigMap: ->
