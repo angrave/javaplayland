@@ -65,7 +65,7 @@ class window.GameManager
 #        player = @environment.player
 #        if(! player.games[@environment.key].seenTips)
 #            player.games[@environment.key].seenTips = true
-        @helpTips()
+#        @helpTips()
         return
 
     interpretGameConfigMap: ->
