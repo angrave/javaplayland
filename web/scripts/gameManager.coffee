@@ -294,7 +294,7 @@ class MapGameState
         # Just doing player collisions at the moment.
         if @protagonist.x < 0 or @protagonist.x >= @gameManager.config.visual.grid.gridX\
           or @protagonist.y < 0 or @protagonist.y >= @gameManager.config.visual.grid.gridY
-            @gameLost()
+            @protagonistFalls()
 
         triggers = {"victory": @gameWon, "loss": @gameLost, "fall": @protagonistFalls}
         for name, character of @gameConfig.characters
