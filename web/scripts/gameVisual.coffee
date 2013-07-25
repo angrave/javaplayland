@@ -154,9 +154,10 @@ class window.GameVisual
                 @juheight++
             else
                 @juheight--
+            console.log @juheight + ":" + @crest
             if @juheight == 1 && @crest == true
                 @juheight = 0
-                @crest == false
+                @crest = false
                 return 1
             return @juheight
 
