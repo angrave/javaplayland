@@ -4,12 +4,11 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 #IE Support ....
-
-if ! console?
-    console = { log: -> }
+if( ! window.console)
+    window.console= { log: -> }
 
 #Chrome support: 'this' must be the console object
-root.log = console.log.bind(console)
+#log = (mesg)-> console.log mesg
 
 root.initialize = (UIcont) ->
     $('#copyrightinfo').click -> window.AboutPage()
@@ -148,68 +147,54 @@ root.clearPlayer = ->
     root.clearString "CurrentPlayer"
     return
 
+root.readJSON =(theurl,cb) ->
+    fail =false
+    console.log "Reading #{theurl}"
+    try
+        jQuery.ajax({
+            dataType: 'json',
+            url: theurl,
+            async: false,
+            error : () ->
+                fail = true
+                console.log "Could not read #{theurl}"
+                cb(undefined)
+                return
+            success: (data) ->
+                cb(data)
+                return
+            })
+    catch exception
+        fail=true
+        console.log "#{theurl}: #{exception} #{exception.message} #{exception.stack}"
+    if(fail) 
+        throw "Configuration Exception reading #{theurl}"
+    return
+        
 root.loadJSONConfigs = () ->
     if not root.gameDescriptions?
         root.gameDescriptions = {}
     configFail = false
-    jQuery.ajax({
-        dataType: 'json',
-        url: 'config/defaults.json',
-        async: false,
-        error : () ->
-            configFail = true
-            console.log 'Could not read defaults.json'
+    try 
+        root.readJSON('config/defaults.json', (data)->root.gameDefaults=data)
+        root.readJSON('config/quest1.json', (data)->root.quest = data)
+        readGameData = (gameData) ->
+            if gameData
+                root.addToObject root.gameDefaults, gameData
+                root.convertShorthandToCode gameData
+                root.addHintsToCode gameData
+                root.gameDescriptions[game] = gameData
+        for game in root.quest.games
+            root.readJSON("config/#{game}.json", readGameData)
 
-        success: (data) ->
-            root.gameDefaults = data
-            return
-        })
-
-    jQuery.ajax({
-        dataType: 'json',
-        url: 'config/quest1.json',
-        async: false,
-        error : ->
-            configFail = true
-            console.log "Could not read quest1.json"
-
-        success: (data) ->
-            root.quest = data
-            for game in data.games
-                jQuery.ajax({
-                    dataType: 'json',
-                    url: "config/#{game}.json"
-                    async: false,
-                    error: ( jqXHR, textStatus, errorThrown ) ->
-                        configFail = true
-                        console.log "Could not read " + game + ':'+textStatus
-                    success: (gameData) ->
-                        try
-                            root.addToObject root.gameDefaults, gameData
-                            root.convertShorthandToCode gameData
-                            root.addHintsToCode gameData
-                            root.gameDescriptions[game] = gameData
-                            return
-                        catch error
-                            configFail = true
-                            console.log error
-                    })
-            return
-    });
-    jQuery.ajax({
-        dataType: 'json',
-        url: 'config/visualMaster.json',
-        async: false,
-        error : ->
-            configFail = true
-            console.log "Could not read visualMaster.json"
-        success: (data) ->
-            root.visualMaster = data
-            return
-        })
+        root.readJSON('config/visualMaster.json', (data)->root.visualMaster = data)
+    catch exception
+        configFail = true
+        console.log "#{exception} #{exception.message} #{exception.stack}"
+        
     if configFail
         root.gameDescriptions = null
-        throw "Configuration Exception"
+        throw "Configuration Exceptio!n"
     return
 
 root.addToObject = (source, destination) ->
