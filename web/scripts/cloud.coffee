@@ -83,7 +83,7 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	
 	$(cloud).attr({"src":"img/cloud.png","width":dim})
 	$(cont).css({"position":"absolute","top":x,"left":y,"z-index":"297"})
-	$(text).css({"width":"75%","95%","position":"absolute","top":"26%","left":"8%","z-index":"299","margin":"0","padding":"0", "text-align":"center"})
+	$(text).css({"width":"75%","height":"95%","position":"absolute","top":"26%","left":"8%","z-index":"299","margin":"0","padding":"0", "text-align":"center"})
 
 
 	$(cont).append(cloud)
@@ -93,12 +93,17 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	$(subbd).append(xb)
 
 	$(obj).append(cont)
-	$(text).css({'font-size':(dim*.05*tscale) + 'px',"top":(dim-$(text).height)/2+"px","left":($(cont).width()-$(text).width())/2+"px"})
+	text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[0]+"</p>"
+	$(text).css({'font-size':(dim*.05*tscale) + 'px'})
+	# Width is 75%, leaving 25% left to play with
+	left=0.125*dim
+	$(text).css({"left":left+"px"})
+	#Removed vertical centering - looks better without it
+	#"top":(dim*0.8-$(text).height())/2+"px",
 
 
 	$(xb).click(() -> $(cont).remove();$(backdrop).remove())
 
-	text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[0]+"</p>"
 	return
 
 

@@ -25,12 +25,9 @@
     "comments": [ "Java Puzzle #3 - 'Look behind you'", "Notice the two forward slashes, \"//\" on the left?",
        "The slashes mean this text is just a comment, not executable code.",
    
-      "We write comments in programs to help other programmers ", 
-      "or ourselves understand our code and ideas and choices we made.",
-       "Comments are ignored when the program runs.",
-       "For programmers though, they are often worth reading.","",
-       "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!",
-       "Yes - It is possible!" ]
+      "We write comments in programs to help other programmers\nor ourselves understand our code and ideas and choices we made.",
+       "Comments are ignored when the program runs.\nFor programmers though, good comments provide insight\n",
+       "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!\nYes - It is possible!" ]
   },
   "game": {
     "characterBase": {

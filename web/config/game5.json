@@ -23,11 +23,10 @@
   },
   "code": {
     "shorthand": "gLgLgLggg",
-    "comments": [ "Puzzle #5 - 'Three solutions'","Hint #1 There's more than one program that solves this puzzle.",
-        "The speed of the program often depends on ",
-        "the number of statements the processor (CPU)","will need to run (or \"execute\").",
-        "Can you see three solutions? Which one is fastest? Slowest?",
-        "Hint #2 I wonder what happens if you go too far?",
+    "comments": [ "Puzzle #5 - 'Three solutions'",
+        "The speed of the program depends on the number of \nstatements the central processor unit (\"CPU\")\nneeds to run (or \"execute\")\nto complete your program.",
+		"Hint #1 There's more than one program that solves this puzzle.\nCan you see three solutions? Which one is fastest? Which one is Slowest?",
+        "Hint #2 I wonder what happens if you go too far...",
         "Hint #3 What will you do with each line? Up,Down,Delete?" ]
   },
   "game": {

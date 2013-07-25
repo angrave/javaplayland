@@ -191,6 +191,12 @@ class window.GameManager
 
 class MapGameState
     clockHandle = null
+
+    invalidParameterException: (value) ->
+        @name = 'invalidParameterException'
+        @value = value
+        return
+
     #<--DIRECTIONS-->
     #       ^
     #       0
@@ -237,7 +243,10 @@ class MapGameState
                 @checkEvents()
                 if not @waiting
                     for name, character of @gameConfig.characters
-                        @runCharacterCommand character
+                        try
+                            @runCharacterCommand character
+                        catch e
+                            @gameLost()
                     @waiting = true
                 else
                     for name, character of @gameConfig.characters
@@ -285,7 +294,7 @@ class MapGameState
         # Just doing player collisions at the moment.
         if @protagonist.x < 0 or @protagonist.x >= @gameManager.config.visual.grid.gridX\
           or @protagonist.y < 0 or @protagonist.y >= @gameManager.config.visual.grid.gridY
-            @gameLost()
+            @protagonistFalls()
 
         triggers = {"victory": @gameWon, "loss": @gameLost, "fall": @protagonistFalls}
         for name, character of @gameConfig.characters
@@ -331,7 +340,7 @@ class MapGameState
         if character.moves.length > 0 and
           character.moves[character.moves.length - 1].key == 'stand'
             character.moves.pop()
-            
+
         character.moves.push {
             key: 'jumping',
             exec: ((char) ->
@@ -350,31 +359,34 @@ class MapGameState
             character.moves.pop()
         character.moves.push {
             key: 'startMove',
-            exec: (((char) ->
-                success = @_move(char)
+            exec: (((char, steps) ->
+                success = @_move(char, steps)
                 return {success: success, continueExecution: false}
-                ).bind @, character),
+                ).bind @, character, steps),
             line: line
         }
-        for i in [1...steps] by 1
-            @_moving(character)
         return
 
     _moving: (character) ->
         if not character?
             character = @protagonist
 
-        character.moves.push {
+        character.moves.unshift {
             key: 'moving',
             exec: ((char) ->
-                success = @_move(char)
+                success = @_move(char, 1)
                 return {success: success, continueExecution: false}
                 ).bind @, character
         }
 
-    _move: (character) ->
+    _move: (character, steps) ->
         if not character?
             character = @protagonist
+
+        if isNaN steps
+            throw new @invalidParameterException steps
+        for i in [1...steps] by 1
+            @_moving(character)
 
         # Top Left: 0,0
         moved = false
@@ -417,7 +429,7 @@ class MapGameState
         else
             @visual.changeState character.index, 4
         return moved
-    
+
 
     checkCanMove: (newX, newY, character) ->
         ###
@@ -586,6 +598,7 @@ class MapGameCommands
 
     go: (steps, line) =>
         steps = 1 if steps is undefined
+        steps = parseInt steps.toString(), 10
         if line is undefined
             line = steps
             steps = 1
