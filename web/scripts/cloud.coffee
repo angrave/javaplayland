@@ -95,9 +95,8 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	$(obj).append(cont)
 	text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[0]+"</p>"
 	$(text).css({'font-size':(dim*.05*tscale) + 'px'})
-	
-	textwidth=text.clientWidth
-	left=0.5*dim-0.5*textwidth
+	# Width is 75%, leaving 25% left to play with
+	left=0.125*dim
 	$(text).css({"left":left+"px"})
 	#Removed vertical centering - looks better without it
 	#"top":(dim*0.8-$(text).height())/2+"px",
