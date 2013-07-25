@@ -1,61 +1,6 @@
 root = exports ? referencePage = {}
 
-###
-Dictionary takes a string json reference in the form of a directory path and a container DOM element to create the dictionary in.  Example .json format is in the
-config directory named dictionary.json.  The dictionary function appends a div to its container that serves the dynamic information content depending on the
-dictionary item that is clicked in the list.
-###
-window.dictionary = (text,cont) ->
-    #appends a div for the paragraph content, to be further developed to contain code snippets and videos
-    info = document.createElement("div")
-    list = document.createElement("div")
-    $(info).css({"overflow":"auto","white-space": "pre-wrap", "width":"100%","height":"65%","position":"absolute","top":"35%","border-top":"1px solid black"})
-    $(list).css({"overflow":"auto","white-space": "pre-wrap", "width":"100%","height":"35%","position":"absolute","top":"0%",})
-    $(cont).append(info)
-    $(cont).append(list)
-    #the attache function accepts a key and data and creates the content for the info div
-    attache = (k,d) ->
-        info.innerHTML = d
-        return
-    #the showChildren function accepts a DOM element from the dictionary list and displays or hides its children and alters its arrow image appropriately
-    showChildren = (nde) ->
-        if $(nde).children("img").attr("src") == "img/listarrow1.png"
-            $(nde).children("img").attr({"src":"img/listarrow2.png"})
-            $(nde).children("div").css({"display":"block"})
-        else
-            $(nde).children("img").attr({"src":"img/listarrow1.png"})
-            $(nde).children("div").css({"display":"none"})
-    #delve accepts a data object tmp and a recursive DOM object tcont.  The function recursively calls itself to build the hierarchal list
-    delve = (tmp,tcont) ->
-        for key,data of tmp
-            if typeof data == "string"
-                $(tcont).click(((k,d) -> attache(k,d); return false).bind(null, key, data))
-            else
-                npa = document.createElement("div")
-                ar = document.createElement("img")
-                $(ar).attr({"src":"img/listarrow1.png"})
-                $(ar).css({"position":"relative","left":"0","top":"0"})
-                $(npa).css({"margin":"4px 0 0 20px"})
-                if tcont != list
-                    $(npa).css({"display":"none"})
-                else
-                    $(npa).css({"margin-left":"0"})
-                npa.innerHTML = key
-                $(tcont).append(npa)
-                for key1,data1 of data
-                    if typeof data1 != "string"
-                        $(npa).prepend(ar)
-                        $(npa).click(((n) -> showChildren(n); return false).bind(null,npa))
-                        break
-                delve data,npa
-        return
-
-    $.getJSON(text, (data) -> delve data,list)
-###
-InitFloat builds the floating div and appropriates its space for the java virtual console and the dictionary.  It also attaches several enlargement functions
-that allow each appropriate div to fullscreen and then shrink back
-###
-window.InitFloat = ->
+window.sandBoxPage = () ->
     backFade = document.createElement("div")
     refContainer = document.createElement("div")
 
@@ -66,34 +11,26 @@ window.InitFloat = ->
     $(backFade).attr({id:'bF'})
     $("body").prepend(refContainer)
 
-    dictionary = document.createElement("div")
     input = document.createElement("div")
     output = document.createElement("div")
 
-    $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
-    $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
-    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black',"overflow":"auto"})
+    $(input).css({width:'45%',height:'90%',position:'absolute',left:'5%',top:'5%','border':'1px solid black'})
+    $(output).css({width:'45%',height:'90%',position:'absolute',right:'5%',top:'5%','border':'1px solid black',"overflow":"auto"})
 
-    $(refContainer).prepend(dictionary)
     $(refContainer).prepend(input)
     $(refContainer).prepend(output)
 
     en1 = document.createElement("img")
     en2 = document.createElement("img")
-    en3 = document.createElement("img")
 
     $(en1).attr({'src':'img/enlarge1.png',class:'en'})
     $(en2).attr({'src':'img/enlarge1.png',class:'en'})
-    $(en3).attr({'src':'img/enlarge1.png',class:'en'})
 
     $(en1).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
     $(en2).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
-    $(en3).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
 
-    $(dictionary).append(en1)
-    $(input).append(en2)
-    $(output).append(en3)
-
+    $(input).append(en1)
+    $(output).append(en2)
 
     enHover = () ->
         this.src = 'img/enlarge2.png'
@@ -106,7 +43,7 @@ window.InitFloat = ->
         $(this).parent().siblings().stop()
 
         this.src = 'img/shrink1.png'
-        $(this).parent().animate({width:'90%',height:'90%',top:'5%'})
+        $(this).parent().animate({width:'90%',height:'90%'})
         $(this).parent().siblings().animate({width:'0%',height:'0%',opacity:'0'})
 
         $(".en").hover(clHover,cllvHover)
@@ -118,13 +55,11 @@ window.InitFloat = ->
     clClick = () ->
         $(this).unbind()
 
-        $(dictionary).stop()
         $(input).stop()
         $(output).stop()
 
-        $(dictionary).animate({width:'35%',height:'90%',opacity:'1'})
-        $(input).animate({width:'50%',height:'40%',opacity:'1'})
-        $(output).animate({width:'50%',height:'40%',opacity:'1',top:'50%'})
+        $(input).animate({width:'45%',height:'90%',opacity:'1'})
+        $(output).animate({width:'45%',height:'90%',opacity:'1'})
 
         $(".en").hover(enHover,lvHover)
         $(".en").click(enClick)
@@ -137,10 +72,33 @@ window.InitFloat = ->
     $(".en").click(enClick)
     $("#bF").click(closeClick)
 
-    window.dictionary("dictionary.json",dictionary)
-
     setUpJavaSandbox input, output
     return
+
+
+window.referencePage = () ->
+    backFade = document.createElement("div")
+    refContainer = document.createElement("div")
+
+    $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
+    $(refContainer).css({width:'90%',height:'90%',left:'5%',top:'5%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+
+    $("body").prepend(backFade)
+    $(backFade).attr({id:'bF'})
+    $("body").prepend(refContainer)
+
+    ref = document.createElement("div")
+
+    $(ref).css({width:'90%',height:'90%',position:'absolute',right:'5%',top:'5%','border':'1px solid black',"overflow":"auto"})
+
+    $(refContainer).prepend(ref)
+
+    closeClick = () ->
+        $(backFade).remove()
+        $(refContainer).remove()
+        codeland.doppioAPI.abort()
+
+    $("#bF").click(closeClick)
 
 setUpJavaSandbox = (input, output) ->
     ###
@@ -247,7 +205,7 @@ window.AboutPage = () ->
     ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br />
     The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.
     <br/>
-    The yellow arrow icon by Jack Cai downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
+    The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
     <hr>
     
     <em>Acknowledgements</em><br>
@@ -262,3 +220,159 @@ window.AboutPage = () ->
 	$(refContainer).append(header)
 	$(refContainer).append(para)
 	$("#bF").click(closeClick)
+
+
+
+
+
+
+
+
+
+
+
+
+###
+This version of the reference page has been depricated
+
+Dictionary takes a string json reference in the form of a directory path and a container DOM element to create the dictionary in.  Example .json format is in the
+config directory named dictionary.json.  The dictionary function appends a div to its container that serves the dynamic information content depending on the
+dictionary item that is clicked in the list.
+
+window.dictionary = (text,cont) ->
+    #appends a div for the paragraph content, to be further developed to contain code snippets and videos
+    info = document.createElement("div")
+    list = document.createElement("div")
+    $(info).css({"overflow":"auto","white-space": "pre-wrap", "width":"100%","height":"65%","position":"absolute","top":"35%","border-top":"1px solid black"})
+    $(list).css({"overflow":"auto","white-space": "pre-wrap", "width":"100%","height":"35%","position":"absolute","top":"0%",})
+    $(cont).append(info)
+    $(cont).append(list)
+    #the attache function accepts a key and data and creates the content for the info div
+    attache = (k,d) ->
+        info.innerHTML = d
+        return
+    #the showChildren function accepts a DOM element from the dictionary list and displays or hides its children and alters its arrow image appropriately
+    showChildren = (nde) ->
+        if $(nde).children("img").attr("src") == "img/listarrow1.png"
+            $(nde).children("img").attr({"src":"img/listarrow2.png"})
+            $(nde).children("div").css({"display":"block"})
+        else
+            $(nde).children("img").attr({"src":"img/listarrow1.png"})
+            $(nde).children("div").css({"display":"none"})
+    #delve accepts a data object tmp and a recursive DOM object tcont.  The function recursively calls itself to build the hierarchal list
+    delve = (tmp,tcont) ->
+        for key,data of tmp
+            if typeof data == "string"
+                $(tcont).click(((k,d) -> attache(k,d); return false).bind(null, key, data))
+            else
+                npa = document.createElement("div")
+                ar = document.createElement("img")
+                $(ar).attr({"src":"img/listarrow1.png"})
+                $(ar).css({"position":"relative","left":"0","top":"0"})
+                $(npa).css({"margin":"4px 0 0 20px"})
+                if tcont != list
+                    $(npa).css({"display":"none"})
+                else
+                    $(npa).css({"margin-left":"0"})
+                npa.innerHTML = key
+                $(tcont).append(npa)
+                for key1,data1 of data
+                    if typeof data1 != "string"
+                        $(npa).prepend(ar)
+                        $(npa).click(((n) -> showChildren(n); return false).bind(null,npa))
+                        break
+                delve data,npa
+        return
+
+    $.getJSON(text, (data) -> delve data,list)
+
+InitFloat builds the floating div and appropriates its space for the java virtual console and the dictionary.  It also attaches several enlargement functions
+that allow each appropriate div to fullscreen and then shrink back
+
+window.InitFloat = ->
+    backFade = document.createElement("div")
+    refContainer = document.createElement("div")
+
+    $(backFade).css({width:'100%',height:'100%',position:'absolute','z-index':'300','background-color':'#000000','opacity':'.5'})
+    $(refContainer).css({width:'90%',height:'90%',left:'5%',top:'5%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+
+    $("body").prepend(backFade)
+    $(backFade).attr({id:'bF'})
+    $("body").prepend(refContainer)
+
+    dictionary = document.createElement("div")
+    input = document.createElement("div")
+    output = document.createElement("div")
+
+    $(dictionary).css({width:'35%',height:'90%',position:'absolute',left:'5%',top:'5%',bottom:'80%','border':'1px solid black'})
+    $(input).css({width:'50%',height:'40%',position:'absolute',right:'5%',top:'5%','border':'1px solid black'})
+    $(output).css({width:'50%',height:'45%',position:'absolute',right:'5%',top:'50%','border':'1px solid black',"overflow":"auto"})
+
+    $(refContainer).prepend(dictionary)
+    $(refContainer).prepend(input)
+    $(refContainer).prepend(output)
+
+    en1 = document.createElement("img")
+    en2 = document.createElement("img")
+    en3 = document.createElement("img")
+
+    $(en1).attr({'src':'img/enlarge1.png',class:'en'})
+    $(en2).attr({'src':'img/enlarge1.png',class:'en'})
+    $(en3).attr({'src':'img/enlarge1.png',class:'en'})
+
+    $(en1).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
+    $(en2).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
+    $(en3).css({position:'absolute',right:'4px',top:'4px',"z-index":"320"})
+
+    $(dictionary).append(en1)
+    $(input).append(en2)
+    $(output).append(en3)
+
+
+    enHover = () ->
+        this.src = 'img/enlarge2.png'
+    lvHover = () ->
+        this.src = 'img/enlarge1.png'
+    enClick = () ->
+        $(this).unbind()
+
+        $(this).parent().stop()
+        $(this).parent().siblings().stop()
+
+        this.src = 'img/shrink1.png'
+        $(this).parent().animate({width:'90%',height:'90%',top:'5%'})
+        $(this).parent().siblings().animate({width:'0%',height:'0%',opacity:'0'})
+
+        $(".en").hover(clHover,cllvHover)
+        $(".en").click(clClick)
+    closeClick = () ->
+        $(backFade).remove()
+        $(refContainer).remove()
+        codeland.doppioAPI.abort()
+    clClick = () ->
+        $(this).unbind()
+
+        $(dictionary).stop()
+        $(input).stop()
+        $(output).stop()
+
+        $(dictionary).animate({width:'35%',height:'90%',opacity:'1'})
+        $(input).animate({width:'50%',height:'40%',opacity:'1'})
+        $(output).animate({width:'50%',height:'40%',opacity:'1',top:'50%'})
+
+        $(".en").hover(enHover,lvHover)
+        $(".en").click(enClick)
+    clHover = () ->
+        this.src = 'img/shrink2.png'
+    cllvHover = () ->
+        this.src = 'img/shrink1.png'
+
+    $(".en").hover(enHover,lvHover)
+    $(".en").click(enClick)
+    $("#bF").click(closeClick)
+
+    window.dictionary("dictionary.json",dictionary)
+
+    setUpJavaSandbox input, output
+    return
+###
