@@ -25,10 +25,9 @@
   },
   "code": {
     "shorthand": "RRRRggLg",
-    "comments" : ["Puzzle #4 - 'Too much code'","There's 'bug'! Time to debug this code!", 
-    "Hint #1 In this game you must DELETE the unnecessary statements.",
-    "Click on a statement and select the small red X to delete a line of code.",
-    "Hint #2 Use the reset button on the far left if you delete too much."	 ]
+    "comments" : ["Puzzle #4 - 'Too much code'","There's a 'bug'! Time to debug this code!", 
+    "Hint #1 In this game you must DELETE the unnecessary statements.\n(You can't change their order)'\nClick on a statement and select the small red X to delete a line of code.",
+    "Hint #2 To start-over use the reset button." ]
   },
   "game": {
     "characterBase": {

@@ -23,12 +23,10 @@
   "code": {
     "shorthand": "gR",
      "comments" : [ "Java Code Puzzle #1 - 'Jump-in'",
-       "Can you fix this Java code so that your avatar\nreaches the flag?",
-       "You can run this entire Java program, just click the green play button on the far left (Try it now!).",
-       "The initial code is incorrect: Move the statements up and down to fix the sequence of statements.",
-       "You can change the ordering of the two lines of code: \nSelect a line of code, \nClick the small up and down arrows that appear over the line numbers to swap their order.",
-       "Re-run your code to see if it's now correct. Hint: The avatar always starts from the same place.",
-       "Change the order of the go() and turnRight() statements: Click on \n a line of code. Move it up and down, then re-run your program!" ]
+       "Fix this Java code so that your avatar\nreaches the flag",
+       "To fix this program select a line of code, \nClick the small up and down arrows that appear near the line numbers to swap their order.",
+       "To run the entire Java program, click the green play button \n(Your avatar always starts from the same spot).",
+       "Change the order of the go() and turnRight() statements: Click on \na line of code. Move it up and down, then test your program!" ]
   },
   "game": {
     "characterBase": {
