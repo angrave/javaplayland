@@ -5,7 +5,7 @@ body {
 #buttons {
     width:75% !important;
     position:absolute;
-    right:1.5% !important;
+    left:1.5% !important;
     bottom:3%;
     height: 12%;
 }
@@ -57,6 +57,7 @@ button {
     border: 1px solid #1a1a1a;
     z-index: 100;
     box-shadow: -10px -10px 10 0 black;
+    min-width: 100px;
 }
 
 .pop-up-inside {

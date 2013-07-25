@@ -58,6 +58,7 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 		backdrop = document.createElement("div")
 		$(backdrop).css({"position":"absolute","z-index":"290","width":"100%","height":"100%","background-color":"black","opacity":".5","top":"0","left":"0"})
 		$(obj).append(backdrop)
+		$(backdrop).click(() -> $(cont).remove();$(backdrop).remove())
 
 	if ng != "none"
 		ngco = document.createElement("div")
