@@ -243,7 +243,10 @@ class MapGameState
                 @checkEvents()
                 if not @waiting
                     for name, character of @gameConfig.characters
-                        @runCharacterCommand character
+                        try
+                            @runCharacterCommand character
+                        catch e
+                            @gameLost()
                     @waiting = true
                 else
                     for name, character of @gameConfig.characters
