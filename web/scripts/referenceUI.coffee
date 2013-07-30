@@ -1,5 +1,7 @@
 root = exports ? referencePage = {}
 
+editorCount = 0
+
 window.sandBoxPage = () ->
     backFade = document.createElement("div")
     refContainer = document.createElement("div")
@@ -14,8 +16,8 @@ window.sandBoxPage = () ->
     input = document.createElement("div")
     output = document.createElement("div")
 
-    $(input).css({width:'45%',height:'90%',position:'absolute',left:'5%',top:'5%','border':'1px solid black'})
-    $(output).css({width:'45%',height:'90%',position:'absolute',right:'5%',top:'5%','border':'1px solid black',"overflow":"auto"})
+    $(input).css({width:'45%',height:'90%',position:'absolute',left:'3.3%',top:'5%','border':'1px solid black'})
+    $(output).css({width:'44%',height:'90%',"padding-left":"1%",position:'absolute',right:'3.3%',top:'5%','border':'1px solid black',"overflow":"auto"})
 
     $(refContainer).prepend(input)
     $(refContainer).prepend(output)
@@ -72,7 +74,7 @@ window.sandBoxPage = () ->
     $(".en").click(enClick)
     $("#bF").click(closeClick)
 
-    setUpJavaSandbox input, output
+    setUpJavaSandbox input, output, ""
     return
 
 
@@ -91,6 +93,10 @@ window.referencePage = () ->
 
     $(ref).css({width:'90%',height:'90%',position:'absolute',right:'5%',top:'5%','border':'1px solid black',"overflow":"auto"})
 
+    inject(ref)
+
+    examples = $(ref).children(".ex")
+
     $(refContainer).prepend(ref)
 
     closeClick = () ->
@@ -100,7 +106,24 @@ window.referencePage = () ->
 
     $("#bF").click(closeClick)
 
-setUpJavaSandbox = (input, output) ->
+    for sel in [0...examples.size()]
+        setUpExample(examples.eq(sel))
+
+setUpExample = (dive) ->
+    text = $(dive).text()
+    $(dive).empty()
+    i = document.createElement("div")
+    o = document.createElement("div")
+
+    $(i).attr({"class":"ei"})
+    $(o).attr({"class":"eo"})
+
+    $(dive).append(i)
+    $(dive).append(o)
+
+    setUpJavaSandbox(i,o,text)
+
+setUpJavaSandbox = (input, output, texti) ->
     ###
         Sets up the code editor and the doppio api for running Java code.
     ###
@@ -109,11 +132,9 @@ setUpJavaSandbox = (input, output) ->
     textOutput = $('<div></div>')
     output.append textOutput.get 0
     textOutput.css "white-space", "pre-line"
-    input.append '<div id="javasandboxsource"></div>'
-    sandBoxEditor = new PlayerCodeEditor 'javasandboxsource', null, \
-        'for (int i = 0; i < 5; i++) {\n System.out.println("Hello");\n}', \
-        false, "", "", true
-
+    input.append '<div id="javasandboxsource'+editorCount+'"></div>'
+    sandBoxEditor = new PlayerCodeEditor 'javasandboxsource'+editorCount, null, texti, false, "", "", true
+    editorCount++
     msg = ""
     stdout = (str) ->
         msg += str

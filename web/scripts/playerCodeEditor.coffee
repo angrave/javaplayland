@@ -219,7 +219,7 @@ class window.EditorManager
             {"width":"15px";"max-height":aglh*2.6,
             "z-index": 20,"position":"relative",
             "top":aalt-aglh*1.5+"px",
-            "left":aglw-15+"px","display": "block"})
+            "left":0+"px","display": "block"})
         @poffset = $(".ace_scrollbar").scrollTop()
         return
 
@@ -421,7 +421,7 @@ class window.PlayerCodeEditor
         if !@freeEdit
             jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
-        if @wrapCode
+        if @wrapCode == true
             if @codePrefix != ""
                 @codeText = @codePrefix + codeText
             if @codeSuffix != ""
@@ -553,6 +553,7 @@ class window.PlayerCodeEditor
         ###
         @editor.setValue @codeText
         @editor.clearSelection()
+        @editor.resize()
         @reIndentCode()
         @gotoLine @codePrefixLength + 1
         @editor.renderer.scrollToRow @codePrefixLength
