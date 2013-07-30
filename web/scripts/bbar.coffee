@@ -39,6 +39,6 @@ window.appendBar = (d) ->
 	$(select).click codeland.showMap
 	$(sand).click sandBoxPage
 
-	$(edge).click(() -> coffeeisdumb())
+	$(cont).children().click(() -> coffeeisdumb())
 
 	$(d).append(cont)
