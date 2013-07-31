@@ -129,12 +129,14 @@ setUpJavaSandbox = (input, output, texti) ->
     ###
     input = $(input)
     output = $(output)
-    textOutput = $('<div></div>')
+    textOutput = $('<div ></div>')
     output.append textOutput.get 0
-    textOutput.css "white-space", "pre-line"
+    textOutput.css {"white-space": "pre-line","font-family": "monospace","overflow":"auto"}
     input.append '<div id="javasandboxsource'+editorCount+'"></div>'
     sandBoxEditor = new PlayerCodeEditor 'javasandboxsource'+editorCount, null, texti, false, "", "", true
     editorCount++
+    # See http://stackoverflow.com/questions/11584061/automatically-adjust-height-to-contents-in-ace-cloud9-editor
+    
     msg = ""
     stdout = (str) ->
         msg += str
@@ -142,7 +144,7 @@ setUpJavaSandbox = (input, output, texti) ->
         textOutput.text msg
         return
     log = (mesg) -> console.log mesg
-    codeland.doppioAPI.setOutputFunctions stdout, log
+    
 
     run = jQuery '<img>', {
         id: 'runCode',
@@ -161,7 +163,15 @@ setUpJavaSandbox = (input, output, texti) ->
                 stdout('')
                 jQuery('#abortCode').hide();
                 jQuery('#runCode').show()
-            codeland.doppioAPI.run(sandBoxEditor.getStudentCode(),null, finished_cb)
+            codeland.doppioAPI.abort()
+            codeland.doppioAPI.setOutputFunctions stdout, log
+            srcText  = sandBoxEditor.getStudentCode()
+            if(srcText.indexOf("[]") != -1)
+                stdout('Arrays are not yet supported by our Web-based Java')
+                jQuery('#abortCode').hide();
+                jQuery('#runCode').show()
+            else
+                codeland.doppioAPI.run(srcText,null, finished_cb)
 
             e.preventDefault()
             return
