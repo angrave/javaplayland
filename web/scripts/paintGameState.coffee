@@ -49,6 +49,8 @@ class window.PaintGameState
                         won = false
             if won
                 @gameWon()
+            else
+                @gameLost()
         return
 
     start: ->
