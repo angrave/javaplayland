@@ -110,7 +110,7 @@ class window.GridGameState
         # Just doing player collisions at the moment.
         if @protagonist.x < 0 or @protagonist.x >= @gameManager.config.visual.grid.gridX\
           or @protagonist.y < 0 or @protagonist.y >= @gameManager.config.visual.grid.gridY
-            @gameLost()
+            @protagonistFalls()
 
         triggers = {"victory": @gameWon, "loss": @gameLost, "fall": @protagonistFalls}
         for name, character of @gameConfig.characters
@@ -352,8 +352,10 @@ class window.GridGameState
         gameIndex = @gameManager.environment.codeland.currentQuest.games.indexOf gameName
         gameIndex = ++gameIndex % @gameManager.environment.codeland.currentQuest.games.length
         gameName = @gameManager.environment.codeland.currentQuest.games[gameIndex]
-        window.objCloud 400, "Well Done!",
-            "body", "30%", "30%", 3, gameName, @gameManager
+        messages = []
+        messages[0] = 'Congratulations!'
+        window.objCloud 400, messages, "body",
+            "30%", "30%", 1.5, gameName, @gameManager
         return
 
     gameLost: =>
@@ -367,7 +369,9 @@ class window.GridGameState
             character.moves = null
         @startedGame = false
         playAudio 'defeat.ogg'
-        window.objCloud(400,"Try again!","body","30%","30%",3,"none",@gameManager)
+        messages = []
+        messages[0] = "Try Again!"
+        window.objCloud(400,messages,"body","30%","30%",3,"none",@gameManager)
         clockHandle = setInterval @clock, 17
         return
 
@@ -410,6 +414,7 @@ class GridGameCommands
 
     go: (steps, line) =>
         steps = 1 if steps is undefined
+        steps = parseInt steps.toString(), 10
         if line is undefined
             line = steps
             steps = 1

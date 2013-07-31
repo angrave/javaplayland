@@ -161,7 +161,7 @@ setUpJavaSandbox = (input, output) ->
         msg += str
         textOutput.text msg
         return
-    log = console.log
+    log = (mesg) -> console.log mesg
     codeland.doppioAPI.setOutputFunctions stdout, log
 
     run = jQuery '<img>', {

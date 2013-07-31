@@ -83,8 +83,10 @@ class window.PaintGameState
         gameIndex = @gameManager.environment.codeland.currentQuest.games.indexOf gameName
         gameIndex = ++gameIndex % @gameManager.environment.codeland.currentQuest.games.length
         gameName = @gameManager.environment.codeland.currentQuest.games[gameIndex]
-        window.objCloud 400, "Well Done!",
-            "body", "30%", "30%", 3, gameName, @gameManager
+        messages = []
+        messages[0] = 'Congratulations!'
+        window.objCloud 400, messages,
+            "body", "30%", "30%", 1.5, gameName, @gameManager
         return
 
     gameLost: =>
@@ -94,7 +96,9 @@ class window.PaintGameState
             clearInterval clockHandle
         @startedGame = false
         playAudio 'defeat.ogg'
-        window.objCloud 400, "Try again!",
+        messages = []
+        messages[0] = "Try Again!"
+        window.objCloud 400, messages,
             "body", "30%", "30%", 3, "none", @gameManager
         clockHandle = setInterval @clock, 17
         return
