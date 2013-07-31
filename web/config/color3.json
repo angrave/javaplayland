@@ -1,38 +1,52 @@
 {
   "title": "String you along",
   "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp","switchDown","delete"
+      "switchUp",
+      "switchDown",
+      "delete",
+      "insertButtons"
     ],
     "commands": {
-		"shorthand": [
-"drawPixel(3,3,color);",
-"drawPixel(3,4,color);",
-"drawPixel(4,3,color);",
-"drawPixel(4,4,color);",
-"color = \"blue\";"
-]
-}
+      "shorthand": [
+        "drawPixel(3,3,color);",
+        "drawPixel(3,4,color);",
+        "drawPixel(4,3,color);",
+        "drawPixel(4,4,color);",
+        "color = \"blue\";"
+      ]
+    }
   },
   "code": {
-	"prefix": [
-		"void paint(){ // put your code between the opening '{' and closing '}'",
-"\tString color = \"yellow\";"
-	],
-	"postfix": "}",
-    "comments" : [ "Color Puzzle 3 - 'String you along'",
-       "// Use the String variable to remember the color name you need" ]
+    "prefix": [
+      "// put your code between the opening '{' and closing '}'\nvoid paint() {",
+      "\tString color = \"yellow\";\n"
+    ],
+    "postfix": "}",
+    "comments": [
+      "Color Puzzle 3 - 'String you along'",
+      "// Use the tStringng variable to remember the color name you need"
+    ]
   },
   "game": {
-    "colormap": [
-"","","",
-"...by",
-"...yb"
-]
+    "map": [
+      "",
+      "",
+      "",
+      "...UY",
+      "...YU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
   },
-  
   "dyk": [],
-  "depends": ["color2"]
+  "depends": [
+    "color2"
+  ]
 }

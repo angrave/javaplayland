@@ -264,6 +264,8 @@ root.convertShorthandToCode = (gameData) ->
         return
     initial = ''
     shorthand = gameData.code.shorthand
+    if not shorthand?
+        return
     while shorthand != ''
         for short in gameData.code.shorthandKey
             re = new RegExp short.regex

@@ -1,5 +1,12 @@
 {
   "defaults": {
+    "game": {
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "map": ""
+    }
   },
   "gameTypes": [
     "gridDefaults.json",

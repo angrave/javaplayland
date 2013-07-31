@@ -2,7 +2,8 @@
   "games": [
     "color0",
     "color1",
-    "color2"
+    "color2",
+    "color3"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
