@@ -103,12 +103,7 @@ root.startGame = (game) ->
         backEnd: description.backEnd
         gameState: description.gameState
     }
-
-    # managerString  = description?.manager ?= 'GameManager'
-
-    # root.currentGame = new window[managerString](env)
     root.currentGame = new GameManager env
-
     root.currentGame.startGame()
     return
 
@@ -204,64 +199,26 @@ root.loadJSONConfigs = () ->
     if not root.gameDescriptions?
         root.gameDescriptions = {}
     configFail = false
-# <<<<<<< HEAD
-    # jQuery.ajax {
-    #     dataType: 'json',
-    #     url: 'config/config.json',
-    #     async: false,
-    #     error : () ->
-    #         configFail = true
-    #         console.log 'Could not read config.json'
-    #         return
-    #     success: (data) ->
     root.readJSON 'config/config.json', (data) ->
         if data == undefined
             configFail = true
         root.baseDefaults = data.defaults
         root.gameDefaults = {}
         for type in data.gameTypes
-            # jQuery.ajax {
-            #     dataType: 'json',
-            #     url: "config/#{type}",
-            #     async: false,
-            #     error : ->
-            #         configFail = true
-            #         console.log "Could not read #{type}"
-            #         return
-            #     success: (data) ->
             root.readJSON "config/#{type}", (typeData) ->
                 if typeData == undefined
                     configFail = true
                 root.gameDefaults[typeData.gameType] = typeData
                 return
-            # }
         root.quests = []
         root.visualMasters = {}
         questIndex = 0
         for quest in data.quests
-            # jQuery.ajax {
-            #     dataType: 'json',
-            #     url: "config/#{quest}",
-            #     async: false,
-            #     error : ->
-            #         configFail = true
-            #         console.log "Could not read #{quest}"
-            #         return
-            #     success: (data) ->
             root.readJSON "config/#{quest}", (questData) ->
                 if questData == undefined
                     configFail = true
                 root.quests[questIndex++] = questData
                 for game in questData.games
-                    # jQuery.ajax {
-                    #     dataType: 'json',
-                    #     url: "config/#{game}.json"
-                    #     async: false,
-                    #     error: ( jqXHR, textStatus, errorThrown ) ->
-                    #         configFail = true
-                    #         console.log "Could not read " + game + ':'+textStatus
-                    #         return
-                    #     success: (gameData) ->
                     root.readJSON "config/#{game}.json", (gameData) ->
                         if gameData == undefined
                             configFail = true
@@ -278,31 +235,9 @@ root.loadJSONConfigs = () ->
                             configFail = true
                             console.log "#{error} #{error.message} #{error.stack}"
                         return
-                    # }
                 return
-            # }
         root.currentQuest = root.quests[0]
         return
-    # }
-# =======
-    # try
-#         root.readJSON('config/defaults.json', (data)->root.gameDefaults=data)
-#         root.readJSON('config/quest1.json', (data)->root.quest = data)
-#         readGameData = (gameData) ->
-#             if gameData
-#                 root.addToObject root.gameDefaults, gameData
-#                 root.convertShorthandToCode gameData
-#                 root.addHintsToCode gameData
-#                 root.gameDescriptions[game] = gameData
-#         for game in root.quest.games
-#             root.readJSON("config/#{game}.json", readGameData)
-
-#         root.readJSON('config/visualMaster.json', (data)->root.visualMaster = data)
-#     catch exception
-#         configFail = true
-#         console.log "#{exception} #{exception.message} #{exception.stack}"
-
-# >>>>>>> master
     if configFail
         root.gameDescriptions = null
         throw "Configuration Exception"
@@ -394,3 +329,4 @@ root.canPlay = (game) ->
 
     passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
+    return

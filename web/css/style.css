@@ -1,5 +1,45 @@
+#gameSelection {
+    left:15%;
+}
+
 body {
     font-family: bitter;
+}
+
+.ex {
+    width:80%;
+    height:130px;
+    margin:0 0 0 10%;
+    border:1px solid black;
+}
+
+.ei {
+    float: left;
+    height:100%;
+    width:80%;
+}
+
+.eo {
+    float: right;
+    height:100%;
+    width:19%;
+    font-family: monospace;
+    font-size: 125%;
+    white-space: pre-wrap;
+    border:1px solid gray;
+}
+
+.rp {
+    margin:10px 40px 0px 40px;
+}
+
+tt {
+    font-size: 16px;
+}
+
+.pseudo {
+    font-family: monospace;
+    white-space: pre-wrap;
 }
 
 #buttons {
