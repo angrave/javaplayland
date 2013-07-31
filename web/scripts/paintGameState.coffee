@@ -16,7 +16,9 @@ class window.PaintGameState
         @commands = []
         @picture = []
         for i in [0..@gameManager.config.visual.grid.gridY] by 1
-            temp = [@gameManager.config.visual.grid.gridX]
+            temp = []
+            for i in [0..@gameManager.config.visual.grid.gridX] by 1
+                temp.push null
             @picture.push temp
 
         if clockHandle?
@@ -45,8 +47,10 @@ class window.PaintGameState
         if @finishedExecuting
             won = true
             for name, pixel of @gameConfig.characters
-                if (pixel.match?) and (pixel.match != @picture[pixel.x][pixel.y])
-                        won = false
+                if not pixel.match?
+                    continue
+                if pixel.match != @picture[pixel.x][pixel.y]?.color
+                    won = false
             if won
                 @gameWon()
             else
@@ -68,8 +72,12 @@ class window.PaintGameState
     _drawPixel: (x, y, color) ->
         char = @gameManager.generateCharacter color,
                 x, y, false
-        @visual.pushCharacter @gameManager.config.visual, char.visual
-        @picture[x][y] = color
+        if @picture[x][y]
+            @visual.removeCharacter @gameManager.config.visual, @picture[x][y].visual
+        index = @visual.pushCharacter @gameManager.config.visual, char.visual
+        char.index = index
+        char.color = color
+        @picture[x][y] = char
         return
 
     gameWon: =>

@@ -3,35 +3,46 @@
   "description": "",
   "task": "",
   "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp","switchDown","delete"
+      "switchUp",
+      "switchDown"
     ],
     "commands": {}
   },
   "code": {
-	"prefix": "void paint() { // put your code between the opening '{' and closing '}'",
-	"postfix": "} // put your code inside this paint method",
-     "initial":[
-"\tdrawPixel(5,5,\"blue\");",
-"\tdrawPixel(5,5,\"white\");",
-"\tdrawPixel(1,1,\"red\");",
-"\tdrawPixel(1,1,\"yellow\");",
-"\tdrawPixel(3,3,\"red\");",
-"\tdrawPixel(3,3,\"yellow\");"],
-     "comments" : [ "Color Puzzle 2 - 'Hidden masterpiece'",
-       "The reset button is useful if you delete too much"  ]
+    "prefix": "// put your code between the opening '{' and closing '}'\nvoid paint() {\n",
+    "postfix": "} // put your code inside this paint method",
+    "initial": [
+      "\tdrawPixel(5,5,\"blue\");",
+      "\tdrawPixel(5,5,\"purple\");",
+      "\tdrawPixel(1,1,\"red\");",
+      "\tdrawPixel(1,1,\"yellow\");",
+      "\tdrawPixel(3,3,\"red\");",
+      "\tdrawPixel(3,3,\"yellow\");"
+    ],
+    "comments": [
+      "Color Puzzle 2 - 'Hidden masterpiece'",
+      "The reset button is useful if you delete too much"
+    ]
   },
   "game": {
-    "colormap": [
-"",
-".r","",
-"...y",
-".....b"
-]
+    "map": [
+      "",
+      ".R",
+      "",
+      "...Y",
+      "",
+      ".....U"
+    ],
+    "offset": {
+        "x": 0,
+        "y": 0
+    }
   },
-  
   "dyk": [],
   "depends": []
 }

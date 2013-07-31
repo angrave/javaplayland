@@ -88,13 +88,28 @@ class window.GameVisual
         return
 
     pushCharacter: (config, character) =>
+        index = objArray.length
         tmp = new charObj(
             imgArray[character.imgSet],character.dir,
             config.grid.border+(config.grid.gridUnit*character.x),
             config.grid.border+(config.grid.gridUnit*character.y),
             character.xOff,character.yOff,character.xSize,
             character.ySize,character.animated)
-        objArray[objArray.length] = tmp
+        objArray[index] = tmp
+        return index
+
+    removeCharacter: (config, character) =>
+        index = -1
+        for object, i in objArray
+            if object.xpos == config.grid.border+(config.grid.gridUnit*character.x) and
+              object.ypos == config.grid.border+(config.grid.gridUnit*character.y) and
+              object.animarray == imgArray[character.imgSet]
+                index = i
+                break
+        if index != -1
+            objArray.splice index, 1
+            return true
+        return false
 
     drawText = () ->
 
