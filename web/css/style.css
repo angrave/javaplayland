@@ -14,11 +14,13 @@ body {
 }
 
 .ei {
+    float: left;
     height:100%;
     width:50%;
 }
 
 .eo {
+    float: right;
     height:100%;
     width:50%;
 }
