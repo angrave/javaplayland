@@ -34,7 +34,7 @@ class window.EditorManager
                     id: 'insertButtons'}).get(0)
             editorDiv.append buttonField.get 0
 
-        
+
 
         # New logic for up, down, and delete "buttons"
         if $.inArray('switchUp', @editorConfig.buttons) != -1
@@ -451,7 +451,7 @@ class window.PlayerCodeEditor
             @codeText = codeText
 
         @codePrefixLength = @codePrefix.split('\n').length - 1
-        @codeSuffixLength = @codeSuffix.split('\n').length - 1
+        @codeSuffixLength = @codeSuffix.split('\n').length - 1 + 1
 
         @enableKeyboardShortcuts()
 
