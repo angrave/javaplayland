@@ -544,9 +544,13 @@ class window.PlayerCodeEditor
         if currentRow >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         line = text.getLine currentRow
-        command = @interpreter.identifyCommand line
-        if command?
-            @commands[command]['usesRemaining']++
+
+        if @commands.hasOwnProperty line.trim()
+            @commands[line.trim()]['usesRemaining']++
+        else
+            command = @interpreter.identifyCommand line
+            if command?
+                @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
