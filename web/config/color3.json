@@ -8,7 +8,7 @@
     "buttons": [
       "switchUp",
       "switchDown",
-      "delete",
+      "deleteLine",
       "insertButtons"
     ],
     "commands": {
