@@ -564,21 +564,23 @@ class window.PlayerCodeEditor
 
         @commands[line]['usesRemaining']--
         printLine = (@createBlankFunctionHeader line) + ';'
-        text.insertLines currentRow + 1, [printLine]
-
-        if text.getLength() == 2 and text.getLine(currentRow) == ""
-            text.removeNewLine currentRow
-
-        @editor.gotoLine currentRow + 2, 0, false
+        @insertLine {text: text, line:printLine, currentRow:currentRow}
         return
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
+        currentLine = text.getLine currentRow
 
-        @commands[line]['usesRemaining']--
-        text.insertLines currentRow + 1, [line]
+        if @commands.hasOwnProperty line
+            @commands[line]['usesRemaining']--
+
+        if currentLine.trim() == ""
+            text.removeLines currentRow, currentRow
+            text.insertLines currentRow, [line]
+        else
+            text.insertLines currentRow + 1, [line]
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow
