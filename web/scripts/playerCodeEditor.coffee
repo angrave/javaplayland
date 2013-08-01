@@ -484,8 +484,14 @@ class window.PlayerCodeEditor
         return
 
     enableKeyboardShortcuts: ->
-        @editor.commands.commands.movelinesup['readOnly'] = true
-        @editor.commands.commands.movelinesdown['readOnly'] = true
+        ###
+            This usually enables keyboard shortcuts.
+            That said, it currently does nothing as those keyboard
+            shortcuts ignore prefix / suffix length and we effectively
+            have to over-write them with our own.
+        ###
+        # @editor.commands.commands.movelinesup['readOnly'] = true
+        # @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
     disableKeyboardShorcuts: ->
