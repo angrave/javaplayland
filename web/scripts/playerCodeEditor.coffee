@@ -204,7 +204,10 @@ class window.EditorManager
         buttonField = jQuery '#insertButtons'
         for command of @commands
             button = buttonField.find "##{jQuerySelectorEscapedString command}"
-            line = @editor.createBlankFunctionHeader command
+            if @commands[command].rawText?
+                line = command
+            else
+                line = @editor.createBlankFunctionHeader command
 
             if remaining != null
                 usesRemaining = remaining[command]
