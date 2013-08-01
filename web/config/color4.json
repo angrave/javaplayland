@@ -1,45 +1,54 @@
 {
-  "title": "re-usable integer",
+  "title": "Re-usable Integer",
   "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp","switchDown","delete"
+      "switchUp",
+      "switchDown",
+      "delete",
+      "insertButtons"
     ],
     "commands": {
-		"shorthand": [
-"drawPixel(x,y,\"yellow\");",
-"drawPixel(x,y,\"blue\");",
-"drawPixel(x,y,\"red\");",
-"drawPixel(x,y,\"white\");",
-"x=5; // x is now 5",
-"y=5;",
-"x=2;",
-"y=2;"
-]
-}
+      "shorthand": [
+        "drawPixel(x,y,\"yellow\");",
+        "drawPixel(x,y,\"blue\");",
+        "drawPixel(x,y,\"red\");",
+        "drawPixel(x,y,\"purple\");",
+        "x=5; // x is now 5",
+        "y=5;",
+        "x=2;",
+        "y=2;"
+      ]
+    }
   },
   "code": {
-	"prefix": [
-"void paint() {",
-"\tint x = 2;",
-"\tint y = 2;",
-"// Statements must go inside a method!"
-	],
-	"postfix": "}",
-    "comments" : [ "Color Puzzle 3 - 'String you along'",
-       "// Use the String variable to remember the color name you need" ]
+    "prefix": [
+      "void paint() {",
+      "\tint x = 2;",
+      "\tint y = 2;",
+      "// Statements must go inside a method!"
+    ],
+    "postfix": "}",
+    "comments": [
+      "Color Puzzle 4 - 'Re-usable Integer'",
+      "Use the String variable to remember the color name you need"
+    ]
   },
   "game": {
-    "colormap": [
-"","",
-"..w..r",
-"......",
-"......",
-"..y..b"
-]
+    "map": [
+      "",
+      "",
+      "..Q..R",
+      "......",
+      "......",
+      "..Y..U"
+    ]
   },
-  
   "dyk": [],
-  "depends": ["color3"]
+  "depends": [
+    "color3"
+  ]
 }
