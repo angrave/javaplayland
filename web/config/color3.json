@@ -29,7 +29,7 @@
     "postfix": "}",
     "comments": [
       "Color Puzzle 3 - 'String you along'",
-      "// Use the tStringng variable to remember the color name you need"
+      "Use the String variable to remember the color name you need"
     ]
   },
   "game": {
