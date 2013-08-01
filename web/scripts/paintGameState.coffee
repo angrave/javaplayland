@@ -63,21 +63,22 @@ class window.PaintGameState
         return
 
     drawPixel: (x, y, color) ->
-        @commands.push {
-            key: 'drawPixel',
-            exec: @_drawPixel.bind @, x, y, color
-        }
-        return
-
-    _drawPixel: (x, y, color) ->
         if not @gameManager.config.game.characterBase.hasOwnProperty color
             return
         char = @gameManager.generateCharacter color,
                 x, y, false
-        if @picture[x][y]
+        char.color = color
+        @picture[x][y] = char
+        @commands.push {
+            key: 'drawPixel',
+            exec: @_drawPixel.bind @, x, y, color, char
+        }
+        return
+
+    _drawPixel: (x, y, color, char) ->
+        if @picture[x][y]?
             @visual.removeCharacter @gameManager.config.visual, @picture[x][y].visual
         @visual.pushCharacter @gameManager.config.visual, char.visual
-        char.color = color
         @picture[x][y] = char
         return
 
