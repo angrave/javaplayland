@@ -21,6 +21,11 @@ class window.PaintGameState
                 temp.push null
             @picture.push temp
 
+        for name,character of @gameConfig.characters
+            if name.indexOf('Boarder') == -1
+                character.color = character.sprite
+                @picture[character.x][character.y] = character
+
         if clockHandle?
             clearInterval clockHandle
         clockHandle = setInterval @clock, 17

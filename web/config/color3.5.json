@@ -20,7 +20,6 @@
         "x -= 1;",
         "y += 2;",
         "y -= 1;",
-        "drawPixel(0, 0, \"blue\");",
         "drawPixel(x, y, colorToDraw);"
       ]
     }
@@ -28,8 +27,8 @@
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 1;",
-      "int y = 1;",
+      "int x = 3;",
+      "int y = 3;",
       "String colorToDraw;"
     ],
     "postfix": "}",
@@ -39,13 +38,13 @@
   },
   "game": {
     "map": [
-      "U",
+      "u",
       "",
       "..U"
     ],
     "offset": {
-      "x": 0,
-      "y": 0
+      "x": 2,
+      "y": 2
     }
   },
   "dyk": [],
