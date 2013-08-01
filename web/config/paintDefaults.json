@@ -55,6 +55,9 @@
       ],
       "yellowBoarder": [
         "img/yellowPixelBoarder.png"
+      ],
+      "white": [
+        "img/whitePixel.png"
       ]
     }
   },
@@ -134,6 +137,9 @@
         "yellowBoarder": {
           "sprite": "yellowBoarder",
           "match": "yellow"
+        },
+        "white": {
+            "sprite": "white"
         }
       },
       "key": {
@@ -152,7 +158,8 @@
         "r": "red",
         "R": "redBoarder",
         "y": "yellow",
-        "Y": "yellowBoarder"
+        "Y": "yellowBoarder",
+        "w": "white"
       }
     },
     "visual": {
@@ -305,6 +312,15 @@
         },
         "yellowBoarder": {
           "imgSet": 15,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "white": {
+          "imgSet": 16,
           "dir": 0,
           "xOff": 0,
           "yOff": 0,

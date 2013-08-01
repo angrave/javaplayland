@@ -70,6 +70,8 @@ class window.PaintGameState
         return
 
     _drawPixel: (x, y, color) ->
+        if not @gameManager.config.game.characterBase.hasOwnProperty color
+            return
         char = @gameManager.generateCharacter color,
                 x, y, false
         if @picture[x][y]
@@ -79,6 +81,19 @@ class window.PaintGameState
         char.color = color
         @picture[x][y] = char
         return
+
+    # getPixel: (x, y) ->
+    #     @commands.push {
+    #         key: 'getPixel',
+    #         exec: @_getPixel.bind @, x, y
+    #     }
+    #     return
+
+    getPixel: (x, y) ->
+        if @picture[x][y]
+            return @picture[x][y].color
+        else
+            return "white"
 
     gameWon: =>
         if not @startedGame
@@ -132,5 +147,4 @@ class PaintGameCommands
         return
 
     getPixel: (x, y) ->
-        console.log "getPixel(#{x},#{y}) called"
-        return
+        return @gameState.getPixel x, y

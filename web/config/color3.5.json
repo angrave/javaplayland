@@ -1,0 +1,53 @@
+{
+  "title": "A Guide To Taking Things",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "colorToDraw = getPixel(x,y);",
+        "x += 2;",
+        "x -= 1;",
+        "y += 2;",
+        "y -= 1;",
+        "drawPixel(0, 0, \"blue\");",
+        "drawPixel(x, y, colorToDraw);"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 1;",
+      "int y = 1;",
+      "String colorToDraw;"
+    ],
+    "postfix": "}",
+    "comments": [
+      "Color Puzzle 3 and 1/2 - 'A Guide To Taking Things'"
+    ]
+  },
+  "game": {
+    "map": [
+      "U",
+      "",
+      "..U"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": [],
+  "depends": []
+}
