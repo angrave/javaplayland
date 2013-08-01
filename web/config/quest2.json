@@ -4,7 +4,8 @@
     "color1",
     "color2",
     "color3",
-    "color4"
+    "color4",
+    "color6"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",

@@ -27,8 +27,8 @@
   "code": {
     "prefix": [
       "void paint() {",
-      "\tint x = 2;",
-      "\tint y = 2;",
+      "int x = 2;",
+      "int y = 2;",
       "// Statements must go inside a method!"
     ],
     "postfix": "}",

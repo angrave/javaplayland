@@ -24,7 +24,7 @@
   "code": {
     "prefix": [
       "// put your code between the opening '{' and closing '}'\nvoid paint() {",
-      "\tString color = \"yellow\";\n"
+      "String color = \"yellow\";\n"
     ],
     "postfix": "}",
     "comments": [

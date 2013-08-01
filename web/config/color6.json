@@ -1,42 +1,58 @@
 {
   "title": "Parameter plus 2",
   "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp","switchDown","delete"
+      "switchUp",
+      "switchDown",
+      "delete",
+      "insertButtons"
     ],
     "commands": {
-		"shorthand": [
-"drawPixel(col + 0, row, theColor);",
-"drawPixel(col + 2, row, theColor);",
-"String paintColor = \"red\";",
-"y=6;",
-"paintColor = \"white\";",
-"paintColor = \"blue\";"
-]
-}
+      "shorthand": [
+        {
+          "line": "drawPixel(col + 0, row, paintColor);",
+          "maxUses": 2
+        },
+        {
+          "line": "drawPixel(col + 2, row, paintColor);",
+          "maxUses": 2
+        },
+        "String paintColor = \"red\";",
+        "row=5;",
+        "paintColor = \"purple\";",
+        "paintColor = \"blue\";"
+      ]
+    }
   },
   "code": {
-	"prefix": [
-"void paint() {",
-"\tint col = 3; //Column across (x)",
-"\tint row = 3; //Row down (y)",
-"// Statements must go inside a method!"
-],
-	"postfix": "}",
-    "comments" : [ "Color Puzzle 6 - 'Parameter plus 2'",
-       "// Parameter values can be mathematical expressions" ]
+    "prefix": [
+      "void paint() {",
+      "int col = 3; //Column across (x)",
+      "int row = 3; //Row down (y)",
+      "// Statements must go inside a method!"
+    ],
+    "postfix": "}",
+    "comments": [
+      "Color Puzzle 6 - 'Parameter plus 2'",
+      "Parameter values can be mathematical expressions"
+    ]
   },
   "game": {
-    "colormap": [
-"","","",
-"...w.r",
-"",
-"...b.b"
-]
+    "map": [
+      "",
+      "",
+      "",
+      "...Q.R",
+      "",
+      "...U.U"
+    ]
   },
-  
   "dyk": [],
-  "depends": ["color4"]
+  "depends": [
+    "color4"
+  ]
 }

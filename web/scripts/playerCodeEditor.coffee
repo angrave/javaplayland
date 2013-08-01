@@ -94,14 +94,21 @@ class window.EditorManager
         buttons = []
         if @commands.shorthand?
             for line in @commands.shorthand
+                lineText = line
+                maxUses = 1
+                if typeof line == "object"
+                    if line.line?
+                        lineText = line.line
+                    if line.maxUses?
+                        maxUses = line.maxUses
                 command = {
-                    usesRemaining: 1,
+                    usesRemaining: maxUses,
                     inputs: 0,
-                    maxUses: 1,
+                    maxUses: maxUses,
                     rawText: true
                 }
-                @commands[line] = command
-                @editor.commands[line] = command
+                @commands[lineText] = command
+                @editor.commands[lineText] = command
             delete @commands.shorthand
         for command of @commands
             codeEditor = @editor
