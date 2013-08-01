@@ -255,6 +255,8 @@ root.addToObject = (source, destination) ->
 root.stringifyConfigArrays = (gameData) ->
     gameData.game.map = gameData.game.map.join '\n' if gameData?.game.map?.join?
     gameData.code.prefix = gameData.code.prefix.join '\n' if gameData?.code.prefix.join?
+    if gameData.code.prefix.charAt(gameData.code.prefix.length - 1) != '\n'
+        gameData.code.prefix += '\n'
     gameData.code.postfix = gameData.code.postfix.join '\n' if gameData?.code.postfix.join?
     gameData.code.initial = gameData.code.initial.join '\n' if gameData?.code.initial?.join?
     return
@@ -295,9 +297,9 @@ root.convertShorthandToCode = (gameData) ->
 root.addHintsToCode = (gameData) ->
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
-        one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
+        one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
         gameData.code.initial = one + '\n' + \
-            if gameData.code.initial? then gameData.code.initial else ''
+            (if gameData.code.initial? then gameData.code.initial else '')
     return
 
 root.getGameDescriptions = ->
