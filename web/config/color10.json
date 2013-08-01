@@ -1,47 +1,56 @@
 {
   "title": "Value swap",
   "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp","switchDown","delete"
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
     ],
     "commands": {
-		"shorthand": [
-"y = x; ",
-"x = y;",
-"temp = y;",
-"temp = x;",
-"x = temp;",
-"y = temp;",
-"drawPixel(x , y , \"blue\");",
-"drawPixel(x , y , \"white\");"
-]
-}
+      "shorthand": [
+        "y = x; ",
+        "x = y;",
+        "temp = y;",
+        "temp = x;",
+        "x = temp;",
+        "y = temp;",
+        "drawPixel(x , y , \"blue\");",
+        "drawPixel(x , y , \"pink\");"
+      ]
+    }
   },
   "code": {
-	"prefix": [
-
-"void paint() {",
-"int x = 6;",
-"int y = 3;",
-"int temp = 0;",
-"// Hint: You'll need the temp variable to keep a copy of the original value"
-],	
-	"postfix": "}",
-    "comments" : [ "Color Puzzle 10 - 'Variable swap",
-       "// x = y means get the integer value of y and store the same value in variable x." ]
+    "prefix": [
+      "void paint() {",
+      "int x = 6;",
+      "int y = 3;",
+      "int temp = 0;",
+      "// Hint: You'll need the temp variable to keep a copy of the original value"
+    ],
+    "postfix": "}",
+    "comments": [
+      "Color Puzzle 10 - 'Variable swap",
+      "x = y means get the integer value of y and store the same value in variable x."
+    ]
   },
   "game": {
-    "colormap": [
-
-"","","",
-"......b",
-"","",
-"...w"
-]
+    "map": [
+      "",
+      "",
+      "",
+      "......U",
+      "",
+      "",
+      "...P"
+    ]
   },
-  
   "dyk": [],
-  "depends": ["color8"]
+  "depends": [
+    "color8"
+  ]
 }
