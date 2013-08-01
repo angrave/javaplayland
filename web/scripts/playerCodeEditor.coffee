@@ -440,18 +440,19 @@ class window.PlayerCodeEditor
         if !@freeEdit
             jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
+        @codePrefixLength = 0
+        @codeSuffixLength = 0
         if @wrapCode == true
             if @codePrefix != ""
                 @codeText = @codePrefix + codeText
+                @codePrefixLength = @codePrefix.split('\n').length - 1
             if @codeSuffix != ""
                 @codeText += '\n' + @codeSuffix
+                @codeSuffixLength = @codeSuffix.split('\n').length - 1 + 1
         else
             @codePrefix = ""
             @codeSuffix = ""
             @codeText = codeText
-
-        @codePrefixLength = @codePrefix.split('\n').length - 1
-        @codeSuffixLength = @codeSuffix.split('\n').length - 1 + 1
 
         @enableKeyboardShortcuts()
 
