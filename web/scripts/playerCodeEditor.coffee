@@ -1,6 +1,9 @@
 String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
+jQuerySelectorEscapedString = (str) ->
+  return str.replace(/[^a-z0-9_]/gi, '\\$&')
+
 class window.EditorManager
     ###
         Manages the code editor.
@@ -77,9 +80,6 @@ class window.EditorManager
         @moveEditorButtonDelay = 30
         setTimeout @moveEditorButtons, @moveEditorButtonDelay
         @editor.gotoLine @findFirstNonCommentLine(@codeConfig.initial)
-
-
-
         return
 
     setUpInsertButtons: ->
@@ -203,7 +203,7 @@ class window.EditorManager
         valid = true
         buttonField = jQuery '#insertButtons'
         for command of @commands
-            button = buttonField.find "##{command}"
+            button = buttonField.find "##{jQuerySelectorEscapedString command}"
             line = @editor.createBlankFunctionHeader command
 
             if remaining != null
