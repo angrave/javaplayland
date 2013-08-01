@@ -76,18 +76,10 @@ class window.PaintGameState
                 x, y, false
         if @picture[x][y]
             @visual.removeCharacter @gameManager.config.visual, @picture[x][y].visual
-        index = @visual.pushCharacter @gameManager.config.visual, char.visual
-        char.index = index
+        @visual.pushCharacter @gameManager.config.visual, char.visual
         char.color = color
         @picture[x][y] = char
         return
-
-    # getPixel: (x, y) ->
-    #     @commands.push {
-    #         key: 'getPixel',
-    #         exec: @_getPixel.bind @, x, y
-    #     }
-    #     return
 
     getPixel: (x, y) ->
         if @picture[x][y]

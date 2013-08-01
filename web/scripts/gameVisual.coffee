@@ -88,15 +88,14 @@ class window.GameVisual
         return
 
     pushCharacter: (config, character) =>
-        index = objArray.length
         tmp = new charObj(
             imgArray[character.imgSet],character.dir,
             config.grid.border+(config.grid.gridUnit*character.x),
             config.grid.border+(config.grid.gridUnit*character.y),
             character.xOff,character.yOff,character.xSize,
             character.ySize,character.animated)
-        objArray[index] = tmp
-        return index
+        objArray[objArray.length] = tmp
+        return
 
     removeCharacter: (config, character) =>
         index = -1
