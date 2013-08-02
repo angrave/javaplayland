@@ -103,9 +103,13 @@ class window.PaintGameState
         @gameManager.gameWon @score, @stars
 
         gameName = @gameManager.gameName()
-        gameIndex = @gameManager.environment.codeland.currentQuest.games.indexOf gameName
-        gameIndex = ++gameIndex % @gameManager.environment.codeland.currentQuest.games.length
-        gameName = @gameManager.environment.codeland.currentQuest.games[gameIndex]
+        codeland = @gameManager.environment.codeland
+        gameIndex = codeland.currentQuest.games.indexOf gameName
+        questIndex = codeland.quests.indexOf codeland.currentQuest
+        if ++gameIndex == codeland.currentQuest.games.length
+            questIndex = ++questIndex % codeland.quests.length
+            gameIndex = 0
+        gameName = codeland.quests[questIndex].games[gameIndex]
         messages = []
         messages[0] = 'Congratulations!'
         window.objCloud 400, messages,
