@@ -13,6 +13,5 @@
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
     "getColor(I,I)Ljava/lang/String;"
-  ],
-  "commandBeanshell": "void drawPixel (int x, int y, String color) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.drawPixel(\" + x + \",\" + y + \",\\\"\" + color + \"\\\");\");\n}\nString getPixel (int x, int y) {\n    return classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.getPixel(\" + x + \",\" + y + \");\");\n}"
+  ]
 }

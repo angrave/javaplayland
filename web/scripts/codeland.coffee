@@ -31,7 +31,7 @@ root.initializeDoppio = ->
 
 root.preloadDoppio = ->
     if root.doppioPreloaded == false
-        root.doppioAPI.preload root.currentQuest.commandBeanshell, root.wrapperCompiled
+        root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled
         root.doppioPreloaded = true
     return
 
@@ -212,6 +212,7 @@ root.loadJSONConfigs = () ->
                 return
         root.quests = []
         root.visualMasters = {}
+        root.beanshellPreload = data.beanshellPreload
         questIndex = 0
         for quest in data.quests
             root.readJSON "config/#{quest}", (questData) ->
