@@ -585,13 +585,15 @@ class window.PlayerCodeEditor
         if currentLine.trim() == ""
             text.removeLines currentRow, currentRow
             text.insertLines currentRow, [line]
+            cursorOffset = 1
         else
             text.insertLines currentRow + 1, [line]
+            cursorOffset = 2
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow
 
-        @editor.gotoLine currentRow + 2, 0, false
+        @editor.gotoLine currentRow + cursorOffset, 0, false
         return
 
     editLine: ({text, editRow, newLine}) ->
