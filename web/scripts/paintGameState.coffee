@@ -110,6 +110,7 @@ class window.PaintGameState
         messages[0] = 'Congratulations!'
         window.objCloud 400, messages,
             "body", "30%", "30%", 1.5, gameName, @gameManager
+        @gameManager.gameRunFinished()
         return
 
     gameLost: =>
@@ -124,6 +125,7 @@ class window.PaintGameState
         window.objCloud 400, messages,
             "body", "30%", "30%", 3, "none", @gameManager
         clockHandle = setInterval @clock, 17
+        @gameManager.gameRunFinished()
         return
 
     stopGame: =>

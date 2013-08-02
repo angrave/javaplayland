@@ -39,9 +39,11 @@ class window.GameManager
         @gameDiv.append(vis)
 
 
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png" title="Run code"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png" title="Run Code"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Stop" id="stopRun" src="/img/freeware/button_stop_red-48px.png" title="Stop Code"/>'
         $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:8%" alt="Reset" title="Restart level (reset code back to original)" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
         $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:15%" alt="Help/Tips" title="Help/Tips" id="help" src="/img/freeware/info-48px.png"/>'
+        jQuery('#stopRun').hide()
 
 
         @codeEditor = new EditorManager @editorDiv, @config.editor, @config.code
@@ -157,6 +159,7 @@ class window.GameManager
 
     addEventListeners: ->
         jQuery('#compileAndRun').click @runStudentCode
+        jQuery('#stopRun').click @stopStudentCode
         jQuery('#resetState').click @reset
         jQuery('#help').click @helpTips
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
@@ -178,7 +181,12 @@ class window.GameManager
         return
 
     runStudentCode: =>
+        if @running
+            return
+        @running = true
         code = @codeEditor.getStudentCode()
+        jQuery('#compileAndRun').hide()
+        jQuery('#stopRun').show()
         if @environment.backEnd == 'interpreter'
             @codeEditor.scan()
             if not @canRun
@@ -187,16 +195,40 @@ class window.GameManager
             @startGame true
             @interpreter.executeCommands @commandMap
         else if @environment.backEnd == 'doppio'
+            @codeEditor.scan()
+            if not @canRun
+                return
             stdout = log = console.log
             @environment.codeland.doppioAPI.setOutputFunctions stdout, log
             finish_cb = ->
                 return
             if not @environment.codeland.doppioReady
                 @environment.codeland.waitForWrapper @runStudentCode
+                @running = false
                 console.log 'Waiting for Doppio to be compiled'
                 return
             @startGame true
             @environment.codeland.doppioAPI.run code, true, finish_cb
+        return false
+
+    stopStudentCode: =>
+        if not @running
+            return
+        if @environment.backEnd == 'doppio'
+            @environment.codeland.doppioAPI.abort @showRun
+        else
+            @showRun()
+        @startGame true
+        return false
+
+    showRun: =>
+        jQuery('#stopRun').hide()
+        jQuery('#compileAndRun').show()
+        @running = false
+        return
+
+    gameRunFinished: ->
+        @showRun()
         return
 
     helpTips:=>

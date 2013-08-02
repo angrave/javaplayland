@@ -96,6 +96,8 @@ class window.DoppioApi
                 @firstRun = @run.bind @, studentCode, gameContext, finished_cb
             return
         start_time = (new Date()).getTime()
+        if @rs.is_abort_requested
+            @rs.abort_requested = null
         console?.log 'Starting Run'
         class_args = [studentCode]
         finish_cb = =>
