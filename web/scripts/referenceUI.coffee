@@ -253,7 +253,7 @@ window.AboutPage = () ->
 
     <br>
     <em>Software development and bug contribution</em><br>
-    Original software created by University of Illinois students and faculty, Chris, Fabbian, James and Lawrence.
+    Original software created by University of Illinois students and faculty, Chris Liu, Fabian Junge, James Kelly and Lawrence Angrave.
     <br/>
     "
 
