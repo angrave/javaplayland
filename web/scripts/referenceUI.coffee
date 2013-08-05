@@ -147,29 +147,29 @@ setUpJavaSandbox = (input, output, texti) ->
     
 
     run = jQuery '<img>', {
-        id: 'runCode',
+        id: 'runCode'+editorCount,
         src: '/img/freeware/button_play_green-48px.png',
         css: {'max-height':'19%', 'display':'block', 'min-height': '24px'},
         alt: 'Run Button',
         title:'Run the program',
         click: (e) ->
             textOutput.text 'Running...'
-            jQuery('#runCode').hide()
-            jQuery('#abortCode').show()
+            jQuery(this).hide()
+            jQuery(this).siblings("img").show()
 
             msg = ''
-            finished_cb = ->
+            finished_cb = =>
                 #Hide Running... if nothing was printed
                 stdout('')
-                jQuery('#abortCode').hide();
-                jQuery('#runCode').show()
+                jQuery(this).hide()
+                jQuery(this).siblings("img").show()
             codeland.doppioAPI.abort()
             codeland.doppioAPI.setOutputFunctions stdout, log
             srcText  = sandBoxEditor.getStudentCode()
             if(srcText.indexOf("[]") != -1)
                 stdout('Arrays are not yet supported by our Web-based Java')
-                jQuery('#abortCode').hide();
-                jQuery('#runCode').show()
+                jQuery(this).siblings("img").hide()
+                jQuery(this).show()
             else
                 codeland.doppioAPI.run(srcText,null, finished_cb)
 
@@ -177,16 +177,16 @@ setUpJavaSandbox = (input, output, texti) ->
             return
     }
     abort = jQuery '<img>', {
-        id: 'abortCode',
+        id: 'abortCode'+editorCount,
         src: '/img/freeware/button_stop_red-48px.png',
         css: {'max-height':'19%', 'display':'block', 'min-height': '24px'},
         alt: 'Abort Button',
         title: 'Stop the currently running program',
         click: (e) ->
-            aborted = ->
+            aborted = =>
                 stdout("Stopped")
-                jQuery('#runCode').show()
-                jQuery('#abortCode').hide()
+                jQuery(this).siblings("img").show()
+                jQuery(this).hide()
             codeland.doppioAPI.abort(aborted)
             e.preventDefault()
             return
