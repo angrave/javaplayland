@@ -3,6 +3,8 @@
   "description": "To write code, you must also read code and run it in your head!",
   "task": "Work with parameters to functions!",
   "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
   "editor": {
     "freeformEditting": false,
     "buttons": [

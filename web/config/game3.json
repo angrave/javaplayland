@@ -3,6 +3,8 @@
   "description": "I refuse to comment!",
   "task": "",
   "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
   "editor": {
     "freeformEditting": false,
     "buttons": [

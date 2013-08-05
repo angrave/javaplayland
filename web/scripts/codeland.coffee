@@ -4,8 +4,10 @@ root = exports ? this.codeland = {}
 root.UIcont = null
 
 #IE Support ....
-if( ! window.console)
-    window.console= { log: -> }
+
+# if ( ! window.console)
+#     window.console= { log: -> }
+
 
 #Chrome support: 'this' must be the console object
 #log = (mesg)-> console.log mesg
@@ -21,11 +23,28 @@ root.initialize = (UIcont) ->
     return
 
 root.initializeDoppio = ->
-    root.doppioWrapper = 'wrapper.bsh'
-    node.fs.writeFileSync root.doppioWrapper, root.quest.commandBeanshell
+    root.doppioReady = false
+    root.doppioPreloaded = false
     root.doppioAPI = new DoppioApi null, root.log
-    # classes.doppio.JavaScript.eval("console.log(1);");
-    # root.doppioAPI = new DoppioApi null, console.log, null
+    root.preloadDoppio()
+    return
+
+root.preloadDoppio = ->
+    if root.doppioPreloaded == false
+        root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled
+        root.doppioPreloaded = true
+    return
+
+root.wrapperCompiled = =>
+    root.doppioReady = true
+    console.log 'Finished Preloading Doppio'
+    if root.wrapperCompiledCallback?
+        console.log 'Found Callback, running'
+        root.wrapperCompiledCallback()
+    return
+
+root.waitForWrapper = (callback) ->
+    root.wrapperCompiledCallback = callback
     return
 
 root.reference = () ->
@@ -35,7 +54,7 @@ root.drawGameMap = (player) ->
     descriptions = root.getGameDescriptions()
     mapDiv = $(root.UIcont)
     mapDiv.empty()
-    
+
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
     count = 0
@@ -45,7 +64,7 @@ root.drawGameMap = (player) ->
         sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland)
     addGameToMap game for game in gameSequence
     tmp1 = document.getElementById("gameSelection")
-    
+
     $('<span style="font-size:200%">Choose your Java Game</span><br>').prependTo tmp1
     $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
@@ -57,6 +76,11 @@ root.drawGameMap = (player) ->
 
 root.startGame = (game) ->
     console.log("Starting #{game}")
+    for quest, index in root.quests
+        found = quest.games.indexOf game
+        if found != -1
+            root.currentQuest = root.quests[index]
+            break
     root.currentGame.finishGame() if root.currentGame
 
     gamediv = $(root.UIcont)
@@ -71,18 +95,17 @@ root.startGame = (game) ->
     env = {
         key: game
         description : description
-        visualMaster: root.visualMaster
-        frameRate: root.visualMaster.frameRate
+        visualMaster: root.visualMasters[game]
+        frameRate: root.visualMasters[game].frameRate
         gamediv : gamediv
         player : root.getPlayer()
         codeland : this
+        backEnd: description.backEnd
+        gameState: description.gameState
     }
-
-    managerString  = description?.manager ?= 'GameManager'
-
-    root.currentGame = new window[managerString](env)
-
+    root.currentGame = new GameManager env
     root.currentGame.startGame()
+    return
 
 deepcopy = (src) -> $.extend(true, {}, src)
 
@@ -113,6 +136,7 @@ root.storeGameCompletionData = (key, data) ->
 
 root.showMap = () ->
     root.currentGame.finishGame() if root.currentGame
+    root.wrapperCompiledCallback = null if root.wrapperCompiledCallback?
     root.currentGame = null
     root.drawGameMap root.getPlayer()
     return
@@ -147,11 +171,11 @@ root.clearPlayer = ->
     root.clearString "CurrentPlayer"
     return
 
-root.readJSON =(theurl,cb) ->
-    fail =false
+root.readJSON = (theurl, cb) ->
+    fail = false
     console.log "Reading #{theurl}"
     try
-        jQuery.ajax({
+        jQuery.ajax {
             dataType: 'json',
             url: theurl,
             async: false,
@@ -163,38 +187,61 @@ root.readJSON =(theurl,cb) ->
             success: (data) ->
                 cb(data)
                 return
-            })
+            }
     catch exception
-        fail=true
+        fail= true
         console.log "#{theurl}: #{exception} #{exception.message} #{exception.stack}"
-    if(fail) 
+    if(fail)
         throw "Configuration Exception reading #{theurl}"
     return
-        
+
 root.loadJSONConfigs = () ->
     if not root.gameDescriptions?
         root.gameDescriptions = {}
     configFail = false
-    try 
-        root.readJSON('config/defaults.json', (data)->root.gameDefaults=data)
-        root.readJSON('config/quest1.json', (data)->root.quest = data)
-        readGameData = (gameData) ->
-            if gameData
-                root.addToObject root.gameDefaults, gameData
-                root.convertShorthandToCode gameData
-                root.addHintsToCode gameData
-                root.gameDescriptions[game] = gameData
-        for game in root.quest.games
-            root.readJSON("config/#{game}.json", readGameData)
-
-        root.readJSON('config/visualMaster.json', (data)->root.visualMaster = data)
-    catch exception
-        configFail = true
-        console.log "#{exception} #{exception.message} #{exception.stack}"
-        
+    root.readJSON 'config/config.json', (data) ->
+        if data == undefined
+            configFail = true
+        root.baseDefaults = data.defaults
+        root.gameDefaults = {}
+        for type in data.gameTypes
+            root.readJSON "config/#{type}", (typeData) ->
+                if typeData == undefined
+                    configFail = true
+                root.gameDefaults[typeData.gameType] = typeData
+                return
+        root.quests = []
+        root.visualMasters = {}
+        root.beanshellPreload = data.beanshellPreload
+        questIndex = 0
+        for quest in data.quests
+            root.readJSON "config/#{quest}", (questData) ->
+                if questData == undefined
+                    configFail = true
+                root.quests[questIndex++] = questData
+                for game in questData.games
+                    root.readJSON "config/#{game}.json", (gameData) ->
+                        if gameData == undefined
+                            configFail = true
+                        try
+                            root.addToObject root.baseDefaults, gameData
+                            root.addToObject root.gameDefaults[gameData.gameType].defaults, gameData
+                            root.visualMasters[game] = root.gameDefaults[gameData.gameType].visualMaster
+                            root.stringifyConfigArrays gameData
+                            root.convertShorthandToCode gameData
+                            root.addHintsToCode gameData
+                            root.gameDescriptions[game] = gameData
+                            return
+                        catch error
+                            configFail = true
+                            console.log "#{error} #{error.message} #{error.stack}"
+                        return
+                return
+        root.currentQuest = root.quests[0]
+        return
     if configFail
         root.gameDescriptions = null
-        throw "Configuration Exceptio!n"
+        throw "Configuration Exception"
     return
 
 root.addToObject = (source, destination) ->
@@ -206,11 +253,22 @@ root.addToObject = (source, destination) ->
             destination[key] = value
     return
 
+root.stringifyConfigArrays = (gameData) ->
+    gameData.game.map = gameData.game.map.join '\n' if gameData?.game.map?.join?
+    gameData.code.prefix = gameData.code.prefix.join '\n' if gameData?.code.prefix.join?
+    if gameData.code.prefix.charAt(gameData.code.prefix.length - 1) != '\n'
+        gameData.code.prefix += '\n'
+    gameData.code.postfix = gameData.code.postfix.join '\n' if gameData?.code.postfix.join?
+    gameData.code.initial = gameData.code.initial.join '\n' if gameData?.code.initial?.join?
+    return
+
 root.convertShorthandToCode = (gameData) ->
     if gameData.code.initial?
         return
     initial = ''
     shorthand = gameData.code.shorthand
+    if not shorthand?
+        return
     while shorthand != ''
         for short in gameData.code.shorthandKey
             re = new RegExp short.regex
@@ -240,11 +298,9 @@ root.convertShorthandToCode = (gameData) ->
 root.addHintsToCode = (gameData) ->
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
-        one= '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
-        gameData.code.initial = one + '\n' + gameData.code.initial
-        # To prevent comments from being edited
-        #gameData.code.prefix = one + '\n'
-        #gameData.code.show = true
+        one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
+        gameData.code.initial = one + '\n' + \
+            (if gameData.code.initial? then gameData.code.initial else '')
     return
 
 root.getGameDescriptions = ->
@@ -266,7 +322,6 @@ root.getGameSequence = ->
     addGame(g) for g,ignore of games
     return root.gameSequence
 
-
 root.canPlay = (game) ->
     player = root.getPlayer()
     #If already completed then no need to check dependencies
@@ -280,3 +335,4 @@ root.canPlay = (game) ->
 
     passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
+    return

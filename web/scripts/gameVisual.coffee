@@ -61,13 +61,14 @@ class window.GameVisual
         univImg[1] = new Image()
         univImg[1].src = "img/shadow.png"
         tmp = []
+        index = 0
         for key,imgar of config
             tmp = []
             for fi in imgar
                 imgo = new Image()
                 imgo.src = fi
                 tmp[tmp.length] = imgo
-            imgArray[imgArray.length] = tmp
+            imgArray[index++] = tmp
         return
 
     ###
@@ -94,6 +95,20 @@ class window.GameVisual
             character.xOff,character.yOff,character.xSize,
             character.ySize,character.animated)
         objArray[objArray.length] = tmp
+        return
+
+    removeCharacter: (config, character) =>
+        index = -1
+        for object, i in objArray
+            if object.xpos == config.grid.border+(config.grid.gridUnit*character.x) and
+              object.ypos == config.grid.border+(config.grid.gridUnit*character.y) and
+              object.animarray == imgArray[character.imgSet]
+                index = i
+                break
+        if index != -1
+            objArray.splice index, 1
+            return true
+        return false
 
     drawText = () ->
 
@@ -195,7 +210,6 @@ class window.GameVisual
             else
                 @fallticker = 0
 
-
             return objState
 
         imFace: (@dir) ->
@@ -255,7 +269,6 @@ class window.GameVisual
         return
 
     chckMv: (config) ->
-
         for obj in objArray
             if obj.state() >= 6 && obj.state() <= 9
                 mr = 2*config.animation.pixMoveRate

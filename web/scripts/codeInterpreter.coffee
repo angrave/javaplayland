@@ -67,7 +67,7 @@ class window.CodeInterpreter
             # Remove whitespace
             if result == null
                 result = /^\s+/.exec text
-    
+
             # Recognize a semicolon
             if result == null
                 result = /^;/.exec text
@@ -86,7 +86,7 @@ class window.CodeInterpreter
 
             if result == null
                 # None of our regexes returned, eat the first character and continue
-                if(text.charAt(0)=='\n') 
+                if(text.charAt(0)=='\n')
                     currentLine++
                 text = text.substring 1
             else

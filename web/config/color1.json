@@ -1,0 +1,54 @@
+{
+  "title": "Corner colors",
+  "description": "",
+  "task": "",
+  "tags": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "drawPixel(0,0,\"red\");",
+        "drawPixel(7,0,\"yellow\");",
+        "drawPixel(0,7,\"yellow\");",
+        "drawPixel(0,7,\"blue\");",
+        "drawPixel(7,0,\"blue\");",
+        "drawPixel(7,7,\"purple\");"
+      ]
+    }
+  },
+  "code": {
+    "prefix": "// put your code between the opening '{' and closing '}'\nvoid paint() {\n",
+    "postfix": "} // put your code inside this paint method",
+    "initial": "",
+    "comments": [
+      "Color Puzzle 1 - 'Corner colors'",
+      "Color the colors"
+    ]
+  },
+  "game": {
+    "map": [
+      "R......U",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Y......Q"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": [],
+  "depends": []
+}

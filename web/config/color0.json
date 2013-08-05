@@ -1,0 +1,33 @@
+{
+  "title": "Picture #1",
+  "description": "A New Challenge",
+  "task": "",
+  "tags": "paint",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown"
+    ],
+    "commands": {}
+  },
+  "code": {
+    "shorthand": "d(0,0,\"red\")d(7,0,\"blue\")d(0,7,\"green\")",
+    "comments": [
+      "No Comment"
+    ]
+  },
+  "game": {
+    "map": "R......U\n\n\n\n\n\n\nG",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": [
+    "Colors are colerful (Replace with better dyk)"
+  ],
+  "depends": []
+}

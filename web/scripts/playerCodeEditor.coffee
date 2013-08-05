@@ -1,6 +1,9 @@
 String.prototype.startsWith ?= (str) ->
     return @lastIndexOf(str, 0) == 0
 
+jQuerySelectorEscapedString = (str) ->
+  return str.replace(/[^a-z0-9_]/gi, '\\$&')
+
 class window.EditorManager
     ###
         Manages the code editor.
@@ -34,7 +37,7 @@ class window.EditorManager
                     id: 'insertButtons'}).get(0)
             editorDiv.append buttonField.get 0
 
-        
+
 
         # New logic for up, down, and delete "buttons"
         if $.inArray('switchUp', @editorConfig.buttons) != -1
@@ -53,7 +56,8 @@ class window.EditorManager
         @interpreter = new CodeInterpreter @commands
         @editor = new PlayerCodeEditor 'ace-editor', \
             @commands, @codeConfig.initial, @codeConfig.show, @codeConfig.prefix, \
-            @codeConfig.postfix, @editorConfig.freeformEditting, @interpreter
+            @codeConfig.postfix, @codeConfig.hiddenPostFix, \
+            @editorConfig.freeformEditting, @interpreter
 
         # Create editor buttons
 
@@ -76,9 +80,6 @@ class window.EditorManager
         @moveEditorButtonDelay = 30
         setTimeout @moveEditorButtons, @moveEditorButtonDelay
         @editor.gotoLine @findFirstNonCommentLine(@codeConfig.initial)
-
-
-
         return
 
     setUpInsertButtons: ->
@@ -91,19 +92,42 @@ class window.EditorManager
 
         buttonField = jQuery('#insertButtons')
         buttons = []
+        if @commands.shorthand?
+            for line in @commands.shorthand
+                lineText = line
+                maxUses = 1
+                if typeof line == "object"
+                    if line.line?
+                        lineText = line.line
+                    if line.maxUses?
+                        maxUses = line.maxUses
+                command = {
+                    usesRemaining: maxUses,
+                    inputs: 0,
+                    maxUses: maxUses,
+                    rawText: true
+                }
+                @commands[lineText] = command
+                @editor.commands[lineText] = command
+            delete @commands.shorthand
         for command of @commands
-            line = @editor.createBlankFunctionHeader(command) + ';'
-            usesRemaining = @commands[command]['usesRemaining']
             codeEditor = @editor
+            if @commands[command].rawText?
+                line = command
+                funct = codeEditor.insertLine
+            else
+                line = @editor.createBlankFunctionHeader(command) + ';'
+                funct = codeEditor.insertCommand
+            usesRemaining = @commands[command]['usesRemaining']
             button = jQuery '<button>', {
                 id: command,
                 value: command,
                 text: "#{line}: #{usesRemaining}",
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
-                        codeEditor.usesTextDocument codeEditor.insertLine)
+                        codeEditor.usesTextDocument funct )
                     .call(codeEditor,
-                            codeEditor.createNamedArguments({command: e.currentTarget.value}))
+                            codeEditor.createNamedArguments({line: e.currentTarget.value}))
                     return false
             }
             buttons.push button.get 0
@@ -186,8 +210,11 @@ class window.EditorManager
         valid = true
         buttonField = jQuery '#insertButtons'
         for command of @commands
-            button = buttonField.find "##{command}"
-            line = @editor.createBlankFunctionHeader command
+            button = buttonField.find "##{jQuerySelectorEscapedString command}"
+            if @commands[command].rawText?
+                line = command
+            else
+                line = @editor.createBlankFunctionHeader command
 
             if remaining != null
                 usesRemaining = remaining[command]
@@ -407,7 +434,9 @@ class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
-    constructor: (@editorDivId, @commands, codeText, @wrapCode, @codePrefix, @codeSuffix, @freeEdit, @interpreter) ->
+    constructor: (
+            @editorDivId, @commands, codeText, @wrapCode, @codePrefix,
+            @codeSuffix, @hiddenSuffix, @freeEdit, @interpreter) ->
         ###
             Sets internal variables, the default text and buttons
             and their event handlers.
@@ -421,18 +450,19 @@ class window.PlayerCodeEditor
         if !@freeEdit
             jQuery("##{@editorDivId} textarea").attr "readonly", "readonly"
 
+        @codePrefixLength = 0
+        @codeSuffixLength = 0
         if @wrapCode == true
             if @codePrefix != ""
                 @codeText = @codePrefix + codeText
+                @codePrefixLength = @codePrefix.split('\n').length - 1
             if @codeSuffix != ""
                 @codeText += '\n' + @codeSuffix
+                @codeSuffixLength = @codeSuffix.split('\n').length - 1 + 1
         else
             @codePrefix = ""
             @codeSuffix = ""
             @codeText = codeText
-
-        @codePrefixLength = @codePrefix.split('\n').length - 1
-        @codeSuffixLength = @codeSuffix.split('\n').length - 1
 
         @enableKeyboardShortcuts()
 
@@ -443,7 +473,10 @@ class window.PlayerCodeEditor
         return
 
     getStudentCode: ->
-        return @editor.getValue()
+        code = @editor.getValue()
+        if @hiddenSuffix?
+            code += '\n' + @hiddenSuffix
+        return code
 
     gotoLine: (row) ->
         column = @editor.getCursorPosition().column
@@ -451,8 +484,14 @@ class window.PlayerCodeEditor
         return
 
     enableKeyboardShortcuts: ->
-        @editor.commands.commands.movelinesup['readOnly'] = true
-        @editor.commands.commands.movelinesdown['readOnly'] = true
+        ###
+            This usually enables keyboard shortcuts.
+            That said, it currently does nothing as those keyboard
+            shortcuts ignore prefix / suffix length and we effectively
+            have to over-write them with our own.
+        ###
+        # @editor.commands.commands.movelinesup['readOnly'] = true
+        # @editor.commands.commands.movelinesdown['readOnly'] = true
         return
 
     disableKeyboardShorcuts: ->
@@ -511,28 +550,50 @@ class window.PlayerCodeEditor
         if currentRow >= maxRow - @codeSuffixLength or currentRow < @codePrefixLength
             return
         line = text.getLine currentRow
-        command = @interpreter.identifyCommand line
-        if command?
-            @commands[command]['usesRemaining']++
+
+        if @commands.hasOwnProperty line.trim()
+            @commands[line.trim()]['usesRemaining']++
+        else
+            command = @interpreter.identifyCommand line
+            if command?
+                @commands[command]['usesRemaining']++
         if text.getLength() == 1
             text.insertLines currentRow + 1, ["\n"]
             text.removeNewLine currentRow
         text.removeLines currentRow, currentRow
         return
 
-    insertLine: ({text, command, currentRow}) ->
+    insertCommand: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
         if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
             return
 
-        @commands[command]['usesRemaining']--
-        printLine = (@createBlankFunctionHeader command) + ';'
-        text.insertLines currentRow + 1, [printLine]
+        @commands[line]['usesRemaining']--
+        printLine = (@createBlankFunctionHeader line) + ';'
+        @insertLine {text: text, line:printLine, currentRow:currentRow}
+        return
+
+    insertLine: ({text, line, currentRow}) ->
+        maxRow = @editSession.getLength()
+        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
+            return
+        currentLine = text.getLine currentRow
+
+        if @commands.hasOwnProperty line
+            @commands[line]['usesRemaining']--
+
+        if currentLine.trim() == ""
+            text.removeLines currentRow, currentRow
+            text.insertLines currentRow, [line]
+            cursorOffset = 1
+        else
+            text.insertLines currentRow + 1, [line]
+            cursorOffset = 2
 
         if text.getLength() == 2 and text.getLine(currentRow) == ""
             text.removeNewLine currentRow
 
-        @editor.gotoLine currentRow + 2, 0, false
+        @editor.gotoLine currentRow + cursorOffset, 0, false
         return
 
     editLine: ({text, editRow, newLine}) ->

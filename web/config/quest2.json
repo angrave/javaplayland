@@ -1,0 +1,17 @@
+{
+  "games": [
+    "color0",
+    "color1",
+    "color2",
+    "color3",
+    "color3.5",
+    "color4",
+    "color6",
+    "color8",
+    "color10"
+  ],
+  "commands": [
+    "drawPixel(I,I,Ljava/lang/String;)V",
+    "getColor(I,I)Ljava/lang/String;"
+  ]
+}

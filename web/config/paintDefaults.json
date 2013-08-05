@@ -1,0 +1,336 @@
+{
+  "gameType": "paint",
+  "visualMaster": {
+    "frameRate": 17,
+    "container": {
+      "width": 300,
+      "height": 300,
+      "id": "gameVisual"
+    },
+    "preLoading": {
+      "black": [
+        "img/blackPixel.png"
+      ],
+      "blackBoarder": [
+        "img/blackPixelBoarder.png"
+      ],
+      "blue": [
+        "img/bluePixel.png"
+      ],
+      "blueBoarder": [
+        "img/bluePixelBoarder.png"
+      ],
+      "green": [
+        "img/greenPixel.png"
+      ],
+      "greenBoarder": [
+        "img/greenPixelBoarder.png"
+      ],
+      "lightBlue": [
+        "img/lightBluePixel.png"
+      ],
+      "lightBlueBoarder": [
+        "img/lightBluePixelBoarder.png"
+      ],
+      "pink": [
+        "img/pinkPixel.png"
+      ],
+      "pinkBoarder": [
+        "img/pinkPixelBoarder.png"
+      ],
+      "purple": [
+        "img/purplePixel.png"
+      ],
+      "purpleBoarder": [
+        "img/purplePixelBoarder.png"
+      ],
+      "red": [
+        "img/redPixel.png"
+      ],
+      "redBoarder": [
+        "img/redPixelBoarder.png"
+      ],
+      "yellow": [
+        "img/yellowPixel.png"
+      ],
+      "yellowBoarder": [
+        "img/yellowPixelBoarder.png"
+      ],
+      "white": [
+        "img/whitePixel.png"
+      ]
+    }
+  },
+  "defaults": {
+    "code": {
+      "prefix": "void paint() {\n",
+      "postfix": "}",
+      "hiddenPostFix": "paint();",
+      "show": true,
+      "shorthandKey": [
+        {
+          "regex": "^d",
+          "repl": "drawPixel"
+        },
+        {
+          "regex": "^g",
+          "repl": "getPixel"
+        }
+      ]
+    },
+    "gameState": "PaintGameState",
+    "game": {
+      "characters": {},
+      "characterBase": {
+        "black": {
+          "sprite": "black"
+        },
+        "blackBoarder": {
+          "sprite": "blackBoarder",
+          "match": "black"
+        },
+        "blue": {
+          "sprite": "blue"
+        },
+        "blueBoarder": {
+          "sprite": "blueBoarder",
+          "match": "blue"
+        },
+        "green": {
+          "sprite": "green"
+        },
+        "greenBoarder": {
+          "sprite": "greenBoarder",
+          "match": "green"
+        },
+        "lightBlue": {
+          "sprite": "lightBlue"
+        },
+        "lightBlueBoarder": {
+          "sprite": "lightBlueBoarder",
+          "match": "lightBlue"
+        },
+        "pink": {
+          "sprite": "pink"
+        },
+        "pinkBoarder": {
+          "sprite": "pinkBoarder",
+          "match": "pink"
+        },
+        "purple": {
+          "sprite": "purple"
+        },
+        "purpleBoarder": {
+          "sprite": "purpleBoarder",
+          "match": "purple"
+        },
+        "red": {
+          "sprite": "red"
+        },
+        "redBoarder": {
+          "sprite": "redBoarder",
+          "match": "red"
+        },
+        "yellow": {
+          "sprite": "yellow"
+        },
+        "yellowBoarder": {
+          "sprite": "yellowBoarder",
+          "match": "yellow"
+        },
+        "white": {
+            "sprite": "white"
+        }
+      },
+      "key": {
+        "b": "black",
+        "B": "blackBoarder",
+        "u": "blue",
+        "U": "blueBoarder",
+        "g": "green",
+        "G": "greenBoarder",
+        "l": "lightBlue",
+        "L": "lightBlueBoarder",
+        "p": "pink",
+        "P": "pinkBoarder",
+        "q": "purple",
+        "Q": "purpleBoarder",
+        "r": "red",
+        "R": "redBoarder",
+        "y": "yellow",
+        "Y": "yellowBoarder",
+        "w": "white"
+      }
+    },
+    "visual": {
+      "gameType": "paint",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 8,
+        "gridY": 8
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "visualBase": {
+        "black": {
+          "imgSet": 0,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blackBoarder": {
+          "imgSet": 1,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blue": {
+          "imgSet": 2,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "blueBoarder": {
+          "imgSet": 3,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "green": {
+          "imgSet": 4,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "greenBoarder": {
+          "imgSet": 5,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "lightBlue": {
+          "imgSet": 6,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "lightBlueBoarder": {
+          "imgSet": 7,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "pink": {
+          "imgSet": 8,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "pinkBoarder": {
+          "imgSet": 9,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "purple": {
+          "imgSet": 10,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "purpleBoarder": {
+          "imgSet": 11,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "red": {
+          "imgSet": 12,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "redBoarder": {
+          "imgSet": 13,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "yellow": {
+          "imgSet": 14,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "yellowBoarder": {
+          "imgSet": 15,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        },
+        "white": {
+          "imgSet": 16,
+          "dir": 0,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        }
+      },
+      "characters": []
+    },
+    "gameType": "paint"
+  }
+}

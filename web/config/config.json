@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "game": {
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "map": ""
+    }
+  },
+  "gameTypes": [
+    "gridDefaults.json",
+    "paintDefaults.json"
+  ],
+  "quests": [
+    "quest1.json",
+    "quest2.json"
+  ],
+  "beanshellPreload": "void go () {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.go()\");\n}\nvoid go (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.go(\" + i + \")\");\n}\nvoid turn (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turn(\" + i + \")\");\n}\nvoid turn (String s) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turn(\" + s + \")\");\n}\nvoid turnRight() {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnRight()\");\n}\nvoid turnLeft() {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnLeft()\");\n}\nvoid turnAndGo (int i, int i2) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnAndGo(\" + i + \",\" + i2 + \")\");\n}\nvoid turnAndGo (String s, int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.turnAndGo(\" + s + \",\" + i + \")\");\n}\nvoid goNorth (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.goNorth(\" + i + \")\");\n}\nvoid goEast (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.goEast(\" + i + \")\");\n}\nvoid goSouth (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.goSouth(\" + i + \")\");\n}\nvoid goWest (int i) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.goWest(\" + i + \")\");\n}\nvoid mysteryA() {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.mysteryA()\");\n}\nvoid mysteryB() {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.mysteryB()\");\n}\nvoid mysteryC() {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.mysteryC()\");\n}\nvoid drawPixel (int x, int y, String color) {\n    classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.drawPixel(\" + x + \",\" + y + \",\\\"\" + color + \"\\\");\");\n}\nString getPixel (int x, int y) {\n    return classes.doppio.JavaScript.eval(\"codeland.currentGame.commandMap.getPixel(\" + x + \",\" + y + \");\");\n}"
+}

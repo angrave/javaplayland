@@ -1,0 +1,188 @@
+{
+  "gameType": "grid",
+  "visualMaster": {
+    "frameRate": 17,
+    "container": {
+      "width": 360,
+      "height": 360,
+      "id": "gameVisual"
+    },
+    "preLoading": {
+      "protagonist": [
+        "img/wmn1_bk2.gif",
+        "img/wmn1_bk1.gif",
+        "img/wmn1_rt2.gif",
+        "img/wmn1_rt1.gif",
+        "img/wmn1_fr2.gif",
+        "img/wmn1_fr1.gif",
+        "img/wmn1_lf2.gif",
+        "img/wmn1_lf1.gif"
+      ],
+      "vicflag": [
+        "img/vicflag1.png",
+        "img/vicflag2.png"
+      ],
+      "guard": [
+        "img/npc3_bk1.png",
+        "img/npc3_bk2.png",
+        "img/npc3_rt1.png",
+        "img/npc3_rt2.png",
+        "img/npc3_fr1.png",
+        "img/npc3_fr2.png",
+        "img/npc3_lf1.png",
+        "img/npc3_lf2.png"
+      ],
+      "pit": [
+        "img/pit2.png"
+      ],
+      "dot": [
+        "img/dot.png"
+      ]
+    }
+  },
+  "defaults": {
+    "code": {
+      "prefix": "",
+      "postfix": "",
+      "show": false,
+      "shorthandKey": [
+        {
+          "regex": "^tAG",
+          "repl": "turnAndGo"
+        },
+        {
+          "regex": "^R",
+          "repl": "turnRight"
+        },
+        {
+          "regex": "^L",
+          "repl": "turnLeft"
+        },
+        {
+          "regex": "^t",
+          "repl": "turn"
+        },
+        {
+          "regex": "^N",
+          "repl": "goNorth"
+        },
+        {
+          "regex": "^E",
+          "repl": "goEast"
+        },
+        {
+          "regex": "^S",
+          "repl": "goSouth"
+        },
+        {
+          "regex": "^W",
+          "repl": "goWest"
+        },
+        {
+          "regex": "^g",
+          "repl": "go"
+        }
+      ]
+    },
+    "gameState": "GridGameState",
+    "game": {
+      "characters": {},
+      "characterBase": {
+        "protagonist": {
+          "sprite": "protagonist",
+          "group": "heroes",
+          "moves": []
+        },
+        "gflag": {
+          "sprite": "gflag",
+          "trigger": "victory"
+        },
+        "trail": {
+          "sprite": "dot"
+        },
+        "pit": {
+          "sprite": "pit",
+          "dir": 0,
+          "trigger": "fall",
+          "blocks": [
+            "guards"
+          ],
+          "group": "environment"
+        },
+        "guard": {
+          "sprite": "guard",
+          "trigger": "loss",
+          "blocks": [
+            "guards"
+          ],
+          "group": "guards"
+        }
+      },
+      "key": {
+        "P": "protagonist",
+        "F": "gflag",
+        "X": "pit",
+        "G": "guard"
+      }
+    },
+    "visual": {
+      "visualBase": {
+        "protagonist": {
+          "imgSet": 0,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26,
+          "animated": false
+        },
+        "gflag": {
+          "dir": 0,
+          "imgSet": 1,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26,
+          "animated": true
+        },
+        "dot": {
+          "dir": 0,
+          "imgSet": 4,
+          "xOff": 10,
+          "yOff": 10,
+          "xSize": 10,
+          "ySize": 10,
+          "animated": false
+        },
+        "guard": {
+          "imgSet": 2,
+          "xOff": 2,
+          "yOff": 2,
+          "xSize": 26,
+          "ySize": 26,
+          "animated": true
+        },
+        "pit": {
+          "dir": 0,
+          "imgSet": 3,
+          "xOff": 0,
+          "yOff": 0,
+          "xSize": 30,
+          "ySize": 30,
+          "animated": false
+        }
+      },
+      "gameType": "grid",
+      "grid": {
+        "gridUnit": 30,
+        "border": 30,
+        "gridX": 10,
+        "gridY": 10
+      },
+      "animation": {
+        "length": 30,
+        "pixMoveRate": 1
+      },
+      "characters": []
+    }
+  }
+}

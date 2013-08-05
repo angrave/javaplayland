@@ -133,18 +133,26 @@ setUpJavaSandbox = (input, output, texti) ->
     output.append textOutput.get 0
     textOutput.css {"white-space": "pre-line","font-family": "monospace","overflow":"auto"}
     input.append '<div id="javasandboxsource'+editorCount+'"></div>'
-    sandBoxEditor = new PlayerCodeEditor 'javasandboxsource'+editorCount, null, texti, false, "", "", true
+    sandBoxEditor = new PlayerCodeEditor \
+        'javasandboxsource'+editorCount, # editorDivId
+        null,                            # commands
+        texti,                           # codeText
+        false,                           # wrapCode
+        "",                              # codePrefix
+        "",                              # codeSuffix
+        true,                            # hiddenSuffix
+        true,                            # freeEdit
+        null                            # interpreter
     editorCount++
     # See http://stackoverflow.com/questions/11584061/automatically-adjust-height-to-contents-in-ace-cloud9-editor
-    
+
     msg = ""
     stdout = (str) ->
         msg += str
-
         textOutput.text msg
         return
     log = (mesg) -> console.log mesg
-    
+
 
     run = jQuery '<img>', {
         id: 'runCode'+editorCount,
@@ -218,7 +226,7 @@ window.AboutPage = () ->
 
     $(header).css({"position":"static","overflow":"auto","font-size":"26px","width":"100%","left":"25%","text-align":"center"})
     $(para).css({"overflow":"auto","max-height":"75%","position":"static"})
-    
+
     header.innerHTML = "Legal Terms and Attributions"
     para.innerHTML = "
         Copyright (C) 2013 The Board of Trustees at the University of Illinois
@@ -229,22 +237,22 @@ window.AboutPage = () ->
     <br/>
         THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <hr>
-    
-    
+
+
     <em>Third-party open-source content</em><br/>
     Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
     ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br />
     The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.
     <br/>
-    The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>    
+    The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>
     <hr>
-    
+
     <em>Acknowledgements</em><br>
     We wish to thank Holly, Maggie and Abby and the other participants at the 2013 University of Illinois Computer Science Summer G.A.M.E.S Camp for their game ideas, feedback and testing.
-    
+
     <br>
     <em>Software development and bug contribution</em><br>
-    Original software created by University of Illinois students and faculty, Chris, Fabbian, James and Lawrence.
+    Original software created by University of Illinois students and faculty, Chris Liu, Fabian Junge, James Kelly and Lawrence Angrave.
     <br/>
     "
 
