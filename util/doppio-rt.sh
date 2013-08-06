@@ -81,11 +81,11 @@ rsync -a --files-from   "$INCLUDELIST" "$STAGING/jdk-classes/" "$TGT/vendor/clas
 mkdir -p "$TGT/vendor/classes/classes/doppio/"
 cp $DOPPIO/classes/doppio/*.class $TGT/vendor/classes/classes/doppio/
 
-#Todo fix doppio filesystem (file listing entries are now relative to doppio-jvm/sys)
-echo $DOPPIO
-(cd $TGT; coffee $DOPPIO/tools/gen_dir_listings.coffee > listings.json)
+#Compile our classes and generate complete listings file...
+./util/compile-bsh-extras.sh
 
-echo "Creating mini-rt tarball..."; 
+
+echo "Creating mini-rt tarball of useful classes..."; 
 
 echo 'for(int i = 0;i<2;i++) classes.doppio.JavaScript.eval("");' > tmp.bsh
 ( cd $DOPPIO; ./doppio -Xlist-class-cache bsh/Interpreter  tmp.bsh) > $TGT/.preload-list
