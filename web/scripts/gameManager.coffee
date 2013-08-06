@@ -209,6 +209,7 @@ class window.GameManager
                 return
             @startGame true
             @environment.codeland.doppioAPI.run code, true, finish_cb
+            @codeEditor.UpdateCommandsStatus(null)
         return false
 
     stopStudentCode: =>

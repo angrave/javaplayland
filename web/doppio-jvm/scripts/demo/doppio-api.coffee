@@ -153,7 +153,7 @@ class window.DoppioApi
         if @running
             if @preloaded
                 console?.log 'Aborting Run'
-                cb = =>
+                cb = ->
                     console?.log 'Aborted Successfully'
                     @running = false
                     finished_cb() if finished_cb?

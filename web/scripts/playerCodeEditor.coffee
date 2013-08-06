@@ -122,7 +122,8 @@ class window.EditorManager
             button = jQuery '<button>', {
                 id: command,
                 value: command,
-                text: "#{line}: #{usesRemaining}",
+                text: "#{line}",
+                ###: #{usesRemaining}"###
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.usesTextDocument funct )
@@ -226,7 +227,8 @@ class window.EditorManager
                     valid = false
             else
                 button.attr 'disabled', false
-            button.text "#{line}: #{usesRemaining}"
+            button.text "#{line}"
+            ### #{usesRemaining}" ###
         @onCommandRemainingValid? valid
         return
 

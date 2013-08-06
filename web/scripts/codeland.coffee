@@ -17,9 +17,7 @@ root.initialize = (UIcont) ->
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
     root.initializeDoppio()
-    root.UIcont = UIcont
-    player = root.getPlayer()
-    root.drawGameMap(player)
+    root.UIcont = UIcont    
     return
 
 root.initializeDoppio = ->
@@ -38,6 +36,9 @@ root.preloadDoppio = ->
 root.wrapperCompiled = =>
     root.doppioReady = true
     console.log 'Finished Preloading Doppio'
+    player = root.getPlayer()
+    root.drawGameMap(player)
+    window.appendBar("#mainbody")
     if root.wrapperCompiledCallback?
         console.log 'Found Callback, running'
         root.wrapperCompiledCallback()
