@@ -1,0 +1,55 @@
+{
+  "title": "(0,7) or (7,0)?",
+  "description": "Re-order method calls",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "drawPixel(0,0,\"red\");",
+        "drawPixel(7,0,\"yellow\");",
+        "drawPixel(0,7,\"yellow\");",
+        "drawPixel(0,7,\"blue\");",
+        "drawPixel(7,0,\"blue\");",
+        "drawPixel(7,7,\"purple\");"
+      ]
+    }
+  },
+  "code": {
+    "prefix": "void paint() {\n",
+    "postfix": "return; // Insert your code before here\n}",
+    "initial": "",
+    "comments": [
+"Color Puzzle #1 - '(0,7) or (7,0)?'",
+"Each button below calls drawPixel but with different parameter values.",
+"Choose which statements are useful - you won't need all of them -"," and insert them into your paint method.",
+"Confused? To restart use the reset button."
+    ]
+  },
+  "game": {
+    "map": [
+      "R......U",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Y......Q"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

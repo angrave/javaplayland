@@ -1,0 +1,48 @@
+{
+  "title": "Hidden masterpiece",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "deleteLine"
+    ],
+    "commands": {}
+  },
+  "code": {
+    "prefix": "void paint() { \n",
+    "postfix": "return; // I'm done!\n} // put your code inside this paint method",
+    "initial": [
+      "drawPixel(5,5,\"blue\");",
+      "drawPixel(5,5,\"purple\");",
+      "drawPixel(1,1,\"red\");",
+      "drawPixel(1,1,\"yellow\");",
+      "drawPixel(3,3,\"red\");",
+      "drawPixel(3,3,\"yellow\");"
+    ],
+    "comments": [
+      "Color Puzzle #2 - 'Hidden coloring'",
+"My drawPixel method is powerful because you use parameters to pass where to paint and a color name",
+"Delete the unwanted drawPixel calls inside your paint method",
+      "Use the reset button if you deleted something useful."
+    ]
+  },
+  "game": {
+    "map": [
+      "",
+      ".R",
+      "",
+      "...Y",
+      "",
+      ".....U"
+    ],
+    "offset": {
+        "x": 0,
+        "y": 0
+    }
+  },
+  "dyk": []
+}

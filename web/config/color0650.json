@@ -1,0 +1,52 @@
+{
+  "title": "Assignment: Plus One",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+		{
+          "line": "y = y + 1;",
+          "maxUses": 5
+        },
+		{
+          "line": "drawPixel(x, y, \"blue\");",
+          "maxUses": 4
+        }
+        
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 1;",
+      "int y = 0;"
+    ],
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle #6 - 'Assignment: Plus One'","y = y + 1, calculates the value of 'y plus one' and then saves it in variable named 'y'"
+    ]
+  },
+  "game": {
+    "map": [
+      "U","U","U","","U"
+
+    ],
+    "offset": {
+      "x": 1,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

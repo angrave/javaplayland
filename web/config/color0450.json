@@ -1,0 +1,52 @@
+{
+  "title": "Re-usable Integers",
+  "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "drawPixel(x,y,\"yellow\");",
+        "drawPixel(x,y,\"blue\");",
+        "drawPixel(x,y,\"red\");",
+        "drawPixel(x,y,\"purple\");",
+        "x=5; // x is now 5",
+        "y=5;",
+        "x=2;",
+        "y=2;"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 2; // Initialize a new variable named 'x' of type int",
+      "int y = 2;",
+      "// Statements must go inside a method!"
+    ],
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle #4 - 'Re-usable int'",
+"Use an int variable to store, and later re-use an integer value.",
+"Once you've created a variable you can use the variable's current value, or store a new value."
+    ]
+  },
+  "game": {
+    "map": [
+      "",
+      "",
+      "..Q..R",
+      "......",
+      "......",
+      "..Y..U"
+    ]
+  },
+  "dyk": []
+}

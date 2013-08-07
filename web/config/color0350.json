@@ -1,0 +1,53 @@
+{
+  "title": "String you along",
+  "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "drawPixel(3,3, color);",
+        "drawPixel(3,4, color);",
+        "drawPixel(4,3, color);",
+        "drawPixel(4,4,color);",
+        "color = \"blue\";"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+"// Initialize a new variable called color that can hold a sequence of characters (\"String\").",
+      "String color = \"yellow\"; "
+    ],
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle #3 - 'Reusable String'",
+      "Use a String variable to store and later re-use the color name",
+      "Variables are stored in memory -", " you can tell them to forget their current value and remember a new value instead.",
+      "Use String variables to store and later re-use a sequence of characters like \"Hi World! RU Happy?\"",
+"Hint: You'll need to draw some pixels before and after changing the color variable."
+    ]
+  },
+  "game": {
+    "map": [
+      "",
+      "",
+      "",
+      "...UY",
+      "...YU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

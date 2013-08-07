@@ -126,3 +126,6 @@ vendor/classes/sun/reflect/MethodAccessor.class
 vendor/classes/sun/reflect/MethodAccessorImpl.class
 vendor/classes/sun/reflect/NativeMethodAccessorImpl.class
 vendor/classes/sun/security/util/Debug.class
+vendor/classes/java/lang/reflect/AnnotatedElement.class
+vendor/classes/java/util/List.class
+vendor/classes/sun/reflect/ReflectionFactory$GetReflectionFactoryAction.class

@@ -1,0 +1,52 @@
+{
+  "title": "Jump-in",
+  "description": "Programming is easy?",
+  "task": "",
+  "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 0,
+        "maxUses": 1
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 1
+      }
+    }
+  },
+  "code": {
+    "shorthand": "gR",
+     "comments" : [ "Java Code Puzzle #1 - 'Jump-in'",
+       "Fix this Java code so that your avatar\nreaches the flag",
+       "To fix this program select a line of code, \nClick the small up and down arrows that appear near the line numbers to swap their order.",
+       "To run the entire Java program, click the green play button \n(Your avatar always starts from the same spot).",
+       "Change the order of the go() and turnRight() statements: Click on \na line of code. Move it up and down, then test your program!" ]
+  },
+  "game": {
+    "characterBase": {
+      "protagonist": {
+        "dir": 1
+      }
+    },
+    "map": "P\nF",
+    "offset": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  
+  "dyk": [
+    "Computer programs contain many <em>statement</em>s.",
+    "Most of the time we need to write a ; after each statement",
+    "When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.",
+    "Computer programs are a like movie scripts and cooking recipes - the correct sequence matters!"
+  ]
+}

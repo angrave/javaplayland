@@ -1,0 +1,54 @@
+{
+  "title": "Parameter plus 2",
+  "description": "",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        {
+          "line": "drawPixel(col + 0, row, paintColor);",
+          "maxUses": 2
+        },
+        {
+          "line": "drawPixel(col + 1 + 1, row, paintColor);",
+          "maxUses": 2
+        },
+        "String paintColor = \"red\"; // Create a String variable named paintColor",
+        "row=5;",
+        "paintColor = \"purple\"; // Makes sense if there's already is a variable named paintColor",
+        "paintColor = \"blue\";"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int col = 3; //Column across (x)",
+      "int row = 3; //Row down (y)"
+    ],
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle #8 - 'Parameter plus 2'",
+      "Parameter values can be mathematical expressions too. "
+    ]
+  },
+  "game": {
+    "map": [
+      "",
+      "",
+      "",
+      "...Q.R",
+      "",
+      "...U.U"
+    ]
+  },
+  "dyk": []
+}

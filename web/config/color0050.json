@@ -1,0 +1,39 @@
+{
+  "title": "Color by code",
+  "description": "A Colorful Challenge",
+  "task": "",
+  "tags": "paint",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+ "insertButtons"
+    ],
+	"commands": {
+      "shorthand": [
+        "drawPixel(0,7,\"green\");"
+      ]
+    }   
+  },
+  "code": {
+    "shorthand": "d(0,0,\"red\")d(7,0,\"blue\")",
+	"postfix": "return;// Insert your code before here.\n}",
+    "comments": [
+      "Color puzzle #0 - 'Color by code'",
+      "Our tiny digital picture is made of 8 columns and 8 rows of picture elements or \"pixels\".",
+      "I wrote a method named drawPixel for you. Call it to set the color of one pixel.",
+	  "Now you get to write a method named \"paint\"",
+      "The pixel at (0,0) is at the top left corner,","but where is (0,7)? ",
+      "To win this game, the corner pixels must be filled with the correct color."
+    ]
+  },
+  "game": {
+    "map": "R......U\n\n\n\n\n\n\nG",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

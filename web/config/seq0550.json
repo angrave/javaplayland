@@ -1,0 +1,50 @@
+{
+  "title": "Three solutions",
+  "description": "Two correct and many incorrect ways to write this program",
+  "task": "",
+  "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 0,
+        "maxUses": 6
+      },
+      "turnLeft": {
+        "inputs": 0,
+        "maxUses": 3
+      }
+    }
+  },
+  "code": {
+    "shorthand": "gLgLgLggg",
+    "comments": [ "Puzzle #5 - 'Three solutions'",
+        "The speed of the program depends on the number of \nstatements the central processor unit (\"CPU\")\nneeds to run (or \"execute\")\nto complete your program.",
+		"Hint #1 There's more than one program that solves this puzzle.\nCan you see three solutions? Which one is fastest? Which one is Slowest?",
+        "Hint #2 I wonder what happens if you go too far...",
+        "Hint #3 What will you do with each line? Up,Down,Delete?" ]
+  },
+  "game": {
+    "characterBase": {
+      "protagonist": {
+        "dir": 1
+      }
+    },
+    "map": "XXXXX\nXP..X\nXFXXX\n.X...\n",
+    "offset": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  "help": [
+   
+  ],
+  "dyk": []
+}

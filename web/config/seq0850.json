@@ -1,0 +1,51 @@
+{
+  "title": "Blank slate",
+  "description": "Create your own recipe",
+  "task": "",
+  "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 0,
+        "maxUses": 1
+      },
+      "turnLeft": {
+        "inputs": 0,
+        "maxUses": 1
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 2
+      }
+    }
+  },
+  "code": {
+    "shorthand": "",
+    "initial": "",
+	"comments" : [ "Puzzle #8 - 'Blank slate'","To solve this puzzle use the code buttons to create your own program.",
+	"Hint #1 You can use a maximum of two turnRight() statements and one turnLeft()!"]
+  },
+  "game": {
+    "characterBase": {
+      "protagonist": {
+        "dir": 1
+      }
+    },
+    "map": "FP",
+    "offset": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  "help": [],
+  "dyk": []
+}

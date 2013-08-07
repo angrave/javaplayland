@@ -1,0 +1,96 @@
+{
+  "title": "Amazing parameter",
+  "description": "My awesome go method takes an integer parameter",
+  "task": "",
+  "tags": "intro",
+  "gameType": "grid",
+  "backEnd": "interpreter",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "go": {
+        "inputs": 1,
+        "maxUses": 6
+      },
+      "turnLeft": {
+        "inputs": 0,
+        "maxUses": 2
+      },
+      "turnRight": {
+        "inputs": 0,
+        "maxUses": 3
+      }
+    }
+  },
+  "code": {
+    "shorthand": "g(6)",
+	"comments" : [ "Java Puzzle #10 - 'Amazing parameter'","go,turnRight and turnLeft are called \"methods\".",
+	"The new 'go' method will be useful here",
+	"*** Click on the value to change it"
+	]
+  },
+  "game": {
+    "characterBase": {
+      "protagonist": {
+        "dir": 1
+      },
+      "guard": {
+        "dir": 0,
+        "moves": [],
+        "AI": {
+          "normal": [
+            {
+              "command": "_stand",
+              "arguments": [
+                "character"
+              ]
+            },
+            {
+              "command": "move",
+              "arguments": [
+                "character",
+                1
+              ]
+            }
+          ],
+          "failed": {
+            "startMove": [
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "turnRight",
+                "arguments": [
+                  "character"
+                ]
+              },
+              {
+                "command": "move",
+                "arguments": [
+                  "character",
+                  1
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "map": "XXXXXXXXXX\nX>P......X\nX.XXXX.X.X\nX.X....X.X\nX.XX.XXX.X\nX.XX.XXX.X\nXGXX...XXX\nX.X.X....X\nX.....FX.X\nXXXXXXXXXX",
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "help": [],
+  "dyk": []
+}

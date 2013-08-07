@@ -1,3 +1,8 @@
+java/security/ProtectionDomain$2.class
+java/security/cert/Certificate.class
+java/security/ProtectionDomain$Key.class
+java/security/Principal.class
+java/security/CodeSource.class
 java/security/AccessControlContext$1.class
 java/security/AccessControlContext.class
 java/security/AccessController.class
