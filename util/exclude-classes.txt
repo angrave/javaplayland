@@ -38,9 +38,11 @@ com/sun/xml
 java/applet
 java/awt
 java/beans
-java/math
 java/rmi
-java/security
+java/security/acl
+java/security/cert
+java/security/interfaces
+java/security/spec
 java/sql
 java/text
 javax/accessibility
