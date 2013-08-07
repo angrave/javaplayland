@@ -48,6 +48,5 @@
     "Most of the time we need to write a ; after each statement",
     "When the computer <em>executes</em> your program, it executes one statement at a time before executing the next one.",
     "Computer programs are a like movie scripts and cooking recipes - the correct sequence matters!"
-  ],
-  "depends": []
+  ]
 }

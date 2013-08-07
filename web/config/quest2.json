@@ -1,14 +1,17 @@
 {
   "games": [
-    "color0",
-    "color1",
-    "color2",
-    "color3",
-    "color3.5",
-    "color4",
-    "color6",
-    "color8",
-    "color10"
+"color0050",
+"color0150",
+"color0250",
+"color0350",
+"color0450",
+"color0550",
+"color0650",
+"color0750",
+"color0850",
+"color0950",
+"color1050",
+"color1150"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",

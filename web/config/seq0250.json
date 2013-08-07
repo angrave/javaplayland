@@ -47,8 +47,5 @@
   "dyk": [
     "When the Java compiler reads our program it looks for semicolons",
     "So we could write our entire program on just one line but that would be very difficult for people to read!"
-  ],
-  "depends": [
-    "game1"
   ]
 }

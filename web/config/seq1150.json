@@ -1,6 +1,6 @@
 {
-  "title": "Blank slate",
-  "description": "Create your own recipe",
+  "title": "Three solutions? Jump for joy!",
+  "description": "Maze",
   "task": "",
   "tags": "intro",
   "gameType": "grid",
@@ -15,40 +15,39 @@
     ],
     "commands": {
       "go": {
-        "inputs": 0,
-        "maxUses": 1
+        "inputs": 1,
+        "maxUses": 6
       },
-      "turnLeft": {
+      "jump": {
         "inputs": 0,
         "maxUses": 1
       },
       "turnRight": {
         "inputs": 0,
-        "maxUses": 2
+        "maxUses": 20
       }
     }
   },
   "code": {
     "shorthand": "",
-    "initial": "",
-	"comments" : [ "Puzzle #8 - 'Blank slate'","To solve this puzzle use the code buttons to create your own program.",
-	"Hint #1 You can use a maximum of two turnRight() statements and one turnLeft()!"]
+	"comments" : [ "Java Puzzle #11 - 'Three solutions?Jump for joy!'"
+	]
   },
   "game": {
     "characterBase": {
       "protagonist": {
-        "dir": 1
+        "dir": 0
+      },
+      "guard": {
+        "dir": 0
       }
     },
-    "map": "FP",
+    "map": "XXXXXXXXXX\nX.G..P...X\nX.XXXXXX.X\nX.XXFXXX.X\nX.XX.XXXGX\nX.XX.XXX.X\nX........X\nXXXXXXXXXX\n",
     "offset": {
-      "x": 4,
-      "y": 4
+      "x": 0,
+      "y": 0
     }
   },
   "help": [],
-  "dyk": [],
-  "depends": [
-    "game7"
-  ]
+  "dyk": []
 }

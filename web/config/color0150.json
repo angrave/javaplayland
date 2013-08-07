@@ -1,8 +1,8 @@
 {
-  "title": "Corner colors",
-  "description": "",
+  "title": "(0,7) or (7,0)?",
+  "description": "Re-order method calls",
   "task": "",
-  "tags": "",
+  "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
@@ -25,12 +25,14 @@
     }
   },
   "code": {
-    "prefix": "// put your code between the opening '{' and closing '}'\nvoid paint() {\n",
-    "postfix": "} // put your code inside this paint method",
+    "prefix": "void paint() {\n",
+    "postfix": "return; // Insert your code before here\n}",
     "initial": "",
     "comments": [
-      "Color Puzzle 1 - 'Corner colors'",
-      "Color the colors"
+"Color Puzzle #1 - '(0,7) or (7,0)?'",
+"Each button below calls drawPixel but with different parameter values.",
+"Choose which statements are useful - you won't need all of them -"," and insert them into your paint method.",
+"Confused? To restart use the reset button."
     ]
   },
   "game": {
@@ -49,6 +51,5 @@
       "y": 0
     }
   },
-  "dyk": [],
-  "depends": []
+  "dyk": []
 }

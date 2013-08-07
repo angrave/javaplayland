@@ -1,5 +1,5 @@
 {
-  "title": "Re-usable Integer",
+  "title": "Re-usable Integers",
   "description": "",
   "gameType": "paint",
   "backEnd": "doppio",
@@ -27,14 +27,15 @@
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 2;",
+      "int x = 2; // Initialize a new variable named 'x' of type int",
       "int y = 2;",
       "// Statements must go inside a method!"
     ],
-    "postfix": "}",
+    "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle 4 - 'Re-usable Integer'",
-      "Use the String variable to remember the color name you need"
+      "Color Puzzle #4 - 'Re-usable int'",
+"Use an int variable to store, and later re-use an integer value.",
+"Once you've created a variable you can use the variable's current value, or store a new value."
     ]
   },
   "game": {
@@ -47,8 +48,5 @@
       "..Y..U"
     ]
   },
-  "dyk": [],
-  "depends": [
-    "color3"
-  ]
+  "dyk": []
 }

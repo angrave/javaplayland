@@ -1,6 +1,6 @@
 {
-  "title": "Mystery Method? Experiment!",
-  "description": "Find the correct sequence of code lines",
+  "title": "Amazing parameter",
+  "description": "My awesome go method takes an integer parameter",
   "task": "",
   "tags": "intro",
   "gameType": "grid",
@@ -14,32 +14,26 @@
       "insertButtons"
     ],
     "commands": {
-      "mysteryGo": {
-        "inputs": 0,
-        "maxUses": 5
+      "go": {
+        "inputs": 1,
+        "maxUses": 6
       },
-      "goSouth": {
-        "inputs": 0,
-        "maxUses": 5
-      },
-      "jump": {
+      "turnLeft": {
         "inputs": 0,
         "maxUses": 2
       },
-      "mysteryMove": {
+      "turnRight": {
         "inputs": 0,
-        "maxUses": 5
+        "maxUses": 3
       }
     }
   },
   "code": {
-    "shorthand": "",
-    "comments": [
-      "Java Puzzle #12 - 'Mystery Method? Experiment!'",
-      "Sometimes programmers have to experiment and test.",
-      "Play this level to discover what these commands do",
-      "See if you can figure it out and get to the flag..."
-    ]
+    "shorthand": "g(6)",
+	"comments" : [ "Java Puzzle #10 - 'Amazing parameter'","go,turnRight and turnLeft are called \"methods\".",
+	"The new 'go' method will be useful here",
+	"*** Click on the value to change it"
+	]
   },
   "game": {
     "characterBase": {
@@ -47,17 +41,8 @@
         "dir": 1
       },
       "guard": {
-        "dir": 0
-        },
-      "guardMoving": {
-        "sprite": "guard",
-        "dir": 3,
-        "trigger": "loss",
+        "dir": 0,
         "moves": [],
-        "blocks": [
-          "guards"
-        ],
-        "group": "guards",
         "AI": {
           "normal": [
             {
@@ -100,19 +85,12 @@
         }
       }
     },
+    "map": "XXXXXXXXXX\nX>P......X\nX.XXXX.X.X\nX.X....X.X\nX.XX.XXX.X\nX.XX.XXX.X\nXGXX...XXX\nX.X.X....X\nX.....FX.X\nXXXXXXXXXX",
     "offset": {
-        "x": 2,
-        "y": 1
-    },
-    "map": "P\n\n\n\n\n\n...gG\n....F",
-    "key": {
-      "G": "guard",
-      "g": "guardMoving"
+      "x": 0,
+      "y": 0
     }
   },
   "help": [],
-  "dyk": [],
-  "depends": [
-    "game11"
-  ]
+  "dyk": []
 }

@@ -1,17 +1,17 @@
 {
   "games": [
-    "game1",
-    "game2",
-    "game3",
-    "game4",
-    "game5",
-    "game6",
-    "game7",
-    "game8",
-    "game9",
-    "game10",
-    "game11",
-    "game12"
+"seq0150",
+"seq0250",
+"seq0350",
+"seq0450",
+"seq0550",
+"seq0650",
+"seq0750",
+"seq0850",
+"seq0950",
+"seq1050",
+"seq1150",
+"seq1250"
   ],
   "commands": [
     "go(I)V",
