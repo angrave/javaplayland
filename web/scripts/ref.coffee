@@ -63,7 +63,7 @@ window.inject = (d) ->
 
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>If</tt> statements are the most elementary of <tt>conditionals</tt>.  The <tt>if</tt> statement is given control of some of its own instructions, indicated by some conventions discussed earlier (tabs, {} braces).  The <tt>if</tt> statement will check its condition, which ultimately evaluates to true or false.  If the statement is true, the <tt>if</tt> statements own set of instructions will be executed, otherwise they will be passed over.</p>
 
-	<div class="ex">if( 1+1 == 2 ) {\n\tprint("Yes! one plus one is true");\n}\nif( 1 + 1 == 3) {\n\tprint("I will not be printed :-(");\n}</div>
+	<div class="ex">if( 1+1 == 2 ) {\n\tprint("Yes! one plus one is two");\n}\nif( 1 + 1 == 3) {\n\tprint("I will not be printed :-(");\n}</div>
 	
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>If</tt> statements can be further extended in influence and ability using the <tt>else</tt> statement.  Appended to an <tt>if</tt> statement, the <tt>else</tt> statement denotes instructions to be run if its partner <tt>if</tt> statement resolves to false.  The <tt>else</tt> statement can even branch to more <tt>if</tt> and <tt>else</tt> statements to create a nested tree of logic to accommodate the programs purpose.</p>
 

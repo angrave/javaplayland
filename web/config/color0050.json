@@ -12,7 +12,7 @@
     ],
 	"commands": {
       "shorthand": [
-        "drawPixel(0,7,\"green\");"
+        "drawPixel(0,7,\"green\");", "drawPixel(7,7,\"black\");"
       ]
     }   
   },
@@ -29,7 +29,7 @@
     ]
   },
   "game": {
-    "map": "R......U\n\n\n\n\n\n\nG",
+    "map": "R......U\n\n\n\n\n\n\nG......B",
     "offset": {
       "x": 0,
       "y": 0
