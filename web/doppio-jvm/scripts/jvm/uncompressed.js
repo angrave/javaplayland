@@ -1,840 +1,3 @@
-// Underscore.js 1.3.1
-// (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
-// Underscore is freely distributable under the MIT license.
-// Portions of Underscore are inspired or borrowed from Prototype,
-// Oliver Steele's Functional, and John Resig's Micro-Templating.
-// For all details and documentation:
-// http://documentcloud.github.com/underscore
-(function(){function q(a,c,d){if(a===c)return a!==0||1/a==1/c;if(a==null||c==null)return a===c;if(a._chain)a=a._wrapped;if(c._chain)c=c._wrapped;if(a.isEqual&&b.isFunction(a.isEqual))return a.isEqual(c);if(c.isEqual&&b.isFunction(c.isEqual))return c.isEqual(a);var e=l.call(a);if(e!=l.call(c))return false;switch(e){case "[object String]":return a==String(c);case "[object Number]":return a!=+a?c!=+c:a==0?1/a==1/c:a==+c;case "[object Date]":case "[object Boolean]":return+a==+c;case "[object RegExp]":return a.source==
-c.source&&a.global==c.global&&a.multiline==c.multiline&&a.ignoreCase==c.ignoreCase}if(typeof a!="object"||typeof c!="object")return false;for(var f=d.length;f--;)if(d[f]==a)return true;d.push(a);var f=0,g=true;if(e=="[object Array]"){if(f=a.length,g=f==c.length)for(;f--;)if(!(g=f in a==f in c&&q(a[f],c[f],d)))break}else{if("constructor"in a!="constructor"in c||a.constructor!=c.constructor)return false;for(var h in a)if(b.has(a,h)&&(f++,!(g=b.has(c,h)&&q(a[h],c[h],d))))break;if(g){for(h in c)if(b.has(c,
-h)&&!f--)break;g=!f}}d.pop();return g}var r=this,G=r._,n={},k=Array.prototype,o=Object.prototype,i=k.slice,H=k.unshift,l=o.toString,I=o.hasOwnProperty,w=k.forEach,x=k.map,y=k.reduce,z=k.reduceRight,A=k.filter,B=k.every,C=k.some,p=k.indexOf,D=k.lastIndexOf,o=Array.isArray,J=Object.keys,s=Function.prototype.bind,b=function(a){return new m(a)};if(typeof exports!=="undefined"){if(typeof module!=="undefined"&&module.exports)exports=module.exports=b;exports._=b}else r._=b;b.VERSION="1.3.1";var j=b.each=
-b.forEach=function(a,c,d){if(a!=null)if(w&&a.forEach===w)a.forEach(c,d);else if(a.length===+a.length)for(var e=0,f=a.length;e<f;e++){if(e in a&&c.call(d,a[e],e,a)===n)break}else for(e in a)if(b.has(a,e)&&c.call(d,a[e],e,a)===n)break};b.map=b.collect=function(a,c,b){var e=[];if(a==null)return e;if(x&&a.map===x)return a.map(c,b);j(a,function(a,g,h){e[e.length]=c.call(b,a,g,h)});if(a.length===+a.length)e.length=a.length;return e};b.reduce=b.foldl=b.inject=function(a,c,d,e){var f=arguments.length>2;a==
-null&&(a=[]);if(y&&a.reduce===y)return e&&(c=b.bind(c,e)),f?a.reduce(c,d):a.reduce(c);j(a,function(a,b,i){f?d=c.call(e,d,a,b,i):(d=a,f=true)});if(!f)throw new TypeError("Reduce of empty array with no initial value");return d};b.reduceRight=b.foldr=function(a,c,d,e){var f=arguments.length>2;a==null&&(a=[]);if(z&&a.reduceRight===z)return e&&(c=b.bind(c,e)),f?a.reduceRight(c,d):a.reduceRight(c);var g=b.toArray(a).reverse();e&&!f&&(c=b.bind(c,e));return f?b.reduce(g,c,d,e):b.reduce(g,c)};b.find=b.detect=
-function(a,c,b){var e;E(a,function(a,g,h){if(c.call(b,a,g,h))return e=a,true});return e};b.filter=b.select=function(a,c,b){var e=[];if(a==null)return e;if(A&&a.filter===A)return a.filter(c,b);j(a,function(a,g,h){c.call(b,a,g,h)&&(e[e.length]=a)});return e};b.reject=function(a,c,b){var e=[];if(a==null)return e;j(a,function(a,g,h){c.call(b,a,g,h)||(e[e.length]=a)});return e};b.every=b.all=function(a,c,b){var e=true;if(a==null)return e;if(B&&a.every===B)return a.every(c,b);j(a,function(a,g,h){if(!(e=
-e&&c.call(b,a,g,h)))return n});return e};var E=b.some=b.any=function(a,c,d){c||(c=b.identity);var e=false;if(a==null)return e;if(C&&a.some===C)return a.some(c,d);j(a,function(a,b,h){if(e||(e=c.call(d,a,b,h)))return n});return!!e};b.include=b.contains=function(a,c){var b=false;if(a==null)return b;return p&&a.indexOf===p?a.indexOf(c)!=-1:b=E(a,function(a){return a===c})};b.invoke=function(a,c){var d=i.call(arguments,2);return b.map(a,function(a){return(b.isFunction(c)?c||a:a[c]).apply(a,d)})};b.pluck=
-function(a,c){return b.map(a,function(a){return a[c]})};b.max=function(a,c,d){if(!c&&b.isArray(a))return Math.max.apply(Math,a);if(!c&&b.isEmpty(a))return-Infinity;var e={computed:-Infinity};j(a,function(a,b,h){b=c?c.call(d,a,b,h):a;b>=e.computed&&(e={value:a,computed:b})});return e.value};b.min=function(a,c,d){if(!c&&b.isArray(a))return Math.min.apply(Math,a);if(!c&&b.isEmpty(a))return Infinity;var e={computed:Infinity};j(a,function(a,b,h){b=c?c.call(d,a,b,h):a;b<e.computed&&(e={value:a,computed:b})});
-return e.value};b.shuffle=function(a){var b=[],d;j(a,function(a,f){f==0?b[0]=a:(d=Math.floor(Math.random()*(f+1)),b[f]=b[d],b[d]=a)});return b};b.sortBy=function(a,c,d){return b.pluck(b.map(a,function(a,b,g){return{value:a,criteria:c.call(d,a,b,g)}}).sort(function(a,b){var c=a.criteria,d=b.criteria;return c<d?-1:c>d?1:0}),"value")};b.groupBy=function(a,c){var d={},e=b.isFunction(c)?c:function(a){return a[c]};j(a,function(a,b){var c=e(a,b);(d[c]||(d[c]=[])).push(a)});return d};b.sortedIndex=function(a,
-c,d){d||(d=b.identity);for(var e=0,f=a.length;e<f;){var g=e+f>>1;d(a[g])<d(c)?e=g+1:f=g}return e};b.toArray=function(a){return!a?[]:a.toArray?a.toArray():b.isArray(a)?i.call(a):b.isArguments(a)?i.call(a):b.values(a)};b.size=function(a){return b.toArray(a).length};b.first=b.head=function(a,b,d){return b!=null&&!d?i.call(a,0,b):a[0]};b.initial=function(a,b,d){return i.call(a,0,a.length-(b==null||d?1:b))};b.last=function(a,b,d){return b!=null&&!d?i.call(a,Math.max(a.length-b,0)):a[a.length-1]};b.rest=
-b.tail=function(a,b,d){return i.call(a,b==null||d?1:b)};b.compact=function(a){return b.filter(a,function(a){return!!a})};b.flatten=function(a,c){return b.reduce(a,function(a,e){if(b.isArray(e))return a.concat(c?e:b.flatten(e));a[a.length]=e;return a},[])};b.without=function(a){return b.difference(a,i.call(arguments,1))};b.uniq=b.unique=function(a,c,d){var d=d?b.map(a,d):a,e=[];b.reduce(d,function(d,g,h){if(0==h||(c===true?b.last(d)!=g:!b.include(d,g)))d[d.length]=g,e[e.length]=a[h];return d},[]);
-return e};b.union=function(){return b.uniq(b.flatten(arguments,true))};b.intersection=b.intersect=function(a){var c=i.call(arguments,1);return b.filter(b.uniq(a),function(a){return b.every(c,function(c){return b.indexOf(c,a)>=0})})};b.difference=function(a){var c=b.flatten(i.call(arguments,1));return b.filter(a,function(a){return!b.include(c,a)})};b.zip=function(){for(var a=i.call(arguments),c=b.max(b.pluck(a,"length")),d=Array(c),e=0;e<c;e++)d[e]=b.pluck(a,""+e);return d};b.indexOf=function(a,c,
-d){if(a==null)return-1;var e;if(d)return d=b.sortedIndex(a,c),a[d]===c?d:-1;if(p&&a.indexOf===p)return a.indexOf(c);for(d=0,e=a.length;d<e;d++)if(d in a&&a[d]===c)return d;return-1};b.lastIndexOf=function(a,b){if(a==null)return-1;if(D&&a.lastIndexOf===D)return a.lastIndexOf(b);for(var d=a.length;d--;)if(d in a&&a[d]===b)return d;return-1};b.range=function(a,b,d){arguments.length<=1&&(b=a||0,a=0);for(var d=arguments[2]||1,e=Math.max(Math.ceil((b-a)/d),0),f=0,g=Array(e);f<e;)g[f++]=a,a+=d;return g};
-var F=function(){};b.bind=function(a,c){var d,e;if(a.bind===s&&s)return s.apply(a,i.call(arguments,1));if(!b.isFunction(a))throw new TypeError;e=i.call(arguments,2);return d=function(){if(!(this instanceof d))return a.apply(c,e.concat(i.call(arguments)));F.prototype=a.prototype;var b=new F,g=a.apply(b,e.concat(i.call(arguments)));return Object(g)===g?g:b}};b.bindAll=function(a){var c=i.call(arguments,1);c.length==0&&(c=b.functions(a));j(c,function(c){a[c]=b.bind(a[c],a)});return a};b.memoize=function(a,
-c){var d={};c||(c=b.identity);return function(){var e=c.apply(this,arguments);return b.has(d,e)?d[e]:d[e]=a.apply(this,arguments)}};b.delay=function(a,b){var d=i.call(arguments,2);return setTimeout(function(){return a.apply(a,d)},b)};b.defer=function(a){return b.delay.apply(b,[a,1].concat(i.call(arguments,1)))};b.throttle=function(a,c){var d,e,f,g,h,i=b.debounce(function(){h=g=false},c);return function(){d=this;e=arguments;var b;f||(f=setTimeout(function(){f=null;h&&a.apply(d,e);i()},c));g?h=true:
-a.apply(d,e);i();g=true}};b.debounce=function(a,b){var d;return function(){var e=this,f=arguments;clearTimeout(d);d=setTimeout(function(){d=null;a.apply(e,f)},b)}};b.once=function(a){var b=false,d;return function(){if(b)return d;b=true;return d=a.apply(this,arguments)}};b.wrap=function(a,b){return function(){var d=[a].concat(i.call(arguments,0));return b.apply(this,d)}};b.compose=function(){var a=arguments;return function(){for(var b=arguments,d=a.length-1;d>=0;d--)b=[a[d].apply(this,b)];return b[0]}};
-b.after=function(a,b){return a<=0?b():function(){if(--a<1)return b.apply(this,arguments)}};b.keys=J||function(a){if(a!==Object(a))throw new TypeError("Invalid object");var c=[],d;for(d in a)b.has(a,d)&&(c[c.length]=d);return c};b.values=function(a){return b.map(a,b.identity)};b.functions=b.methods=function(a){var c=[],d;for(d in a)b.isFunction(a[d])&&c.push(d);return c.sort()};b.extend=function(a){j(i.call(arguments,1),function(b){for(var d in b)a[d]=b[d]});return a};b.defaults=function(a){j(i.call(arguments,
-1),function(b){for(var d in b)a[d]==null&&(a[d]=b[d])});return a};b.clone=function(a){return!b.isObject(a)?a:b.isArray(a)?a.slice():b.extend({},a)};b.tap=function(a,b){b(a);return a};b.isEqual=function(a,b){return q(a,b,[])};b.isEmpty=function(a){if(b.isArray(a)||b.isString(a))return a.length===0;for(var c in a)if(b.has(a,c))return false;return true};b.isElement=function(a){return!!(a&&a.nodeType==1)};b.isArray=o||function(a){return l.call(a)=="[object Array]"};b.isObject=function(a){return a===Object(a)};
-b.isArguments=function(a){return l.call(a)=="[object Arguments]"};if(!b.isArguments(arguments))b.isArguments=function(a){return!(!a||!b.has(a,"callee"))};b.isFunction=function(a){return l.call(a)=="[object Function]"};b.isString=function(a){return l.call(a)=="[object String]"};b.isNumber=function(a){return l.call(a)=="[object Number]"};b.isNaN=function(a){return a!==a};b.isBoolean=function(a){return a===true||a===false||l.call(a)=="[object Boolean]"};b.isDate=function(a){return l.call(a)=="[object Date]"};
-b.isRegExp=function(a){return l.call(a)=="[object RegExp]"};b.isNull=function(a){return a===null};b.isUndefined=function(a){return a===void 0};b.has=function(a,b){return I.call(a,b)};b.noConflict=function(){r._=G;return this};b.identity=function(a){return a};b.times=function(a,b,d){for(var e=0;e<a;e++)b.call(d,e)};b.escape=function(a){return(""+a).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#x27;").replace(/\//g,"&#x2F;")};b.mixin=function(a){j(b.functions(a),
-function(c){K(c,b[c]=a[c])})};var L=0;b.uniqueId=function(a){var b=L++;return a?a+b:b};b.templateSettings={evaluate:/<%([\s\S]+?)%>/g,interpolate:/<%=([\s\S]+?)%>/g,escape:/<%-([\s\S]+?)%>/g};var t=/.^/,u=function(a){return a.replace(/\\\\/g,"\\").replace(/\\'/g,"'")};b.template=function(a,c){var d=b.templateSettings,d="var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('"+a.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(d.escape||t,function(a,b){return"',_.escape("+
-u(b)+"),'"}).replace(d.interpolate||t,function(a,b){return"',"+u(b)+",'"}).replace(d.evaluate||t,function(a,b){return"');"+u(b).replace(/[\r\n\t]/g," ")+";__p.push('"}).replace(/\r/g,"\\r").replace(/\n/g,"\\n").replace(/\t/g,"\\t")+"');}return __p.join('');",e=new Function("obj","_",d);return c?e(c,b):function(a){return e.call(this,a,b)}};b.chain=function(a){return b(a).chain()};var m=function(a){this._wrapped=a};b.prototype=m.prototype;var v=function(a,c){return c?b(a).chain():a},K=function(a,c){m.prototype[a]=
-function(){var a=i.call(arguments);H.call(a,this._wrapped);return v(c.apply(b,a),this._chain)}};b.mixin(b);j("pop,push,reverse,shift,sort,splice,unshift".split(","),function(a){var b=k[a];m.prototype[a]=function(){var d=this._wrapped;b.apply(d,arguments);var e=d.length;(a=="shift"||a=="splice")&&e===0&&delete d[0];return v(d,this._chain)}});j(["concat","join","slice"],function(a){var b=k[a];m.prototype[a]=function(){return v(b.apply(this._wrapped,arguments),this._chain)}});m.prototype.chain=function(){this._chain=
-true;return this};m.prototype.value=function(){return this._wrapped}}).call(this);
-;
-// Copyright 2009 The Closure Library Authors. All Rights Reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS-IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/**
- * @fileoverview Defines a Long class for representing a 64-bit two's-complement
- * integer value, which faithfully simulates the behavior of a Java "long". This
- * implementation is derived from LongLib in GWT.
- *
- */
-
-/**
- * Constructs a 64-bit two's-complement integer, given its low and high 32-bit
- * values as *signed* integers.  See the from* functions below for more
- * convenient ways of constructing Longs.
- *
- * The internal representation of a long is the two given signed, 32-bit values.
- * We use 32-bit pieces because these are the size of integers on which
- * Javascript performs bit-operations.  For operations like addition and
- * multiplication, we split each number into 16-bit pieces, which can easily be
- * multiplied within Javascript's floating-point representation without overflow
- * or change in sign.
- *
- * In the algorithms below, we frequently reduce the negative case to the
- * positive case by negating the input(s) and then post-processing the result.
- * Note that we must ALWAYS check specially whether those values are MIN_VALUE
- * (-2^63) because -MIN_VALUE == MIN_VALUE (since 2^63 cannot be represented as
- * a positive number, it overflows back into a negative).  Not handling this
- * case would often result in infinite recursion.
- *
- * @param {number} low  The low (signed) 32 bits of the long.
- * @param {number} high  The high (signed) 32 bits of the long.
- * @constructor
- */
-(function() {
-  var root = this;
-root.gLong = function(low, high) {
-  /**
-   * @type {number}
-   * @private
-   */
-  this.low_ = low | 0;  // force into 32 signed bits.
-
-  /**
-   * @type {number}
-   * @private
-   */
-  this.high_ = high | 0;  // force into 32 signed bits.
-};
-
-
-// NOTE: Common constant values ZERO, ONE, NEG_ONE, etc. are defined below the
-// from* methods on which they depend.
-
-
-/**
- * A cache of the Long representations of small integer values.
- * @type {!Object}
- * @private
- */
-root.gLong.IntCache_ = {};
-
-
-/**
- * Returns a Long representing the given (32-bit) integer value.
- * @param {number} value The 32-bit integer in question.
- * @return {!root.gLong} The corresponding Long value.
- */
-root.gLong.fromInt = function(value) {
-  if (-128 <= value && value < 128) {
-    var cachedObj = root.gLong.IntCache_[value];
-    if (cachedObj) {
-      return cachedObj;
-    }
-  }
-
-  var obj = new root.gLong(value | 0, value < 0 ? -1 : 0);
-  if (-128 <= value && value < 128) {
-    root.gLong.IntCache_[value] = obj;
-  }
-  return obj;
-};
-
-
-/**
- * Returns a Long representing the given value, provided that it is a finite
- * number.  Otherwise, zero is returned.
- * @param {number} value The number in question.
- * @return {!root.gLong} The corresponding Long value.
- */
-root.gLong.fromNumber = function(value) {
-  if (isNaN(value) || !isFinite(value)) {
-    return root.gLong.ZERO;
-  } else if (value <= -root.gLong.TWO_PWR_63_DBL_) {
-    return root.gLong.MIN_VALUE;
-  } else if (value + 1 >= root.gLong.TWO_PWR_63_DBL_) {
-    return root.gLong.MAX_VALUE;
-  } else if (value < 0) {
-    return root.gLong.fromNumber(-value).negate();
-  } else {
-    return new root.gLong(
-        (value % root.gLong.TWO_PWR_32_DBL_) | 0,
-        (value / root.gLong.TWO_PWR_32_DBL_) | 0);
-  }
-};
-
-
-/**
- * Returns a Long representing the 64-bit integer that comes by concatenating
- * the given high and low bits.  Each is assumed to use 32 bits.
- * @param {number} lowBits The low 32-bits.
- * @param {number} highBits The high 32-bits.
- * @return {!root.gLong} The corresponding Long value.
- */
-root.gLong.fromBits = function(lowBits, highBits) {
-  return new root.gLong(lowBits, highBits);
-};
-
-
-/**
- * Returns a Long representation of the given string, written using the given
- * radix.
- * @param {string} str The textual representation of the Long.
- * @param {number=} opt_radix The radix in which the text is written.
- * @return {!root.gLong} The corresponding Long value.
- */
-root.gLong.fromString = function(str, opt_radix) {
-  if (str.length == 0) {
-    throw Error('number format error: empty string');
-  }
-
-  var radix = opt_radix || 10;
-  if (radix < 2 || 36 < radix) {
-    throw Error('radix out of range: ' + radix);
-  }
-
-  if (str.charAt(0) == '-') {
-    return root.gLong.fromString(str.substring(1), radix).negate();
-  } else if (str.indexOf('-') >= 0) {
-    throw Error('number format error: interior "-" character: ' + str);
-  }
-
-  // Do several (8) digits each time through the loop, so as to
-  // minimize the calls to the very expensive emulated div.
-  var radixToPower = root.gLong.fromNumber(Math.pow(radix, 8));
-
-  var result = root.gLong.ZERO;
-  for (var i = 0; i < str.length; i += 8) {
-    var size = Math.min(8, str.length - i);
-    var value = parseInt(str.substring(i, i + size), radix);
-    if (size < 8) {
-      var power = root.gLong.fromNumber(Math.pow(radix, size));
-      result = result.multiply(power).add(root.gLong.fromNumber(value));
-    } else {
-      result = result.multiply(radixToPower);
-      result = result.add(root.gLong.fromNumber(value));
-    }
-  }
-  return result;
-};
-
-
-// NOTE: the compiler should inline these constant values below and then remove
-// these variables, so there should be no runtime penalty for these.
-
-
-/**
- * Number used repeated below in calculations.  This must appear before the
- * first call to any from* function below.
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_16_DBL_ = 1 << 16;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_24_DBL_ = 1 << 24;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_32_DBL_ =
-    root.gLong.TWO_PWR_16_DBL_ * root.gLong.TWO_PWR_16_DBL_;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_31_DBL_ =
-    root.gLong.TWO_PWR_32_DBL_ / 2;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_48_DBL_ =
-    root.gLong.TWO_PWR_32_DBL_ * root.gLong.TWO_PWR_16_DBL_;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_64_DBL_ =
-    root.gLong.TWO_PWR_32_DBL_ * root.gLong.TWO_PWR_32_DBL_;
-
-
-/**
- * @type {number}
- * @private
- */
-root.gLong.TWO_PWR_63_DBL_ =
-    root.gLong.TWO_PWR_64_DBL_ / 2;
-
-
-/** @type {!root.gLong} */
-root.gLong.ZERO = root.gLong.fromInt(0);
-
-
-/** @type {!root.gLong} */
-root.gLong.ONE = root.gLong.fromInt(1);
-
-
-/** @type {!root.gLong} */
-root.gLong.NEG_ONE = root.gLong.fromInt(-1);
-
-
-/** @type {!root.gLong} */
-root.gLong.MAX_VALUE =
-    root.gLong.fromBits(0xFFFFFFFF | 0, 0x7FFFFFFF | 0);
-
-
-/** @type {!root.gLong} */
-root.gLong.MIN_VALUE = root.gLong.fromBits(0, 0x80000000 | 0);
-
-
-/**
- * @type {!root.gLong}
- * @private
- */
-root.gLong.TWO_PWR_24_ = root.gLong.fromInt(1 << 24);
-
-
-/** @return {number} The value, assuming it is a 32-bit integer. */
-root.gLong.prototype.toInt = function() {
-  return this.low_;
-};
-
-
-/** @return {number} The closest floating-point representation to this value. */
-root.gLong.prototype.toNumber = function() {
-  return this.high_ * root.gLong.TWO_PWR_32_DBL_ +
-         this.getLowBitsUnsigned();
-};
-
-
-/**
- * @param {number=} opt_radix The radix in which the text should be written.
- * @return {string} The textual representation of this value.
- */
-root.gLong.prototype.toString = function(opt_radix) {
-  var radix = opt_radix || 10;
-  if (radix < 2 || 36 < radix) {
-    throw Error('radix out of range: ' + radix);
-  }
-
-  if (this.isZero()) {
-    return '0';
-  }
-
-  if (this.isNegative()) {
-    if (this.equals(root.gLong.MIN_VALUE)) {
-      // We need to change the Long value before it can be negated, so we remove
-      // the bottom-most digit in this base and then recurse to do the rest.
-      var radixLong = root.gLong.fromNumber(radix);
-      var div = this.div(radixLong);
-      var rem = div.multiply(radixLong).subtract(this);
-      return div.toString(radix) + rem.toInt().toString(radix);
-    } else {
-      return '-' + this.negate().toString(radix);
-    }
-  }
-
-  // Do several (6) digits each time through the loop, so as to
-  // minimize the calls to the very expensive emulated div.
-  var radixToPower = root.gLong.fromNumber(Math.pow(radix, 6));
-
-  var rem = this;
-  var result = '';
-  while (true) {
-    var remDiv = rem.div(radixToPower);
-    var intval = rem.subtract(remDiv.multiply(radixToPower)).toInt();
-    var digits = intval.toString(radix);
-
-    rem = remDiv;
-    if (rem.isZero()) {
-      return digits + result;
-    } else {
-      while (digits.length < 6) {
-        digits = '0' + digits;
-      }
-      result = '' + digits + result;
-    }
-  }
-};
-
-
-/** @return {number} The high 32-bits as a signed value. */
-root.gLong.prototype.getHighBits = function() {
-  return this.high_;
-};
-
-
-/** @return {number} The low 32-bits as a signed value. */
-root.gLong.prototype.getLowBits = function() {
-  return this.low_;
-};
-
-
-/** @return {number} The low 32-bits as an unsigned value. */
-root.gLong.prototype.getLowBitsUnsigned = function() {
-  return (this.low_ >= 0) ?
-      this.low_ : root.gLong.TWO_PWR_32_DBL_ + this.low_;
-};
-
-
-/**
- * @return {number} Returns the number of bits needed to represent the absolute
- *     value of this Long.
- */
-root.gLong.prototype.getNumBitsAbs = function() {
-  if (this.isNegative()) {
-    if (this.equals(root.gLong.MIN_VALUE)) {
-      return 64;
-    } else {
-      return this.negate().getNumBitsAbs();
-    }
-  } else {
-    var val = this.high_ != 0 ? this.high_ : this.low_;
-    for (var bit = 31; bit > 0; bit--) {
-      if ((val & (1 << bit)) != 0) {
-        break;
-      }
-    }
-    return this.high_ != 0 ? bit + 33 : bit + 1;
-  }
-};
-
-
-/** @return {boolean} Whether this value is zero. */
-root.gLong.prototype.isZero = function() {
-  return this.high_ == 0 && this.low_ == 0;
-};
-
-
-/** @return {boolean} Whether this value is negative. */
-root.gLong.prototype.isNegative = function() {
-  return this.high_ < 0;
-};
-
-
-/** @return {boolean} Whether this value is odd. */
-root.gLong.prototype.isOdd = function() {
-  return (this.low_ & 1) == 1;
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long equals the other.
- */
-root.gLong.prototype.equals = function(other) {
-  return (this.high_ == other.high_) && (this.low_ == other.low_);
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long does not equal the other.
- */
-root.gLong.prototype.notEquals = function(other) {
-  return (this.high_ != other.high_) || (this.low_ != other.low_);
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long is less than the other.
- */
-root.gLong.prototype.lessThan = function(other) {
-  return this.compare(other) < 0;
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long is less than or equal to the other.
- */
-root.gLong.prototype.lessThanOrEqual = function(other) {
-  return this.compare(other) <= 0;
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long is greater than the other.
- */
-root.gLong.prototype.greaterThan = function(other) {
-  return this.compare(other) > 0;
-};
-
-
-/**
- * @param {root.gLong} other Long to compare against.
- * @return {boolean} Whether this Long is greater than or equal to the other.
- */
-root.gLong.prototype.greaterThanOrEqual = function(other) {
-  return this.compare(other) >= 0;
-};
-
-
-/**
- * Compares this Long with the given one.
- * @param {root.gLong} other Long to compare against.
- * @return {number} 0 if they are the same, 1 if the this is greater, and -1
- *     if the given one is greater.
- */
-root.gLong.prototype.compare = function(other) {
-  if (this.equals(other)) {
-    return 0;
-  }
-
-  var thisNeg = this.isNegative();
-  var otherNeg = other.isNegative();
-  if (thisNeg && !otherNeg) {
-    return -1;
-  }
-  if (!thisNeg && otherNeg) {
-    return 1;
-  }
-
-  // at this point, the signs are the same, so subtraction will not overflow
-  if (this.subtract(other).isNegative()) {
-    return -1;
-  } else {
-    return 1;
-  }
-};
-
-
-/** @return {!root.gLong} The negation of this value. */
-root.gLong.prototype.negate = function() {
-  if (this.equals(root.gLong.MIN_VALUE)) {
-    return root.gLong.MIN_VALUE;
-  } else {
-    return this.not().add(root.gLong.ONE);
-  }
-};
-
-
-/**
- * Returns the sum of this and the given Long.
- * @param {root.gLong} other Long to add to this one.
- * @return {!root.gLong} The sum of this and the given Long.
- */
-root.gLong.prototype.add = function(other) {
-  // Divide each number into 4 chunks of 16 bits, and then sum the chunks.
-
-  var a48 = this.high_ >>> 16;
-  var a32 = this.high_ & 0xFFFF;
-  var a16 = this.low_ >>> 16;
-  var a00 = this.low_ & 0xFFFF;
-
-  var b48 = other.high_ >>> 16;
-  var b32 = other.high_ & 0xFFFF;
-  var b16 = other.low_ >>> 16;
-  var b00 = other.low_ & 0xFFFF;
-
-  var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
-  c00 += a00 + b00;
-  c16 += c00 >>> 16;
-  c00 &= 0xFFFF;
-  c16 += a16 + b16;
-  c32 += c16 >>> 16;
-  c16 &= 0xFFFF;
-  c32 += a32 + b32;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c48 += a48 + b48;
-  c48 &= 0xFFFF;
-  return root.gLong.fromBits((c16 << 16) | c00, (c48 << 16) | c32);
-};
-
-
-/**
- * Returns the difference of this and the given Long.
- * @param {root.gLong} other Long to subtract from this.
- * @return {!root.gLong} The difference of this and the given Long.
- */
-root.gLong.prototype.subtract = function(other) {
-  return this.add(other.negate());
-};
-
-
-/**
- * Returns the product of this and the given long.
- * @param {root.gLong} other Long to multiply with this.
- * @return {!root.gLong} The product of this and the other.
- */
-root.gLong.prototype.multiply = function(other) {
-  if (this.isZero()) {
-    return root.gLong.ZERO;
-  } else if (other.isZero()) {
-    return root.gLong.ZERO;
-  }
-
-  if (this.equals(root.gLong.MIN_VALUE)) {
-    return other.isOdd() ? root.gLong.MIN_VALUE : root.gLong.ZERO;
-  } else if (other.equals(root.gLong.MIN_VALUE)) {
-    return this.isOdd() ? root.gLong.MIN_VALUE : root.gLong.ZERO;
-  }
-
-  if (this.isNegative()) {
-    if (other.isNegative()) {
-      return this.negate().multiply(other.negate());
-    } else {
-      return this.negate().multiply(other).negate();
-    }
-  } else if (other.isNegative()) {
-    return this.multiply(other.negate()).negate();
-  }
-
-  // If both longs are small, use float multiplication
-  if (this.lessThan(root.gLong.TWO_PWR_24_) &&
-      other.lessThan(root.gLong.TWO_PWR_24_)) {
-    return root.gLong.fromNumber(this.toNumber() * other.toNumber());
-  }
-
-  // Divide each long into 4 chunks of 16 bits, and then add up 4x4 products.
-  // We can skip products that would overflow.
-
-  var a48 = this.high_ >>> 16;
-  var a32 = this.high_ & 0xFFFF;
-  var a16 = this.low_ >>> 16;
-  var a00 = this.low_ & 0xFFFF;
-
-  var b48 = other.high_ >>> 16;
-  var b32 = other.high_ & 0xFFFF;
-  var b16 = other.low_ >>> 16;
-  var b00 = other.low_ & 0xFFFF;
-
-  var c48 = 0, c32 = 0, c16 = 0, c00 = 0;
-  c00 += a00 * b00;
-  c16 += c00 >>> 16;
-  c00 &= 0xFFFF;
-  c16 += a16 * b00;
-  c32 += c16 >>> 16;
-  c16 &= 0xFFFF;
-  c16 += a00 * b16;
-  c32 += c16 >>> 16;
-  c16 &= 0xFFFF;
-  c32 += a32 * b00;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c32 += a16 * b16;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c32 += a00 * b32;
-  c48 += c32 >>> 16;
-  c32 &= 0xFFFF;
-  c48 += a48 * b00 + a32 * b16 + a16 * b32 + a00 * b48;
-  c48 &= 0xFFFF;
-  return root.gLong.fromBits((c16 << 16) | c00, (c48 << 16) | c32);
-};
-
-
-/**
- * Returns this Long divided by the given one.
- * @param {root.gLong} other Long by which to divide.
- * @return {!root.gLong} This Long divided by the given one.
- */
-root.gLong.prototype.div = function(other) {
-  if (other.isZero()) {
-    throw Error('division by zero');
-  } else if (this.isZero()) {
-    return root.gLong.ZERO;
-  }
-
-  if (this.equals(root.gLong.MIN_VALUE)) {
-    if (other.equals(root.gLong.ONE) ||
-        other.equals(root.gLong.NEG_ONE)) {
-      return root.gLong.MIN_VALUE;  // recall that -MIN_VALUE == MIN_VALUE
-    } else if (other.equals(root.gLong.MIN_VALUE)) {
-      return root.gLong.ONE;
-    } else {
-      // At this point, we have |other| >= 2, so |this/other| < |MIN_VALUE|.
-      var halfThis = this.shiftRight(1);
-      var approx = halfThis.div(other).shiftLeft(1);
-      if (approx.equals(root.gLong.ZERO)) {
-        return other.isNegative() ? root.gLong.ONE : root.gLong.NEG_ONE;
-      } else {
-        var rem = this.subtract(other.multiply(approx));
-        var result = approx.add(rem.div(other));
-        return result;
-      }
-    }
-  } else if (other.equals(root.gLong.MIN_VALUE)) {
-    return root.gLong.ZERO;
-  }
-
-  if (this.isNegative()) {
-    if (other.isNegative()) {
-      return this.negate().div(other.negate());
-    } else {
-      return this.negate().div(other).negate();
-    }
-  } else if (other.isNegative()) {
-    return this.div(other.negate()).negate();
-  }
-
-  // Repeat the following until the remainder is less than other:  find a
-  // floating-point that approximates remainder / other *from below*, add this
-  // into the result, and subtract it from the remainder.  It is critical that
-  // the approximate value is less than or equal to the real value so that the
-  // remainder never becomes negative.
-  var res = root.gLong.ZERO;
-  var rem = this;
-  while (rem.greaterThanOrEqual(other)) {
-    // Approximate the result of division. This may be a little greater or
-    // smaller than the actual value.
-    var approx = Math.max(1, Math.floor(rem.toNumber() / other.toNumber()));
-
-    // We will tweak the approximate result by changing it in the 48-th digit or
-    // the smallest non-fractional digit, whichever is larger.
-    var log2 = Math.ceil(Math.log(approx) / Math.LN2);
-    var delta = (log2 <= 48) ? 1 : Math.pow(2, log2 - 48);
-
-    // Decrease the approximation until it is smaller than the remainder.  Note
-    // that if it is too large, the product overflows and is negative.
-    var approxRes = root.gLong.fromNumber(approx);
-    var approxRem = approxRes.multiply(other);
-    while (approxRem.isNegative() || approxRem.greaterThan(rem)) {
-      approx -= delta;
-      approxRes = root.gLong.fromNumber(approx);
-      approxRem = approxRes.multiply(other);
-    }
-
-    // We know the answer can't be zero... and actually, zero would cause
-    // infinite recursion since we would make no progress.
-    if (approxRes.isZero()) {
-      approxRes = root.gLong.ONE;
-    }
-
-    res = res.add(approxRes);
-    rem = rem.subtract(approxRem);
-  }
-  return res;
-};
-
-
-/**
- * Returns this Long modulo the given one.
- * @param {root.gLong} other Long by which to mod.
- * @return {!root.gLong} This Long modulo the given one.
- */
-root.gLong.prototype.modulo = function(other) {
-  return this.subtract(this.div(other).multiply(other));
-};
-
-
-/** @return {!root.gLong} The bitwise-NOT of this value. */
-root.gLong.prototype.not = function() {
-  return root.gLong.fromBits(~this.low_, ~this.high_);
-};
-
-
-/**
- * Returns the bitwise-AND of this Long and the given one.
- * @param {root.gLong} other The Long with which to AND.
- * @return {!root.gLong} The bitwise-AND of this and the other.
- */
-root.gLong.prototype.and = function(other) {
-  return root.gLong.fromBits(this.low_ & other.low_,
-                                 this.high_ & other.high_);
-};
-
-
-/**
- * Returns the bitwise-OR of this Long and the given one.
- * @param {root.gLong} other The Long with which to OR.
- * @return {!root.gLong} The bitwise-OR of this and the other.
- */
-root.gLong.prototype.or = function(other) {
-  return root.gLong.fromBits(this.low_ | other.low_,
-                                 this.high_ | other.high_);
-};
-
-
-/**
- * Returns the bitwise-XOR of this Long and the given one.
- * @param {root.gLong} other The Long with which to XOR.
- * @return {!root.gLong} The bitwise-XOR of this and the other.
- */
-root.gLong.prototype.xor = function(other) {
-  return root.gLong.fromBits(this.low_ ^ other.low_,
-                                 this.high_ ^ other.high_);
-};
-
-
-/**
- * Returns this Long with bits shifted to the left by the given amount.
- * @param {number} numBits The number of bits by which to shift.
- * @return {!root.gLong} This shifted to the left by the given amount.
- */
-root.gLong.prototype.shiftLeft = function(numBits) {
-  numBits &= 63;
-  if (numBits == 0) {
-    return this;
-  } else {
-    var low = this.low_;
-    if (numBits < 32) {
-      var high = this.high_;
-      return root.gLong.fromBits(
-          low << numBits,
-          (high << numBits) | (low >>> (32 - numBits)));
-    } else {
-      return root.gLong.fromBits(0, low << (numBits - 32));
-    }
-  }
-};
-
-
-/**
- * Returns this Long with bits shifted to the right by the given amount.
- * @param {number} numBits The number of bits by which to shift.
- * @return {!root.gLong} This shifted to the right by the given amount.
- */
-root.gLong.prototype.shiftRight = function(numBits) {
-  numBits &= 63;
-  if (numBits == 0) {
-    return this;
-  } else {
-    var high = this.high_;
-    if (numBits < 32) {
-      var low = this.low_;
-      return root.gLong.fromBits(
-          (low >>> numBits) | (high << (32 - numBits)),
-          high >> numBits);
-    } else {
-      return root.gLong.fromBits(
-          high >> (numBits - 32),
-          high >= 0 ? 0 : -1);
-    }
-  }
-};
-
-
-/**
- * Returns this Long with bits shifted to the right by the given amount, with
- * the new top bits matching the current sign bit.
- * @param {number} numBits The number of bits by which to shift.
- * @return {!root.gLong} This shifted to the right by the given amount, with
- *     zeros placed into the new leading bits.
- */
-root.gLong.prototype.shiftRightUnsigned = function(numBits) {
-  numBits &= 63;
-  if (numBits == 0) {
-    return this;
-  } else {
-    var high = this.high_;
-    if (numBits < 32) {
-      var low = this.low_;
-      return root.gLong.fromBits(
-          (low >>> numBits) | (high << (32 - numBits)),
-          high >>> numBits);
-    } else if (numBits == 32) {
-      return root.gLong.fromBits(high, 0);
-    } else {
-      return root.gLong.fromBits(high >>> (numBits - 32), 0);
-    }
-  }
-};
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = root.gLong;
-  }
-
-}).call(this);
 // Generated by CoffeeScript 1.6.2
 (function() {
   "use strict";
@@ -935,7 +98,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  _ = require('../vendor/_.js');
+  _ = require('../vendor/underscore/underscore.js');
 
   _ref = require('./logging'), error = _ref.error, debug = _ref.debug;
 
@@ -1321,10 +484,10 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
   };
 
   root.BytesArray = (function() {
-    function BytesArray(raw_array, start, end) {
-      this.raw_array = raw_array;
+    function BytesArray(buffer, start, end) {
+      this.buffer = buffer;
       this.start = start != null ? start : 0;
-      this.end = end != null ? end : this.raw_array.length;
+      this.end = end != null ? end : this.buffer.length;
       this._index = 0;
     }
 
@@ -1347,7 +510,18 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     BytesArray.prototype.get_uint = function(bytes_count) {
       var rv;
 
-      rv = root.read_uint(this.raw_array.slice(this.start + this._index, this.start + this._index + bytes_count));
+      rv = (function() {
+        switch (bytes_count) {
+          case 1:
+            return this.buffer.readUInt8(this.start + this._index);
+          case 2:
+            return this.buffer.readUInt16BE(this.start + this._index);
+          case 4:
+            return this.buffer.readUInt32BE(this.start + this._index);
+          default:
+            throw new Error('Cannot read a uint of size #{bytes_count}');
+        }
+      }).call(this);
       this._index += bytes_count;
       return rv;
     };
@@ -1360,15 +534,18 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     };
 
     BytesArray.prototype.read = function(bytes_count) {
-      var rv;
+      var i, rv, _i, _ref2, _ref3;
 
-      rv = this.raw_array.slice(this.start + this._index, this.start + this._index + bytes_count);
+      rv = [];
+      for (i = _i = _ref2 = this.start + this._index, _ref3 = this.start + this._index + bytes_count; _i < _ref3; i = _i += 1) {
+        rv.push(this.buffer.readUInt8(i));
+      }
       this._index += bytes_count;
       return rv;
     };
 
     BytesArray.prototype.peek = function() {
-      return this.raw_array[this.start + this._index];
+      return this.buffer.readUInt8(this.start + this._index);
     };
 
     BytesArray.prototype.size = function() {
@@ -1378,9 +555,17 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     BytesArray.prototype.splice = function(len) {
       var arr;
 
-      arr = new root.BytesArray(this.raw_array, this.start + this._index, this.start + this._index + len);
+      arr = new root.BytesArray(this.buffer, this.start + this._index, this.start + this._index + len);
       this._index += len;
       return arr;
+    };
+
+    BytesArray.prototype.slice = function(len) {
+      var rv;
+
+      rv = this.buffer.slice(this.start + this._index, this.start + this._index + len);
+      this._index += len;
+      return rv;
     };
 
     return BytesArray;
@@ -1602,7 +787,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  _ = require('../vendor/_.js');
+  _ = require('../vendor/underscore/underscore.js');
 
   util = require('./util');
 
@@ -2569,41 +1754,10 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
         return;
       }
       new_execute = function(rs) {
-        var arr_types, counts, d, default_val, init_arr,
-          _this = this;
+        var counts;
 
-        counts = rs.curr_frame().stack.splice(-this.dim, this.dim);
-        default_val = util.initial_value(this["class"].slice(this.dim));
-        arr_types = (function() {
-          var _i, _ref8, _results;
-
-          _results = [];
-          for (d = _i = 0, _ref8 = this.dim; _i < _ref8; d = _i += 1) {
-            _results.push(this["class"].slice(d));
-          }
-          return _results;
-        }).call(this);
-        init_arr = function(curr_dim) {
-          var array, i, len, type, _i, _j;
-
-          len = counts[curr_dim];
-          if (len < 0) {
-            rs.java_throw(rs.get_bs_class('Ljava/lang/NegativeArraySizeException;'), "Tried to init dimension " + curr_dim + " of a " + _this.dim + " dimensional " + (_this["class"].toString()) + " array with length " + len);
-          }
-          type = arr_types[curr_dim];
-          array = new Array(len);
-          if (curr_dim + 1 === _this.dim) {
-            for (i = _i = 0; _i < len; i = _i += 1) {
-              array[i] = default_val;
-            }
-          } else {
-            for (i = _j = 0; _j < len; i = _j += 1) {
-              array[i] = init_arr(curr_dim + 1);
-            }
-          }
-          return new JavaArray(rs, rs.get_bs_class(type), array);
-        };
-        return rs.push(init_arr(0));
+        counts = rs.curr_frame().stack.splice(-_this.dim, _this.dim);
+        return rs.push(rs.heap_multinewarray(_this["class"], counts));
       };
       new_execute.call(this, rs);
       this.execute = new_execute;
@@ -5327,14 +4481,14 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
   root.ReferenceClassData = (function(_super) {
     __extends(ReferenceClassData, _super);
 
-    function ReferenceClassData(bytes_array, loader) {
-      var f, i, isize, m, mkey, num_fields, num_methods, super_ref, _i, _j, _len, _ref1, _ref2;
+    function ReferenceClassData(buffer, loader) {
+      var bytes_array, f, i, isize, m, mkey, num_fields, num_methods, super_ref, _i, _j, _len, _ref1, _ref2;
 
       if (methods == null) {
         methods = require('./methods');
       }
       ReferenceClassData.__super__.constructor.call(this, loader);
-      bytes_array = new util.BytesArray(bytes_array);
+      bytes_array = new util.BytesArray(buffer);
       if ((bytes_array.get_uint(4)) !== 0xCAFEBABE) {
         throw "Magic number invalid";
       }
@@ -5684,10 +4838,10 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
 // Generated by CoffeeScript 1.6.2
 (function() {
   "use strict";
-  var ArrayClassData, JavaArray, JavaObject, PrimitiveClassData, ReferenceClassData, arraycopy_check, arraycopy_no_check, create_stack_trace, debug, doPrivileged, error, exceptions, flatten_pkg, fs, gLong, get_cl_from_jclo, get_property, log, logging, native_define_class, native_methods, o, path, root, runtime, setup_caller_stack, stat_fd, stat_file, thread_name, trace, trapped_methods, unsafe_compare_and_swap, unsafe_memcpy, util, write_to_file, _, _ref, _ref1, _ref2, _ref3,
+  var ArrayClassData, JavaArray, JavaObject, PrimitiveClassData, ReferenceClassData, arraycopy_check, arraycopy_no_check, create_stack_trace, debug, doPrivileged, error, exceptions, flatten_pkg, fs, gLong, get_cl_from_jclo, get_property, log, logging, native_define_class, native_methods, o, path, root, runtime, setup_caller_stack, stat_file, thread_name, trace, trapped_methods, unsafe_compare_and_swap, unsafe_memcpy, util, write_to_file, _, _ref, _ref1, _ref2, _ref3,
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-  _ = require('../vendor/_.js');
+  _ = require('../vendor/underscore/underscore.js');
 
   gLong = require('../vendor/gLong.js');
 
@@ -5834,17 +4988,6 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     }
   };
 
-  stat_fd = function(fd) {
-    var e;
-
-    try {
-      return fs.fstatSync(fd);
-    } catch (_error) {
-      e = _error;
-      return null;
-    }
-  };
-
   stat_file = function(fname, cb) {
     return fs.stat(fname, function(err, stat) {
       if (err != null) {
@@ -5940,26 +5083,21 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
   };
 
   native_define_class = function(rs, name, bytes, offset, len, loader, resume_cb, except_cb) {
-    var b, raw_bytes;
+    var b, buf, i, _i, _len, _ref4;
 
-    raw_bytes = (function() {
-      var _i, _len, _ref4, _results;
-
-      _ref4 = bytes.array.slice(offset, offset + len);
-      _results = [];
-      for (_i = 0, _len = _ref4.length; _i < _len; _i++) {
-        b = _ref4[_i];
-        _results.push((256 + b) % 256);
-      }
-      return _results;
-    })();
-    return loader.define_class(rs, util.int_classname(name.jvm2js_str()), raw_bytes, (function(cdata) {
+    buf = new Buffer(len);
+    _ref4 = bytes.array.slice(offset, offset + len);
+    for (i = _i = 0, _len = _ref4.length; _i < _len; i = ++_i) {
+      b = _ref4[i];
+      buf.writeUInt8((256 + b) % 256, i);
+    }
+    return loader.define_class(rs, util.int_classname(name.jvm2js_str()), buf, (function(cdata) {
       return resume_cb(cdata.get_class_object(rs));
     }), except_cb);
   };
 
   write_to_file = function(rs, _this, bytes, offset, len, append) {
-    var fd, fd_obj;
+    var buf, fd, fd_obj;
 
     fd_obj = _this.get_field(rs, 'Ljava/io/FileOutputStream;fd');
     fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
@@ -5967,7 +5105,13 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
       rs.java_throw(rs.get_bs_class('Ljava/io/IOException;'), "Bad file descriptor");
     }
     if (fd !== 1 && fd !== 2) {
-      _this.$pos += fs.writeSync(fd, new Buffer(bytes.array), offset, len, _this.$pos);
+      buf = new Buffer(bytes.array);
+      rs.async_op(function(cb) {
+        return fs.write(fd, buf, offset, len, _this.$pos, function(err, num_bytes) {
+          _this.$pos += num_bytes;
+          return cb();
+        });
+      });
       return;
     }
     rs.print(util.chars2js_str(bytes, offset, len));
@@ -6291,58 +5435,6 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
             return new JavaArray(rs, rs.get_bs_class('[[B'), env_arr);
           })
         ],
-        reflect: {
-          Array: [
-            o('newArray(L!/!/Class;I)L!/!/Object;', function(rs, _this, len) {
-              return rs.heap_newarray(_this.$cls.get_type(), len);
-            }), o('getLength(Ljava/lang/Object;)I', function(rs, arr) {
-              return rs.check_null(arr).array.length;
-            }), o('set(Ljava/lang/Object;ILjava/lang/Object;)V', function(rs, arr, idx, val) {
-              var array, ccls, ccname, ecls, illegal_exc, m, my_sf;
-
-              my_sf = rs.curr_frame();
-              array = rs.check_null(arr).array;
-              if (!(idx < array.length)) {
-                rs.java_throw(rs.get_bs_class('Ljava/lang/ArrayIndexOutOfBoundsException;'), 'Tried to write to an illegal index in an array.');
-              }
-              if ((ccls = arr.cls.get_component_class()) instanceof PrimitiveClassData) {
-                if (val.cls.is_subclass(rs.get_bs_class(ccls.box_class_name()))) {
-                  ccname = ccls.get_type();
-                  m = val.cls.method_lookup(rs, "" + util.internal2external[ccname] + "Value()" + ccname);
-                  rs.push(val);
-                  m.setup_stack(rs);
-                  my_sf.runner = function() {
-                    array[idx] = ccname === 'J' || ccname === 'D' ? rs.pop2() : rs.pop();
-                    return rs.meta_stack().pop();
-                  };
-                  throw exceptions.ReturnException;
-                }
-              } else if (val.cls.is_subclass(ccls)) {
-                array[idx] = val;
-                return;
-              }
-              illegal_exc = 'Ljava/lang/IllegalArgumentException;';
-              if ((ecls = rs.get_bs_class(illegal_exc, true)) != null) {
-                return rs.java_throw(ecls, 'argument type mismatch');
-              } else {
-                return rs.async_op(function(resume_cb, except_cb) {
-                  return rs.get_cl().initialize_class(rs, illegal_exc, (function(ecls) {
-                    return except_cb((function() {
-                      return rs.java_throw(ecls, 'argument type mismatch');
-                    }));
-                  }), except_cb);
-                });
-              }
-            })
-          ],
-          Proxy: [
-            o('defineClass0(L!/!/ClassLoader;L!/!/String;[BII)L!/!/Class;', function(rs, cl, name, bytes, offset, len) {
-              return rs.async_op(function(success_cb, except_cb) {
-                return native_define_class(rs, name, bytes, offset, len, get_cl_from_jclo(rs, cl), success_cb, except_cb);
-              });
-            })
-          ]
-        },
         SecurityManager: [
           o('getClassContext()[Ljava/lang/Class;', function(rs, _this) {
             var classes, sf, _i, _ref4;
@@ -6649,8 +5741,10 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
 
                 fd_obj = _this.get_field(rs, 'Ljava/io/FileOutputStream;fd');
                 fd_obj.set_field(rs, 'Ljava/io/FileDescriptor;fd', fd);
-                _this.$pos = (stat_fd(fd)).size;
-                return resume_cb();
+                return fs.fstat(fd, function(err, stats) {
+                  _this.$pos = stats.size;
+                  return resume_cb();
+                });
               });
             });
           }), o('writeBytes([BIIZ)V', write_to_file), o('writeBytes([BII)V', write_to_file), o('close0()V', function(rs, _this) {
@@ -6674,7 +5768,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
         ],
         FileInputStream: [
           o('available()I', function(rs, _this) {
-            var fd, fd_obj, stats;
+            var fd, fd_obj;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/FileInputStream;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
@@ -6684,10 +5778,13 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
             if (fd === 0) {
               return 0;
             }
-            stats = fs.fstatSync(fd);
-            return stats.size - _this.$pos;
+            return rs.async_op(function(cb) {
+              return fs.fstat(fd, function(err, stats) {
+                return cb(stats.size - _this.$pos);
+              });
+            });
           }), o('read()I', function(rs, _this) {
-            var buf, bytes_read, fd, fd_obj;
+            var fd, fd_obj;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/FileInputStream;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
@@ -6695,14 +5792,18 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
               rs.java_throw(rs.get_bs_class('Ljava/io/IOException;'), "Bad file descriptor");
             }
             if (fd !== 0) {
-              buf = new Buffer((fs.fstatSync(fd)).size);
-              bytes_read = fs.readSync(fd, buf, 0, 1, _this.$pos);
-              _this.$pos++;
-              if (bytes_read === 0) {
-                return -1;
-              } else {
-                return buf.readUInt8(0);
-              }
+              rs.async_op(function(cb) {
+                return fs.fstat(fd, function(err, stats) {
+                  var buf;
+
+                  buf = new Buffer(stats.size);
+                  return fs.read(fd, buf, 0, 1, _this.$pos, function(err, bytes_read) {
+                    _this.$pos++;
+                    return cb(bytes_read === 0 ? -1 : buf.readUInt8(0));
+                  });
+                });
+              });
+              return;
             }
             return rs.async_op(function(cb) {
               return rs.async_input(1, function(byte) {
@@ -6710,7 +5811,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
               });
             });
           }), o('readBytes([BII)I', function(rs, _this, byte_arr, offset, n_bytes) {
-            var buf, bytes_read, fd, fd_obj, filesize, i, pos, _i;
+            var buf, fd, fd_obj, pos;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/FileInputStream;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
@@ -6720,26 +5821,27 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
             if (fd !== 0) {
               pos = _this.$pos;
               buf = new Buffer(n_bytes);
-              filesize = fs.fstatSync(fd).size;
-              if (filesize > 0 && pos >= filesize - 1) {
-                return -1;
-              }
-              bytes_read = fs.readSync(fd, buf, 0, n_bytes, pos);
-              _this.$pos += bytes_read;
-              for (i = _i = 0; _i < bytes_read; i = _i += 1) {
-                byte_arr.array[offset + i] = buf.readUInt8(i);
-              }
-              if (bytes_read === 0 && n_bytes !== 0) {
-                return -1;
-              } else {
-                return bytes_read;
-              }
+              rs.async_op(function(cb) {
+                return fs.read(fd, buf, 0, n_bytes, pos, function(err, bytes_read) {
+                  var i, _i;
+
+                  if (err != null) {
+                    return cb(-1);
+                  }
+                  _this.$pos += bytes_read;
+                  for (i = _i = 0; _i < bytes_read; i = _i += 1) {
+                    byte_arr.array[offset + i] = buf.readUInt8(i);
+                  }
+                  return cb(bytes_read === 0 && n_bytes !== 0 ? -1 : bytes_read);
+                });
+              });
+              return;
             }
             return rs.async_op(function(cb) {
               return rs.async_input(n_bytes, function(bytes) {
-                var b, idx, _j, _len;
+                var b, idx, _i, _len;
 
-                for (idx = _j = 0, _len = bytes.length; _j < _len; idx = ++_j) {
+                for (idx = _i = 0, _len = bytes.length; _i < _len; idx = ++_i) {
                   b = bytes[idx];
                   byte_arr.array[offset + idx] = b;
                 }
@@ -6755,7 +5857,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
                 var fd_obj;
 
                 if (e != null) {
-                  if (e.code === 'ENOENT') {
+                  if (e.code === 'ENOENT' || true) {
                     return except_cb(function() {
                       return rs.java_throw(rs.get_bs_class('Ljava/io/FileNotFoundException;'), "" + filepath + " (No such file or directory)");
                     });
@@ -6790,7 +5892,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
               });
             });
           }), o('skip(J)J', function(rs, _this, n_bytes) {
-            var bytes_left, fd, fd_obj, to_skip;
+            var fd, fd_obj;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/FileInputStream;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
@@ -6798,10 +5900,17 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
               rs.java_throw(rs.get_bs_class('Ljava/io/IOException;'), "Bad file descriptor");
             }
             if (fd !== 0) {
-              bytes_left = fs.fstatSync(fd).size - _this.$pos;
-              to_skip = Math.min(n_bytes.toNumber(), bytes_left);
-              _this.$pos += to_skip;
-              return gLong.fromNumber(to_skip);
+              rs.async_op(function(cb) {
+                return fs.fstat(fd, function(err, stats) {
+                  var bytes_left, to_skip;
+
+                  bytes_left = stats.size - _this.$pos;
+                  to_skip = Math.min(n_bytes.toNumber(), bytes_left);
+                  _this.$pos += to_skip;
+                  return cb(gLong.fromNumber(to_skip), null);
+                });
+              });
+              return;
             }
             return rs.async_op(function(cb) {
               return rs.async_input(n_bytes.toNumber(), function(bytes) {
@@ -6841,7 +5950,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
                 var fd_obj;
 
                 if (e != null) {
-                  if (e.code === 'ENOENT') {
+                  if (e.code === 'ENOENT' || true) {
                     return except_cb(function() {
                       return rs.java_throw(rs.get_bs_class('Ljava/io/FileNotFoundException;'), "Could not open file " + filepath);
                     });
@@ -6865,34 +5974,45 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
 
             fd_obj = _this.get_field(rs, 'Ljava/io/RandomAccessFile;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
-            return gLong.fromNumber((stat_fd(fd)).size);
+            return rs.async_op(function(cb) {
+              return fs.fstat(fd, function(err, stats) {
+                return cb(gLong.fromNumber(stats.size), null);
+              });
+            });
           }), o('seek(J)V', function(rs, _this, pos) {
             return _this.$pos = pos.toNumber();
           }), o('readBytes([BII)I', function(rs, _this, byte_arr, offset, len) {
-            var buf, bytes_read, fd, fd_obj, i, _i;
+            var buf, fd, fd_obj;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/RandomAccessFile;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
-            if (_this.$pos >= fs.fstatSync(fd).size - 1) {
-              return -1;
-            }
             buf = new Buffer(len);
-            bytes_read = fs.readSync(fd, buf, 0, len, _this.$pos);
-            for (i = _i = 0; _i < bytes_read; i = _i += 1) {
-              byte_arr.array[offset + i] = buf.readUInt8(i);
-            }
-            _this.$pos += bytes_read;
-            if (bytes_read === 0 && len !== 0) {
-              return -1;
-            } else {
-              return bytes_read;
-            }
+            return rs.async_op(function(cb) {
+              return fs.read(fd, buf, 0, len, _this.$pos, function(err, bytes_read) {
+                var i, _i;
+
+                if (err != null) {
+                  return cb(-1);
+                }
+                for (i = _i = 0; _i < bytes_read; i = _i += 1) {
+                  byte_arr.array[offset + i] = buf.readUInt8(i);
+                }
+                _this.$pos += bytes_read;
+                return cb(bytes_read === 0 && len !== 0 ? -1 : bytes_read);
+              });
+            });
           }), o('writeBytes([BII)V', function(rs, _this, byte_arr, offset, len) {
-            var fd, fd_obj;
+            var buf, fd, fd_obj;
 
             fd_obj = _this.get_field(rs, 'Ljava/io/RandomAccessFile;fd');
             fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
-            return _this.$pos += fs.writeSync(fd, new Buffer(byte_arr.array), offset, len, _this.$pos);
+            buf = new Buffer(byte_arr.array);
+            return rs.async_op(function(cb) {
+              return fs.write(fd, buf, offset, len, _this.$pos, function(err, num_bytes) {
+                _this.$pos += num_bytes;
+                return cb();
+              });
+            });
           }), o('close0()V', function(rs, _this) {
             var fd, fd_obj;
 
@@ -7443,15 +6563,17 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
             o('initIDs()J', function(rs) {
               return gLong.fromNumber(1024);
             }), o('size0(Ljava/io/FileDescriptor;)J', function(rs, _this, fd_obj) {
-              var e, fd;
+              var fd;
 
               fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
-              try {
-                return gLong.fromNumber(fs.fstatSync(fd).size);
-              } catch (_error) {
-                e = _error;
-                return rs.java_throw(rs.get_bs_class('Ljava/io/IOException;'), 'Bad file descriptor.');
-              }
+              return rs.async_op(function(cb) {
+                return fs.fstat(fd, function(err, stats) {
+                  if (err != null) {
+                    rs.java_throw(rs.get_bs_class('Ljava/io/IOException;'), 'Bad file descriptor.');
+                  }
+                  return cb(gLong.fromNumber(stats.size));
+                });
+              });
             }), o('position0(Ljava/io/FileDescriptor;J)J', function(rs, _this, fd, offset) {
               var parent;
 
@@ -7461,22 +6583,27 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
           ],
           FileDispatcher: [
             o('init()V', function(rs) {}), o('read0(Ljava/io/FileDescriptor;JI)I', function(rs, fd_obj, address, len) {
-              var block_addr, buf, bytes_read, fd, i, _i, _j;
+              var block_addr, buf, fd;
 
               fd = fd_obj.get_field(rs, 'Ljava/io/FileDescriptor;fd');
               block_addr = rs.block_addr(address);
               buf = new Buffer(len);
-              bytes_read = fs.readSync(fd, buf, 0, len);
-              if (typeof DataView !== "undefined" && DataView !== null) {
-                for (i = _i = 0; _i < bytes_read; i = _i += 1) {
-                  rs.mem_blocks[block_addr].setInt8(i, buf.readInt8(i));
-                }
-              } else {
-                for (i = _j = 0; _j < bytes_read; i = _j += 1) {
-                  rs.mem_blocks[block_addr + i] = buf.readInt8(i);
-                }
-              }
-              return bytes_read;
+              return rs.async_op(function(cb) {
+                return fs.read(fd, buf, 0, len, 0, function(err, bytes_read) {
+                  var i, _i, _j;
+
+                  if (typeof DataView !== "undefined" && DataView !== null) {
+                    for (i = _i = 0; _i < bytes_read; i = _i += 1) {
+                      rs.mem_blocks[block_addr].setInt8(i, buf.readInt8(i));
+                    }
+                  } else {
+                    for (i = _j = 0; _j < bytes_read; i = _j += 1) {
+                      rs.mem_blocks[block_addr + i] = buf.readInt8(i);
+                    }
+                  }
+                  return cb(bytes_read);
+                });
+              });
             }), o('preClose0(Ljava/io/FileDescriptor;)V', function(rs, fd_obj) {})
           ],
           NativeThread: [
@@ -7828,6 +6955,79 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
       });
     })
   ];
+
+  native_methods.java.lang.reflect = {
+    Array: [
+      o('multiNewArray(L!/!/Class;[I)L!/!/Object;', function(rs, jco, lens) {
+        var cls, counts, type_str,
+          _this = this;
+
+        counts = lens.array;
+        cls = rs.get_class(jco.$cls.get_type(), true);
+        if (cls == null) {
+          rs.async_op(function(resume_cb, except_cb) {
+            return rs.get_cl().initialize_class(rs, jco.$cls.get_type(), (function(cls) {
+              var type_str;
+
+              type_str = (new Array(counts.length + 1)).join('[') + cls.get_type();
+              rs.heap_multinewarray(type_str, counts);
+              return resume_cb();
+            }), except_cb);
+          });
+          return;
+        }
+        type_str = (new Array(counts.length + 1)).join('[') + cls.get_type();
+        return rs.heap_multinewarray(type_str, counts);
+      }), o('newArray(L!/!/Class;I)L!/!/Object;', function(rs, jco, len) {
+        return rs.heap_newarray(jco.$cls.get_type(), len);
+      }), o('getLength(Ljava/lang/Object;)I', function(rs, arr) {
+        return rs.check_null(arr).array.length;
+      }), o('set(Ljava/lang/Object;ILjava/lang/Object;)V', function(rs, arr, idx, val) {
+        var array, ccls, ccname, ecls, illegal_exc, m, my_sf;
+
+        my_sf = rs.curr_frame();
+        array = rs.check_null(arr).array;
+        if (!(idx < array.length)) {
+          rs.java_throw(rs.get_bs_class('Ljava/lang/ArrayIndexOutOfBoundsException;'), 'Tried to write to an illegal index in an array.');
+        }
+        if ((ccls = arr.cls.get_component_class()) instanceof PrimitiveClassData) {
+          if (val.cls.is_subclass(rs.get_bs_class(ccls.box_class_name()))) {
+            ccname = ccls.get_type();
+            m = val.cls.method_lookup(rs, "" + util.internal2external[ccname] + "Value()" + ccname);
+            rs.push(val);
+            m.setup_stack(rs);
+            my_sf.runner = function() {
+              array[idx] = ccname === 'J' || ccname === 'D' ? rs.pop2() : rs.pop();
+              return rs.meta_stack().pop();
+            };
+            throw exceptions.ReturnException;
+          }
+        } else if (val.cls.is_subclass(ccls)) {
+          array[idx] = val;
+          return;
+        }
+        illegal_exc = 'Ljava/lang/IllegalArgumentException;';
+        if ((ecls = rs.get_bs_class(illegal_exc, true)) != null) {
+          return rs.java_throw(ecls, 'argument type mismatch');
+        } else {
+          return rs.async_op(function(resume_cb, except_cb) {
+            return rs.get_cl().initialize_class(rs, illegal_exc, (function(ecls) {
+              return except_cb((function() {
+                return rs.java_throw(ecls, 'argument type mismatch');
+              }));
+            }), except_cb);
+          });
+        }
+      })
+    ],
+    Proxy: [
+      o('defineClass0(L!/!/ClassLoader;L!/!/String;[BII)L!/!/Class;', function(rs, cl, name, bytes, offset, len) {
+        return rs.async_op(function(success_cb, except_cb) {
+          return native_define_class(rs, name, bytes, offset, len, get_cl_from_jclo(rs, cl), success_cb, except_cb);
+        });
+      })
+    ]
+  };
 
   native_methods.java.lang.Runtime = [
     o('availableProcessors()I', function() {
@@ -8504,7 +7704,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
 
   root = typeof exports !== "undefined" && exports !== null ? exports : (_ref = window.runtime) != null ? _ref : window.runtime = {};
 
-  _ = require('../vendor/_.js');
+  _ = require('../vendor/underscore/underscore.js');
 
   gLong = require('../vendor/gLong.js');
 
@@ -8818,14 +8018,19 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     };
 
     RuntimeState.prototype.dump_state = function(snapshot, suffix) {
-      var fs, _ref6;
+      var fs, serialized, _ref6;
 
       if (snapshot == null) {
         snapshot = this.meta_stack().snap();
       }
       suffix = suffix != null ? "-" + suffix : '';
       fs = (_ref6 = typeof node !== "undefined" && node !== null ? node.fs : void 0) != null ? _ref6 : require('fs');
-      return fs.writeFileSync("./core-" + (thread_name(this, this.curr_thread)) + suffix + ".json", JSON.stringify(snapshot.serialize()), 'utf8', true);
+      serialized = snapshot.serialize();
+      if (node) {
+        return window.core_dump = serialized;
+      } else {
+        return fs.writeFileSync("./core-" + (thread_name(this, this.curr_thread)) + suffix + ".json", JSON.stringify(serialized), 'utf8', true);
+      }
     };
 
     RuntimeState.prototype.choose_next_thread = function(blacklist, cb) {
@@ -9033,6 +8238,36 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
       } else {
         return new JavaArray(this, this.get_class("[" + type), util.arrayset(len, 0));
       }
+    };
+
+    RuntimeState.prototype.heap_multinewarray = function(type, counts) {
+      var dim, init_arr,
+        _this = this;
+
+      dim = counts.length;
+      init_arr = function(curr_dim, type) {
+        var array, comp_type, default_val, i, len, next_dim, _i, _j;
+
+        len = counts[curr_dim];
+        if (len < 0) {
+          _this.java_throw(_this.get_bs_class('Ljava/lang/NegativeArraySizeException;'), "Tried to init dimension " + curr_dim + " of a " + dim + " dimensional " + type + " array with length " + len);
+        }
+        array = new Array(len);
+        if (curr_dim + 1 === dim) {
+          default_val = util.initial_value(type);
+          for (i = _i = 0; _i < len; i = _i += 1) {
+            array[i] = default_val;
+          }
+        } else {
+          next_dim = curr_dim + 1;
+          comp_type = type.slice(1);
+          for (i = _j = 0; _j < len; i = _j += 1) {
+            array[i] = init_arr(next_dim, comp_type);
+          }
+        }
+        return new JavaArray(_this, _this.get_bs_class(type), array);
+      };
+      return init_arr(0, type);
     };
 
     RuntimeState.prototype.init_string = function(str, intern) {
@@ -9934,7 +9169,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
 
   root.dump_state = false;
 
-  vendor_path = typeof node !== "undefined" && node !== null ? '/home/doppio/vendor' : path.resolve(__dirname, '../vendor');
+  vendor_path = typeof node !== "undefined" && node !== null ? '/sys/vendor' : path.resolve(__dirname, '../vendor');
 
   root.reset_system_properties = function() {
     return root.system_properties = {
@@ -9968,33 +9203,28 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
   root.reset_system_properties();
 
   root.read_classfile = function(cls, cb, failure_cb) {
-    var data, e, filename, p, _i, _len, _ref3;
+    var cpath, i, try_get;
 
     cls = cls.slice(1, -1);
-    _ref3 = root.system_properties['java.class.path'];
-    for (_i = 0, _len = _ref3.length; _i < _len; _i++) {
-      p = _ref3[_i];
-      filename = "" + p + "/" + cls + ".class";
-      try {
-        if (!fs.existsSync(filename)) {
-          continue;
+    cpath = root.system_properties['java.class.path'];
+    i = 0;
+    try_get = function() {
+      return fs.readFile("" + cpath[i] + cls + ".class", function(err, data) {
+        i++;
+        if (err) {
+          if (i === cpath.length) {
+            failure_cb(function() {
+              throw new Error("Error: No file found for class " + cls + ".");
+            });
+          } else {
+            try_get();
+          }
+          return;
         }
-        data = util.bytestr_to_array(fs.readFileSync(filename, 'binary'));
-        if (data != null) {
-          cb(data);
-        }
-        return;
-      } catch (_error) {
-        e = _error;
-        failure_cb(function() {
-          throw e;
-        });
-        return;
-      }
-    }
-    return failure_cb((function() {
-      throw new Error("Error: No file found for class " + cls + ".");
-    }));
+        return cb(data);
+      });
+    };
+    return try_get();
   };
 
   root.set_classpath = function(jcl_path, classpath) {
@@ -10009,9 +9239,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
       if (class_path.charAt(class_path.length - 1) !== '/') {
         class_path += '/';
       }
-      if (fs.existsSync(class_path)) {
-        tmp_cp.push(class_path);
-      }
+      tmp_cp.push(class_path);
     }
   };
 
@@ -10075,7 +9303,7 @@ root.gLong.prototype.shiftRightUnsigned = function(numBits) {
     return rs.run_until_finished((function() {
       return rs.async_op(function(resume_cb, except_cb) {
         return rs.preinitialize_core_classes(run_program, (function(e) {
-          throw e;
+          return e();
         }));
       });
     }), true, (function() {}));

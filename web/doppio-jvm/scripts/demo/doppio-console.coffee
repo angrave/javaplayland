@@ -11,48 +11,21 @@ progress = null
 bs_cl = null
 
 preload = ->
-  try
-    data = node.fs.readFileSync("/home/doppio/scripts/demo/mini-rt.tar")
-  catch e
-    console.error e
+    node.fs.readFile "/sys/preload.tar", (err, data) ->
+      if err
+        console.error "Error downloading preload.tar: #{err}"
+        return      # Grab the XmlHttpRequest file system.
+      xhrfs = node.fs.getRootFS().mntMap["/sys"]
 
-  if data?
-    file_count = 0
-    done = false
-    start_untar = (new Date).getTime()
-    on_complete = ->
-      end_untar = (new Date).getTime()
-      console.log "Untarring took a total of #{end_untar-start_untar}ms."
-      $('#overlay').fadeOut 'slow'
-      $('#progress-container').fadeOut 'slow'
-      $('#console').click()
-    update_bar = _.throttle ((percent, path) ->
-      bar = $('#progress > .bar')
-      preloading_file = $('#preloading-file')
-      # +10% hack to make the bar appear fuller before fading kicks in
-      display_perc = Math.min Math.ceil(percent*100), 100
-      bar.width "#{display_perc}%", 150
-      preloading_file.text(
-        if display_perc < 100 then "Loading #{path}"  else "Done!"))
+      untar new util.BytesArray(data), ((percent, path, file) ->
+        if path[0] != '/' then path = "/#{path}"
+        try
+            if file.length > 0
+                xhrfs.preloadFile path, file
+        catch e
+            console.error "Error writing #{path}: #{e}"
+        )
 
-    untar new util.BytesArray(util.bytestr_to_array data), ((percent, path, file) ->
-      update_bar(percent, path)
-      base_dir = 'vendor/classes/'
-      [base,ext] = path.split('.')
-      unless ext is 'class'
-        on_complete() if percent == 100
-        return
-      file_count++
-      cls = base.substr(base_dir.length)
-      asyncExecute (->
-        # XXX: We convert from bytestr to array to process the tar file, and
-        #      then back to a bytestr to store as a file in the filesystem.
-        node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
-        on_complete() if --file_count == 0 and done
-      ), 0),
-      ->
-        done = true
-        on_complete() if file_count == 0
 
 # Read in a binary classfile synchronously. Return an array of bytes.
 read_classfile = (cls, cb, failure_cb) ->
@@ -273,7 +246,7 @@ commands =
     '  ' + cached_classes.sort().join('\n  ')
   # Reset the bootstrap classloader
   clear_cache: ->
-    bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
+    bs_cl = new ClassLoader.BootstrapClassLoader(jvm.read_classfile)
     return true
   ls: (args) ->
     if args.length == 0

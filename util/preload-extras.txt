@@ -1,3 +1,4 @@
+preloadtest.txt
 vendor/classes/bsh/BSHAmbiguousName.class
 vendor/classes/bsh/BSHArguments.class
 vendor/classes/bsh/BSHArrayInitializer.class

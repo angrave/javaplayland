@@ -4,23 +4,21 @@ root = window.coderunner = {}
 
 
 load_mini_rt = ->
-    try
-        data = node.fs.readFileSync("/home/doppio/preload.tar")
-    catch e
-        console.error e
-    if data == null
-        throw new Error "No mini-rt data"
+    node.fs.readFile "/sys/preload.tar", (err, data) ->
+      if err
+        console.error "Error downloading preload.tar: #{err}"
+        return      # Grab the XmlHttpRequest file system.
+      xhrfs = node.fs.getRootFS().mntMap["/sys"]
 
-    file_count = 0
-    done = false
-    writeOneFile = (percent, path, file) ->
-      base_dir = 'vendor/classes/'
-      [base,ext] = path.split('.')
-      file_count++
-      cls = base.substr(base_dir.length)
-      if file.length > 0
-          node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
-    untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
+      untar new util.BytesArray(data), ((percent, path, file) ->
+        if path[0] != '/' then path = "/#{path}"
+        try
+            if file.length > 0
+                xhrfs.preloadFile path, file
+        catch e
+            console.error "Error writing #{path}: #{e}"
+        )
+
 
 saveFile = (fname,contents) ->
         contents += '\n' unless contents[contents.length-1] == '\n'
@@ -28,19 +26,7 @@ saveFile = (fname,contents) ->
 
 initializeDoppioEnvironment = ->
     return if root.doppioEnvironmentInitialized
-    # Assumes load_mini_rt() is already called
-    # Read in a binary classfile synchronously. Return an array of bytes.
-    read_classfile = (cls, cb, failure_cb) ->
-      cls = cls[1...-1] # Convert Lfoo/bar/Baz; -> foo/bar/Baz.
-      for path in jvm.system_properties['java.class.path']
-        fullpath = "#{path}#{cls}.class"
-        try
-          data = util.bytestr_to_array node.fs.readFileSync(fullpath)
-        catch e
-          data = null
-        return cb(data) if data != null
-      failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
-    root._bs_cl = new ClassLoader.BootstrapClassLoader(read_classfile)
+    root._bs_cl = new ClassLoader.BootstrapClassLoader(jvm.read_classfile)
     root.doppioEnvironmentInitialized  = true
 
 
@@ -86,7 +72,7 @@ class window.CodeRunner
         @outputDiv.text( @outputDiv.text() + '2..' )
 
 
-        fname = "program.bsh"
+        fname = "/tmp/program.bsh"
         contents = @session.getValue()
         saveFile fname, contents
         msg = '' ;
@@ -99,7 +85,7 @@ class window.CodeRunner
              @outputDiv.text 'Done'
             @rs = null
         @rs = new runtime.RuntimeState(stdout, stdin, root._bs_cl)
-        jvm.set_classpath '/home/doppio/vendor/classes/', './'
+        jvm.set_classpath '/sys/vendor/classes/', '/tmp/'
 
         @outputDiv.text( @outputDiv.text() + '1..' )
         @stopJavaBtn.click (e) =>

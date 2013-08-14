@@ -7,7 +7,7 @@ class window.DoppioApi
         (this is usually accomplished with jQuery(document).onReady)
     ###
 
-    constructor: (@stdout, logIgnore) ->
+    constructor: (@stdout, done_cb2) ->
         ###
             Sets up Doppio environment.
             @stdout (msg) ->
@@ -17,13 +17,15 @@ class window.DoppioApi
                 time or abort requests. Set to null to disable logging.
         ###
 
-        @load_mini_rt()
-        @bs_cl = new ClassLoader.BootstrapClassLoader(@read_classfile)
-        jvm.set_classpath '/home/doppio/vendor/classes/', './'
         stdin = -> "\n"
-        @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
         @running = false
         @preloaded = false
+        done_cb1= =>
+            @bs_cl = new ClassLoader.BootstrapClassLoader(jvm.read_classfile)
+            jvm.set_classpath '/sys/vendor/classes', '/tmp/'
+            @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
+            done_cb2?()
+        @load_mini_rt(done_cb1)
         return
 
     setOutputFunctions: (stdout, @log) ->
@@ -41,46 +43,24 @@ class window.DoppioApi
             @stdout msg
         return
 
-    read_classfile: (cls, cb, failure_cb) ->
-        ###
-            Used internally in Doppio.
-            Read in a binary classfile synchronously. Return an array of bytes.
-        ###
-        cls = cls[1...-1] # Convert Lfoo/bar/Baz; -> foo/bar/Baz.
-        for path in jvm.system_properties['java.class.path']
-            fullpath = "#{path}#{cls}.class"
-            try
-                data = util.bytestr_to_array node.fs.readFileSync(fullpath)
-            catch e
-                data = null
-            return cb(data) if data != null and data.length > 0
-        failure_cb(-> throw new Error "Error: No file found for class #{cls}.")
-
-    load_mini_rt: ->
+    load_mini_rt: (done_cb)->
         ###
             Loads the compressed pre-compiled java classes for Doppio
         ###
-        try
-            data = node.fs.readFileSync("/home/doppio/preload.tar")
-        catch e
-            console?.error e
-        if data == null
-            throw new Error "No mini-rt data"
+        node.fs.readFile "/sys/preload.tar", (err, data) ->
+          if err
+            console.error "Error downloading preload.tar: #{err}"
+            return      # Grab the XmlHttpRequest file system.
+          xhrfs = node.fs.getRootFS().mntMap["/sys"]
 
-        file_count = 0
-        done = false
-        start_untar = (new Date()).getTime()
-        writeOneFile = (percent, path, file) ->
-            base_dir = 'vendor/classes/'
-            [base, ext] = path.split '.'
-            file_count++
-            cls = base.substr base_dir.length
-            if file.length > 0
-                node.fs.writeFileSync(path, util.array_to_bytestr(file), 'utf8', true)
-            return
-        untar new util.BytesArray(util.bytestr_to_array data), writeOneFile
-        end_untar = (new Date()).getTime()
-        console?.log "Untarring took a total of #{end_untar-start_untar}ms."
+          write_one_file = (percent, path, file) ->
+            path = "/#{path}" if path[0] != '/'
+            try
+                xhrfs.preloadFile(path,file) if file.length > 0
+            catch e
+                console.error "Error writing #{path}: #{e}"
+
+          untar new util.BytesArray(data), write_one_file, done_cb
         return
 
     run: (studentCode, gameContext, finished_cb) =>
