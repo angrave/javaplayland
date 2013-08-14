@@ -29,13 +29,13 @@ class window.gameSelector
             cont.append(span)
 
             
-            src = '/img/stare.png'
+            src = 'img/stare.png'
  
             $(span).click(-> codeland.startGame(game) )            
-            $(span).append count + ' '
+#            $(span).append count + ' '
             $(span).append  desc.title
             if player?.passed is true
-                src = '/img/star.png'
+                src = 'img/star.png'
                 img = jQuery '<img>', {
                     id: 'star',
                     src: src,
