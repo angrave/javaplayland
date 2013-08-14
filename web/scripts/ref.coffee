@@ -1,7 +1,7 @@
 window.inject = (d) ->
 
 	d.innerHTML = '<h1>A short introduction to Java (Draft Version!)</h1>
-	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;A gift from the undergrad CS students at the University of Illinois at Urbana Champaign (UIUC).</p>
+	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;By undergraduate CS students at the University of Illinois at Urbana Champaign (UIUC).</p>
 	    
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;When first looking at <tt>code</tt>, it can be very confusing and disorienting because it is so different from conventional human language.  Once you understand your first language, picking up another will be considerably easier, and something you may have to do quickly and often if you program professionally.  In these regards, <tt>Java</tt> is no different.</p>
 	
