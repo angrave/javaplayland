@@ -1,5 +1,10 @@
 debugging = true
-log = (mesg) ->  console.log mesg if debugging
+if(debugging)
+    log = (mesg) -> console.log(mesg)
+else
+    log = (mesg) -> null
+        
+log("GameManager log")
 if not deepcopy?
     deepcopy = (src) -> $.extend(true, {},src)
 
@@ -39,10 +44,10 @@ class window.GameManager
         @gameDiv.append(vis)
 
 
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Play" id="compileAndRun" src="/img/freeware/button_play_green-48px.png" title="Run Code"/>'
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Stop" id="stopRun" src="/img/freeware/button_stop_red-48px.png" title="Stop Code"/>'
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:8%" alt="Reset" title="Restart level (reset code back to original)" id="resetState" src="/img/cc-bynd/undo_yellow-48px.png"/>'
-        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:15%" alt="Help/Tips" title="Help/Tips" id="help" src="/img/freeware/info-48px.png"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Play" id="compileAndRun" src="img/freeware/button_play_green-48px.png" title="Run Code"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:1%" alt="Stop" id="stopRun" src="img/freeware/button_stop_red-48px.png" title="Stop Code"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:8%" alt="Reset" title="Restart level (reset code back to original)" id="resetState" src="img/cc-bynd/undo_yellow-48px.png"/>'
+        $(editdiv).append '<img height="15%" style="position:absolute;bottom:1%;right:15%" alt="Help/Tips" title="Help/Tips" id="help" src="img/freeware/info-48px.png"/>'
         jQuery('#stopRun').hide()
 
 
@@ -198,14 +203,14 @@ class window.GameManager
             @codeEditor.scan()
             if not @canRun
                 return
-            stdout = log = console.log
-            @environment.codeland.doppioAPI.setOutputFunctions stdout, log
+            stdout = (mesg)-> console.log mesg
+            @environment.codeland.doppioAPI.setOutputFunctions stdout stdout
             finish_cb = ->
                 return
             if not @environment.codeland.doppioReady
                 @environment.codeland.waitForWrapper @runStudentCode
                 @running = false
-                console.log 'Waiting for Doppio to be compiled'
+                log 'Waiting for Doppio to be compiled'
                 return
             @startGame true
             @environment.codeland.doppioAPI.run code, true, finish_cb

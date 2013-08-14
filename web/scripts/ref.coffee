@@ -1,6 +1,8 @@
 window.inject = (d) ->
 
-	d.innerHTML = '<h1>A Gentle Introduction to Java (Draft)</h1>
+	d.innerHTML = '<h1>A short introduction to Java (Draft Version!)</h1>
+	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;A gift from the undergrad CS students at the University of Illinois at Urbana Champaign (UIUC).</p>
+	    
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;When first looking at <tt>code</tt>, it can be very confusing and disorienting because it is so different from conventional human language.  Once you understand your first language, picking up another will be considerably easier, and something you may have to do quickly and often if you program professionally.  In these regards, <tt>Java</tt> is no different.</p>
 	
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;To help you get acquainted with reading and writing scripts, there will be code snippets and examples in boxes littered throughout this text that you can compile and run by clicking the little button beneath them.  To start out, these boxes will not contain real code, but something called <tt>pseudocode</tt>.  <tt>Pseudocode</tt> is halfway between a real programming language and a normal human language, it allows us to plan out and understand computer logic in an easier to read format.  Read further and the <tt>pseudocode</tt> examples will be replaced more and more by actual code as you learn about <tt>Java.</tt></p>

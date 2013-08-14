@@ -16,24 +16,21 @@ root.initialize = (UIcont) ->
     $('#copyrightinfo').click -> window.AboutPage()
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
-    root.initializeDoppio()
     root.UIcont = UIcont    
+    root.initializeDoppio()
     return
 
 root.initializeDoppio = ->
     root.doppioReady = false
     root.doppioPreloaded = false
-    root.doppioAPI = new DoppioApi null, root.log
-    root.preloadDoppio()
-    return
-
-root.preloadDoppio = ->
-    if root.doppioPreloaded == false
-        root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled
+    preload_cb = ->
+        root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled_cb
         root.doppioPreloaded = true
+    root.doppioAPI = new DoppioApi null, preload_cb
     return
 
-root.wrapperCompiled = =>
+
+root.wrapperCompiled_cb = =>
     root.doppioReady = true
     console.log 'Finished Preloading Doppio'
     player = root.getPlayer()
