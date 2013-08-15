@@ -30,7 +30,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #9 - 'Variable swap",
+      "Color Puzzle #9 - 'Value swap",
       "To solve this puzzle you will need to swap the values stored in x and y.",
 "Hint: You'll need the third variable to keep a copy of the original value."
     ]

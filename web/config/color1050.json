@@ -37,7 +37,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #10 - '1-4-1'",
+      "Color Puzzle #10 - '1-4-1-4...'",
       "x = 5 - x, what will be the new value of x if x is currently 1?"
     ]
   },

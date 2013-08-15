@@ -1,0 +1,48 @@
+{
+  "title": "8 Pixel copier",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "drawPixel(x, TGT, color);",
+        "color = getPixel(x , SRC);",
+        "String color=\"black\";",
+        "int x = 0;"
+        "while(x<8) ","{","x=x+1;","}"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {"
+      "int SRC = 3, TGT=6; // Source and target row"
+    ],
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle 18 - '8 Pixel copier'",
+"Hint: For this recipe you'll need integer and string variables, a loop and a couple of method calls."    ]
+  },
+  "game": {
+    "map": [
+      "rruuggbr",
+      "","",
+      "RRUUGGBR"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 3
+    }
+  },
+  "dyk": []
+}
