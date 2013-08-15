@@ -7,7 +7,7 @@ class window.DoppioApi
         (this is usually accomplished with jQuery(document).onReady)
     ###
 
-    constructor: (@stdout, done_cb2) ->
+    constructor: (@stdout, done_cb2, progress_cb) ->
         ###
             Sets up Doppio environment.
             @stdout (msg) ->
@@ -25,7 +25,7 @@ class window.DoppioApi
             jvm.set_classpath '/sys/vendor/classes', '/tmp/'
             @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
             done_cb2?()
-        @load_mini_rt(done_cb1)
+        @load_mini_rt(done_cb1,progress_cb)
         return
 
     setOutputFunctions: (stdout, @log) ->
@@ -43,7 +43,7 @@ class window.DoppioApi
             @stdout msg
         return
 
-    load_mini_rt: (done_cb)->
+    load_mini_rt: (done_cb,progress_cb)->
         ###
             Loads the compressed pre-compiled java classes for Doppio
         ###
@@ -54,6 +54,7 @@ class window.DoppioApi
           xhrfs = node.fs.getRootFS().mntMap["/sys"]
 
           write_one_file = (percent, path, file) ->
+            progress_cb?(percent) 
             path = "/#{path}" if path[0] != '/'
             try
                 xhrfs.preloadFile(path,file) if file.length > 0
