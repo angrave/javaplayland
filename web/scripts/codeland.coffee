@@ -23,10 +23,22 @@ root.initialize = (UIcont) ->
 root.initializeDoppio = ->
     root.doppioReady = false
     root.doppioPreloaded = false
+    progress= $('#progress')
+    count = 0;
+    last_display = ""
+    progress_cb = (ignore_incorrect_fraction)->
+        count = count + 1
+        display = Math.floor((100*count) / 391) 
+        if(display==100) 
+            display = "Starting Java Virtual Machine..."
+        else display = "Opening "+display
+        if(last_display != display)
+            last_display = display
+            progress.html display
     preload_cb = ->
         root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled_cb
         root.doppioPreloaded = true
-    root.doppioAPI = new DoppioApi null, preload_cb
+    root.doppioAPI = new DoppioApi null, preload_cb, progress_cb
     return
 
 
