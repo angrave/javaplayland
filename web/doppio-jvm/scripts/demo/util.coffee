@@ -25,3 +25,12 @@ root.asyncExecute = (fn) ->
   else
     nonAsyncCount = 0
     setImmediate fn
+
+window.onerror =  (msg, url, line) ->
+    window.onerror = null
+    console?.log(arguments)
+    progress = $("#progress")
+    if(progress.length > 0)
+        progress.html "Ooops!<br>Note for developers (" + msg+":" + url+" at line "+line+")" 
+    return false;
+    
