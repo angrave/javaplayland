@@ -22,7 +22,7 @@ class window.PaintGameState
             @picture.push temp
 
         for name,character of @gameConfig.characters
-            if name.indexOf('Boarder') == -1
+            if name.indexOf('Border') == -1
                 character.color = character.sprite
                 @picture[character.x][character.y] = character
 

@@ -11,50 +11,50 @@
       "black": [
         "img/blackPixel.png"
       ],
-      "blackBoarder": [
-        "img/blackPixelBoarder.png"
+      "blackBorder": [
+        "img/blackPixelBorder.png"
       ],
       "blue": [
         "img/bluePixel.png"
       ],
-      "blueBoarder": [
-        "img/bluePixelBoarder.png"
+      "blueBorder": [
+        "img/bluePixelBorder.png"
       ],
       "green": [
         "img/greenPixel.png"
       ],
-      "greenBoarder": [
-        "img/greenPixelBoarder.png"
+      "greenBorder": [
+        "img/greenPixelBorder.png"
       ],
       "lightBlue": [
         "img/lightBluePixel.png"
       ],
-      "lightBlueBoarder": [
-        "img/lightBluePixelBoarder.png"
+      "lightBlueBorder": [
+        "img/lightBluePixelBorder.png"
       ],
       "pink": [
         "img/pinkPixel.png"
       ],
-      "pinkBoarder": [
-        "img/pinkPixelBoarder.png"
+      "pinkBorder": [
+        "img/pinkPixelBorder.png"
       ],
       "purple": [
         "img/purplePixel.png"
       ],
-      "purpleBoarder": [
-        "img/purplePixelBoarder.png"
+      "purpleBorder": [
+        "img/purplePixelBorder.png"
       ],
       "red": [
         "img/redPixel.png"
       ],
-      "redBoarder": [
-        "img/redPixelBoarder.png"
+      "redBorder": [
+        "img/redPixelBorder.png"
       ],
       "yellow": [
         "img/yellowPixel.png"
       ],
-      "yellowBoarder": [
-        "img/yellowPixelBoarder.png"
+      "yellowBorder": [
+        "img/yellowPixelBorder.png"
       ],
       "white": [
         "img/whitePixel.png"
@@ -85,57 +85,57 @@
         "black": {
           "sprite": "black"
         },
-        "blackBoarder": {
-          "sprite": "blackBoarder",
+        "blackBorder": {
+          "sprite": "blackBorder",
           "match": "black"
         },
         "blue": {
           "sprite": "blue"
         },
-        "blueBoarder": {
-          "sprite": "blueBoarder",
+        "blueBorder": {
+          "sprite": "blueBorder",
           "match": "blue"
         },
         "green": {
           "sprite": "green"
         },
-        "greenBoarder": {
-          "sprite": "greenBoarder",
+        "greenBorder": {
+          "sprite": "greenBorder",
           "match": "green"
         },
         "lightBlue": {
           "sprite": "lightBlue"
         },
-        "lightBlueBoarder": {
-          "sprite": "lightBlueBoarder",
+        "lightBlueBorder": {
+          "sprite": "lightBlueBorder",
           "match": "lightBlue"
         },
         "pink": {
           "sprite": "pink"
         },
-        "pinkBoarder": {
-          "sprite": "pinkBoarder",
+        "pinkBorder": {
+          "sprite": "pinkBorder",
           "match": "pink"
         },
         "purple": {
           "sprite": "purple"
         },
-        "purpleBoarder": {
-          "sprite": "purpleBoarder",
+        "purpleBorder": {
+          "sprite": "purpleBorder",
           "match": "purple"
         },
         "red": {
           "sprite": "red"
         },
-        "redBoarder": {
-          "sprite": "redBoarder",
+        "redBorder": {
+          "sprite": "redBorder",
           "match": "red"
         },
         "yellow": {
           "sprite": "yellow"
         },
-        "yellowBoarder": {
-          "sprite": "yellowBoarder",
+        "yellowBorder": {
+          "sprite": "yellowBorder",
           "match": "yellow"
         },
         "white": {
@@ -144,21 +144,21 @@
       },
       "key": {
         "b": "black",
-        "B": "blackBoarder",
+        "B": "blackBorder",
         "u": "blue",
-        "U": "blueBoarder",
+        "U": "blueBorder",
         "g": "green",
-        "G": "greenBoarder",
+        "G": "greenBorder",
         "l": "lightBlue",
-        "L": "lightBlueBoarder",
+        "L": "lightBlueBorder",
         "p": "pink",
-        "P": "pinkBoarder",
+        "P": "pinkBorder",
         "q": "purple",
-        "Q": "purpleBoarder",
+        "Q": "purpleBorder",
         "r": "red",
-        "R": "redBoarder",
+        "R": "redBorder",
         "y": "yellow",
-        "Y": "yellowBoarder",
+        "Y": "yellowBorder",
         "w": "white"
       }
     },
@@ -184,7 +184,7 @@
           "ySize": 30,
           "animated": false
         },
-        "blackBoarder": {
+        "blackBorder": {
           "imgSet": 1,
           "dir": 0,
           "xOff": 0,
@@ -202,7 +202,7 @@
           "ySize": 30,
           "animated": false
         },
-        "blueBoarder": {
+        "blueBorder": {
           "imgSet": 3,
           "dir": 0,
           "xOff": 0,
@@ -220,7 +220,7 @@
           "ySize": 30,
           "animated": false
         },
-        "greenBoarder": {
+        "greenBorder": {
           "imgSet": 5,
           "dir": 0,
           "xOff": 0,
@@ -238,7 +238,7 @@
           "ySize": 30,
           "animated": false
         },
-        "lightBlueBoarder": {
+        "lightBlueBorder": {
           "imgSet": 7,
           "dir": 0,
           "xOff": 0,
@@ -256,7 +256,7 @@
           "ySize": 30,
           "animated": false
         },
-        "pinkBoarder": {
+        "pinkBorder": {
           "imgSet": 9,
           "dir": 0,
           "xOff": 0,
@@ -274,7 +274,7 @@
           "ySize": 30,
           "animated": false
         },
-        "purpleBoarder": {
+        "purpleBorder": {
           "imgSet": 11,
           "dir": 0,
           "xOff": 0,
@@ -292,7 +292,7 @@
           "ySize": 30,
           "animated": false
         },
-        "redBoarder": {
+        "redBorder": {
           "imgSet": 13,
           "dir": 0,
           "xOff": 0,
@@ -310,7 +310,7 @@
           "ySize": 30,
           "animated": false
         },
-        "yellowBoarder": {
+        "yellowBorder": {
           "imgSet": 15,
           "dir": 0,
           "xOff": 0,
