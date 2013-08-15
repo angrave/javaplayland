@@ -18,6 +18,7 @@ vendor/classes/bsh/BSHMethodInvocation.class
 vendor/classes/bsh/BSHPrimaryExpression.class
 vendor/classes/bsh/BSHPrimarySuffix.class
 vendor/classes/bsh/BSHPrimitiveType.class
+vendor/classes/bsh/BSHReturnStatement.class
 vendor/classes/bsh/BSHReturnType.class
 vendor/classes/bsh/BSHStatementExpressionList.class
 vendor/classes/bsh/BSHTernaryExpression.class
@@ -49,6 +50,7 @@ vendor/classes/java/lang/Runtime.class
 vendor/classes/java/lang/StringBuffer.class
 vendor/classes/java/lang/SystemClassLoaderAction.class
 vendor/classes/java/lang/Void.class
+vendor/classes/java/lang/reflect/AnnotatedElement.class
 vendor/classes/java/lang/reflect/Array.class
 vendor/classes/java/net/ContentHandler.class
 vendor/classes/java/net/MalformedURLException.class
@@ -80,8 +82,10 @@ vendor/classes/java/security/PrivilegedExceptionAction.class
 vendor/classes/java/security/SecureClassLoader.class
 vendor/classes/java/util/ArrayList$Itr.class
 vendor/classes/java/util/BitSet.class
+vendor/classes/java/util/Collections$1.class
 vendor/classes/java/util/Collections$SingletonList.class
 vendor/classes/java/util/EmptyStackException.class
+vendor/classes/java/util/List.class
 vendor/classes/java/util/Locale.class
 vendor/classes/java/util/StringTokenizer.class
 vendor/classes/java/util/concurrent/ConcurrentHashMap$HashEntry.class
@@ -126,7 +130,5 @@ vendor/classes/sun/reflect/DelegatingMethodAccessorImpl.class
 vendor/classes/sun/reflect/MethodAccessor.class
 vendor/classes/sun/reflect/MethodAccessorImpl.class
 vendor/classes/sun/reflect/NativeMethodAccessorImpl.class
-vendor/classes/sun/security/util/Debug.class
-vendor/classes/java/lang/reflect/AnnotatedElement.class
-vendor/classes/java/util/List.class
 vendor/classes/sun/reflect/ReflectionFactory$GetReflectionFactoryAction.class
+vendor/classes/sun/security/util/Debug.class
