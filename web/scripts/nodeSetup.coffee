@@ -3,7 +3,7 @@
 globals = {
     '../vendor/underscore/underscore.js': '_'
 }
-#Doppio's Hacky require function is just a map of previously loaded scripts. normalized basename->window.name ...
+#Doppio's simple require  ...
 window.require = (path, herp) ->
     if (herp?)  
         path = herp

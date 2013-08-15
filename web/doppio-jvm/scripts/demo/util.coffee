@@ -2,6 +2,18 @@
 
 root = exports ? this
 
+globals = {
+    '../vendor/underscore/underscore.js': '_'
+}
+#Doppio's simple require  ...
+window.require = (path, herp) ->
+    if (herp?)  
+        path = herp
+    if (path of globals) 
+        return window[globals[path]]
+    [name , ext] = BrowserFS.node.path.basename(path).split('.')
+    return window[name] ?= {}
+
 # modern browsers slow the event loop when tab is not in focus,
 # so don't give up control! but guard against stack overflows, too.
 nonAsyncCount = 0
