@@ -18,14 +18,14 @@
         "drawPixel(x, TGT, color);",
         "color = getPixel(x , SRC);",
         "String color=\"black\";",
-        "int x = 0;"
+        "int x = 0;",
         "while(x<8) ","{","x=x+1;","}"
       ]
     }
   },
   "code": {
     "prefix": [
-      "void paint() {"
+      "void paint() {",
       "int SRC = 3, TGT=6; // Source and target row"
     ],
     "postfix": "return;\n}",
