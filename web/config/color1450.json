@@ -1,0 +1,40 @@
+
+
+{
+  "title": "Loop-in-a-loop",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown"
+    ]
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+       "int x = 1;\nint y = 1;"
+      
+    ],
+	"initial" : "while( y != 5 ) {\n\tx=1;\n\twhile( x != 5 ) {\n\t\tdrawPixel(x, y, \"black\");\n\t\t\tx = x + 1;\n\t\t\ty = y + 1;\n\t\t}",
+    "postfix": "\n\t}\nreturn;\n}",
+    "comments": [
+      "Color Puzzle #14 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
+"Hint: One of these statements does not belong inside the inner loop. Move it down!"
+    ]
+  },
+  "game": {
+    "map": [
+"BBBB","BBBB","BBBB","BBBB"
+    ],
+    "offset": {
+      "x": 1,
+      "y": 1
+    }
+  },
+  "dyk": []
+}

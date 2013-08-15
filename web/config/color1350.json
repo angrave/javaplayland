@@ -1,0 +1,40 @@
+
+
+{
+  "title": "loopy thinking",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [ "drawPixel(count, count, \"blue\");","int count = 0;","count = count + 1;", "while(count != 8) {"  ]        
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {"
+    ],
+    "postfix": "\t}\nreturn;\n}",
+    "comments": [
+      "Color Puzzle #13 - 'Loopy thinking'","Insert the statements in the correct order"
+    ]
+  },
+  "game": {
+    "map": ["U",".U","..U","...U","....U",".....U","......U",".......U"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

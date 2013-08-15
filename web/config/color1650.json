@@ -1,0 +1,41 @@
+
+
+{
+  "title": "Don't spill the paint",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown","deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [ "int x = 0;", "drawPixel(x,7,\"blue\");" ,"drawPixel(x,1,\"green\");","drawPixel(x,0,\"red\");","drawPixel(x,2,\"yellow\");","x=x+1;","while(x!=4) {","}"]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {"
+    ],
+	"initial" : "",
+    "postfix": "return;\n}",
+    "comments": [
+      "Color Puzzle #16 - 'Don't spill the paint'"
+    ]
+  },
+  "game": {
+    "map": [
+"RRRR","GGGG",".YYYY","","","","","....U"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

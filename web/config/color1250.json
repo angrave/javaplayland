@@ -1,0 +1,46 @@
+
+
+{
+  "title": "Loop around a while",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [ "drawPixel(x, y, \"red\");","x = x + 2;", "drawPixel(x, y+2, \"black\");" ]        
+      
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 0;",
+      "int y = 0;",
+      "while(x < 7) {"
+    ],
+    "postfix": "\t}\nreturn;\n}",
+    "comments": [
+      "Color Puzzle #12 - 'Loop around a while'","Use a while loop to repeat yourself!",
+"Hint: Not working as expected? Check the order of your statements!"
+    ]
+  },
+  "game": {
+    "map": [
+      "R.R.R.R","","B.B.B.B"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}
