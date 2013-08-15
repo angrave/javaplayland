@@ -4,7 +4,7 @@ class window.gameSelector
         $("#acelne").remove()
         tmp = document.createElement("div")
         cont = $(tmp)
-        $(tmp).css(height:'100%', overflow:'auto',position:'relative','font-size':"20" + 'px')
+        $(tmp).css({'height':'100%', 'overflow-y':'scroll','width':'95%','position':'relative','font-size':"20px"})
         $(tmp).attr("id","gameSelection")
         @div.append(tmp)
         return
