@@ -3,9 +3,12 @@
 }
 
 body {
-    font-family: bitter;
+    font-family: 'Abel', cursive;
 }
 
+.cursiveHeadline {
+    font-family: 'Hanalei Fill', cursive;
+}
 .ex {
     width:80%;
     height:130px;
@@ -43,6 +46,7 @@ body {
 tt {
     font-size: 16px;
 }
+
 
 .pseudo {
     font-family: monospace;
