@@ -95,8 +95,6 @@ class window.GridGameState
                 @executeAICommand character, aiCommand
         if result?.continueExecution
             @runCharacterCommand character
-        else
-            @score++
         return
 
     leaveTrail: (placeTrail) ->
@@ -182,6 +180,17 @@ class window.GridGameState
             line: line
         }
         return
+        
+    fail: (line)->
+        @protagonist.moves.push {
+            key: 'fail',
+            exec: (((char, steps) ->
+                @protagonistFalls()
+                return {success: true, continueExecution: false}
+                ).bind @, @protagonist, 1),
+            line: line
+        }
+        return
 
     _moving: (character) ->
         if not character?
@@ -200,7 +209,7 @@ class window.GridGameState
         if not character?
             character = @protagonist
 
-        if isNaN steps
+        if Number.isNaN(steps)
             throw new @invalidParameterException steps
         for i in [1...steps] by 1
             @_moving(character)
@@ -340,52 +349,34 @@ class window.GridGameState
         return
 
     gameWon: =>
-        if not @startedGame
-            return
-        playAudio 'victory.ogg'
-        @stars += 1
-        @score += 5
+        return if not @startedGame
         @startedGame = false
-        @gameManager.gameWon @score, @stars
-
-        gameName = @gameManager.gameName()
-        codeland = @gameManager.environment.codeland
-        gameIndex = codeland.currentQuest.games.indexOf gameName
-        questIndex = codeland.quests.indexOf codeland.currentQuest
-        if ++gameIndex == codeland.currentQuest.games.length
-            questIndex = ++questIndex % codeland.quests.length
-            gameIndex = 0
-        gameName = codeland.quests[questIndex].games[gameIndex]
-        messages = []
-        messages[0] = 'Congratulations!'
-        window.objCloud 400, messages, "body",
-            "30%", "30%", 1.5, gameName, @gameManager
-        @gameManager.gameRunFinished()
+            
+        @stars = 1
+        @score = 5
+        @gameManager.gameWon @score, @stars       
         return
 
     gameLost: =>
-        if not @startedGame
-            return
+        return if not @startedGame
+        @startedGame = false
+            
         if clockHandle?
             clearInterval clockHandle
+        #clockHandle = setInterval @clock, 17
+        
         for name, character of @gameConfig.characters
             if @visual.getState(character.index) != 5
                 @visual.changeState character.index, 4
             character.moves = null
-        @startedGame = false
-        playAudio 'defeat.ogg'
-        messages = []
-        messages[0] = "Try Again!"
-        window.objCloud(400,messages,"body","30%","30%",3,"none",@gameManager)
-        clockHandle = setInterval @clock, 17
-        @gameManager.gameRunFinished()
+        @gameManager.gameLost()
         return
 
     protagonistFalls: =>
         for name, character of @gameConfig.characters
             character.moves = null
         @visual.changeState @protagonist.index, 5
-        setTimeout @gameLost, 400
+        setTimeout @gameLost, 680
         return
 
     stopGame: =>
@@ -398,16 +389,11 @@ class window.GridGameState
         return
 
     computeStepInDirection: (direction, currentX, currentY) ->
-        # Bits are more fun that lookup tables or a switch
+        # OK, we admint bits are more fun that lookup tables or a switch
         # sign is positive 1 for South 10, and East 01, -1 for North 00, and West 11
         [sign, isEastOrWest] = [-1 + ((direction + 1) & 2), direction & 1]
-        if isEastOrWest
-            newx = currentX + sign
-            newy = currentY
-        unless isEastOrWest
-            newx = currentX
-            newy = currentY + sign
-
+        newx = currentX + sign * isEastOrWest
+        newy = currentY + sign * (1-isEastOrWest)
         return [newx, newy]
 
 class GridGameCommands
@@ -424,8 +410,12 @@ class GridGameCommands
         if line is undefined
             line = steps
             steps = 1
-        # log "Go #{steps} steps."
-        @gameState.move @gameState.protagonist, steps, line
+        if Number.isNaN(steps)
+            @gameState.fail(line)
+        #console.log "Go #{steps} steps."
+        else
+            @gameState.move @gameState.protagonist, steps, line
+        return
 
     turn: (dir, line) =>
         if not line?

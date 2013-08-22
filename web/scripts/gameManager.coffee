@@ -9,6 +9,7 @@ if not deepcopy?
     deepcopy = (src) -> $.extend(true, {},src)
 
 class window.GameManager
+    #environment is defined in codeland.startGame
     constructor: (@environment) ->
         @config = deepcopy @environment.description
         @gameStateBase = @environment.gameState
@@ -17,6 +18,9 @@ class window.GameManager
         @visualDiv = 'gameVisual'
         @setUpGame()
         return
+
+    storeStats: ->
+        @environment.codeland.storeGameStats @environment.key, @environment.stats 
 
     setUpGame: ->
         ###
@@ -64,23 +68,20 @@ class window.GameManager
     gameName: () =>
         return @environment.key
 
+#Note this does not mean run the student's code. Rather it's the entry point to show animations and start the desired game map as a live experience.
     startGame: (waitForCode) =>
-        if not waitForCode?
-            waitForCode = false
+        #TODO Explain purpose of waitForCode
+        waitForCode ?= false
 
         @visual.startGame @config.visual
         @gameState = new window[@gameStateBase](@, waitForCode)
         @commandMap = @gameState.getGameCommands()
-#        player = @environment.player
-#        if(! player.games[@environment.key].seenTips)
-#            player.games[@environment.key].seenTips = true
-#        @helpTips()
         return
 
     interpretGameConfigMap: ->
-        x = @config.game.offset.x
-        y = @config.game.offset.y
-        map = @config.game.map
+        x = @config.game.offset.x ?=0
+        y = @config.game.offset.y ?=0
+        map = @config.game.map ?= ""
         while map != ""
             achar = map.substring 0, 1
             if achar of @config.game.key
@@ -88,7 +89,7 @@ class window.GameManager
                 @generateCharacter name, x, y, true
             if achar == '\n'
                 y++
-                x = @config.game.offset.x
+                x = @config.game.offset.x ?=0
             else
                 x++
             map = map.substring 1
@@ -135,23 +136,55 @@ class window.GameManager
             @config.game.characters[name] = base
         return {'game': base, 'visual': visualBase}
 
-    gameWon: (score, stars) ->
+    #Callback for games
+    gameLost: ->
+        @updateGameLostStats()
+        playAudio 'defeat.ogg'
+        
+        messages = ["Try Again!"]
+        window.objCloud(400,messages,"body","30%","30%",3,"none",@gameManager)
+        @gameRunFinished()
+    
+    #Callback for games
+    gameWon: ->
+        @updateGameWonStats()
+        playAudio 'victory.ogg'
+
+        gameName = @gameName()
+        codeland = @environment.codeland
+        gameIndex = codeland.currentQuest.games.indexOf gameName
+        questIndex = codeland.quests.indexOf codeland.currentQuest
+        if ++gameIndex == codeland.currentQuest.games.length
+            questIndex = ++questIndex % codeland.quests.length
+            gameIndex = 0
+        gameName = codeland.quests[questIndex].games[gameIndex]
+        messages = ['Congratulations!']
+        window.objCloud 400, messages, "body",  "30%", "30%", 1.5, gameName, @
+        @gameRunFinished()
+            
+    updateGameLostStats: ->
+        s = @environment.stats
+        s.lostCount+= 1
+        s.lastLoss = Date.now()
+        s.firstLoss = s.lastLoss unless s.firstLoss
+        @storeStats()
+        
+    #Callback for games 
+    updateGameWonStats: (score, stars) ->
         log "Game Won: #{@environment.key}"
-
-        player = @environment.player
-        if player.games[@environment.key]?
-            if player.games[@environment.key].hiscore? > score
-                score = player.games[@environment.key].hiscore
-
-            if player.games[@environment.key].stars? > stars
-                stars = player.games[@environment.key].stars
-
-        @environment.codeland.storeGameCompletionData @environment.key, {
-            hiscore : score,
-            stars : stars,
-            passed : true
-        }
-        return
+        s = @environment.stats
+        s.winCount += 1
+        s.passed = true
+        s.lastWin = Date.now()
+        s.firstWin = s.lastWin unless s.firstWin
+        s.stars = Math.max(stars, s.stars)
+        
+        isNewHiscore = s.hiscore < score
+        s.hiscore = score if(isNewHiscore) 
+                   
+        @storeStats()
+        #Other celebrations after storeStats
+        return isNewHiscore
 
     finishGame: ->
         @gameState?.stopGame()
@@ -181,6 +214,9 @@ class window.GameManager
         return
 
     reset: =>
+        @environment.stats.resetCount += 1
+        @storeStats() 
+               
         @codeEditor.resetEditor()
         @startGame false
         return
@@ -192,6 +228,10 @@ class window.GameManager
         code = @codeEditor.getStudentCode()
         jQuery('#compileAndRun').hide()
         jQuery('#stopRun').show()
+        
+        @environment.stats.runCount += 1
+        @storeStats()        
+        
         if @environment.backEnd == 'interpreter'
             @codeEditor.scan()
             if not @canRun
@@ -220,6 +260,8 @@ class window.GameManager
     stopStudentCode: =>
         if not @running
             return
+        @environment.stats.abortCount +=1
+        @storeStats()  
         if @environment.backEnd == 'doppio'
             @environment.codeland.doppioAPI.abort @showRun
         else
@@ -238,6 +280,8 @@ class window.GameManager
         return
 
     helpTips:=>
+        @environment.stats.tipsCount +=1
+        @storeStats()  
         ma = @config?.code?.comments
         if ma
             if ma.length > 1

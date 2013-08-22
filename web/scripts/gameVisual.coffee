@@ -169,7 +169,7 @@ class window.GameVisual
                 @juheight++
             else
                 @juheight--
-            console.log @juheight + ":" + @crest
+            #console.log @juheight + ":" + @crest
             if @juheight == 1 && @crest == true
                 @juheight = 0
                 @crest = false
@@ -198,15 +198,18 @@ class window.GameVisual
             objState[3] = @xOff
             objState[4] = @yOff
 
+            fallFrames = 10.0
             if @cstate == 5
-                if @fallticker > 20
-                    objState[0] = univImg[0]
+                if @fallticker > fallFrames
+                    objState[0] =  univImg[0]
                 else
                     @fallticker++
-                    objState[1] = @xSize-(@fallticker)
-                    objState[2] = @ySize-(@fallticker)
-                    objState[3] = @xOff+@fallticker/2
-                    objState[4] = @yOff+@fallticker/2
+                    fraction = @fallticker / fallFrames
+                    
+                    objState[1] = @xSize*(1-fraction)
+                    objState[2] = @ySize*(1-fraction)
+                    objState[3] = @xOff+fraction * @xSize/2
+                    objState[4] = @yOff+fraction * @ySize/2
             else
                 @fallticker = 0
 
@@ -299,7 +302,7 @@ class window.GameVisual
     drawGrid: (tmp,config) ->
         grid = tmp.getContext("2d")
 
-        grid.fillStyle = "#FFFFFF"
+        grid.fillStyle = 'white'
         grid.fillRect(0,0,1000,1000)
 
         grid.beginPath()
@@ -307,6 +310,18 @@ class window.GameVisual
         this.drawHLine ps,grid,config.border,config.gridUnit,config.gridY for ps in [config.border..(config.gridUnit*(config.gridY))+config.border] by config.gridUnit
         grid.strokeStyle = "black"
         grid.stroke()
+        
+        grid.font = "15px sans-serif"
+        grid.textAlign = 'center'
+        grid.fillStyle = '#A0A0E0'
+        for index in [0..config.gridX-1] 
+            if index>0 then text= index; else text = 'x'
+            grid.fillText text,config.border+config.gridUnit*(index+0.5),config.border-config.gridUnit*0.25 
+                
+        for index in [0..config.gridY-1] 
+            if index>0 then text= index; else text = 'y'
+            grid.fillText text,config.border-config.gridUnit*0.35,config.border+config.gridUnit*(index+0.5)+6 #Slightly under half the font height
+        
         return
     ###
     #drawVLine and drawHLine accept a position, a canvas object, and a maximum dimension

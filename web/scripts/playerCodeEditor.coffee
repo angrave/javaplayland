@@ -123,7 +123,7 @@ class window.EditorManager
                 id: command,
                 value: command,
                 text: "#{line}",
-                ###: #{usesRemaining}"###
+                title: "#{usesRemaining} remain"
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.usesTextDocument funct )

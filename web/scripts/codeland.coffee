@@ -75,7 +75,7 @@ root.drawGameMap = (player) ->
     addGameToMap game for game in gameSequence
     tmp1 = document.getElementById("gameSelection")
 
-    $('<span style="font-size:200%">Choose your Java Game</span><br>').prependTo tmp1
+    $('<span style="font-size:200%" class="cursiveHeadline">Choose your Java Game</span><br>').prependTo tmp1
     $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
     $('#gameSelection').animate {
@@ -112,9 +112,12 @@ root.startGame = (game) ->
         codeland : this
         backEnd: description.backEnd
         gameState: description.gameState
+        stats : root.getGameStats()         
     }
+    #Not used ... window.location.hash='game='+encodeURIComponent(game)
     root.currentGame = new GameManager env
     root.currentGame.startGame()
+    root.currentGame.helpTips() unless env.stats.runCount >0
     return
 
 deepcopy = (src) -> $.extend(true, {}, src)
@@ -138,10 +141,30 @@ root.store = (key, val) ->
     root.setString(key, JSON.stringify val)
     return
 
+root.getGameStats = (gameKey) ->
+    p=root.getPlayer()
+    gameKey ?= p.currentGame
+    data = p.games[gameKey] ?= {}
+#Ensure we have the minimum number of expect properties
+    data.abortCount ?=0
+    data.runCount ?=0
+    data.winCount ?=0
+    data.lostCount ?=0
+    data.resetCount ?=0
+    data.editCount ?=0
+    data.hiscore ?=0
+    data.passed ?= false
+    data.stars ?= 0
+    data.tipsCount ?= 0
+    return data
+
 #Updates the player data
-root.storeGameCompletionData = (key, data) ->
+root.storeGameStats = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
-    root.updatePlayer((p)-> p.games[key] = data)
+    root.updatePlayer((p)-> 
+        p.games[key] ?= {} 
+        $.extend(p.games[key],data)
+    )
     return
 
 root.showMap = () ->
@@ -330,8 +353,8 @@ root.getGameSequence = ->
         root.gameSequence.push name
         return
     addGame(g) for g,ignore of games
-    return root.gameSequence
-
+    return root.gameSequence     
+     
 root.canPlay = (game) ->
     player = root.getPlayer()
     #If already completed then no need to check dependencies

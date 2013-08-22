@@ -97,25 +97,9 @@ class window.PaintGameState
         if not @startedGame
             return
         playAudio 'victory.ogg'
-        @stars += 1
-        @score += 5
         @startedGame = false
-        @gameManager.gameWon @score, @stars
-
-        gameName = @gameManager.gameName()
-        codeland = @gameManager.environment.codeland
-        gameIndex = codeland.currentQuest.games.indexOf gameName
-        questIndex = codeland.quests.indexOf codeland.currentQuest
-        if ++gameIndex == codeland.currentQuest.games.length
-            questIndex = ++questIndex % codeland.quests.length
-            gameIndex = 0
-        gameName = codeland.quests[questIndex].games[gameIndex]
-        messages = []
-        messages[0] = 'Congratulations!'
-        window.objCloud 400, messages,
-            "body", "30%", "30%", 1.5, gameName, @gameManager
-        @gameManager.gameRunFinished()
-        return
+        @gameManager.gameWon()
+        return 
 
     gameLost: =>
         if not @startedGame
@@ -123,13 +107,8 @@ class window.PaintGameState
         if clockHandle?
             clearInterval clockHandle
         @startedGame = false
-        playAudio 'defeat.ogg'
-        messages = []
-        messages[0] = "Try Again!"
-        window.objCloud 400, messages,
-            "body", "30%", "30%", 3, "none", @gameManager
         clockHandle = setInterval @clock, 17
-        @gameManager.gameRunFinished()
+        @gameManager.gameLost()
         return
 
     stopGame: =>
