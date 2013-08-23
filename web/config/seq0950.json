@@ -31,8 +31,8 @@
   "code": {
     "shorthand": "g(4)",
 	"comments" : [ "Java Puzzle #9 - 'Use the parameter, Luke'",
-	"The new 'go' method will be useful here",
-	"*** Click on the value to change it"
+	"The new 'go' method will be useful here.",
+	"*** Click on the value 4 and type a new value."
 	]
   },
   "game": {

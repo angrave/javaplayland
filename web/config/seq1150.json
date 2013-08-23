@@ -30,7 +30,9 @@
   },
   "code": {
     "shorthand": "",
-	"comments" : [ "Java Puzzle #11 - 'Three solutions?Jump for joy!'"
+	"comments" : [ "Java Puzzle #11 - 'Three solutions? Jump for joy!'",
+	"There are two obvious ways to solve this puzzle.",
+	"With some careful thinking a fast third way may jump out at you."
 	]
   },
   "game": {

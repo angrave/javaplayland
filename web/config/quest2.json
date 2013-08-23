@@ -1,4 +1,5 @@
-{
+{"key" : "color",
+"title":"Pixel Perfect",
   "games": [
 "color0050",
 "color0150",
@@ -11,15 +12,7 @@
 "color0850",
 "color0950",
 "color1050",
-"color1150",
-"color1250",
-"color1350",
-"color1450",
-"color1550",
-"color1650",
-"color1750",
-"color1850",
-"color1950"
+"color1150"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",

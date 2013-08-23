@@ -1,4 +1,5 @@
-{
+{ "key" : "sequence",
+  "title" : "Code Sequence",
   "games": [
 "seq0150",
 "seq0250",
