@@ -54,7 +54,7 @@ class window.PaintGameState
         #Check border filling
         for name, pixel of @gameConfig.characters
             expected = pixel.match
-            expected ?= name
+            expected ?= pixel.color
             if expected == @picture[pixel.x][pixel.y]?.color
                     @picture[pixel.x][pixel.y].matched = true
             else
