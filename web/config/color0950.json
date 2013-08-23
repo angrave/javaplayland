@@ -13,25 +13,25 @@
     ],
     "commands": {
       "shorthand": [
+		"String paintColor = \"red\";",
+		"paintColor = \"purple\";",
+        "paintColor = \"blue\";",
         {
-          "line": "drawPixel(col + 0, row, paintColor);",
+          "line": "drawPixel(col, row, paintColor);",
           "maxUses": 2
         },
         {
           "line": "drawPixel(col + 1 + 1, row, paintColor);",
           "maxUses": 2
         },
-        "String paintColor = \"red\"; // Create a String variable named paintColor",
-        "row=5;",
-        "paintColor = \"purple\"; // Makes sense if there's already is a variable named paintColor",
-        "paintColor = \"blue\";"
+        "row=5;"
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int col = 3; //Column across (x)",
+      "int col = 4; //Column across (x)",
       "int row = 3; //Row down (y)"
     ],
     "postfix": "return;\n}",
@@ -45,9 +45,9 @@
       "",
       "",
       "",
-      "...Q.R",
+      "....Q.R",
       "",
-      "...U.U"
+      "......U"
     ]
   },
   "dyk": []

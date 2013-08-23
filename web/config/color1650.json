@@ -26,7 +26,7 @@
 	"initial" : "",
     "postfix": "\tx = x + 1;\n\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #16 - 'If-in-a-loop","\"Insert coin, sorry I mean, code to play!\""
+      "Color Puzzle #16 - 'If-in-a-loop'","\"Insert coin...Well... Insert code to play!\""
     ]
   },
   "game": {

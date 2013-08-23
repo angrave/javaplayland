@@ -33,8 +33,8 @@
     "comments": [
       "Color Puzzle 12 - '1 Pixel copier'",
 "I made a method named 'getPixel' that takes two int parameters and returns a String.",
-"Can you find out how to use it?",
-"p.s. I known your method returns nothing because it says 'void' next to its name."
+"Your 'paint' method however returns nothing because it says 'void' before its name.",
+"Can you find out how to use getPixel?"
     ]
   },
   "game": {
