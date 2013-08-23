@@ -26,7 +26,7 @@
   },
   "code": {
     "prefix": "void paint() {\n",
-    "postfix": "return; // Insert your code before here\n}",
+    "postfix": "return; // Insert your code before here\n} // End of the paint method",
     "initial": "",
     "comments": [
 "Color Puzzle #1 - '(0,7) or (7,0)?'",

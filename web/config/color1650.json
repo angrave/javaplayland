@@ -1,7 +1,7 @@
 
 
 {
-  "title": "Returned early from work",
+  "title": "If-in-a-loop",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -10,29 +10,28 @@
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "switchUp",
-      "switchDown","deleteLine",
-      "insertButtons"
+      "insertButtons","deleteLine"
+      
     ],
     "commands": {
-      "shorthand": ["drawPixel(candy,candy,\"blue\");","if(candy==1)","return;","candy = candy - 1;"]
+      "shorthand": [  "if(x < 6) { drawPixel(x,0,\"black\");}",  "else { drawPixel(x,1,\"blue\");}" , "if(x < 4) { drawPixel(x,0,\"red\");}"]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-"int candy = 5;",
-"\twhile(2+2 == 4) {"
+       "int x = 0;",
+       "while(x <= 7) {"
     ],
-
-    "postfix": "\t}\ndrawPixel(0,0,\"red\");\nreturn;\n}",
+	"initial" : "",
+    "postfix": "\tx = x + 1;\n\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #16 - 'Returned early from work'","I returned early; I didn't want to eat the red candy."
+      "Color Puzzle #16 - 'If-in-a-loop","\"Insert coin, sorry I mean, code to play!\""
     ]
   },
   "game": {
     "map": [
-"",".U","..U","...U","....U",".....U"
+"RRRR","....UUUU"
     ],
     "offset": {
       "x": 0,

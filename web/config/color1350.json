@@ -1,7 +1,7 @@
 
 
 {
-  "title": "loopy thinking",
+  "title": "Loop around a while",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -16,20 +16,26 @@
       "insertButtons"
     ],
     "commands": {
-      "shorthand": [ "drawPixel(count, count, \"blue\");","int count = 0;","count = count + 1;", "while(count != 8) {"  ]        
+      "shorthand": [ "drawPixel(x, y, \"red\");","x = x + 2;", "drawPixel(x, y+2, \"black\");" ]        
+      
     }
   },
   "code": {
     "prefix": [
-      "void paint() {"
+      "void paint() {",
+      "int x = 0;",
+      "int y = 0;",
+      "while(x < 7) {"
     ],
     "postfix": "\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #13 - 'Loopy thinking'","Insert the statements in the correct order"
+      "Color Puzzle #13 - 'Loop around a while'","Use a while loop to repeat yourself!",
+"Hint: Not working as expected? Check the order of your statements!"
     ]
   },
   "game": {
-    "map": ["U",".U","..U","...U","....U",".....U","......U",".......U"
+    "map": [
+      "R.R.R.R","","B.B.B.B"
     ],
     "offset": {
       "x": 0,

@@ -1,52 +1,47 @@
 {
-  "title": "String you along",
+  "title": "Paint upon paint",
   "description": "",
+  "task": "",
+  "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown",
-      "deleteLine",
-      "insertButtons"
+      "switchDown"
     ],
-    "commands": {
-      "shorthand": [
-        "drawPixel(3,3, color);",
-        "drawPixel(3,4, color);",
-        "drawPixel(4,3, color);",
-        "drawPixel(4,4,color);",
-        "color = \"blue\";"
-      ]
-    }
+    "commands": {}
   },
   "code": {
-    "prefix": [
-      "void paint() {",
-"// Initialize a new variable called color that can hold a sequence of characters (\"String\").",
-      "String color = \"yellow\"; "
+    "prefix": "void paint() { \n",
+    "postfix": "return; // I'm done!\n} // Code statements belong inside this paint method",
+    "initial": [
+      "drawPixel(1,5,\"blue\");",
+      "drawPixel(5,1,\"red\");",
+      "drawPixel(5,1,\"yellow\");",
+      "drawPixel(1,5,\"purple\");",
+      "drawPixel(3,3,\"yellow\");",
+      "drawPixel(3,3,\"red\");"
     ],
-    "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #3 - 'Reusable String'",
-      "Use a String variable to store and later re-use the color name",
-      "Variables are stored in memory -", " you can tell them to forget their current value and remember a new value instead.",
-      "Use String variables to store and later re-use a sequence of characters like \"Hi World! RU Happy?\"",
-"Hint: You'll need to draw some pixels before and after changing the color variable."
+      "Color Puzzle #3 - 'Paint upon paint'",
+"Hint: No delete? You'll just need to repaint it!",
+"Use the up-down buttons to swap the order of the lines."
     ]
   },
   "game": {
     "map": [
       "",
+      ".....R",
       "",
+      "...Y",
       "",
-      "...UY",
-      "...YU"
+      ".U"
     ],
     "offset": {
-      "x": 0,
-      "y": 0
+        "x": 0,
+        "y": 0
     }
   },
   "dyk": []

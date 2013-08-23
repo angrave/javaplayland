@@ -1,7 +1,7 @@
 
 
 {
-  "title": "Don't spill the paint",
+  "title": "Returned early from work",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -15,22 +15,24 @@
       "insertButtons"
     ],
     "commands": {
-      "shorthand": [ "int x = 0;", "drawPixel(x,7,\"blue\");" ,"drawPixel(x,1,\"green\");","drawPixel(x,0,\"red\");","drawPixel(x,2,\"yellow\");","x=x+1;","while(x!=4) {","}"]
+      "shorthand": ["drawPixel(candy,candy,\"blue\");","if(candy==1)","return;","candy = candy - 1;"]
     }
   },
   "code": {
     "prefix": [
-      "void paint() {"
+      "void paint() {",
+"int candy = 5;",
+"\twhile(2+2 == 4) {"
     ],
-	"initial" : "",
-    "postfix": "return;\n}",
+
+    "postfix": "\t}\ndrawPixel(0,0,\"red\");\nreturn;\n}",
     "comments": [
-      "Color Puzzle #17 - 'Don't spill the paint'"
+      "Color Puzzle #17 - 'Returned early from work'","I returned early; I didn't want to eat the red candy."
     ]
   },
   "game": {
     "map": [
-"RRRR","GGGG",".YYYY","","","","","....U"
+"",".U","..U","...U","....U",".....U"
     ],
     "offset": {
       "x": 0,

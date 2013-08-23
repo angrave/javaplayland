@@ -1,5 +1,5 @@
 {
-  "title": "Assignment: Plus One",
+  "title": "8 Pixel copier",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -15,37 +15,33 @@
     ],
     "commands": {
       "shorthand": [
-		{
-          "line": "y = y + 1;",
-          "maxUses": 5
-        },
-		{
-          "line": "drawPixel(x, y, \"blue\");",
-          "maxUses": 4
-        }
-        
+        "drawPixel(x, TGT, color);",
+        "color = getPixel(x , SRC);",
+        "String color=\"black\";",
+        "int x = 0;",
+        "while(x<8) ","{","x=x+1;","}"
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 1;",
-      "int y = 0;"
+      "int SRC = 3, TGT=6; // Source and target row"
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #7 - 'Assignment: Plus One'","y = y + 1, calculates the value of 'y plus one' and then saves it in variable named 'y'"
-    ]
+      "Color Puzzle 19 - '8 Pixel copier'",
+"Hint: For this recipe you'll need integer and string variables, a loop and a couple of method calls."    ]
   },
   "game": {
     "map": [
-      "U","U","U","","U"
-
+      "rruuggbr",
+      "","",
+      "RRUUGGBR"
     ],
     "offset": {
-      "x": 1,
-      "y": 0
+      "x": 0,
+      "y": 3
     }
   },
   "dyk": []

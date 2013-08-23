@@ -1,7 +1,5 @@
-
-
 {
-  "title": "Loop around a while",
+  "title": "1 Pixel copier",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -16,30 +14,38 @@
       "insertButtons"
     ],
     "commands": {
-      "shorthand": [ "drawPixel(x, y, \"red\");","x = x + 2;", "drawPixel(x, y+2, \"black\");" ]        
-      
+      "shorthand": [
+        "colorToDraw = getPixel(x , y);",
+        "x = 5;",
+        "y = 5;",
+        "drawPixel(x, y, colorToDraw);"
+      ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 0;",
-      "int y = 0;",
-      "while(x < 7) {"
+      "int x = 3;",
+      "int y = 3;",
+      "String colorToDraw = \"red\";"
     ],
-    "postfix": "\t}\nreturn;\n}",
+    "postfix": "}",
     "comments": [
-      "Color Puzzle #12 - 'Loop around a while'","Use a while loop to repeat yourself!",
-"Hint: Not working as expected? Check the order of your statements!"
+      "Color Puzzle 12 - '1 Pixel copier'",
+"I made a method named 'getPixel' that takes two int parameters and returns a String.",
+"Can you find out how to use it?",
+"p.s. I known your method returns nothing because it says 'void' next to its name."
     ]
   },
   "game": {
     "map": [
-      "R.R.R.R","","B.B.B.B"
+      "u",
+      "",
+      "..U"
     ],
     "offset": {
-      "x": 0,
-      "y": 0
+      "x": 3,
+      "y": 3
     }
   },
   "dyk": []

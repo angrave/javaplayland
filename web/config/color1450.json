@@ -1,7 +1,7 @@
 
 
 {
-  "title": "Loop-in-a-loop",
+  "title": "loopy thinking",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -11,29 +11,29 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown"
-    ]
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [ "drawPixel(count, count, \"blue\");","int count = 0;","count = count + 1;", "while(count != 8) {"  ]        
+    }
   },
   "code": {
     "prefix": [
-      "void paint() {",
-       "int x = 1;\nint y = 1;"
-      
+      "void paint() {"
     ],
-	"initial" : "while( y != 5 ) {\n\tx=1;\n\twhile( x != 5 ) {\n\t\tdrawPixel(x, y, \"black\");\n\t\t\tx = x + 1;\n\t\t\ty = y + 1;\n\t\t}",
-    "postfix": "\n\t}\nreturn;\n}",
+    "postfix": "\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #14 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
-"Hint: One of these statements does not belong inside the inner loop. Move it down!"
+      "Color Puzzle #14 - 'Loopy thinking'","Insert the statements in the correct order"
     ]
   },
   "game": {
-    "map": [
-"BBBB","BBBB","BBBB","BBBB"
+    "map": ["U",".U","..U","...U","....U",".....U","......U",".......U"
     ],
     "offset": {
-      "x": 1,
-      "y": 1
+      "x": 0,
+      "y": 0
     }
   },
   "dyk": []

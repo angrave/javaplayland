@@ -1,5 +1,5 @@
 {
-  "title": "Re-usable Integers",
+  "title": "String you along",
   "description": "",
   "gameType": "paint",
   "backEnd": "doppio",
@@ -13,40 +13,41 @@
     ],
     "commands": {
       "shorthand": [
-        "drawPixel(x,y,\"yellow\");",
-        "drawPixel(x,y,\"blue\");",
-        "drawPixel(x,y,\"red\");",
-        "drawPixel(x,y,\"purple\");",
-        "x=5; // x is now 5",
-        "y=5;",
-        "x=2;",
-        "y=2;"
+        "drawPixel(3,3, color);",
+        "drawPixel(4,3, color);",
+        "drawPixel(4,4,color);",
+        "color = \"blue\";"
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 2; // Initialize a new variable named 'x' of type int",
-      "int y = 2;",
-      "// Statements must go inside a method!"
+"// Initialize a new variable called color that can hold a sequence of characters (\"String\").",
+      "String color = \"yellow\"; ",
+      "drawPixel(3,4, color);// But what will you do next?"
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #4 - 'Re-usable int'",
-"Use an int variable to store, and later re-use an integer value.",
-"Once you've created a variable you can use the variable's current value, or store a new value."
+      "Color Puzzle #4 - 'String you along'",
+      "Use a String variable to store and later re-use the color name",
+      "Variables are stored in memory -", " you can tell them to forget their current value and remember a new value instead.",
+      "Use String variables to store and later re-use a sequence of characters like \"Hi World! RU Happy?\"",
+"Hint: You'll need to draw some pixels before and after changing the color variable."
     ]
   },
   "game": {
     "map": [
       "",
       "",
-      "..Q..R",
-      "......",
-      "......",
-      "..Y..U"
-    ]
+      "",
+      "...UY",
+      "...YU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
   },
   "dyk": []
 }

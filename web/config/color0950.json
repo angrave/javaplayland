@@ -1,5 +1,5 @@
 {
-  "title": "Value swap",
+  "title": "Parameter plus 2",
   "description": "",
   "gameType": "paint",
   "backEnd": "doppio",
@@ -13,26 +13,31 @@
     ],
     "commands": {
       "shorthand": [
-        "x = y;",
-        "temp = x;",
-        "y = temp;",
-        "drawPixel(x , y , \"blue\");",
-        "drawPixel(x , y , \"pink\");"
+        {
+          "line": "drawPixel(col + 0, row, paintColor);",
+          "maxUses": 2
+        },
+        {
+          "line": "drawPixel(col + 1 + 1, row, paintColor);",
+          "maxUses": 2
+        },
+        "String paintColor = \"red\"; // Create a String variable named paintColor",
+        "row=5;",
+        "paintColor = \"purple\"; // Makes sense if there's already is a variable named paintColor",
+        "paintColor = \"blue\";"
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 6;",
-      "int y = 3;",
-      "int temp = 0;"
+      "int col = 3; //Column across (x)",
+      "int row = 3; //Row down (y)"
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #9 - 'Value swap",
-      "To solve this puzzle you will need to swap the values stored in x and y.",
-"Hint: You'll need the third variable to keep a copy of the original value."
+      "Color Puzzle #9 - 'Parameter plus 2'",
+      "Parameter values can be mathematical expressions too. "
     ]
   },
   "game": {
@@ -40,10 +45,9 @@
       "",
       "",
       "",
-      "......U",
+      "...Q.R",
       "",
-      "",
-      "...P"
+      "...U.U"
     ]
   },
   "dyk": []

@@ -1,5 +1,7 @@
+
+
 {
-  "title": "8 Pixel copier",
+  "title": "Don't spill the paint",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -9,39 +11,30 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown",
-      "deleteLine",
+      "switchDown","deleteLine",
       "insertButtons"
     ],
     "commands": {
-      "shorthand": [
-        "drawPixel(x, TGT, color);",
-        "color = getPixel(x , SRC);",
-        "String color=\"black\";",
-        "int x = 0;",
-        "while(x<8) ","{","x=x+1;","}"
-      ]
+      "shorthand": [ "int x = 0;", "drawPixel(x,7,\"blue\");" ,"drawPixel(x,1,\"green\");","drawPixel(x,0,\"red\");","drawPixel(x,2,\"yellow\");","x=x+1;","while(x!=4) {","}"]
     }
   },
   "code": {
     "prefix": [
-      "void paint() {",
-      "int SRC = 3, TGT=6; // Source and target row"
+      "void paint() {"
     ],
+	"initial" : "",
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle 18 - '8 Pixel copier'",
-"Hint: For this recipe you'll need integer and string variables, a loop and a couple of method calls."    ]
+      "Color Puzzle #18 - 'Don't spill the paint'"
+    ]
   },
   "game": {
     "map": [
-      "rruuggbr",
-      "","",
-      "RRUUGGBR"
+"RRRR","GGGG",".YYYY","","","","","....U"
     ],
     "offset": {
       "x": 0,
-      "y": 3
+      "y": 0
     }
   },
   "dyk": []

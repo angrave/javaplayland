@@ -1,5 +1,5 @@
 {
-  "title": "Assignment: Plus One",
+  "title": "Variable = Assignment",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -15,13 +15,14 @@
     ],
     "commands": {
       "shorthand": [
+        "colorToDraw = \"blue\";",
+        "x = 2 + 2;",
+        "y = 5 - (3 - 2);",
+        "x = 1;",
+        "y = 1;",
 		{
-          "line": "y = y + 1;",
+          "line": "drawPixel(x, y, colorToDraw);",
           "maxUses": 5
-        },
-		{
-          "line": "drawPixel(x, y, \"blue\");",
-          "maxUses": 4
         }
         
       ]
@@ -30,22 +31,25 @@
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 1;",
-      "int y = 0;"
+      "int x = 7;",
+      "int y = 6 + 1;",
+      "String colorToDraw = \"red\";","// You can insert new code after this comment line"
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #6 - 'Assignment: Plus One'","y = y + 1, calculates the value of 'y plus one' and then saves it in variable named 'y'"
+      "Color Puzzle #6 - 'Variable = Assignment'"," = means 'assign' not 'equals'!\n",
+" abc = 1+2+3+ (more expression stuff here);\n"," = means... calculate the right hand side and then...","  store the result in the existing variable named 'abc'"
     ]
   },
   "game": {
     "map": [
-      "U","U","U","","U"
-
+      "R..U",
+      ".",".",
+      "...U"
     ],
     "offset": {
       "x": 1,
-      "y": 0
+      "y": 1
     }
   },
   "dyk": []

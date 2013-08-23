@@ -1,6 +1,8 @@
 {
-  "title": "Parameter plus 2",
+  "title": "+1 order?",
   "description": "",
+  "task": "",
+  "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
@@ -13,42 +15,41 @@
     ],
     "commands": {
       "shorthand": [
-        {
-          "line": "drawPixel(col + 0, row, paintColor);",
-          "maxUses": 2
+		{
+          "line": "x = x + 1;",
+          "maxUses": 5
         },
-        {
-          "line": "drawPixel(col + 1 + 1, row, paintColor);",
-          "maxUses": 2
-        },
-        "String paintColor = \"red\"; // Create a String variable named paintColor",
-        "row=5;",
-        "paintColor = \"purple\"; // Makes sense if there's already is a variable named paintColor",
-        "paintColor = \"blue\";"
+        "y = x + 2;",
+		{
+          "line": "drawPixel(x, y, \"red\");",
+          "maxUses": 5
+        }
+        
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int col = 3; //Column across (x)",
-      "int row = 3; //Row down (y)"
+      "int x = 0;",
+      "int y = 0;"
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #8 - 'Parameter plus 2'",
-      "Parameter values can be mathematical expressions too. "
+      "Color Puzzle #8 - '+1 order?'","x = x + 1, means calculate the value of 'x', add one' and \nsave the vaue in variable named 'x'",
+"y = x + 2 means take the current value of variable 'y', add two and save the value in 'y' ",
+"Hint: Not working as expected? Check the order of your statements!"
     ]
   },
   "game": {
     "map": [
-      "",
-      "",
-      "",
-      "...Q.R",
-      "",
-      "...U.U"
-    ]
+      "RRR","","","","...RR"
+
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
   },
   "dyk": []
 }

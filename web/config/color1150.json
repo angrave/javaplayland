@@ -1,8 +1,6 @@
 {
-  "title": "1 Pixel copier",
+  "title": "1-4-1-4...",
   "description": "",
-  "task": "",
-  "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
@@ -15,38 +13,38 @@
     ],
     "commands": {
       "shorthand": [
-        "colorToDraw = getPixel(x , y);",
-        "x = 5;",
-        "y = 5;",
-        "drawPixel(x, y, colorToDraw);"
+      {
+        "line": "y = 5 - y;",
+        "maxUses": 4
+      },
+      {
+        "line": "x = 5 - x;",
+        "maxUses": 4
+      },
+      {
+        "line": "drawPixel(x , y , \"blue\");",
+        "maxUses": 5
+      }
       ]
     }
   },
   "code": {
     "prefix": [
       "void paint() {",
-      "int x = 3;",
-      "int y = 3;",
-      "String colorToDraw = \"red\";"
+      "int x = 1;",
+      "int y = 1;"
+
     ],
-    "postfix": "}",
+    "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle 11 - '1 Pixel copier'",
-"I made a method named 'getPixel' that takes two int parameters and returns a String.",
-"Can you find out how to use it?",
-"p.s. I known your method returns nothing because it says 'void' next to its name."
+      "Color Puzzle #11 - '1-4-1-4...'",
+      "x = 5 - x, what will be the new value of x if x is currently 1?"
     ]
   },
   "game": {
     "map": [
-      "u",
-      "",
-      "..U"
-    ],
-    "offset": {
-      "x": 3,
-      "y": 3
-    }
+      "",".U..U","","",".U..U"
+    ]
   },
   "dyk": []
 }

@@ -1,7 +1,7 @@
 
 
 {
-  "title": "If-in-a-loop",
+  "title": "Loop-in-a-loop",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -10,32 +10,30 @@
   "editor": {
     "freeformEditting": false,
     "buttons": [
-      "insertButtons","deleteLine"
-      
-    ],
-    "commands": {
-      "shorthand": [  "if(x < 6) { drawPixel(x,0,\"black\");}",  "else { drawPixel(x,1,\"blue\");}" , "if(x < 4) { drawPixel(x,0,\"red\");}"]
-    }
+      "switchUp",
+      "switchDown"
+    ]
   },
   "code": {
     "prefix": [
       "void paint() {",
-       "int x = 0;",
-       "while(x <= 7) {"
+       "int x = 1;\nint y = 1;"
+      
     ],
-	"initial" : "",
-    "postfix": "\tx = x + 1;\n\t}\nreturn;\n}",
+	"initial" : "while( y != 5 ) {\n\tx=1;\n\twhile( x != 5 ) {\n\t\tdrawPixel(x, y, \"black\");\n\t\t\tx = x + 1;\n\t\t\ty = y + 1;\n\t\t}",
+    "postfix": "\n\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #15 - 'If-in-a-loop","\"Insert coin, sorry I mean, code to play!\""
+      "Color Puzzle #15 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
+"Hint: One of these statements does not belong inside the inner loop. Move it down!"
     ]
   },
   "game": {
     "map": [
-"RRRR","....UUUU"
+"BBBB","BBBB","BBBB","BBBB"
     ],
     "offset": {
-      "x": 0,
-      "y": 0
+      "x": 1,
+      "y": 1
     }
   },
   "dyk": []
