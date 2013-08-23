@@ -25,7 +25,7 @@
   "code": {
     "shorthand": "RRggg",
     "comments" : [ "Java Puzzle #2 - 'Order matters'",
-	"Move the code lines up and down to change the order of go and turnRight,\nThen press play to run your entire Java code",
+	"Move the code lines up and down to change the order of go and turnRight\nthen press play to run your entire Java code",
      "English uses ! for commands : Fetch the Ball!\nbut notice Java statements end with a semicolon ; instead"
      ]
   },
