@@ -102,7 +102,9 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
-    
+    stats = root.loadGameStats(game) 
+    stats.openedCount++
+    root.storeGameStats(game,stats)
     
     env = {
         key: game
@@ -114,7 +116,7 @@ root.startGame = (game) ->
         codeland : this
         backEnd: description.backEnd
         gameState: description.gameState
-        stats : root.loadGameStats(game)         
+        stats : stats        
     }
     #Not used ... window.location.hash='game='+encodeURIComponent(game)
     root.currentGame = new GameManager env
@@ -152,7 +154,7 @@ root.loadGameStats = (gameKey) ->
     data.winCount ?=0
     data.lostCount ?=0
     data.resetCount ?=0
-    data.editCount ?=0
+    data.openedCount ?=0
     data.hiscore ?=0
     data.passed ?= false
     data.stars ?= 0
@@ -186,13 +188,7 @@ root.getPlayer = ->
         first : ''
         last : ''
         avator : 'generic'
-        games : {
-            java1a : {
-                hiscore : 20
-                stars : 1
-                passed : true
-            }
-        }
+        games : { }
     }
 
 root.updatePlayer = (callback) ->
