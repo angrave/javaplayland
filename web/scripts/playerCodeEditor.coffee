@@ -79,7 +79,6 @@ class window.EditorManager
         @onStudentCodeChange()
         @moveEditorButtonDelay = 30
         setTimeout @moveEditorButtons, @moveEditorButtonDelay
-        @editor.gotoLine @findFirstNonCommentLine(@codeConfig.initial)
         return
 
     setUpInsertButtons: ->
@@ -118,12 +117,12 @@ class window.EditorManager
             else
                 line = @editor.createBlankFunctionHeader(command) + ';'
                 funct = codeEditor.insertCommand
-            usesRemaining = @commands[command]['usesRemaining']
+            
             button = jQuery '<button>', {
                 id: command,
                 value: command,
                 text: "#{line}",
-                title: "#{usesRemaining} remain"
+                title: @toUsesRemainingText(maxUses, maxUses),
                 click: (e) ->
                     (codeEditor.button codeEditor.usesCurrentRow \
                         codeEditor.usesTextDocument funct )
@@ -221,6 +220,9 @@ class window.EditorManager
                 usesRemaining = remaining[command]
             else
                 usesRemaining = @commands[command]['usesRemaining']
+            
+            
+            button.attr 'title',@toUsesRemainingText(usesRemaining, @commands[command].maxUses)
             if usesRemaining <= 0
                 button.attr 'disabled', true
                 if usesRemaining < 0
@@ -228,10 +230,18 @@ class window.EditorManager
             else
                 button.attr 'disabled', false
             button.text "#{line}"
+
             ### #{usesRemaining}" ###
         @onCommandRemainingValid? valid
         return
 
+    toUsesRemainingText: (usesRemaining,maxUses) ->
+        return 'Already used (delete the code line to re-use this button)' if usesRemaining<=0
+        return 'Can only appear once!' if usesRemaining==1 and maxUses==1
+        return 'Can only appear one more time!' if usesRemaining==1
+        return"Can be used #{usesRemaining} more times"
+        
+        
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
         maxrows = @editor.editSession.getLength()
@@ -409,35 +419,13 @@ class window.EditorManager
                 return i
         return -1 # Not Found
 
-#Helper method for constructor so that we can insert code on the first non-comment line
-#Not a real parser e.g. print("/*") would be mistaken for a multiline comment.
-    findFirstNonCommentLine: (src) ->
-        lines = src.split('\n')
-        count=0
-        inMLC = false #Multi-line comment
-        for line in src.split('\n')
-            count +=1
-            if(line.match(/^S*$/))
-                continue # Ignore empty lines
-            isSLC =  !!line.match(/^\s*\/\//)
-
-            countStartMLC = line.split('/*').length-1
-            countEndMLC = line.split('*/').length-1
-
-            if(inMLC)
-                if(!isSLC)
-                    inMLC = countStartMLC >countEndMLC
-            else
-                if( (!isSLC && !(inMLC=countStartMLC > countEndMLC)))
-                    break
-        return count
 
 class window.PlayerCodeEditor
     ###
         Creates and provides functionality for an Ace editor representing player's code.
     ###
     constructor: (
-            @editorDivId, @commands, codeText, @wrapCode, @codePrefix,
+            @editorDivId, @commands, @initialText, @wrapCode, @codePrefix,
             @codeSuffix, @hiddenSuffix, @freeEdit, @interpreter) ->
         ###
             Sets internal variables, the default text and buttons
@@ -456,7 +444,7 @@ class window.PlayerCodeEditor
         @codeSuffixLength = 0
         if @wrapCode == true
             if @codePrefix != ""
-                @codeText = @codePrefix + codeText
+                @codeText = @codePrefix + @initialText
                 @codePrefixLength = @codePrefix.split('\n').length - 1
             if @codeSuffix != ""
                 @codeText += '\n' + @codeSuffix
@@ -464,14 +452,13 @@ class window.PlayerCodeEditor
         else
             @codePrefix = ""
             @codeSuffix = ""
-            @codeText = codeText
+            @codeText = @initialText
 
         @enableKeyboardShortcuts()
-
+        
         @resetState()
         @onChangeCallback = null
         @editor.on 'change', @onChange
-        @gotoLine @codePrefixLength + 1
         return
 
     getStudentCode: ->
@@ -480,6 +467,7 @@ class window.PlayerCodeEditor
             code += '\n' + @hiddenSuffix
         return code
 
+                
     gotoLine: (row) ->
         column = @editor.getCursorPosition().column
         @editor.gotoLine row, column, true
@@ -566,10 +554,6 @@ class window.PlayerCodeEditor
         return
 
     insertCommand: ({text, line, currentRow}) ->
-        maxRow = @editSession.getLength()
-        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
-            return
-
         @commands[line]['usesRemaining']--
         printLine = (@createBlankFunctionHeader line) + ';'
         @insertLine {text: text, line:printLine, currentRow:currentRow}
@@ -577,8 +561,8 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        if currentRow + 1 < @codePrefixLength or currentRow + 1 >= maxRow - (@codeSuffixLength - 1)
-            return
+        currentRow = Math.max(currentRow, @codePrefixLength-1)        
+        currentRow = Math.min(currentRow, maxRow-@codeSuffixLength-1  )   
         currentLine = text.getLine currentRow
 
         if @commands.hasOwnProperty line
@@ -618,7 +602,9 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @editor.resize()
         @reIndentCode()
-        @gotoLine @codePrefixLength + 1
+        
+        @gotoLine @codePrefixLength + 1 + @findFirstNonCommentLine(@initialText)        
+       
         @editor.renderer.scrollToRow @codePrefixLength
         for name, command of @commands
             command['usesRemaining'] = command['maxUses']
@@ -777,3 +763,30 @@ class window.PlayerCodeEditor
         if argument['namedArgumentsFlag'] != true
             return false
         return true
+
+
+    findFirstNonCommentLine: (src) ->
+        ###
+            Returns the line numer of the first non-comment line.
+            This is obviously not a complete parser so obscure edge cases are unsupported
+            e.g. print("/*") would be mistaken for a multiline comment.
+        ###
+        lines = src.split('\n')
+        count=0
+        inMLC = false #Multi-line comment
+        for line in src.split('\n')
+            count +=1
+            if(line.match(/^S*$/))
+                continue # Ignore empty lines
+            isSLC =  !!line.match(/^\s*\/\//)
+
+            countStartMLC = line.split('/*').length-1
+            countEndMLC = line.split('*/').length-1
+
+            if(inMLC)
+                if(!isSLC)
+                    inMLC = countStartMLC >countEndMLC
+            else
+                if( (!isSLC && !(inMLC=countStartMLC > countEndMLC)))
+                    break
+        return count
