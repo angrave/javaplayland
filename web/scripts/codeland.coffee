@@ -102,6 +102,8 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
+    
+    
     env = {
         key: game
         description : description
@@ -112,7 +114,7 @@ root.startGame = (game) ->
         codeland : this
         backEnd: description.backEnd
         gameState: description.gameState
-        stats : root.getGameStats()         
+        stats : root.loadGameStats(game)         
     }
     #Not used ... window.location.hash='game='+encodeURIComponent(game)
     root.currentGame = new GameManager env
@@ -141,9 +143,8 @@ root.store = (key, val) ->
     root.setString(key, JSON.stringify val)
     return
 
-root.getGameStats = (gameKey) ->
+root.loadGameStats = (gameKey) ->
     p=root.getPlayer()
-    gameKey ?= p.currentGame
     data = p.games[gameKey] ?= {}
 #Ensure we have the minimum number of expect properties
     data.abortCount ?=0
@@ -329,11 +330,15 @@ root.convertShorthandToCode = (gameData) ->
     return
 
 root.addHintsToCode = (gameData) ->
+    gameData.code.initial?=''
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
-        one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))
-        gameData.code.initial = one + '\n' + \
-            (if gameData.code.initial? then gameData.code.initial else '')
+        one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))+ '\n'
+        # Hints go in prefix if it exists, otherwise they are prepended to the main area
+        if gameData.code.prefix
+            gameData.code.prefix = one + gameData.code.prefix
+        else 
+            gameData.code.initial = one + '\n' + gameData.code.initial
     return
 
 root.getGameDescriptions = ->
