@@ -335,7 +335,7 @@ root.addHintsToCode = (gameData) ->
         # Also ensures newlines in the data are properly commented out
         one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))+ '\n'
         # Hints go in prefix if it exists, otherwise they are prepended to the main area
-        if gameData.code.prefix
+        if gameData.code.prefix.length > 1 # Ignore lonely \n
             gameData.code.prefix = one + gameData.code.prefix
         else 
             gameData.code.initial = one + '\n' + gameData.code.initial
