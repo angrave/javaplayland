@@ -67,14 +67,20 @@ root.drawGameMap = (player) ->
 
     gameSequence = root.getGameSequence()
     sel = new gameSelector(mapDiv, false)
+    tmp1 = document.getElementById("gameSelection")
+
     count = 0
     addGameToMap = (game) ->
         # console.log "Game: #{game}"
         count = count + 1
         sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland)
-    addGameToMap game for game in gameSequence
-    tmp1 = document.getElementById("gameSelection")
-
+#    addGameToMap game for game in gameSequence
+    qcount = 0
+    for quest in root.quests
+        $("<div bgcolor='#888888'>Quest #{++qcount}:#{quest.title}</div>").appendTo tmp1
+        for gameKey in quest.games
+            addGameToMap gameKey
+ 
     $('<span style="font-size:200%" class="cursiveHeadline">Choose your Java Game</span><br>').prependTo tmp1
     $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
@@ -92,7 +98,8 @@ root.startGame = (game) ->
             root.currentQuest = root.quests[index]
             break
     root.currentGame.finishGame() if root.currentGame
-
+    root.currentGame = null
+    
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
     if tmp1 != null
@@ -243,12 +250,13 @@ root.loadJSONConfigs = () ->
         root.quests = []
         root.visualMasters = {}
         root.beanshellPreload = data.beanshellPreload
-        questIndex = 0
+        questIndex = -1
         for quest in data.quests
             root.readJSON "config/#{quest}", (questData) ->
-                if questData == undefined
+                if questData == undefined or questData.key == undefined
                     configFail = true
-                root.quests[questIndex++] = questData
+                ++questIndex
+                root.quests[questIndex] = questData
                 for game in questData.games
                     root.readJSON "config/#{game}.json", (gameData) ->
                         if gameData == undefined
