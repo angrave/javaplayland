@@ -48,15 +48,29 @@ class window.PaintGameState
         @tick++
         return
 
+    # Careful ...Destructive; can only be used once
+    # Returns true if the picture was correctly painted
+    checkPainting: ->
+        #Check border filling
+        for name, pixel of @gameConfig.characters
+            expected = pixel.match
+            expected ?= name
+            if expected == @picture[pixel.x][pixel.y]?.color
+                    @picture[pixel.x][pixel.y].matched = true
+            else
+                return false
+        # Check for painting over squares that should not have been painted
+        for x in [0..@gameManager.config.visual.grid.gridX]
+            for y in [0..@gameManager.config.visual.grid.gridY]
+                pixel=@picture[x][y]
+                if ! pixel or pixel.matched
+                    continue
+                return false 
+        return true
+
     checkEvents: ->
         if @finishedExecuting
-            won = true
-            for name, pixel of @gameConfig.characters
-                if not pixel.match?
-                    continue
-                if pixel.match != @picture[pixel.x][pixel.y]?.color
-                    won = false
-            if won
+            if @checkPainting()
                 @gameWon()
             else
                 @gameLost()
@@ -94,26 +108,20 @@ class window.PaintGameState
             return "white"
 
     gameWon: =>
-        if not @startedGame
-            return
-        playAudio 'victory.ogg'
-        @startedGame = false
+        return if not @startedGame
+        @stopGame()
         @gameManager.gameWon()
         return 
 
     gameLost: =>
-        if not @startedGame
-            return
-        if clockHandle?
-            clearInterval clockHandle
-        @startedGame = false
-        clockHandle = setInterval @clock, 17
+        return if not @startedGame
+        @stopGame()          
         @gameManager.gameLost()
         return
 
     stopGame: =>
-        if clockHandle?
-            clearInterval clockHandle
+        clearInterval clockHandle if clockHandle?   
+        clockHandle=null 
         @startedGame = false
         return
 

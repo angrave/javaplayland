@@ -350,7 +350,7 @@ class window.GridGameState
 
     gameWon: =>
         return if not @startedGame
-        @startedGame = false
+        @stopGame()
             
         @stars = 1
         @score = 5
@@ -359,16 +359,7 @@ class window.GridGameState
 
     gameLost: =>
         return if not @startedGame
-        @startedGame = false
-            
-        if clockHandle?
-            clearInterval clockHandle
-        #clockHandle = setInterval @clock, 17
-        
-        for name, character of @gameConfig.characters
-            if @visual.getState(character.index) != 5
-                @visual.changeState character.index, 4
-            character.moves = null
+        @stopGame()
         @gameManager.gameLost()
         return
 
@@ -380,12 +371,15 @@ class window.GridGameState
         return
 
     stopGame: =>
+        @startedGame = false
+            
         if clockHandle?
             clearInterval clockHandle
+        
         for name, character of @gameConfig.characters
-            @visual.changeState character.index, 4
+            if @visual.getState(character.index) != 5
+                @visual.changeState character.index, 4
             character.moves = null
-        @startedGame = false
         return
 
     computeStepInDirection: (direction, currentX, currentY) ->
