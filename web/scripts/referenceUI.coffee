@@ -74,7 +74,22 @@ window.sandBoxPage = () ->
     $(".en").click(enClick)
     $("#bF").click(closeClick)
 
-    setUpJavaSandbox input, output, ""
+    samplecode=[
+        "////Write your Java statements here",
+        "int answer = 6*7;",
+        "print(answer);",
+        "String text=\"Hello World\";",
+        "text = text.toUpperCase();",
+        "for(int i=10;i>0;i--) {",
+        "\tprint(i);",
+        "}",
+        "String ello = text.substring(1, text.length()); // Drop first character",
+        "print(text);",
+        "print(ello);",
+        "int[] array = new int[] {2,3,5,7,11,13};",
+        "print(array);"
+    ].join('\n')
+    setUpJavaSandbox input, output, samplecode
     return
 
 
