@@ -249,7 +249,7 @@ window.AboutPage = () ->
     <em>Acknowledgements</em><br>
     We wish to thank Holly, Maggie and Abby and the other participants at the 2013 University of Illinois Computer Science Summer G.A.M.E.S Camp for their game ideas, feedback and testing.
     <br>
-    We wish to thank CJ Carey and the other developers of Doppio-JVM and BrowserFS for use of their software and their support of this project.<br>
+    We wish to thank CJ Carey, John Vilk and the other developers of Doppio-JVM (a project by the <a href='http://plasma.cs.umass.edu/'>Plasma research group at UMass</a>)</a> and BrowserFS for use of their software and their support of this project.<br>
     <em>Software development and bug contribution</em><br>
     Original software created by University of Illinois students and faculty, Chris Liu, Fabian Junge, James Kelly and Lawrence Angrave.
     <br/>
