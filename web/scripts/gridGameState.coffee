@@ -209,7 +209,7 @@ class window.GridGameState
         if not character?
             character = @protagonist
 
-        if Number.isNaN(steps)
+        if isNaN(steps)
             throw new @invalidParameterException steps
         for i in [1...steps] by 1
             @_moving(character)
@@ -404,7 +404,7 @@ class GridGameCommands
         if line is undefined
             line = steps
             steps = 1
-        if Number.isNaN(steps)
+        if isNaN(steps)
             @gameState.fail(line)
         #console.log "Go #{steps} steps."
         else
