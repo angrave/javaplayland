@@ -86,5 +86,4 @@ sun/print
 sun/rmi
 sun/security
 sun/swing
-sun/text
 sun/tools

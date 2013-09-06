@@ -47,5 +47,6 @@ git log -n 5 --oneline >$TGT/publish-recentcommits.txt
 
 ( cd $TGT; git add -A . )
 ( cd $TGT; git commit -m 'Publish' )
-echo "Files commited. Copy-paste the following to publish"
+
+echo "Files commited. ->>> Unless you've also changed the JVM runtime .class's just copy-paste the following to publish the new build!"
 echo \( cd $TGT\; git push origin gh-pages \)
