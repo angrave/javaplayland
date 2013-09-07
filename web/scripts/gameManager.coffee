@@ -200,6 +200,8 @@ class window.GameManager
         jQuery('#stopRun').click @stopStudentCode
         jQuery('#resetState').click @reset
         jQuery('#help').click @helpTips
+        jwerty.key 'ctrl+enter', @runStudentCode
+        jwerty.key 'shift+enter', @runStudentCode
         @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
         @codeEditor.onCommandValidation @commandsValid
         return

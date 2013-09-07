@@ -103,6 +103,7 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 
 
 	$(xb).click(() -> $(cont).remove();$(backdrop).remove())
+	jwerty.key 'esc', () -> $(cont).remove();$(backdrop).remove()
 
 	return
 
