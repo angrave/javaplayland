@@ -256,8 +256,8 @@ window.AboutPage = () ->
     <em>Third-party open-source content</em><br/>
     Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a>
     ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br />
-    The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.
-    <br/>
+    The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.<br/>
+    Last Guardian Sprites by Philipp Lenssen are licensed under the Creative Commons <a href='http://creativecommons.org/licenses/by-nc/2.5/'>BY-NC-2.5 license</a>.<br/>
     The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a>
     <hr>
 
