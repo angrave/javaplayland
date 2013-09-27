@@ -14,6 +14,13 @@ fi
 
 BASE=`pwd`
 STAGING=vendor/untracked/
+
+VISIBLEBEANSHELL=$BASE/../visiblebeanshell
+if [ ! -d $VISIBLEBEANSHELL ] ; then
+    echo 'No visiblebeanshell side project'
+    exit 1
+fi
+
 EXCLUDELIST=util/exclude-classes.txt
 INCLUDELIST=util/include-classes.txt
 
@@ -63,13 +70,15 @@ fi
 # Download Beanshell 2
 mkdir -p $STAGING/bsh-classes
 if [ ! -d "$STAGING/bsh-classes/bsh" ]; then
-    BSH2_JAR_URL="http://beanshell2.googlecode.com/files/bsh-2.1b5.jar"
-    DOWNLOAD_DIR=`mktemp -d bsh-download.XXX`
-    mkdir -p "$DOWNLOAD_DIR"
-    wget -O $DOWNLOAD_DIR/bsh2.jar $BSH2_JAR_URL
-    unzip -qq -o -d $STAGING/bsh-classes $DOWNLOAD_DIR/bsh2.jar
-    rm -rf "$DOWNLOAD_DIR"
-fi   
+    unzip -qq -o -d $STAGING/bsh-classes $VISIBLEBEANSHELL/dist/bsh-2.2.0.jar
+    # BSH2_JAR_URL="http://beanshell2.googlecode.com/files/bsh-2.1b5.jar"
+    # DOWNLOAD_DIR=`mktemp -d bsh-download.XXX`
+    # mkdir -p "$DOWNLOAD_DIR"
+    # wget -O $DOWNLOAD_DIR/bsh2.jar $BSH2_JAR_URL
+    # unzip -qq -o -d $STAGING/bsh-classes $DOWNLOAD_DIR/bsh2.jar
+    # rm -rf "$DOWNLOAD_DIR"
+fi
+   
 ###########################
 rm -rf "$TGT/vendor/classes"
 mkdir -p "$TGT/vendor/classes"

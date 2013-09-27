@@ -44,7 +44,6 @@ java/security/cert
 java/security/interfaces
 java/security/spec
 java/sql
-java/text
 javax/accessibility
 javax/activation
 javax/activity

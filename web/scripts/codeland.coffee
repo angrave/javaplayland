@@ -1,5 +1,15 @@
 "use strict"
 # things assigned to root will be available outside this module
+
+
+# We will update this when running JVM /Beanshell code so that we can show the user the currently executing line
+window.notifyEvalSourcePosition = (startLine,startCol,endLine,endCol) -> 
+    console.log startLine,startCol,endLine,endCol
+    ##window.gameManager.codeEditor.editorGoToLine startLine
+    return;
+
+
+
 root = exports ? this.codeland = {}
 root.UIcont = null
 
