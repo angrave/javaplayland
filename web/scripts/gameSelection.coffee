@@ -6,6 +6,7 @@ class window.gameSelector
         cont = $(tmp)
         $(tmp).css({'height':'100%', 'overflow-y':'scroll','width':'95%','position':'relative','font-size':"20px"})
         $(tmp).attr("id","gameSelection")
+        $(tmp).attr("labelledby", "Select Your Game")
         @div.append(tmp)
         return
 
@@ -26,6 +27,7 @@ class window.gameSelector
 
 
             $(span).attr("id","select#{game}")
+
             cont.append(span)
 
             
@@ -33,7 +35,9 @@ class window.gameSelector
  
             $(span).click(-> codeland.startGame(game) )            
 #            $(span).append count + ' '
-            $(span).append  desc.title
+            $(span).append  desc.title 
+        #   $(span).attr("role", "heading")
+        #   $(span).attr("aria-labelledby", "game")
             if player?.passed is true
                 src = 'img/star.png'
                 img = jQuery '<img>', {

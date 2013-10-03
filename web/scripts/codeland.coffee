@@ -131,7 +131,7 @@ root.startGame = (game) ->
     root.currentGame.helpTips() unless env.stats.runCount >0
     return
 
-deepcopy = (src) -> $.extend(true, {}, src)
+#deepcopy = (src) -> $.extend(true, {}, src)
 
 # BACKEND Methods useful for all games
 root.getString = (key) -> localStorage.getItem key
