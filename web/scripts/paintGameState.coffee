@@ -65,7 +65,7 @@ class window.PaintGameState
                 pixel=@picture[x][y]
                 if ! pixel or pixel.matched
                     continue
-                return false 
+                return false
         return true
 
     checkEvents: ->
@@ -111,21 +111,24 @@ class window.PaintGameState
         return if not @startedGame
         @stopGame()
         @gameManager.gameWon()
-        return 
+        return
 
     gameLost: =>
         return if not @startedGame
-        @stopGame()          
+        @stopGame()
         @gameManager.gameLost()
         return
 
     stopGame: =>
-        clearInterval clockHandle if clockHandle?   
-        clockHandle=null 
+        clearInterval clockHandle if clockHandle?
+        clockHandle=null
         @startedGame = false
         return
 
 class PaintGameCommands
+    ###
+        These are the commands the Java expects to exist.
+    ###
     constructor: (@gameState) ->
         return
 
