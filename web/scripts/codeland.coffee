@@ -1,15 +1,12 @@
 "use strict"
-# things assigned to root will be available outside this module
-
 
 # We will update this when running JVM /Beanshell code so that we can show the user the currently executing line
-window.notifyEvalSourcePosition = (startLine,startCol,endLine,endCol) -> 
+window.notifyEvalSourcePosition = (startLine,startCol,endLine,endCol) ->
     console.log startLine,startCol,endLine,endCol
     ##window.gameManager.codeEditor.editorGoToLine startLine
     return;
 
-
-
+# things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
 root.UIcont = null
 
@@ -26,7 +23,7 @@ root.initialize = (UIcont) ->
     $('#copyrightinfo').click -> window.AboutPage()
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
-    root.UIcont = UIcont    
+    root.UIcont = UIcont
     root.initializeDoppio()
     return
 
@@ -38,8 +35,8 @@ root.initializeDoppio = ->
     last_display = ""
     progress_cb = (ignore_incorrect_fraction)->
         count = count + 1
-        display = Math.floor((100*count) / 391) 
-        if(display==100) 
+        display = Math.floor((100*count) / 391)
+        if(display==100)
             display = "Starting Java Virtual Machine..."
         else display = "Opening "+display
         if(last_display != display)
@@ -90,7 +87,7 @@ root.drawGameMap = (player) ->
         $("<div bgcolor='#888888'>Quest #{++qcount}:#{quest.title}</div>").appendTo tmp1
         for gameKey in quest.games
             addGameToMap gameKey
- 
+
     $('<span style="font-size:200%" class="cursiveHeadline">Choose your Java Game</span><br>').prependTo tmp1
     $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
@@ -109,7 +106,7 @@ root.startGame = (game) ->
             break
     root.currentGame.finishGame() if root.currentGame
     root.currentGame = null
-    
+
     gamediv = $(root.UIcont)
     tmp1 = document.getElementById("gameSelection")
     if tmp1 != null
@@ -119,10 +116,10 @@ root.startGame = (game) ->
     #Todo FADE IN
 
     description = root.getGameDescriptions()[game]
-    stats = root.loadGameStats(game) 
+    stats = root.loadGameStats(game)
     stats.openedCount++
     root.storeGameStats(game,stats)
-    
+
     env = {
         key: game
         description : description
@@ -133,7 +130,7 @@ root.startGame = (game) ->
         codeland : this
         backEnd: description.backEnd
         gameState: description.gameState
-        stats : stats        
+        stats : stats
     }
     #Not used ... window.location.hash='game='+encodeURIComponent(game)
     root.currentGame = new GameManager env
@@ -181,8 +178,8 @@ root.loadGameStats = (gameKey) ->
 #Updates the player data
 root.storeGameStats = (key, data) ->
     throw new Error("Cannot be null") unless key? && data?
-    root.updatePlayer((p)-> 
-        p.games[key] ?= {} 
+    root.updatePlayer((p)->
+        p.games[key] ?= {}
         $.extend(p.games[key],data)
     )
     return
@@ -351,7 +348,7 @@ root.addHintsToCode = (gameData) ->
         # Hints go in prefix if it exists, otherwise they are prepended to the main area
         if gameData.code.prefix.length > 1 # Ignore lonely \n
             gameData.code.prefix = one + gameData.code.prefix
-        else 
+        else
             gameData.code.initial = one + '\n' + gameData.code.initial
     return
 
@@ -372,8 +369,8 @@ root.getGameSequence = ->
         root.gameSequence.push name
         return
     addGame(g) for g,ignore of games
-    return root.gameSequence     
-     
+    return root.gameSequence
+
 root.canPlay = (game) ->
     player = root.getPlayer()
     #If already completed then no need to check dependencies
