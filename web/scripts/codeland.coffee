@@ -2,24 +2,39 @@
 
 # We will update this when running JVM /Beanshell code so that we can show the user the currently executing line
 window.notifyEvalSourcePosition = (startLine,startCol,endLine,endCol) ->
+    ###
+        Shows the user the currently executing line.
+        --> Where is this function called?
+    ###
     console.log startLine,startCol,endLine,endCol
     ##window.gameManager.codeEditor.editorGoToLine startLine
     return;
 
-# things assigned to root will be available outside this module
+# Things assigned to root will be available outside this module
 root = exports ? this.codeland = {}
+
+# root.UIcont is the main div codeland has to work with.
 root.UIcont = null
 
-#IE Support ....
-
+# Internet Explorer does not support console.log.
+# The following code was an attempt to work around this, I cannot remember how it failed.
 # if ( ! window.console)
 #     window.console= { log: -> }
 
 
-#Chrome support: 'this' must be the console object
-#log = (mesg)-> console.log mesg
+# Chrome support: 'this' must be the console object
+# This also failed somehow, I believe it was not logging messages correctly.
+# log = (mesg)-> console.log mesg
 
 root.initialize = (UIcont) ->
+    ###
+        External Function (used by something outside of this file)
+
+        Reads the config files, initializes Doppio, should be the first codeland function called.
+
+        @param UICont
+            A JQuery div where everything created by codeland will live.
+    ###
     $('#copyrightinfo').click -> window.AboutPage()
     root.gameSelectionScrollPosition = 0
     root.loadJSONConfigs()
@@ -28,28 +43,52 @@ root.initialize = (UIcont) ->
     return
 
 root.initializeDoppio = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Constructs the doppioAPI and tells it to preload the required code.
+    ###
     root.doppioReady = false
     root.doppioPreloaded = false
-    progress= $('#progress')
+    progress = $('#progress')
     count = 0;
     last_display = ""
-    progress_cb = (ignore_incorrect_fraction)->
+    progress_cb = (ignore_incorrect_fraction) ->
+        ###
+            Handles the progress bar and displaying what part of Doppio is loading
+            to the user.
+        ###
         count = count + 1
         display = Math.floor((100*count) / 391)
-        if(display==100)
+        if (display == 100)
             display = "Starting Java Virtual Machine..."
-        else display = "Opening "+display
-        if(last_display != display)
+        else display = "Opening " + display
+        if (last_display != display)
             last_display = display
             progress.html display
+        return
     preload_cb = ->
+        ###
+            Once doppio has intialized, this function is called to tell
+            doppio to pre-compile the functions used by the games.
+        ###
         root.doppioAPI.preload root.beanshellPreload, root.wrapperCompiled_cb
         root.doppioPreloaded = true
+        return
     root.doppioAPI = new DoppioApi null, preload_cb, progress_cb
     return
 
-
 root.wrapperCompiled_cb = =>
+    ###
+        Internal Function (used only by the code in this file)
+
+        Once doppio has finished pre-compiling, this draws the game-map
+        and, should something be waiting on doppio to compile and has
+        presented codeland with a callback, runs that callback.
+
+        Note: In the current implementation, only the latest thing to
+        assign a callback to codeland is run.
+    ###
     root.doppioReady = true
     console.log 'Finished Preloading Doppio'
     player = root.getPlayer()
@@ -61,13 +100,40 @@ root.wrapperCompiled_cb = =>
     return
 
 root.waitForWrapper = (callback) ->
+    ###
+        External Function (used by something outside of this file)
+
+        Should there be something waiting for doppio to compile, it calls
+        this functions and provides a callback which will then be run when
+        doppio has finished compiling.
+
+        Note: In the current implementation, only the latest thing to
+        assign a callback to codeland is run.
+
+        @param callback
+            The function to call when doppio is finished compiling.
+    ###
     root.wrapperCompiledCallback = callback
     return
 
 root.reference = () ->
+    ###
+        ???
+        Could the author (or whomever knows) provide here information as to
+        what this function does?
+    ###
+    return
 
- # FRONTEND UI
+# FRONTEND UI
 root.drawGameMap = (player) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Draws the game selection screen.
+
+        @param player
+            The player whose games to display.
+    ###
     descriptions = root.getGameDescriptions()
     mapDiv = $(root.UIcont)
     mapDiv.empty()
@@ -81,7 +147,7 @@ root.drawGameMap = (player) ->
         # console.log "Game: #{game}"
         count = count + 1
         sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland)
-#    addGameToMap game for game in gameSequence
+        return
     qcount = 0
     for quest in root.quests
         $("<div bgcolor='#888888'>Quest #{++qcount}:#{quest.title}</div>").appendTo tmp1
@@ -98,6 +164,15 @@ root.drawGameMap = (player) ->
     return
 
 root.startGame = (game) ->
+    ###
+        External Function (used by something outside of this file)
+
+        Starts the given game, setting up the environment and creating the
+        gameManager.
+
+        @param game
+            The game to start.
+    ###
     console.log("Starting #{game}")
     for quest, index in root.quests
         found = quest.games.indexOf game
@@ -135,19 +210,70 @@ root.startGame = (game) ->
     #Not used ... window.location.hash='game='+encodeURIComponent(game)
     root.currentGame = new GameManager env
     root.currentGame.startGame()
-    root.currentGame.helpTips() unless env.stats.runCount >0
+    root.currentGame.helpTips() unless env.stats.runCount > 0
     return
 
-deepcopy = (src) -> $.extend(true, {}, src)
+# Some browsers have a deepcopy function, others do not.
+# For those who do not, we use the JQuery deepcopy function.
+if not deepcopy?
+    deepcopy = (src) -> $.extend(true, {}, src)
 
 # BACKEND Methods useful for all games
-root.getString = (key) -> localStorage.getItem key
 
-root.setString = (key, value) -> localStorage.setItem key, value
+# How Storage Works:
+# The browser has a persistant localstorage dictionary.
+# We currently take data, turn it into a JSON object, and store it in this
+# local storage.
 
-root.clearString = (key) -> localStorage.removeItem key
+root.getString = (key) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Retrieves a string from the browser's internal storage dictionary.
+
+        @param key
+            The key for the string we are retrieving.
+    ###
+    return localStorage.getItem key
+
+root.setString = (key, value) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Sets a string in the browser's internal storage dictionary.
+
+        @param key
+            The key for the string we are storing.
+            This should be a DOMString.
+        @param value
+            The value we want associated with the key in the browser's
+            internal storage.
+            This should be a DOMString.
+    ###
+    localStorage.setItem key, value
+
+root.clearString = (key) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Clears a string in the browser's internal storage dictionary.
+
+        @param key
+            The key for the string we are clearing.
+            This should be a DOMString.
+    ###
+    localStorage.removeItem key
+    return
 
 root.load = (key) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Retreives and parses data from the localstorage and returns it.
+
+        @param key
+            The key of the data to load.
+    ###
     val = root.getString key
     return null unless val?
     result = JSON.parse val
@@ -155,14 +281,36 @@ root.load = (key) ->
     throw new Error("Could not parse " + val)
 
 root.store = (key, val) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        JSON-ifies the given value and stores it in the localstorage
+        associated to the given key.
+
+        @param key
+            The key which which to associate the stored data.
+        @param val
+            The data to store.
+    ###
     throw new Error("Value must exist") unless val?
     root.setString(key, JSON.stringify val)
     return
 
 root.loadGameStats = (gameKey) ->
-    p=root.getPlayer()
+    ###
+        Internal Function (used only by the code in this file)
+
+        Returns the game statistics for the game associated with gameKey.
+        Returns default values for all statistics shouled the game not
+        exist.
+
+        @param gameKey
+            The gameKey with which the game we want the statistics for
+            is associated.
+    ###
+    p = root.getPlayer()
     data = p.games[gameKey] ?= {}
-#Ensure we have the minimum number of expect properties
+    #Ensure we have the minimum number of expect properties
     data.abortCount ?=0
     data.runCount ?=0
     data.winCount ?=0
@@ -177,14 +325,30 @@ root.loadGameStats = (gameKey) ->
 
 #Updates the player data
 root.storeGameStats = (key, data) ->
+    ###
+        External Function (used by something outside of this file)
+
+        Adds the given statistics to the game corresponding to the given
+        key and saves these to the current player.
+
+        @param key
+            The key of the game whose statistics we are storing.
+        @param data
+            The statistics to be added to the game's data.
+    ###
     throw new Error("Cannot be null") unless key? && data?
-    root.updatePlayer((p)->
+    root.updatePlayer((p) ->
         p.games[key] ?= {}
         $.extend(p.games[key],data)
     )
     return
 
 root.showMap = () ->
+    ###
+        External Function (used by something outside of this file)
+
+        Stops the current game and draws the game selection screen.
+    ###
     root.currentGame.finishGame() if root.currentGame
     root.wrapperCompiledCallback = null if root.wrapperCompiledCallback?
     root.currentGame = null
@@ -192,9 +356,20 @@ root.showMap = () ->
     return
 
 root.getGame = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Gets the game currently being played.
+    ###
     return getPlayer().currentGame
 
 root.getPlayer = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Retrieves and returns the current player.
+        Returns a generic player should the current player not exist.
+    ###
     root.currentPlayer ?= root.load("CurrentPlayer")
     root.currentPlayer ?= {
         id : +(new Date())
@@ -204,18 +379,49 @@ root.getPlayer = ->
         avator : 'generic'
         games : { }
     }
+    return root.currentPlayer
 
 root.updatePlayer = (callback) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Updates the current player.
+
+        @param callback
+            A function which is passed the current player and expected
+            to change the player.
+            Its return value is ignored.
+
+            See codeland.storeGameStats for an example.
+    ###
     player = root.getPlayer()
     callback(player)
     root.store("CurrentPlayer", player)
     return
 
 root.clearPlayer = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Clears all data bout the current player.
+    ###
     root.clearString "CurrentPlayer"
     return
 
 root.readJSON = (theurl, cb) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Reads the json data at the given url via an ajax request.
+        Passes the resulting data to the provided callback, passing
+        undefined should the ajax request have failed.
+
+        @param theurl
+            The location and name of the json file.
+        @param cb
+            The callback function which will be passed the data from
+            the json file.
+    ###
     fail = false
     console.log "Reading #{theurl}"
     try
@@ -233,13 +439,18 @@ root.readJSON = (theurl, cb) ->
                 return
             }
     catch exception
-        fail= true
+        fail = true
         console.log "#{theurl}: #{exception} #{exception.message} #{exception.stack}"
     if(fail)
         throw "Configuration Exception reading #{theurl}"
     return
 
 root.loadJSONConfigs = () ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Reads and parses all of the config files.
+    ###
     if not root.gameDescriptions?
         root.gameDescriptions = {}
     configFail = false
@@ -290,6 +501,18 @@ root.loadJSONConfigs = () ->
     return
 
 root.addToObject = (source, destination) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Recursively adds all attributes of source into
+        destination.
+        Does not overwrite attributes of destination.
+
+        @param source
+            The source dictionary where attributes are copied from.
+        @param destination
+            The destination dictionary where attributes are added to.
+    ###
     for key, value of source
         if key of destination
             if typeof value == "object"
@@ -299,6 +522,15 @@ root.addToObject = (source, destination) ->
     return
 
 root.stringifyConfigArrays = (gameData) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Converts gameData config information from arrays into newline
+        deliminated strings.
+
+        @param gameData
+            The game's data.
+    ###
     gameData.game.map = gameData.game.map.join '\n' if gameData?.game.map?.join?
     gameData.code.prefix = gameData.code.prefix.join '\n' if gameData?.code.prefix.join?
     if gameData.code.prefix.charAt(gameData.code.prefix.length - 1) != '\n'
@@ -308,6 +540,15 @@ root.stringifyConfigArrays = (gameData) ->
     return
 
 root.convertShorthandToCode = (gameData) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Converts the shorthand code found in the game's json config
+        to actual java code.
+
+        @param gameData
+            The game's data.
+    ###
     if gameData.code.initial?
         return
     initial = ''
@@ -341,7 +582,16 @@ root.convertShorthandToCode = (gameData) ->
     return
 
 root.addHintsToCode = (gameData) ->
-    gameData.code.initial?=''
+    ###
+        Internal Function (used only by the code in this file)
+
+        Takes the hints found in the comments array in the json config of
+        the game and places them as java-style comments in the game's code.
+
+        @param gameData
+            The game's data.
+    ###
+    gameData.code.initial ?= ''
     if gameData.code.comments
         # Also ensures newlines in the data are properly commented out
         one = '// '+ ((gameData.code.comments.join('\n')).replace(/\n/g,'\n// '))+ '\n'
@@ -353,27 +603,48 @@ root.addHintsToCode = (gameData) ->
     return
 
 root.getGameDescriptions = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Returns the game descriptions, loading from the json config
+        files if the descriptions do not already exist.
+    ###
     if root.gameDescriptions?
         return root.gameDescriptions
     root.loadJSONConfigs()
     return root.gameDescriptions
 
 root.getGameSequence = ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Returns the sequence of all of the games, creating it should
+        it not already exist.
+    ###
     return root.gameSequence if root.gameSequence
     root.gameSequence = []
     games = root.getGameDescriptions()
     addGame = (name) =>
-        return if $.inArray(name, root.gameSequence)!=-1
+        return if $.inArray(name, root.gameSequence) != -1
         doFirst = games[name].depends ?= []
         addGame g for g in doFirst
         root.gameSequence.push name
         return
-    addGame(g) for g,ignore of games
+    addGame(g) for g, ignored of games
     return root.gameSequence
 
 root.canPlay = (game) ->
+    ###
+        Internal Function (used only by the code in this file)
+
+        Returns whether or not the current player can play the
+        given game.
+
+        @param game
+            The game we are checking.
+    ###
     player = root.getPlayer()
-    #If already completed then no need to check dependencies
+    # If already completed then no need to check dependencies
     return true if player?.games[game]?.passed
 
     depends = root.getGameDescriptions()[game]?.depends
@@ -384,4 +655,3 @@ root.canPlay = (game) ->
 
     passCount++ for g in depends when player?.games[g]?.passed
     return passCount == depends.length
-    return
