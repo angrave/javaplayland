@@ -1,10 +1,24 @@
+# Some browsers have a deepcopy function, others do not.
+# For those who do not, we use the JQuery deepcopy function.
 if not deepcopy?
-    deepcopy = (src) -> $.extend(true, {},src)
+    deepcopy = (src) -> $.extend(true, {}, src)
 
 class window.PaintGameState
+    ###
+        A class to contain the game logic for paint games.
+    ###
     clockHandle = null
 
     constructor: (@gameManager, waitForCode) ->
+        ###
+            Sets up the game's constants and the visual display
+
+            @param gameManager
+                The game manager running this game
+            @param waitForCode
+                Whether or not to wait for the students code to exectute
+                to start the game (and start checking for events).
+        ###
         @gameConfig = deepcopy @gameManager.config.game
         @gameCommands = new PaintGameCommands @
         @visual = @gameManager.visual
@@ -21,7 +35,7 @@ class window.PaintGameState
                 temp.push null
             @picture.push temp
 
-        for name,character of @gameConfig.characters
+        for name, character of @gameConfig.characters
             if name.indexOf('Border') == -1
                 character.color = character.sprite
                 @picture[character.x][character.y] = character
@@ -33,9 +47,23 @@ class window.PaintGameState
         return
 
     getGameCommands: ->
+        ###
+            External Function (used by something outside of this file)
+
+            Returns a handle to this games commands (a class).
+        ###
         return @gameCommands
 
     clock: =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            The main engine behind the game.
+            This function is called every X milliseconds via setInterval.
+            Each time it is called it updates the visual and every Y times
+            it is called it checks for events and executes the next command
+            in the queue.
+        ###
         if @startedGame == true
             if @tick % 30 == 0
                 @checkEvents()
@@ -48,9 +76,14 @@ class window.PaintGameState
         @tick++
         return
 
-    # Careful ...Destructive; can only be used once
-    # Returns true if the picture was correctly painted
     checkPainting: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Returns whether or not the painting has been filled
+            out correctly.
+        ###
+        correct = true
         #Check border filling
         for name, pixel of @gameConfig.characters
             expected = pixel.match
@@ -58,15 +91,16 @@ class window.PaintGameState
             if expected == @picture[pixel.x][pixel.y]?.color
                     @picture[pixel.x][pixel.y].matched = true
             else
-                return false
+                correct = false
         # Check for painting over squares that should not have been painted
         for x in [0..@gameManager.config.visual.grid.gridX]
             for y in [0..@gameManager.config.visual.grid.gridY]
-                pixel=@picture[x][y]
-                if ! pixel or pixel.matched
-                    continue
-                return false 
-        return true
+                pixel = @picture[x][y]
+                if pixel
+                    if !pixel.matched
+                        correct = false
+                    pixel.matched = false
+        return correct
 
     checkEvents: ->
         if @finishedExecuting
@@ -111,17 +145,17 @@ class window.PaintGameState
         return if not @startedGame
         @stopGame()
         @gameManager.gameWon()
-        return 
+        return
 
     gameLost: =>
         return if not @startedGame
-        @stopGame()          
+        @stopGame()
         @gameManager.gameLost()
         return
 
     stopGame: =>
-        clearInterval clockHandle if clockHandle?   
-        clockHandle=null 
+        clearInterval clockHandle if clockHandle?
+        clockHandle=null
         @startedGame = false
         return
 
