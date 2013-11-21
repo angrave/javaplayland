@@ -7,18 +7,19 @@ window.playAudio = (name) ->
 window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 	tipnum = 0
 	rb = () ->
-		if tipnum == par.length - 1
-			tipnum = 0
-		else 
+		if tipnum != par.length - 1
 			tipnum++
 		text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[tipnum]+"</p>"
+		if tipnum == par.length - 1
+			$(ntr).attr({"src":"img/rarrow.png","width":"15%"})
 
 	lb = () ->
-		if tipnum == 0
-			tipnum = par.length - 1
-		else 
+		if tipnum != 0
 			tipnum--
 		text.innerHTML = "<p style='margin-top:auto;margin-right:auto'>"+par[tipnum]+"</p>"
+		if tipnum == 0
+			$(ntl).attr({"src":"img/larrow.png","width":"15%"})
+
 	cont = document.createElement("div")
 	text = document.createElement("div")
 	cloud = document.createElement("img")
@@ -49,8 +50,16 @@ window.objCloud = (dim,par,obj,x,y,tscale,ng,man) ->
 		$(cont).append(ntc)
 
 		$(ntr).click(() -> rb())
+		$(ntr).hover(
+			() -> if(tipnum != par.length - 1) then $(ntr).attr({"src":"img/rarrowhigh.png","width":"15%"})
+			() -> $(ntr).attr({"src":"img/rarrow.png","width":"15%"})
+		)
 
 		$(ntl).click(() -> lb())
+		$(ntl).hover(
+			() -> if(tipnum != 0) then $(ntl).attr({"src":"img/larrowhigh.png","width":"15%"})
+			() -> $(ntl).attr({"src":"img/larrow.png","width":"15%"})
+		)
 
 
 
