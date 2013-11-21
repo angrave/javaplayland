@@ -15,7 +15,6 @@ class window.DoppioGameState
         ###
         @visual = @gameManager.visual
         @gameLogic = new window[@gameLogicType](@, @gameManager)
-        @commandMap = @gamelogic.getGameCommands()
         @tick = 0
         @finishedExecuting = false
         @startedExecuting = false
@@ -30,7 +29,7 @@ class window.DoppioGameState
 
             Returns a handle to this game's commands (a class).
         ###
-        return @commandMap
+        return @gamelogic.getGameCommands()
 
     clock: =>
         ###

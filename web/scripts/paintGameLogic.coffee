@@ -3,7 +3,7 @@
 if not deepcopy?
     deepcopy = (src) -> $.extend(true, {},src)
 
-class window.paintGameLogic
+class window.PaintGameLogic
     ###
         A class to hold the game logic for paint games
     ###

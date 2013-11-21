@@ -24,6 +24,7 @@ class window.GameManager
         ###
         @config = deepcopy @environment.description
         @gameStateBase = @environment.gameState
+        @gameLogicBase = @environment.gameLogic
 
         @editorDiv = 'codeEditor'
         @visualDiv = 'gameVisual'
@@ -105,7 +106,10 @@ class window.GameManager
         waitForCode ?= false
 
         @visual.startGame @config.visual
-        @gameState = new window[@gameStateBase](@, waitForCode)
+        if @gameStateBase == 'DoppioGameState'
+            @gameState = new window[@gameStateBase](@, @gameLogicBase)
+        else
+            @gameState = new window[@gameStateBase](@, waitForCode)
         @commandMap = @gameState.getGameCommands()
         return
 

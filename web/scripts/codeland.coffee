@@ -205,6 +205,7 @@ root.startGame = (game) ->
         codeland : this
         backEnd: description.backEnd
         gameState: description.gameState
+        gameLogic: description.gameLogic
         stats : stats
     }
     #Not used ... window.location.hash='game='+encodeURIComponent(game)

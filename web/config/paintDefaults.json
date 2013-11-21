@@ -78,7 +78,8 @@
         }
       ]
     },
-    "gameState": "PaintGameState",
+    "gameState": "DoppioGameState",
+    "gameLogic": "PaintGameLogic",
     "game": {
       "characters": {},
       "characterBase": {
