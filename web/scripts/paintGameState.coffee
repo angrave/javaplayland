@@ -172,40 +172,96 @@ class window.PaintGameState
         return
 
     getPixel: (x, y) ->
+        ###
+            External Function (used by something outside of this file)
+
+            Returns the pixel color at position (x, y)
+
+            @param x
+                The x position of the pixel to query
+            @param y
+                The y position of the pixel to query
+        ###
         if @picture[x][y]
             return @picture[x][y].color
         else
             return "white"
 
     gameWon: =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            Stops the game and reports the win to the game Manager.
+        ###
         return if not @startedGame
         @stopGame()
         @gameManager.gameWon()
         return
 
     gameLost: =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            Stops the game and reports the loss to the game Manager.
+        ###
         return if not @startedGame
         @stopGame()
         @gameManager.gameLost()
         return
 
     stopGame: =>
+        ###
+            External Function (used by something outside of this file)
+
+            Stops the game.
+        ###
         clearInterval clockHandle if clockHandle?
-        clockHandle=null
+        clockHandle = null
         @startedGame = false
         return
 
 class PaintGameCommands
+    ###
+        A class to contain the functions called by the student's
+        Java code for paint games.
+    ###
     constructor: (@gameState) ->
         return
 
     finishedParsingStartGame: ->
+        ###
+            Java Function (called by the Java code)
+
+            Starts the game.
+        ###
         @gameState.start()
         return
 
     drawPixel: (x, y, color) ->
+        ###
+            Java Function (called by the Java code)
+
+            Draws a pixel at position (x, y) of color color.
+
+            @param x
+                The x position of the pixel
+            @param y
+                The y position of the pixel
+            @param color
+                The color of the pixel
+        ###
         @gameState.drawPixel x, y, color
         return
 
     getPixel: (x, y) ->
+        ###
+            Java Function (called by the Java code)
+
+            Returns the color of the pixel at (x, y)
+
+            @param x
+                The x position of the pixel to query
+            @param y
+                The y position of the pixel to query
+        ###
         return @gameState.getPixel x, y
