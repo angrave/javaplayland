@@ -29,7 +29,7 @@ class window.DoppioGameState
 
             Returns a handle to this game's commands (a class).
         ###
-        return @gamelogic.getGameCommands()
+        return @gameLogic.getGameCommands()
 
     clock: =>
         ###
