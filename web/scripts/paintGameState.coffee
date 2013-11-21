@@ -103,6 +103,13 @@ class window.PaintGameState
         return correct
 
     checkEvents: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Checks if the gamestate necessitates triggering any event.
+            For paint games it is only necessary if the game finished to
+            check if it was done correctly.
+        ###
         if @finishedExecuting
             if @checkPainting()
                 @gameWon()
@@ -111,11 +118,28 @@ class window.PaintGameState
         return
 
     start: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Starts the game
+        ###
         @startedExecuting = true
         @startedGame = true
         return
 
     drawPixel: (x, y, color) ->
+        ###
+            External Function (used by something outside of this file)
+
+            Places a draw pixel command on the commands queue.
+
+            @param x
+                The x position of the pixel
+            @param y
+                The y position of the pixel
+            @param color
+                The color of the pixel
+        ###
         if not @gameManager.config.game.characterBase.hasOwnProperty color
             return
         char = @gameManager.generateCharacter color,
@@ -124,11 +148,23 @@ class window.PaintGameState
         @picture[x][y] = char
         @commands.push {
             key: 'drawPixel',
-            exec: @_drawPixel.bind @, x, y, color, char
+            exec: @_drawPixel.bind @, x, y, char
         }
         return
 
-    _drawPixel: (x, y, color, char) ->
+    _drawPixel: (x, y, char) ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Draws the given pixel at the x and y locations with color color.
+
+            @param x
+                The x position of the pixel
+            @param y
+                The y position of the pixel
+            @param char
+                The pixel to draw
+        ###
         if @picture[x][y]?
             @visual.removeCharacter @gameManager.config.visual, @picture[x][y].visual
         @visual.pushCharacter @gameManager.config.visual, char.visual
