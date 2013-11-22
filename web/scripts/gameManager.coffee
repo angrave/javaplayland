@@ -102,7 +102,7 @@ class window.GameManager
 
             @param waitForCode
                 Whether the game logic should wait for the code to begin running.
-        ###
+        ####
         waitForCode ?= false
 
         @visual.startGame @config.visual
@@ -302,10 +302,10 @@ class window.GameManager
             Sets up the event listeners the game manager responds to.
         ###
         jQuery('#compileAndRun').click @runStudentCode
-        jQuery('#stopRun').click @stopStudentCode
+        jQuery('#stopRun').click @resetGame
         jQuery('#resetState').click @reset
         jQuery('#help').click @helpTips
-        @codeEditor.onStudentCodeChangeListener @startGame.bind @, false
+        @codeEditor.onStudentCodeChangeListener @resetGame.bind @
         @codeEditor.onCommandValidation @commandsValid
         return
 
@@ -332,13 +332,32 @@ class window.GameManager
         ###
             Event Function (passed in as a callback or bound to a button press)
 
-            Resets the code editor and the visual.
+            Resets the code editor and the game.
         ###
         @environment.stats.resetCount += 1
         @storeStats()
 
-        @codeEditor.resetEditor()
+        @resetGame()
+        @resetCode()
+        return
+
+    resetGame: =>
+        ###
+            Event Function (passed in as a callback or bound to a button press)
+
+            Resets the game.
+        ###
+        @stopStudentCode()
         @startGame false
+        return
+
+    resetCode: =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            Resets the student's code.
+        ###
+        @codeEditor.resetEditor()
         return
 
     runStudentCode: =>
@@ -385,7 +404,7 @@ class window.GameManager
 
     stopStudentCode: =>
         ###
-            Event Function (passed in as a callback or bound to a button press)
+            Internal Function (used only by the code in this file)
 
             Stops running the student's code and resets the visual.
         ###
@@ -397,7 +416,6 @@ class window.GameManager
             @environment.codeland.doppioAPI.abort @showRun
         else
             @showRun()
-        @startGame true
         return false
 
     showRun: =>
