@@ -37,7 +37,7 @@ window.appendBar = (d) ->
 
 	$(ref).click referencePage
 	$(select).click codeland.showMap
-	$(sand).click sandBoxPage
+	$(sand).click sandBoxPage(90)
 
 	#$(cont).children().click(toggleDrawerInOut)
 	$(toggleDrawerInOut)

@@ -3,8 +3,9 @@ root = exports ? referencePage = {}
 editorCount = 0
 
 
-
+#This class represents the sandbox used to run Java code.
 class sandBoxInfo 
+
     backFade = null
     refContainer = null
     input= null
@@ -12,18 +13,30 @@ class sandBoxInfo
 
     constructor: () ->
 
-    setupInput: () ->
+    ''' 
+    This sets up the IO area.
+    @param pageSize Represents the size of the window.
+    '''
+    setupInput: (pageSize) ->
+        vSize= pageSize+"%"  #The vertical size of each panel.
+        hSize = pageSize/2+"%" #The horizontal size of each panel.
         input=$('<div></div>')
         output=$('<div></div>')   
-        $(input).css({width:'45%',height:'90%',position:'absolute',left:'3.3%',top:'5%','border':'1px solid black'})
-        $(output).css({width:'44%',height:'90%',"padding-left":"1%",position:'absolute',right:'3.3%',top:'5%','border':'1px solid black',"overflow":"auto"})
+        $(input).css({width:''+hSize,height:''+vSize,position:'absolute',left:'3.3%',top:'5%','border':'1px solid black'})
+        $(output).css({width:''+hSize,height:''+vSize,"padding-left":"1%",position:'absolute',right:'3.3%',top:'5%','border':'1px solid black',"overflow":"auto"})
 
-    setupRefContainer: ()->
+    ''' 
+    This sets up the reference container.
+    @param pageSize Represents the size of the reference container.
+    '''
+    setupRefContainer: (pageSize)->
+        pSize= pageSize+"%"
         refContainer = $('<div></div>')
         $("body").prepend(refContainer)
-        $(refContainer).css({width:'80%',height:'80%',left:'5%',top:'5%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
+        $(refContainer).css({width:''+pSize,height:''+pSize,left:'5%',top:'5%',position:'absolute','z-index':'301','background-color':'#FFFFFF'})
         return
 
+    #Add the IO area to the page
     addIO: ()->
         $(refContainer).prepend(input)
         $(refContainer).prepend(output)
@@ -45,7 +58,6 @@ class sandBoxInfo
         $(output).append(en2)
 
     getInput: () ->
-        console.log("Getting input:"+input)
         return input          
 
     getOutput: () ->
@@ -57,13 +69,13 @@ class sandBoxInfo
     getRefContainer: () ->
         return refContainer
 
-
-window.sandBoxPage = () ->
+#This method adds a Java sandbox to the current page and returns information about it.
+window.sandBoxPage = (pageSize) ->
 
     sInfo= new sandBoxInfo()
-    sInfo.setupInput()
+    sInfo.setupInput(pageSize)
     sInfo.setupBackFade(300)
-    sInfo.setupRefContainer()
+    sInfo.setupRefContainer(pageSize-10)
     sInfo.addIO()
     sInfo.setupEnlarge()
 
@@ -90,11 +102,11 @@ window.sandBoxPage = () ->
     clClick = () ->
         $(this).unbind()
 
-        $(input).stop()
-        $(output).stop()
+        $(sInfo.getInput()).stop()
+        $(sInfo.getOutput()).stop()
 
-        $(input).animate({width:'45%',height:'90%',opacity:'0'})
-        $(output).animate({width:'45%',height:'90%',opacity:'0'})
+        $(sInfo.getInput()).animate({width:'45%',height:'90%',opacity:'0'})
+        $(sInfo.getOutput()).animate({width:'45%',height:'90%',opacity:'0'})
 
         $(".en").hover(enHover,lvHover)
         $(".en").click(enClick)
@@ -140,7 +152,7 @@ window.referencePage = () ->
 
     examples = $(ref).children(".ex")
 
-    $(refContainer).prepend(ref)
+    $(sInfo.getRefContainer()).prepend(ref)
 
     closeClick = () ->
         $(backFade).remove()
@@ -181,7 +193,7 @@ setUpJavaSandbox = (input, output, texti) ->
     console.log("1.1")
     console.log("Input:"+input.html())
     input.append '<div id="javasandboxsource'+editorCount+'"></div>'
-    console.log("1.15")
+
     sandBoxEditor = new PlayerCodeEditor \
         'javasandboxsource'+editorCount, # editorDivId
         null,                            # commands
@@ -194,7 +206,6 @@ setUpJavaSandbox = (input, output, texti) ->
         null                            # interpreter
     editorCount++
     # See http://stackoverflow.com/questions/11584061/automatically-adjust-height-to-contents-in-ace-cloud9-editor
-    console.log("1.2")
     msg = ""
     stdout = (str) ->
         msg += str
@@ -202,7 +213,7 @@ setUpJavaSandbox = (input, output, texti) ->
         return
     log = (mesg) -> console.log mesg
 
-    console.log("1.3")
+    
     run = jQuery '<img>', {
         id: 'runCode'+editorCount,
         src: 'img/freeware/button_play_green-48px.png',
@@ -232,7 +243,7 @@ setUpJavaSandbox = (input, output, texti) ->
             e.preventDefault()
             return
     }
-    console.log("1.5")
+    
     abort = jQuery '<img>', {
         id: 'abortCode'+editorCount,
         src: 'img/freeware/button_stop_red-48px.png',
@@ -248,7 +259,7 @@ setUpJavaSandbox = (input, output, texti) ->
             e.preventDefault()
             return
     }
-    console.log("2")
+    
 
     abort.hide()
     input.append run.get 0
