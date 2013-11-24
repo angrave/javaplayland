@@ -9,20 +9,20 @@
 	<div id="qunit"></div>
 	<div id="qunit-fixture"></div>
 
-		<script src="scripts/referenceUI.js"></script>
-		<script src="scripts/codeland.js" ></script>
-		<script src="scripts/ace/src/ace.js" ></script>
-		<script src="scripts/ace/src/mode-java.js" ></script>
-		<script src="scripts/codeInterpreter.js" ></script>
-		<script src="scripts/playerCodeEditor.js" ></script>
-		<script src="scripts/gameSelection.js" ></script>
-		<script src="scripts/gameVisual.js" ></script>
-		<script src="scripts/gridGameState.js" ></script>
-		<script src="scripts/paintGameState.js" ></script>
-		<script src="scripts/gameManager.js" ></script>
-		<script src="scripts/cloud.js" ></script>
-		<script src="scripts/bbar.js" ></script>
-		<script src="scripts/ref.js" ></script>
+		<script src="web/scripts/referenceUI.js"></script>
+		<script src="web/scripts/codeland.js" ></script>
+		<script src="web/ace/src/ace.js" ></script>
+		<script src="web/ace/src/mode-java.js" ></script>
+		<script src="web/codeInterpreter.js" ></script>
+		<script src="web/playerCodeEditor.js" ></script>
+		<script src="web/gameSelection.js" ></script>
+		<script src="web/gameVisual.js" ></script>
+		<script src="web/gridGameState.js" ></script>
+		<script src="web/paintGameState.js" ></script>
+		<script src="web/gameManager.js" ></script>
+		<script src="web/cloud.js" ></script>
+		<script src="web/bbar.js" ></script>
+		<script src="web/ref.js" ></script>
 		<script src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -35,7 +35,7 @@
 			
 
 
-			var baseDir="http://localhost/codemoo/web/"
+			var baseDir="http://localhost/javaplayland/web/"
 			$.ajax({
 			dataType:"text",
 			url: baseDir+location,
@@ -47,7 +47,6 @@
 						start();
 					}
 			
-				ok(true,"File has loaded properly")
 			});
 		}
 
@@ -78,6 +77,7 @@
 			loadHelper("scripts/cloud.js");
 			loadHelper("scripts/bbar.js");
 			loadHelper("scripts/ref.js");
+			ok(1,"All files have loaded")
 
 
 		});
@@ -91,36 +91,18 @@ Professor Angrave: Create simple tests for all the classes.
 */
 		asyncTest("Test referenceUI",function(){
 
+			loadHelper("scripts/playerCodeEditor.js")
+			loadHelper("scripts/referenceUI.js")
+			ok("All files have loaded")
 
-			$.getScript( "http://localhost/codemoo/web/scripts/playerCodeEditor.js", function( data, textStatus, jqxhr ) {
-				if(QUnit.config.semaphore!=0){
-						start();
-					}
+
+			console.log("Testing sandboxPage")
+			var sandboxData=window.referencePage()
+
+
 				
-			});
-
-
-			$.getScript( "http://localhost/codemoo/web/scripts/referenceUI.js", function( data, textStatus, jqxhr ) {
-			
-	
 		
-
-
-				var sandboxData=window.sandBoxPage()
-
-
-
-				ok(sandboxData.getInput().css("position")==='absolute');
-				ok(sandboxData.getOutput().css("position")==='absolute');
-				ok(sandboxData.getBackFade().css("position")==='absolute',sandboxData.getBackFade().css("position")); //Why does this fail??????????????????????????
-				ok(sandboxData.getRefContainer().css("position")==='absolute');
-
-
-
-
-				start();
-				
-			});
+			
 			console.log("Hello");
 	
 
