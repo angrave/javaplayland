@@ -41,16 +41,17 @@
 			url: baseDir+location,
 			context: document.body
 			}).done(function() {
-				ok(true,"File has loaded properly")
+			
 
 					if(QUnit.config.semaphore!=0){
 						start();
 					}
 			
-				
+				ok(true,"File has loaded properly")
 			});
 		}
 
+/*
 		asyncTest( "Test loading", function() {
 		
 			loadHelper("doppio-jvm/scripts/demo/util.js");
@@ -80,23 +81,45 @@
 
 
 		});
+*/
 
+
+
+/*
+Professor Angrave: Create simple tests for all the classes.
+
+*/
 		asyncTest("Test referenceUI",function(){
 
-			$.getScript( "http://localhost/codemoo/web/scripts/referenceUI.js", function( data, textStatus, jqxhr ) {
-				console.log( data ); // Data returned
-				console.log( textStatus ); // Success
-				console.log( jqxhr.status ); // 200
-				console.log( "Load was performed." );
-			
-				//TestLoad();
-				window.sandBoxPage();
-				window.referencePage();
-				window.aboutPage();
 
-				ok("true","Sandbox setupw hout errors");
-				console.log("Sanbox has been setup");
+			$.getScript( "http://localhost/codemoo/web/scripts/playerCodeEditor.js", function( data, textStatus, jqxhr ) {
+				if(QUnit.config.semaphore!=0){
+						start();
+					}
+				
+			});
+
+
+			$.getScript( "http://localhost/codemoo/web/scripts/referenceUI.js", function( data, textStatus, jqxhr ) {
+			
+	
+		
+
+
+				var sandboxData=window.sandBoxPage()
+
+
+
+				ok(sandboxData.getInput().css("position")==='absolute');
+				ok(sandboxData.getOutput().css("position")==='absolute');
+				ok(sandboxData.getBackFade().css("position")==='absolute',sandboxData.getBackFade().css("position")); //Why does this fail??????????????????????????
+				ok(sandboxData.getRefContainer().css("position")==='absolute');
+
+
+
+
 				start();
+				
 			});
 			console.log("Hello");
 	
