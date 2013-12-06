@@ -3,14 +3,25 @@ if(debugging)
     log = (mesg) -> console.log(mesg)
 else
     log = (mesg) -> null
-        
+
 log("GameManager log")
+
+# Some browsers have a deepcopy function, others do not.
+# For those who do not, we use the JQuery deepcopy function.
 if not deepcopy?
-    deepcopy = (src) -> $.extend(true, {},src)
+    deepcopy = (src) -> $.extend(true, {}, src)
 
 class window.GameManager
-    #environment is defined in codeland.startGame
     constructor: (@environment) ->
+        ###
+            External Function (used by something outside of this file)
+
+            Takes in the game environment and sets up the code editor and
+            the game visual and the game logic.
+
+            @param environment
+                The environment and configuration required for this game.
+        ###
         @config = deepcopy @environment.description
         @gameStateBase = @environment.gameState
 
@@ -20,11 +31,20 @@ class window.GameManager
         return
 
     storeStats: ->
-        @environment.codeland.storeGameStats @environment.key, @environment.stats 
+        ###
+            Internal Function (used only by the code in this file)
+
+            Saves the game statistics to codeland.
+        ###
+        @environment.codeland.storeGameStats @environment.key, @environment.stats
+        return
 
     setUpGame: ->
         ###
+            Internal Function (used only by the code in this file)
+
             Sets up everything for the game to run.
+            That is, the code editor, the game visual and the event listeners.
         ###
         @gameDiv = jQuery @environment.gamediv
         @gameDiv.empty()
@@ -35,7 +55,7 @@ class window.GameManager
         $(editdiv).attr({'id':@editorDiv,'class':'code_editor'})
         $(editdiv).css({
             width:'60%',height:'80%','position':'absolute',
-            'top':'10%','left':'3.3%',"background-color":"#366CA3",
+            'top':'10%','left':'3.3%',"background-color":"#003366", ###366CA3###
             "border":"4px double #3F80C0"})
 
         @gameDiv.append(editdiv)
@@ -43,7 +63,7 @@ class window.GameManager
         $(vis).attr({'id':@visualDiv})
         $(vis).css({
             width:'30%',height:'80%','position':'absolute',
-            'top':'10%','right':'3.3%',"background-color":"#366CA3",
+            'top':'10%','right':'3.3%',"background-color":"#003366",
             "border":"4px double #3F80C0"})
         @gameDiv.append(vis)
 
@@ -66,11 +86,22 @@ class window.GameManager
         return
 
     gameName: () =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            Returns the key of the current game.
+        ###
         return @environment.key
 
-#Note this does not mean run the student's code. Rather it's the entry point to show animations and start the desired game map as a live experience.
     startGame: (waitForCode) =>
-        #TODO Explain purpose of waitForCode
+        ###
+            Internal Function (used only by the code in this file)
+
+            This starts the game's visual and initializes the logic for the game.
+
+            @param waitForCode
+                Whether the game logic should wait for the code to begin running.
+        ###
         waitForCode ?= false
 
         @visual.startGame @config.visual
@@ -79,6 +110,12 @@ class window.GameManager
         return
 
     interpretGameConfigMap: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Parses the map found in the game's config file and creates
+            the necessary characters in the visual and in the gameManager.
+        ###
         x = @config.game.offset.x ?=0
         y = @config.game.offset.y ?=0
         map = @config.game.map ?= ""
@@ -98,6 +135,26 @@ class window.GameManager
         return
 
     generateCharacter: (name, x, y, staysOnReset, dir) ->
+        ###
+            External Function (used by something outside of this file)
+
+            Creates a character using the defaults found in the config file,
+            overwriting them as necessary and generating an appropriate name.
+            Places this character in the visual config and in the game's config
+            and makes sure the victory flag is the first item in the visual
+            config's array.
+
+            @param name
+                The name of the type of character to create
+            @param x
+                The x location of the character
+            @param y
+                The y location of the character
+            @param staysOnReset
+                Whether this character is a permanent part of the game
+            @param dir
+                The direction the character is facing
+        ###
         base = deepcopy @config.game.characterBase[name]
         visualBase = deepcopy @config.visual.visualBase[base.sprite]
         base.x = x
@@ -136,18 +193,33 @@ class window.GameManager
             @config.game.characters[name] = base
         return {'game': base, 'visual': visualBase}
 
-    #Callback for games
     gameLost: ->
+        ###
+            External Function (used by something outside of this file)
+
+            Updates the game statistics on the loss, plays the losing sound,
+            and summons the game lost cloud.
+        ###
         @updateGameLostStats()
         playAudio 'defeat.ogg'
-        
+
         messages = ["Try Again!"]
         window.objCloud(400,messages,"body","30%","30%",3,"none",@gameManager)
         @gameRunFinished()
-    
-    #Callback for games
-    gameWon: ->
-        @updateGameWonStats()
+
+    gameWon: (score, stars) ->
+        ###
+            External Function (used by something outside of this file)
+
+            Updates the game statistics on the win, plays the winning sound,
+            and summons the game won cloud.
+
+            @param score
+                The score the player achieved during this play of the game.
+            @param stars
+                How many stars the player earned during this play of the game.
+        ###
+        @updateGameWonStats score, stars
         playAudio 'victory.ogg'
 
         gameName = @gameName()
@@ -161,16 +233,35 @@ class window.GameManager
         messages = ['Congratulations!']
         window.objCloud 400, messages, "body",  "30%", "30%", 1.5, gameName, @
         @gameRunFinished()
-            
+
     updateGameLostStats: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Creats the losing statistics and saves them to codeland.
+        ###
         s = @environment.stats
-        s.lostCount+= 1
+        s.lostCount += 1
         s.lastLoss = Date.now()
         s.firstLoss = s.lastLoss unless s.firstLoss
         @storeStats()
-        
-    #Callback for games 
+
     updateGameWonStats: (score, stars) ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Creates the statistics of the won game and saves them
+            to codeland.
+
+            @param score
+                The score the player achieved during this play of the game.
+            @param stars
+                How many stars the player earned during this play of the game.
+
+            @return
+                Whether or not this achieved score is a new high score for the
+                player.
+        ###
         log "Game Won: #{@environment.key}"
         s = @environment.stats
         s.winCount += 1
@@ -178,15 +269,20 @@ class window.GameManager
         s.lastWin = Date.now()
         s.firstWin = s.lastWin unless s.firstWin
         s.stars = Math.max(stars, s.stars)
-        
+
         isNewHiscore = s.hiscore < score
-        s.hiscore = score if(isNewHiscore) 
-                   
+        s.hiscore = score if(isNewHiscore)
+
         @storeStats()
         #Other celebrations after storeStats
         return isNewHiscore
 
     finishGame: ->
+        ###
+            External Function (used by something outside of this file)
+
+            Stops the current game and uninitializes used classes.
+        ###
         @gameState?.stopGame()
         @codeEditor = null
         @interpreter = null
@@ -196,6 +292,11 @@ class window.GameManager
         return
 
     addEventListeners: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Sets up the event listeners the game manager responds to.
+        ###
         jQuery('#compileAndRun').click @runStudentCode
         jQuery('#stopRun').click @stopStudentCode
         jQuery('#resetState').click @reset
@@ -205,6 +306,16 @@ class window.GameManager
         return
 
     commandsValid: (valid) =>
+        ###
+            External Function (used by something outside of this file)
+            Event Function (passed in as a callback or bound to a button press)
+
+            Disables the run button should the commands in the editor be
+            invalid, enables the run button should they be valid.
+
+            @param valid
+                Whether or not the code in the code editor is valid.
+        ###
         if valid
             jQuery('#compileAndRun').attr 'disabled', false
             @canRun = true
@@ -214,24 +325,35 @@ class window.GameManager
         return
 
     reset: =>
+        ###
+            Event Function (passed in as a callback or bound to a button press)
+
+            Resets the code editor and the visual.
+        ###
         @environment.stats.resetCount += 1
-        @storeStats() 
-               
+        @storeStats()
+
         @codeEditor.resetEditor()
         @startGame false
         return
 
     runStudentCode: =>
+        ###
+            Event Function (passed in as a callback or bound to a button press)
+
+            Scans the code from the code editor and begins running the student's
+            code.
+        ###
         if @running
             return
         @running = true
         code = @codeEditor.getStudentCode()
         jQuery('#compileAndRun').hide()
         jQuery('#stopRun').show()
-        
+
         @environment.stats.runCount += 1
-        @storeStats()        
-        
+        @storeStats()
+
         if @environment.backEnd == 'interpreter'
             @codeEditor.scan()
             if not @canRun
@@ -258,10 +380,15 @@ class window.GameManager
         return false
 
     stopStudentCode: =>
+        ###
+            Event Function (passed in as a callback or bound to a button press)
+
+            Stops running the student's code and resets the visual.
+        ###
         if not @running
             return
         @environment.stats.abortCount +=1
-        @storeStats()  
+        @storeStats()
         if @environment.backEnd == 'doppio'
             @environment.codeland.doppioAPI.abort @showRun
         else
@@ -270,18 +397,35 @@ class window.GameManager
         return false
 
     showRun: =>
+        ###
+            Internal Function (used only by the code in this file)
+
+            Shows the run button.
+        ###
         jQuery('#stopRun').hide()
         jQuery('#compileAndRun').show()
         @running = false
         return
 
     gameRunFinished: ->
+        ###
+            Internal Function (used only by the code in this file)
+
+            Called when a run has finished, currently only re-displays
+            the run button.
+        ###
         @showRun()
         return
 
     helpTips:=>
+        ###
+            Event Function (passed in as a callback or bound to a button press)
+
+            Summons the help tips cloud to display the tips associated with
+            this game.
+        ###
         @environment.stats.tipsCount +=1
-        @storeStats()  
+        @storeStats()
         ma = @config?.code?.comments
         if ma
             if ma.length > 1
