@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QUnit basic example</title>
+<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.12.0.css">
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+
+		<script src="web/scripts/referenceUI.js"></script>
+		<script src="web/scripts/codeland.js" ></script>
+		<script src="web/ace/src/ace.js" ></script>
+		<script src="web/ace/src/mode-java.js" ></script>
+		<script src="web/codeInterpreter.js" ></script>
+		<script src="web/playerCodeEditor.js" ></script>
+		<script src="web/gameSelection.js" ></script>
+		<script src="web/gameVisual.js" ></script>
+		<script src="web/gridGameState.js" ></script>
+		<script src="web/paintGameState.js" ></script>
+		<script src="web/gameManager.js" ></script>
+		<script src="web/cloud.js" ></script>
+		<script src="web/bbar.js" ></script>
+		<script src="web/ref.js" ></script>
+		<script src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		
+	<script>
+
+
+		function loadHelper(location,st){
+
+			
+
+
+			var baseDir="http://localhost/javaplayland/web/"
+			$.ajax({
+			dataType:"text",
+			url: baseDir+location,
+			context: document.body
+			}).done(function() {
+			
+
+					if(QUnit.config.semaphore!=0){
+						start();
+					}
+			
+			});
+		}
+
+/*
+		asyncTest( "Test loading", function() {
+		
+			loadHelper("doppio-jvm/scripts/demo/util.js");
+			loadHelper("doppio-jvm/scripts/demo/_.js");
+			loadHelper("doppio-jvm/scripts/jvm/gLong.js");
+			loadHelper("doppio-jvm/scripts/jvm/browserfs.js");
+
+			loadHelper("doppio-jvm/scripts/demo/untar.js");
+			loadHelper("scripts/nodeSetup.js");
+			loadHelper("doppio-jvm/scripts/jvm/compressed.js");
+			loadHelper("doppio-jvm/scripts/demo/doppio-api.js");
+
+			loadHelper("scripts/referenceUI.js");
+			loadHelper("scripts/codeland.js");
+			loadHelper("scripts/ace/src/ace.js");
+			loadHelper("scripts/ace/src/mode-java.js");
+			loadHelper("scripts/codeInterpreter.js");
+			loadHelper("scripts/playerCodeEditor.js");
+			loadHelper("scripts/gameSelection.js");
+			loadHelper("scripts/gameVisual.js");
+			loadHelper("scripts/gridGameState.js");
+			loadHelper("scripts/paintGameState.js");
+			loadHelper("scripts/gameManager.js");
+			loadHelper("scripts/cloud.js");
+			loadHelper("scripts/bbar.js");
+			loadHelper("scripts/ref.js");
+			ok(1,"All files have loaded")
+
+
+		});
+*/
+
+
+
+/*
+Professor Angrave: Create simple tests for all the classes.
+
+*/
+		asyncTest("Test referenceUI",function(){
+
+			loadHelper("scripts/playerCodeEditor.js")
+			loadHelper("scripts/referenceUI.js")
+			ok("All files have loaded")
+
+
+			console.log("Testing sandboxPage")
+			var sandboxData=window.referencePage()
+
+
+				
+		
+			
+			console.log("Hello");
+	
+
+
+		});
+	</script>
+</body>
+</html>

@@ -146,16 +146,72 @@ root.drawGameMap = (player) ->
     addGameToMap = (game) ->
         # console.log "Game: #{game}"
         count = count + 1
+        #console.log count #Lavanya
         sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland)
         return
     qcount = 0
+   
+    currGameIdx = 0 #Lavanya
+    arrayOfIdx = [] #Lavanya
     for quest in root.quests
-        $("<div bgcolor='#888888'>Quest #{++qcount}:#{quest.title}</div>").appendTo tmp1
+        span = document.createElement("span") #Lavanya
+        $(span).css({"min-width": "450px","min-height": "32px", "padding" : "5px", 
+        "display": "inline-block",
+        "white-space": "nowrap",
+        "border":"1px dashed orange",
+        "background-color": "#ffa500",
+        "text-align": "center",
+        "font-family": "Monospace",
+        "margin: 5px",
+        "cursor": "pointer"
+        })
+        
+        $(span).attr({"class":"span#{++qcount}","alt":"Click here to hide/show all levels in this quest.","title":"Click here to hide/show all levels in this quest."})
+		
+        $(tmp1).append(span) 
+        $(span).append """<b>QUEST #{qcount}: #{quest.title}</b>""" #Lavanya
+		
         for gameKey in quest.games
             addGameToMap gameKey
+  
+        currGameIdx = currGameIdx + quest.games.length #Lavanya
+        arrayOfIdx[qcount-1] = currGameIdx
+        $("<br><br>").appendTo tmp1 #Lavanya
 
-    $('<span style="font-size:200%" class="cursiveHeadline">Choose your Java Game</span><br>').prependTo tmp1
-    $('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
+    selectCount = 1 #Lavanya
+    whileCounter = 0 
+    arrayOfStrings = []
+    arrayOfSpans = []
+    while whileCounter < arrayOfIdx.length
+        arrayOfStrings[whileCounter] = ""
+        while selectCount < arrayOfIdx[whileCounter]
+            arrayOfStrings[whileCounter] = "#{arrayOfStrings[whileCounter]}.select#{selectCount},"
+            selectCount = selectCount + 1
+        arrayOfStrings[whileCounter] = "#{arrayOfStrings[whileCounter]}.select#{arrayOfIdx[whileCounter]}" 
+        console.log arrayOfStrings[whileCounter]
+        arrayOfSpans[whileCounter] = ".span#{whileCounter+1}"
+        console.log arrayOfSpans[whileCounter]		
+        selectCount = arrayOfIdx[whileCounter] + 1
+        whileCounter = whileCounter + 1 
+
+    spanCounter = 0
+    $(arrayOfSpans[spanCounter]).click(-> 		
+        $(arrayOfStrings[spanCounter]).toggle()
+    )
+
+    spanCounterTwo = spanCounter + 1	
+    $(arrayOfSpans[spanCounterTwo]).click(-> 		
+        $(arrayOfStrings[spanCounterTwo]).toggle()
+    )
+
+    spanCounterThree = spanCounterTwo + 1	
+    $(arrayOfSpans[spanCounterThree]).click(-> 		
+        $(arrayOfStrings[spanCounterThree]).toggle()
+    ) #Lavanya
+
+    $('<span style="font-size:100%" class="cursiveHeadline">Choose a level below.</span><br><br>').prependTo tmp1
+    $('<span style="font-size:200%" class="cursiveHeadline">CodeMoo Java Game</span><br>').prependTo tmp1
+    #$('<img src="/img/cc0/treasuremap-128px.png">').prependTo tmp1
 
     $('#gameSelection').animate {
         scrollTop: root.gameSelectionScrollPosition
@@ -173,6 +229,7 @@ root.startGame = (game) ->
         @param game
             The game to start.
     ###
+    $('#select').show() #Lavanya
     console.log("Starting #{game}")
     for quest, index in root.quests
         found = quest.games.indexOf game
@@ -353,6 +410,7 @@ root.showMap = () ->
     root.wrapperCompiledCallback = null if root.wrapperCompiledCallback?
     root.currentGame = null
     root.drawGameMap root.getPlayer()
+    $('#select').hide()
     return
 
 root.getGame = ->

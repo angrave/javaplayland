@@ -55,7 +55,7 @@ class window.GameManager
         $(editdiv).attr({'id':@editorDiv,'class':'code_editor'})
         $(editdiv).css({
             width:'60%',height:'80%','position':'absolute',
-            'top':'10%','left':'3.3%',"background-color":"#366CA3",
+            'top':'10%','left':'3.3%',"background-color":"#003366", ###366CA3###
             "border":"4px double #3F80C0"})
 
         @gameDiv.append(editdiv)
@@ -63,7 +63,7 @@ class window.GameManager
         $(vis).attr({'id':@visualDiv})
         $(vis).css({
             width:'30%',height:'80%','position':'absolute',
-            'top':'10%','right':'3.3%',"background-color":"#366CA3",
+            'top':'10%','right':'3.3%',"background-color":"#003366",
             "border":"4px double #3F80C0"})
         @gameDiv.append(vis)
 
@@ -101,7 +101,7 @@ class window.GameManager
 
             @param waitForCode
                 Whether the game logic should wait for the code to begin running.
-        ####
+        ###
         waitForCode ?= false
 
         @visual.startGame @config.visual
