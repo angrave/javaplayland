@@ -155,7 +155,7 @@ setUpJavaSandbox = (input, output, texti) ->
         false,                           # wrapCode
         "",                              # codePrefix
         "",                              # codeSuffix
-        true,                            # hiddenSuffix
+        null,                            # hiddenSuffix
         true,                            # freeEdit
         null                            # interpreter
     editorCount++
