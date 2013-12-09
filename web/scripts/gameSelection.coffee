@@ -9,9 +9,12 @@ class window.gameSelector
         @div.append(tmp)
         return
 
-    buildDiv: (count, game, desc, player, canPlay, codeland) -> #Coded by Lavanya			
-            span = document.createElement("span")
-            $(span).css({"min-width":"450px","min-height":"32px", "padding" : "5px",
+    buildDiv: (count, game, desc, player, canPlay, codeland, questContext) -> #Coded by Lavanya
+        span = document.createElement("span")
+        $(span).css {
+            "min-width":"450px",
+            "min-height":"32px",
+            "padding" : "5px",
             "display": "inline-block",
             "white-space": "nowrap",
             "border":"1px dashed blue",
@@ -19,38 +22,25 @@ class window.gameSelector
             "font-family":"Monospace",
             "margin:5px",
             "cursor": "pointer"
-            })
-            #display and whitespace to try to avoid wrapping (may not work in IE)
-#            if cont.width() < 1600
-#                lp = (cont.width() - 800)/2
-#                $(tmp1).css({left:lp}) 
+        }
 
+        $(span).attr("id","select#{game}")
+        $(span).attr("class","select#{count}")
+        questContext.append(span)
 
-            $(span).attr("id","select#{game}")
-            $(span).attr("class","select#{count}")
-            cont.append(span)
-
-            
-            #src = 'img/stare.png'
- 
-            $(span).click(-> codeland.startGame(game) )    
-            if player?.passed is true
-                $(span).append """<b><font color="white">#{count}: #{desc.title}</font></b> """ #Coded by Lavanya
-                src = 'img/star.png'
-                img = jQuery '<img>', {
-                    id: 'star',
-                    src: src,
-                    style: 'max-height:16px',
-                    alt: "Start Game"
-                }
-                $(span).append img.get 0
-            else
-                $(span).append """<font color="white">#{count}: #{desc.title}</font>""" #Coded by Lavanya
-            
-#            @buildAn(tmp1,canPlay)
-#            @buildScore(tmp1,player)
-#            @buildInfo(tmp1,desc)
-#            @canPlay(tmp1,canPlay, codeland, game)
+        $(span).click(-> codeland.startGame(game) )
+        if player?.passed is true
+            $(span).append """<b><font color="white">#{count}: #{desc.title}</font></b> """ #Coded by Lavanya
+            src = 'img/star.png'
+            img = jQuery '<img>', {
+                id: 'star',
+                src: src,
+                style: 'max-height:16px',
+                alt: "Start Game"
+            }
+            $(span).append img.get 0
+        else
+            $(span).append """<font color="white">#{count}: #{desc.title}</font>""" #Coded by Lavanya
 
     buildAn: (con,canPlay) ->
         tmp2 = document.createElement("img")
