@@ -151,10 +151,9 @@ root.drawGameMap = (player) ->
 
     for quest in root.quests
         span = jQuery '<span>', {
-            class: "span#{++qcount}",
             title: "Click here to hide/show all levels in this quest."
             alt: "Click here to hide/show all levels in this quest.",
-            id: "#{quest.name}"
+            id: "#{quest.title}"
         }
         span.css {
             "min-width": "450px",
@@ -171,14 +170,14 @@ root.drawGameMap = (player) ->
         }
 
         $(tmp1).append(span)
-        span.append """<b>QUEST #{qcount}: #{quest.title}</b>""" #Lavanya
+        span.append """<b>QUEST #{++qcount}: #{quest.title}</b>""" #Lavanya
 
         span.click (clickEvent) ->
-            jQuery("##{clickEvent.currentTarget.id}Container").children().toggle()
+            jQuery("span[id='#{clickEvent.currentTarget.id} Container']").children().toggle()
             return
 
         games = jQuery '<span>', {
-            id: "#{quest.name}Container"
+            id: "#{quest.title} Container"
         }
 
         for gameKey in quest.games
