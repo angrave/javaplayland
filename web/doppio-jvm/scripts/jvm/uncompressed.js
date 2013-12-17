@@ -7909,6 +7909,8 @@
         $meta_stack: new root.CallStack()
       };
       this.max_m_count = 10000;
+      this.execution_paused = false;
+      this.paused_state = null;
     }
 
     RuntimeState.prototype.get_bs_cl = function() {
@@ -8420,6 +8422,17 @@
       return this.abort_requested;
     };
 
+    RuntimeState.prototype.pause = function() {
+      this.execution_paused = true;
+    };
+
+    RuntimeState.prototype.unpause = function() {
+      this.execution_paused = false;
+      if (this.paused_state != null) {
+        this.paused_state();
+      }
+    };
+
     RuntimeState.prototype.run_until_finished = function(setup_fn, no_threads, done_cb) {
       var _this = this;
 
@@ -8431,6 +8444,10 @@
             _this.abort_requested();
           }
           return done_cb(false);
+        }
+        if (_this.execution_paused) {
+          _this.paused_state = _this.run_until_finished(setup_fn, no_threads, done_cb);
+          return;
         }
         _this.stashed_done_cb = done_cb;
         try {

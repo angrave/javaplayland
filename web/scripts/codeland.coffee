@@ -8,6 +8,8 @@ window.notifyEvalSourcePosition = (startLine,startCol,endLine,endCol) ->
     ###
     console.log startLine,startCol,endLine,endCol
     ##window.gameManager.codeEditor.editorGoToLine startLine
+    root.doppioAPI.pause_doppio()
+    setTimeout(root.doppioAPI.unpause_doppio, 1000)
     return;
 
 # Things assigned to root will be available outside this module

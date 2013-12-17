@@ -20,6 +20,7 @@ class window.DoppioApi
         stdin = -> "\n"
         @running = false
         @preloaded = false
+        @paused = false
         done_cb1= =>
             @bs_cl = new ClassLoader.BootstrapClassLoader(jvm.read_classfile)
             jvm.set_classpath '/sys/vendor/classes', '/tmp/'
@@ -54,7 +55,7 @@ class window.DoppioApi
           xhrfs = node.fs.getRootFS().mntMap["/sys"]
 
           write_one_file = (percent, path, file) ->
-            progress_cb?(percent) 
+            progress_cb?(percent)
             path = "/#{path}" if path[0] != '/'
             try
                 xhrfs.preloadFile(path,file) if file.length > 0
@@ -97,6 +98,27 @@ class window.DoppioApi
             jvm.run_class(@rs, 'codemoo/RunGame', class_args, finish_cb)
         else
             jvm.run_class(@rs, 'codemoo/Run', class_args, finish_cb)
+        return
+
+    pause_doppio: =>
+        if !@running
+            console?.log 'No program running, cannot pause'
+            return
+        else if !@preloaded
+            console?.log 'Will not pause during preload'
+            return
+        console?.log 'Pausing doppio'
+        @paused = true
+        @rs.pause()
+        return
+
+    unpause_doppio: =>
+        if !@paused
+            console?.log 'Not paused, unpausing has no effect'
+            return
+        console?.log 'Unpausing Doppio'
+        @paused = false
+        @rs.unpause()
         return
 
     preload: (preloadFunctions, finished_cb) ->
