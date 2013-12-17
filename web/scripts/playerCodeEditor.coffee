@@ -117,7 +117,7 @@ class window.EditorManager
             else
                 line = @editor.createBlankFunctionHeader(command) + ';'
                 funct = codeEditor.insertCommand
-            
+
             button = jQuery '<button>', {
                 id: command,
                 value: command,
@@ -220,8 +220,8 @@ class window.EditorManager
                 usesRemaining = remaining[command]
             else
                 usesRemaining = @commands[command]['usesRemaining']
-            
-            
+
+
             button.attr 'title',@toUsesRemainingText(usesRemaining, @commands[command].maxUses)
             if usesRemaining <= 0
                 button.attr 'disabled', true
@@ -240,8 +240,8 @@ class window.EditorManager
         return 'Can only appear once!' if usesRemaining==1 and maxUses==1
         return 'Can only appear one more time!' if usesRemaining==1
         return"Can be used #{usesRemaining} more times"
-        
-        
+
+
     moveEditorButtons: =>
         row = @editor.editor.getCursorPosition().row
         maxrows = @editor.editSession.getLength()
@@ -350,6 +350,11 @@ class window.EditorManager
             @parameterPopUp.css 'top', "12px"
             @parameterPopUp.css 'left', gutterOffset + 5
 
+            # Prevents the ace editor from stealing focus
+            @parameterPopUp.mousedown (mousedownEvent) ->
+                mousedownEvent.stopPropagation()
+                return
+
             @parameterPopUp.show()
             setTimeout (-> jQuery("##{command}-parameter-#{1}").focus(); return), 0
             clickEvent.stopPropagation()
@@ -455,7 +460,7 @@ class window.PlayerCodeEditor
             @codeText = @initialText
 
         @enableKeyboardShortcuts()
-        
+
         @resetState()
         @onChangeCallback = null
         @editor.on 'change', @onChange
@@ -467,7 +472,7 @@ class window.PlayerCodeEditor
             code += '\n' + @hiddenSuffix
         return code
 
-                
+
     gotoLine: (row) ->
         column = @editor.getCursorPosition().column
         @editor.gotoLine row, column, true
@@ -561,8 +566,8 @@ class window.PlayerCodeEditor
 
     insertLine: ({text, line, currentRow}) ->
         maxRow = @editSession.getLength()
-        currentRow = Math.max(currentRow, @codePrefixLength-1)        
-        currentRow = Math.min(currentRow, maxRow-@codeSuffixLength-1  )   
+        currentRow = Math.max(currentRow, @codePrefixLength-1)
+        currentRow = Math.min(currentRow, maxRow-@codeSuffixLength-1  )
         currentLine = text.getLine currentRow
 
         if @commands.hasOwnProperty line
@@ -602,9 +607,9 @@ class window.PlayerCodeEditor
         @editor.clearSelection()
         @editor.resize()
         @reIndentCode()
-        
-        @gotoLine @codePrefixLength + 1 + @findFirstNonCommentLine(@initialText)        
-       
+
+        @gotoLine @codePrefixLength + 1 + @findFirstNonCommentLine(@initialText)
+
         @editor.renderer.scrollToRow @codePrefixLength
         for name, command of @commands
             command['usesRemaining'] = command['maxUses']
