@@ -213,6 +213,10 @@ root.startGame = (game) ->
     root.currentGame.helpTips() unless env.stats.runCount > 0
     return
 
+# root.courseraSubmission = ->
+#     log 'Tessst'
+#     return
+
 # Some browsers have a deepcopy function, others do not.
 # For those who do not, we use the JQuery deepcopy function.
 if not deepcopy?
