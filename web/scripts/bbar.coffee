@@ -105,7 +105,7 @@ window.appendBar = (d) ->
     $(ref).click referencePage
     $(select).click codeland.showMap
     $(sand).click sandBoxPage
-    coursera.click codeland.courseraSubmissionBox
+    coursera.click courseraSubmissionBox
 
     $(d).append(cont)
 
