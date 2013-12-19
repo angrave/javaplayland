@@ -213,9 +213,56 @@ root.startGame = (game) ->
     root.currentGame.helpTips() unless env.stats.runCount > 0
     return
 
-# root.courseraSubmission = ->
-#     log 'Tessst'
-#     return
+root.courseraSubmissionBox = ->
+    backFade = jQuery '<div>', {
+        css: {
+            'width':'100%',
+            'height':'100%',
+            'position':'absolute',
+            'z-index':'300',
+            'background-color':'#000000',
+            'opacity':'.5'
+        },
+        click: (clickEvent) ->
+            backFade.remove()
+            courseraSubmit.remove()
+            return
+    }
+    courseraSubmit = jQuery '<div>', {
+        css: {
+            'width':'80%',
+            'height':'80%',
+            'left':'10%',
+            'top':'10%',
+            'position':'absolute',
+            'z-index':'301',
+            'background-color':'#FFFFFF'
+        }
+    }
+    for grader in root.graders
+        grader.score = 0
+        grader.maxScore = 0
+        console?.log "Initial: #{grader.score} / #{grader.maxScore}"
+        for target in grader.targets
+            if target.type == "game"
+                root.addGameScore grader, target.key
+            else if target.type == "quest"
+                quest = root.quests[root.questIndexbyQuests[target.key]]
+                for game in quest.games
+                    root.addGameScore grader, game
+            else
+                console?.log "Unkown grader target type: #{grader.target}"
+        courseraSubmit.append "<p>#{grader.title}: #{grader.score} / #{grader.maxScore} </p>"
+    $("body").prepend backFade
+    $("body").prepend courseraSubmit
+    return
+
+root.addGameScore = (grader, game) ->
+    gameStatistics = root.loadGameStats game
+    grader.score += gameStatistics.hiscore
+    grader.maxScore += root.gameDescriptions[game].maxScore
+    console?.log "#{grader.score} / #{grader.maxScore}"
+    return
 
 # Some browsers have a deepcopy function, others do not.
 # For those who do not, we use the JQuery deepcopy function.
@@ -460,25 +507,30 @@ root.loadJSONConfigs = () ->
     configFail = false
     root.readJSON 'config/config.json', (data) ->
         if data == undefined
+            console?.log "Configuration Data Undefined"
             configFail = true
         root.baseDefaults = data.defaults
         root.gameDefaults = {}
         for type in data.gameTypes
-            root.readJSON "config/#{type}", (typeData) ->
+            root.readJSON "config/#{type}.json", (typeData) ->
                 if typeData == undefined
+                    console?.log "Game Type Data Undefined"
                     configFail = true
                 root.gameDefaults[typeData.gameType] = typeData
                 return
         root.quests = []
+        root.questIndexbyQuests= {}
         root.visualMasters = {}
         root.beanshellPreload = data.beanshellPreload
         questIndex = -1
         for quest in data.quests
-            root.readJSON "config/#{quest}", (questData) ->
+            root.readJSON "config/#{quest}.json", (questData) ->
                 if questData == undefined or questData.key == undefined
+                    console?.log "Quest Data Undefined"
                     configFail = true
                 ++questIndex
                 root.quests[questIndex] = questData
+                root.questIndexbyQuests[quest] = questIndex
                 for game in questData.games
                     root.readJSON "config/#{game}.json", (gameData) ->
                         if gameData == undefined
@@ -497,10 +549,16 @@ root.loadJSONConfigs = () ->
                             console.log "#{error} #{error.message} #{error.stack}"
                         return
                 return
-        if not root.graders?
-            root.graders = {}
-        for grader in data.graders
-            root.graders[grader] = grader
+        root.readJSON "config/#{data.graders}", (graderData) ->
+            if graderData == undefined
+                console?.log "Grader Data Undefined"
+                configFail = true
+            if not root.graders?
+                root.graders = []
+            graderIndex = -1
+            for grader in graderData.graders
+                ++graderIndex
+                root.graders[graderIndex] = grader
         root.currentQuest = root.quests[0]
         return
     if configFail

@@ -1,6 +1,5 @@
 {
   "gameType": "paint",
-  "maxScore": 100,
   "visualMaster": {
     "frameRate": 17,
     "container": {
@@ -63,6 +62,7 @@
     }
   },
   "defaults": {
+    "maxScore": 100,
     "code": {
       "prefix": "void paint() {\n",
       "postfix": "}",

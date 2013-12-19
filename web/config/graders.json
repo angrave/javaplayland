@@ -1,0 +1,24 @@
+{
+  "graders": [
+    {
+      "title": "Quest 1 Game 1",
+      "partID": "ijMrF5c8-dev",
+      "targets": [
+        {
+          "type": "game",
+          "key": "quest1/seq0150"
+        }
+      ]
+    },
+    {
+      "title": "Quest 2",
+      "partID": "",
+      "targets": [
+        {
+          "type": "quest",
+          "key": "quest2/quest2"
+        }
+      ]
+    }
+  ]
+}
