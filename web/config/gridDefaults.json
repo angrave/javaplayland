@@ -1,5 +1,6 @@
 {
   "gameType": "grid",
+  "maxScore": 5,
   "visualMaster": {
     "frameRate": 17,
     "container": {

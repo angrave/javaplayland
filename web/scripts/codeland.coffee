@@ -493,6 +493,10 @@ root.loadJSONConfigs = () ->
                             console.log "#{error} #{error.message} #{error.stack}"
                         return
                 return
+        if not root.graders?
+            root.graders = {}
+        for grader in data.graders
+            root.graders[grader] = grader
         root.currentQuest = root.quests[0]
         return
     if configFail

@@ -1,0 +1,18 @@
+{
+  "key": "color",
+  "title": "Loops and Conditions",
+  "games": [
+    "quest3/color1250",
+    "quest3/color1350",
+    "quest3/color1450",
+    "quest3/color1550",
+    "quest3/color1650",
+    "quest3/color1750",
+    "quest3/color1850",
+    "quest3/color1950"
+  ],
+  "commands": [
+    "drawPixel(I,I,Ljava/lang/String;)V",
+    "getColor(I,I)Ljava/lang/String;"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "color",
+  "title": "Pixel Perfect",
+  "games": [
+    "quest2/color0050",
+    "quest2/color0150",
+    "quest2/color0250",
+    "quest2/color0350",
+    "quest2/color0450",
+    "quest2/color0550",
+    "quest2/color0650",
+    "quest2/color0750",
+    "quest2/color0850",
+    "quest2/color0950",
+    "quest2/color1050",
+    "quest2/color1150"
+  ],
+  "commands": [
+    "drawPixel(I,I,Ljava/lang/String;)V",
+    "getColor(I,I)Ljava/lang/String;"
+  ]
+}

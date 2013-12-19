@@ -1,5 +1,6 @@
 {
   "gameType": "paint",
+  "maxScore": 100,
   "visualMaster": {
     "frameRate": 17,
     "container": {
@@ -139,7 +140,7 @@
           "match": "yellow"
         },
         "white": {
-            "sprite": "white"
+          "sprite": "white"
         }
       },
       "key": {

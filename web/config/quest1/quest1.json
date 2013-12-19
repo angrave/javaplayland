@@ -1,17 +1,18 @@
-{ "key" : "sequence",
-  "title" : "Code Sequence",
+{
+  "key": "sequence",
+  "title": "Code Sequence",
   "games": [
-"seq0150",
-"seq0250",
-"seq0350",
-"seq0450",
-"seq0550",
-"seq0650",
-"seq0750",
-"seq0850",
-"seq0950",
-"seq1050",
-"seq1150"
+    "quest1/seq0150",
+    "quest1/seq0250",
+    "quest1/seq0350",
+    "quest1/seq0450",
+    "quest1/seq0550",
+    "quest1/seq0650",
+    "quest1/seq0750",
+    "quest1/seq0850",
+    "quest1/seq0950",
+    "quest1/seq1050",
+    "quest1/seq1150"
   ],
   "commands": [
     "go(I)V",
