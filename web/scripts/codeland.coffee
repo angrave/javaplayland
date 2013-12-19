@@ -241,7 +241,13 @@ root.courseraSubmissionBox = ->
             }
         }
         root.assignmentScoresDiv = jQuery '<div>'
+        root.assignmentSubmitDiv = jQuery '<div>'
+        root.assignmentFeedbackDiv = jQuery '<div>'
+
         root.courseraSubmitDiv.append root.assignmentScoresDiv
+        root.courseraSubmitDiv.append root.assignmentSubmitDiv
+        root.courseraSubmitDiv.append root.assignmentFeedbackDiv
+
         jQuery("body").prepend root.backFade
         jQuery("body").prepend root.courseraSubmitDiv
     root.assignmentScoresDiv.empty()
