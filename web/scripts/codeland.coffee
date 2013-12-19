@@ -214,35 +214,40 @@ root.startGame = (game) ->
     return
 
 root.courseraSubmissionBox = ->
-    backFade = jQuery '<div>', {
-        css: {
-            'width':'100%',
-            'height':'100%',
-            'position':'absolute',
-            'z-index':'300',
-            'background-color':'#000000',
-            'opacity':'.5'
-        },
-        click: (clickEvent) ->
-            backFade.remove()
-            courseraSubmit.remove()
-            return
-    }
-    courseraSubmit = jQuery '<div>', {
-        css: {
-            'width':'80%',
-            'height':'80%',
-            'left':'10%',
-            'top':'10%',
-            'position':'absolute',
-            'z-index':'301',
-            'background-color':'#FFFFFF'
+    if (not root.backFade) or (not root.courseraSubmitDiv)
+        root.backFade = jQuery '<div>', {
+            css: {
+                'width':'100%',
+                'height':'100%',
+                'position':'absolute',
+                'z-index':'300',
+                'background-color':'#000000',
+                'opacity':'.5'
+            },
+            click: (clickEvent) ->
+                root.backFade.hide()
+                root.courseraSubmitDiv.hide()
+                return
         }
-    }
+        root.courseraSubmitDiv = jQuery '<div>', {
+            css: {
+                'width':'80%',
+                'height':'80%',
+                'left':'10%',
+                'top':'10%',
+                'position':'absolute',
+                'z-index':'301',
+                'background-color':'#FFFFFF'
+            }
+        }
+        root.assignmentScoresDiv = jQuery '<div>'
+        root.courseraSubmitDiv.append root.assignmentScoresDiv
+        jQuery("body").prepend root.backFade
+        jQuery("body").prepend root.courseraSubmitDiv
+    root.assignmentScoresDiv.empty()
     for grader in root.graders
         grader.score = 0
         grader.maxScore = 0
-        console?.log "Initial: #{grader.score} / #{grader.maxScore}"
         for target in grader.targets
             if target.type == "game"
                 root.addGameScore grader, target.key
@@ -252,16 +257,15 @@ root.courseraSubmissionBox = ->
                     root.addGameScore grader, game
             else
                 console?.log "Unkown grader target type: #{grader.target}"
-        courseraSubmit.append "<p>#{grader.title}: #{grader.score} / #{grader.maxScore} </p>"
-    $("body").prepend backFade
-    $("body").prepend courseraSubmit
+        root.assignmentScoresDiv.append "<p>#{grader.title}: #{grader.score} / #{grader.maxScore} </p>"
+    root.backFade.show()
+    root.courseraSubmitDiv.show()
     return
 
 root.addGameScore = (grader, game) ->
     gameStatistics = root.loadGameStats game
     grader.score += gameStatistics.hiscore
     grader.maxScore += root.gameDescriptions[game].maxScore
-    console?.log "#{grader.score} / #{grader.maxScore}"
     return
 
 # Some browsers have a deepcopy function, others do not.
