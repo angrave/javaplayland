@@ -2,32 +2,32 @@ window.inject = (d) ->
 
 	d.innerHTML = '<h1>A short introduction to Java (Draft Version!)</h1>
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;By undergraduate CS students at the University of Illinois at Urbana Champaign (UIUC).</p>
-	    
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;When first looking at <tt>code</tt>, it can be very confusing and disorienting because it is so different from conventional human language.  Once you understand your first language, picking up another will be considerably easier, and something you may have to do quickly and often if you program professionally.  In these regards, <tt>Java</tt> is no different.</p>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;To help you get acquainted with reading and writing scripts, there will be code snippets and examples in boxes littered throughout this text that you can compile and run by clicking the little button beneath them.  To start out, these boxes will not contain real code, but something called <tt>pseudocode</tt>.  <tt>Pseudocode</tt> is halfway between a real programming language and a normal human language, it allows us to plan out and understand computer logic in an easier to read format.  Read further and the <tt>pseudocode</tt> examples will be replaced more and more by actual code as you learn about <tt>Java.</tt></p>
-	
+
 	<h2>Basic Formatting</h2>
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;Syntax, or the laws and rules that govern whether or not code will work on a computer are very strict.  You must follow syntax rules exactly, or the code will not work.  Some basic things to become aware of are <tt>white space</tt>(spaces, tabs, and newlines) <tt>semicolons</tt>(;), <tt>brackets</tt>(<tt>(),{},[]</tt>), and <tt>comments</tt>(//,/*).  Understanding how these things are used and what they do is fundamental in both writing and reading code.</p>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>Comments</tt> are denoted on a single line by // or contained within /* Text Here! */.  <tt>Comments</tt> are used to leave notes to yourself about the code or to explain the functionality and thought process you intended for the code so that others can read and understand your program.</p>
-	
+
 	<div class="pseudo">//If you make a script with nothing but comments, the computer won\'t find anything to do!</div>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>Spacing</tt> is what helps make code more readable, and though not always a convention that is necessary for code to run, code is already hard enough to read as it is.  Each line is typically used for a single command - when you start writing a new command you go to a new line, this also allows error reporting programs, or "<tt>debuggers</tt>", to help you pinpoint your problem because they can tell you exactly what line the error is occurring on.</p>
-	
+
 	<div class="pseudo">Get bread\nGet peanutButter\nSpread peanutButter\nAssemble sandwich\nDevour sandwich</div>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>Tabs</tt> are used to create what is called <tt>indentation</tt>, which is very important when reading code.  Programming instructions are arranged in a hierarchy - that is, some instructions of code may have certain pieces of memory (variables), or other instructions that they have control of.  This is a form of <tt>Parent</tt> and <tt>Child</tt> relationship, a concept that will come up many times in programming in different ways.  In this context, the <tt>child</tt> code will be directly underneath its <tt>parent</tt> code and <tt>indented</tt> with one more tab then the <tt>parent</tt> code is.</p>
-	
+
 	<div class="pseudo">MakePeanutButterSandwich\n\tGet bread\n\tGet peanutButter\n\tSpread peanutButter\n\tAssemble sandwich\n\tDevour sandwich</div>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>Semicolons</tt> are a very common feature in many languages, and like newlines denote the end of a command, or rather, separate one command from another.  Unlike newlines, however, <tt>semicolons</tt> are not optional.  With the exception of <tt>if</tt>, <tt>for</tt>, and <tt>while</tt> statements - which don\'t need <tt>semicolons</tt> and are covered later - if you are missing a single <tt>semicolon</tt> somewhere in your code the whole thing won\'t work.  Chances are the only way to find the error will be to read through the whole thing looking for that one insignificant missing character, so its best to make <tt>semicolons</tt> an ingrained habit.</p>
-	
+
 	<div class="pseudo">MakePeanutButterSandwich\n\tGet bread;\n\tGet peanutButter;\n\tSpread peanutButter;\n\tAssemble sandwich;\n\tDevour sandwich;</div>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;Brackets perform a role similar to <tt>indentation</tt>.  They are used to create a hierarchy of <tt>parent</tt> and <tt>child</tt> relationships by grouping children inside of them that are of the same level in the hierarchy, also called <tt>siblings</tt>, and tying them to a <tt>parent</tt>.  Like <tt>semicolons</tt> they are also mandatory, if not implemented in the correct manner and place, your code will break.</p>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>Parenthetical brackets</tt> - () - are used for function parameter grouping, which we\'ll talk about more in depth later, and for order of operations when you perform math on things.  <tt>Squiggly brackets</tt> - {} - are used in conjunction with tabs and newlines to group lines of code under their parent code lines.  <tt>Square brackets</tt> - [] - are used specifically for a special kind of memory grouping called an <tt>Array</tt>, which will be covered in detail later.</p>
 
 	<div class="pseudo">MakeSandwich(peanutButter) {\n\tGet(bread);\n\tGet(peanutButter);\n\tSpread(peanutButter);\n\tAssemble(sandwich);\n\tDevour(sandwich);\n}</div>
@@ -66,7 +66,7 @@ window.inject = (d) ->
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>If</tt> statements are the most elementary of <tt>conditionals</tt>.  The <tt>if</tt> statement is given control of some of its own instructions, indicated by some conventions discussed earlier (tabs, {} braces).  The <tt>if</tt> statement will check its condition, which ultimately evaluates to true or false.  If the statement is true, the <tt>if</tt> statements own set of instructions will be executed, otherwise they will be passed over.</p>
 
 	<div class="ex">if( 1+1 == 2 ) {\n\tprint("Yes! one plus one is two");\n}\nif( 1 + 1 == 3) {\n\tprint("I will not be printed :-(");\n}</div>
-	
+
 	<p class="rp">&nbsp;&nbsp;&nbsp;&nbsp;<tt>If</tt> statements can be further extended in influence and ability using the <tt>else</tt> statement.  Appended to an <tt>if</tt> statement, the <tt>else</tt> statement denotes instructions to be run if its partner <tt>if</tt> statement resolves to false.  The <tt>else</tt> statement can even branch to more <tt>if</tt> and <tt>else</tt> statements to create a nested tree of logic to accommodate the programs purpose.</p>
 
 	<div class="ex">if (3==8) {\n\tprint("this won\'t print");\n} else {\n\tprint("but this will");\n}</div>
@@ -79,3 +79,4 @@ window.inject = (d) ->
 
 	<div class="ex">int num = 0;\nwhile(num < 3) {\n\tprint(num);\n\tnum = num + 1;\n}</div>
 	'
+    return
