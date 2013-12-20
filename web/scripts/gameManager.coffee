@@ -219,6 +219,11 @@ class window.GameManager
             @param stars
                 How many stars the player earned during this play of the game.
         ###
+        if not score
+            score = @config.winningScore
+        if not stars
+            stars = @config.winningStars
+
         @updateGameWonStats score, stars
         playAudio 'victory.ogg'
 

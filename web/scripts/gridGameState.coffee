@@ -180,7 +180,7 @@ class window.GridGameState
             line: line
         }
         return
-        
+
     fail: (line)->
         @protagonist.moves.push {
             key: 'fail',
@@ -351,10 +351,10 @@ class window.GridGameState
     gameWon: =>
         return if not @startedGame
         @stopGame()
-            
-        @stars = 1
-        @score = 5
-        @gameManager.gameWon @score, @stars       
+
+        # @stars = 1
+        # @score = 5
+        @gameManager.gameWon @score, @stars
         return
 
     gameLost: =>
@@ -372,10 +372,10 @@ class window.GridGameState
 
     stopGame: =>
         @startedGame = false
-            
+
         if clockHandle?
             clearInterval clockHandle
-        
+
         for name, character of @gameConfig.characters
             if @visual.getState(character.index) != 5
                 @visual.changeState character.index, 4
