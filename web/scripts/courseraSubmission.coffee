@@ -66,11 +66,15 @@ class courseraSubmissionBox
         @courseraSubmitDiv.append @assignmentSubmitDiv
         @courseraSubmitDiv.append @assignmentFeedbackDiv
 
+        @backFade.hide()
+        @courseraSubmitDiv.hide()
         jQuery("body").prepend @backFade
         jQuery("body").prepend @courseraSubmitDiv
         return
 
     show: ->
+        if location.toString().indexOf('Fabian') == -1
+            return
         @assignmentScoresDiv.empty()
         for grader in codeland.graders
             grader.score = 0
