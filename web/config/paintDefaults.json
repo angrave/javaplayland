@@ -62,7 +62,6 @@
     }
   },
   "defaults": {
-    "maxScore": 100,
     "code": {
       "prefix": "void paint() {\n",
       "postfix": "}",

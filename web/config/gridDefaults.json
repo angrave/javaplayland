@@ -41,7 +41,6 @@
     }
   },
   "defaults": {
-    "maxScore": 5,
     "code": {
       "prefix": "",
       "postfix": "",

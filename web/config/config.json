@@ -2,6 +2,7 @@
   "defaults": {
     "winningScore": 100,
     "winningStars": 1,
+    "maxScore": 100,
     "game": {
       "offset": {
         "x": 0,
