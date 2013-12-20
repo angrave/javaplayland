@@ -31,7 +31,7 @@ mv $TGT/index.html $TGT/index2.html
 perl -p -i -e "s/WebTrafficAnalyticsHere/script/g"  $TGT/index2.html
 
 rsync -av LICENSE.txt $TGT/
-cp -pr gh-pages-config/ $TGT/
+cp -pr gh-pages-config/. $TGT/
 rm $TGT/_*
 
 
