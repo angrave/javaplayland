@@ -1,5 +1,7 @@
 {
   "defaults": {
+    "winningScore": 100,
+    "winningStars": 1,
     "game": {
       "offset": {
         "x": 0,
