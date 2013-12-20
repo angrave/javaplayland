@@ -44,15 +44,23 @@ class courseraSubmissionBox
         }
 
         @password = jQuery '<input>', {
-            type: 'text',
+            type: 'password',
             name: 'submissionPassword',
             placeholder: 'Submission Password'
+        }
+        @submit = jQuery '<input>', {
+            type: 'button',
+            name: 'submissionButton',
+            value: 'Submit to Coursera',
+            click: @submitAllGraders
         }
         @assignmentSubmitDiv.append 'Submission Login: '
         @assignmentSubmitDiv.append @login
         @assignmentSubmitDiv.append '<br />'
         @assignmentSubmitDiv.append 'Submission Password: '
         @assignmentSubmitDiv.append @password
+        @assignmentSubmitDiv.append '<br />'
+        @assignmentSubmitDiv.append @submit
 
         @courseraSubmitDiv.append @assignmentScoresDiv
         @courseraSubmitDiv.append @assignmentSubmitDiv
@@ -69,11 +77,11 @@ class courseraSubmissionBox
             grader.maxScore = 0
             for target in grader.targets
                 if target.type == "game"
-                    addGameScore grader, target.key
+                    @addGameScore grader, target.key
                 else if target.type == "quest"
                     quest = codeland.quests[codeland.questIndexbyQuests[target.key]]
                     for game in quest.games
-                        addGameScore grader, game
+                        @addGameScore grader, game
                 else
                     console?.log "Unkown grader target type: #{grader.target}"
             @assignmentScoresDiv.append "<p>#{grader.title}: #{grader.score} / #{grader.maxScore} </p>"
@@ -81,8 +89,40 @@ class courseraSubmissionBox
         @courseraSubmitDiv.show()
         return
 
-    addGameScore = (grader, game) ->
+    addGameScore: (grader, game) ->
         gameStatistics = codeland.loadGameStats game
         grader.score += gameStatistics.hiscore
         grader.maxScore += codeland.gameDescriptions[game].maxScore
+        return
+
+    submitAllGraders: =>
+        for grader in codeland.graders
+            @submitGrader grader
+        return
+
+    submitGrader: (grader) ->
+        getChallengePrompt = {
+            'email_address': @login.value,
+            'assignment_part_sid': grader.partID,
+            'response_encoding': 'delim'
+        }
+        challengeUrl = "https://class.coursera.org/#{grader.url}/assignment/challenge"
+        jQuery.ajax {
+            async: false,
+            type: 'POST',
+            url: challengeUrl,
+            data: getChallengePrompt,
+            error: (jqXHR, textStatus, errorThrown) ->
+                console.log "Error:"
+                console.log jqXHR
+                console.log textStatus
+                console.log errorThrown
+                return
+            success: (data, textStatus, jqXHR) ->
+                console.log "Success:"
+                console.log data
+                console.log textStatus
+                console.log jqXHR
+                return
+        }
         return

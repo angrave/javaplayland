@@ -2,6 +2,7 @@
   "graders": [
     {
       "title": "Quest 1 Game 1",
+      "url": "androidapps101-001",
       "partID": "ijMrF5c8-dev",
       "targets": [
         {
@@ -12,6 +13,7 @@
     },
     {
       "title": "Quest 2",
+      "url": "androidapps101-001",
       "partID": "sEv42Pyk-dev",
       "targets": [
         {
