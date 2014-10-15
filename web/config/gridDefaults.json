@@ -9,34 +9,34 @@
     },
     "preLoading": {
       "protagonist": [
-        "img/wmn1_bk2.gif",
-        "img/wmn1_bk1.gif",
-        "img/wmn1_rt2.gif",
-        "img/wmn1_rt1.gif",
-        "img/wmn1_fr2.gif",
-        "img/wmn1_fr1.gif",
-        "img/wmn1_lf2.gif",
-        "img/wmn1_lf1.gif"
+        "img/game/characters/wmn1_bk2.gif",
+        "img/game/characters/wmn1_bk1.gif",
+        "img/game/characters/wmn1_rt2.gif",
+        "img/game/characters/wmn1_rt1.gif",
+        "img/game/characters/wmn1_fr2.gif",
+        "img/game/characters/wmn1_fr1.gif",
+        "img/game/characters/wmn1_lf2.gif",
+        "img/game/characters/wmn1_lf1.gif"
       ],
       "vicflag": [
-        "img/vicflag1.png",
-        "img/vicflag2.png"
+        "img/game/vicflag1.png",
+        "img/game/vicflag2.png"
       ],
       "guard": [
-        "img/npc3_bk1.png",
-        "img/npc3_bk2.png",
-        "img/npc3_rt1.png",
-        "img/npc3_rt2.png",
-        "img/npc3_fr1.png",
-        "img/npc3_fr2.png",
-        "img/npc3_lf1.png",
-        "img/npc3_lf2.png"
+        "img/game/characters/npc3_bk1.png",
+        "img/game/characters/npc3_bk2.png",
+        "img/game/characters/npc3_rt1.png",
+        "img/game/characters/npc3_rt2.png",
+        "img/game/characters/npc3_fr1.png",
+        "img/game/characters/npc3_fr2.png",
+        "img/game/characters/npc3_lf1.png",
+        "img/game/characters/npc3_lf2.png"
       ],
       "pit": [
-        "img/pit2.png"
+        "img/game/tiles/pit2.png"
       ],
       "dot": [
-        "img/dot.png"
+        "img/codeIn/dot.png"
       ]
     }
   },

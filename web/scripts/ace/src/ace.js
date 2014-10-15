@@ -27,6 +27,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ***** END LICENSE BLOCK ***** */
+ 
+ /*
+	This class is the code for the Advanced Code Editor (ACE), 
+	which is a syntax-highlighting editor that appears
+	when updating text in Cascade.
+	
+	For more information, visit:
+	- https://github.com/ajaxorg/ace/wiki/Configuring-Ace
+	- http://www.hannonhill.com/kb/Advanced-Code-Editor/
+ */
 
 (function() {
 
@@ -13146,7 +13156,14 @@ config.defineOptions(VirtualRenderer.prototype, "renderer", {
         },
         initialValue: true
     },
-    highlightGutterLine: {
+	/* 
+		The gutter contains the line numbers on the left hand side of the 
+		code editor during the game levels.
+		
+		For more information, look here: 
+		http://stackoverflow.com/questions/16864236/how-to-mark-line-numbers-in-javascript-ace-editor
+	*/
+    highlightGutterLine: { 
         set: function(shouldHighlight) {
             if (!this.$gutterLineHighlight) {
                 this.$gutterLineHighlight = dom.createElement("div");

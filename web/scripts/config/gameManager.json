@@ -1,0 +1,27 @@
+{
+    "editDivCSS":{
+        "width":"60%",
+        "height":"80%",
+        "position":"absolute",
+        "top":"10%",
+        "left":"3.3%",
+        "background-color":"#003366",
+        "border":"4px double #3F80C0"
+    },
+    "visCSS":{
+        "width":"30%",
+        "height":"80%",
+        "position":"absolute",
+        "top":"10%",
+        "right":"3.3%",
+        "background-color":"#003366",
+        "border":"4px double #3F80C0"
+    },
+    "editDiv":[
+        "<img height='48' style='position:absolute;bottom:1%;right:1%' alt='Play' id='compileAndRun' src='img/freeware/button_play_green-48px.png' title='Run Code'/>",
+        "<img height='48' style='position:absolute;bottom:1%;right:1%' alt='Stop' id='stopRun' src='img/freeware/button_stop_red-48px.png' title='Stop Code'/>",
+        "<img height='48' style='position:absolute;bottom:1%;right:8%' alt='Reset' title='Restart level (reset code back to original)' id='resetState' src='img/cc-bynd/undo_yellow-48px.png'/>",
+        "<img height='48' style='position:absolute;bottom:1%;right:15%' alt='Help/Tips' title='Help/Tips' id='help' src='img/freeware/info-48px.png'/>"
+
+    ]
+}

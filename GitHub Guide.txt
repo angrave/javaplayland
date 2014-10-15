@@ -1,0 +1,14 @@
+In addition to having a local copy in your server folder (default xampp folder is htdocs)
+you will want to have a local github repository too.
+
+To avoid accidentally pushing unfinished code to github I prefer to keep the local version
+and the github repository separate.
+
+The github repository part is standard practice for any github project so there is nothing specific
+to javaplayland.
+
+Remember that whatever changes you do to your local copy will have to be applied to the github repository and any commits made to the github version will have to be applied to your local copy.
+Just look at standard github tutorials you can find and the windows app works well enough for our purposes.
+
+The github help page is here :
+https://help.github.com/articles/set-up-git

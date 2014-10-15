@@ -1,9 +1,62 @@
-#gameSelection {
+#gameSelection { /* */
     left: 5%;
 }
 
 body {
     font-family: 'Abel', cursive;
+	background: url(../img/interface/grainger.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+    height:95%;
+    width:100%;
+    overflow:hidden;
+    margin:0;
+    padding:0;
+    background-color:#FFFFEE;
+    position:relative;
+    top:-1%;
+    border-top:2px solid #CC9933;
+    margin:0;
+    padding:0
+}
+body >#mainbody{
+    height:95%;
+    width:100%;
+}
+body >#mainbody>#UI{
+    max-height:750px;
+    position:relative;
+    top:7.5%;
+    border-top:2px solid #366CA3;
+    border-bottom:2px solid #366CA3
+}
+body>#mainbody>#UI>#loading{
+    font-size:64px;
+    position:absolute;
+    left:40%;
+    right:40%;
+    top:40%;
+    background-color:orange
+}
+body>#mainbody>#UI>#progress{
+    font-size:14px;
+    position:absolute;
+    left:40%;
+    right:40%;
+    top:80%;
+    background-color:orange
+}
+body>#footer{
+    text-align: center;
+    min-width: 100%;
+    display: inline-block;
+    background-color: white;
+    position:absolute;
+    height:13px;
+    width:100%;
+    bottom:0%;
+    font-size:8pt
 }
 
 .cursiveHeadline {
