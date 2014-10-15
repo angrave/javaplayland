@@ -83,7 +83,7 @@ apt-get -y install apache2
 #We will download the javaplayland project from github and extract it to the apache folder
 
 cd /var/www
-git clone http://github.com/angrave/javaplayland.git
+git clone http://github.com/milanocookies93/javaplayland.git
 coffee -c /var/www/javaplayland
 
 echo "If you are seeing this then everything should be okay. Apache should be running now and also
