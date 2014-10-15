@@ -8,7 +8,7 @@ After the installation, open a command prompt.  Enter “npm install -g coffee-s
 can validate the installation with “coffee –v”. It will tell you the version if the
 installation was successful.
 
-3.	Download the project from https://github.com/bponnaluri/javaplayland
+3.	Download the project from https://github.com/angrave/javaplayland
 
 4.	Assume we installed Xampp at c:\xampp, extract the contents of the zip (the outermost folder) 
     to C:\xampp\htdocs so we will have C:\xampp\htdocs\javaplayland-master
