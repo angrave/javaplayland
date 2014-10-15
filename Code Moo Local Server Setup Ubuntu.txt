@@ -1,0 +1,72 @@
+If you are new to Ubuntu and just want to get the local version up and running, you can
+use setup_local_version.sh file to do everything for you. You just need to download that
+file and run it in the terminal. It will download all required files and setup apache so
+you will have a working local copy of the project. If you want to have a local copy as the
+working repository for GitHub, you’ll have to setup that additionally.
+
+Installation
+1)	Install java 6
+sudo apt-get install openjdk-6-jre
+
+2)	Install all the requirements. If you are experienced with linux enough to understand the
+side effects purging might cause, look into the node and nodejs package conflict 
+(http://askubuntu.com/questions/235655/node-js-conflicts-sbin-node-vs-usr-bin-node/320271#320271) 
+and determine how to proceed. 
+
+sudo apt-get update
+
+sudo apt-get --purge remove node
+sudo apt-get --purge remove nodejs
+
+sudo apt-get install nodejs
+sudo apt-get install nodejs npm
+sudo npm install -g coffee-script
+
+3)	Check everything works with these commands, every call should return a version number
+java –version
+javac -version
+nodejs –v
+npm –v
+coffee  -v
+
+4)	Install git
+sudo apt-get install git-core
+git init
+
+5)	We want to use make version 3.82. As of now Ubuntu still uses 3.81. In a terminal type make –v
+    If you have 3.82 you can skip the following steps.
+1.	This step might be unnecessary but just to make sure there isn’t a version conflict uninstall
+    the current make by typing 
+sudo apt-get remove make
+
+2.	Go to http://ftp.gnu.org/gnu/make/ and download the file make-3.82.tar.gz. If you are new to
+    the terminal extract the folder to your home folder and rename it to make.
+    In the terminal type “cd make” to go the folder. If you extracted it elsewhere just go to that folder.
+
+3.	Run these commands
+./configure
+sudo make install
+
+4.	Close the terminal and open a new one. Type “make –v” you will see 3.82 if everything worked properly.
+
+6)	We need a server to be able to work on a local copy of javaplayland. If you have any preferences
+    for which program to use, just go ahead and copy the project from
+    https://github.com/bponnaluri/javaplayland to your programs relevant folder and access the project
+    through your programs localhost address.
+
+If you are fine with using apache2, just install it with 
+sudo apt-get install apache2
+
+apache’s server folder is in “/var/www/” open a terminal and go to that folder with 
+cd /var/www
+copy the project by
+git clone http://github.com/bponnaluri/javaplayland.git
+you can access the local version by going to http://localhost/javaplayland/web/ in your browser
+
+You need to compile the coffeescript files before the project works. You can do this with typing the following
+in a terminal (assuming you are using apache. If not, change the parameter location to your programs relevant
+folder address)
+
+coffee -c /var/www/javaplayland
+
+Remember that you need to recompile these files anytime you make any changes to the coffeescript files.

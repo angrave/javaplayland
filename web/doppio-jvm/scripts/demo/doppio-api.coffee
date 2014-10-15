@@ -25,7 +25,9 @@ class window.DoppioApi
             jvm.set_classpath '/sys/vendor/classes', '/tmp/'
             @rs = new runtime.RuntimeState(@output, stdin, @bs_cl)
             done_cb2?()
+        console.log("1.1")
         @load_mini_rt(done_cb1,progress_cb)
+        console.log("1.2")
         return
 
     setOutputFunctions: (stdout, @log) ->
@@ -44,6 +46,7 @@ class window.DoppioApi
         return
 
     load_mini_rt: (done_cb,progress_cb)->
+        console.log("Loading stuff")
         ###
             Loads the compressed pre-compiled java classes for Doppio
         ###
@@ -61,7 +64,7 @@ class window.DoppioApi
             catch e
                 console.error "Error writing #{path}: #{e}"
 
-          untar new util.BytesArray(data), write_one_file, done_cb
+          untar new util.BytesArray(data), write_one_file, done_cb #The problem is here
         return
 
     run: (studentCode, gameContext, finished_cb) =>

@@ -9,55 +9,55 @@
     },
     "preLoading": {
       "black": [
-        "img/blackPixel.png"
+        "img/game/tiles/blackPixel.png"
       ],
       "blackBorder": [
-        "img/blackPixelBorder.png"
+        "img/game/tiles/blackPixelBorder.png"
       ],
       "blue": [
-        "img/bluePixel.png"
+        "img/game/tiles/bluePixel.png"
       ],
       "blueBorder": [
-        "img/bluePixelBorder.png"
+        "img/game/tiles/bluePixelBorder.png"
       ],
       "green": [
-        "img/greenPixel.png"
+        "img/game/tiles/greenPixel.png"
       ],
       "greenBorder": [
-        "img/greenPixelBorder.png"
+        "img/game/tiles/greenPixelBorder.png"
       ],
       "lightBlue": [
-        "img/lightBluePixel.png"
+        "img/game/tiles/lightBluePixel.png"
       ],
       "lightBlueBorder": [
-        "img/lightBluePixelBorder.png"
+        "img/game/tiles/lightBluePixelBorder.png"
       ],
       "pink": [
-        "img/pinkPixel.png"
+        "img/game/tiles/pinkPixel.png"
       ],
       "pinkBorder": [
-        "img/pinkPixelBorder.png"
+        "img/game/tiles/pinkPixelBorder.png"
       ],
       "purple": [
-        "img/purplePixel.png"
+        "img/game/tiles/purplePixel.png"
       ],
       "purpleBorder": [
-        "img/purplePixelBorder.png"
+        "img/game/tiles/purplePixelBorder.png"
       ],
       "red": [
-        "img/redPixel.png"
+        "img/game/tiles/redPixel.png"
       ],
       "redBorder": [
-        "img/redPixelBorder.png"
+        "img/game/tiles/redPixelBorder.png"
       ],
       "yellow": [
-        "img/yellowPixel.png"
+        "img/game/tiles/yellowPixel.png"
       ],
       "yellowBorder": [
-        "img/yellowPixelBorder.png"
+        "img/game/tiles/yellowPixelBorder.png"
       ],
       "white": [
-        "img/whitePixel.png"
+        "img/game/tiles/whitePixel.png"
       ]
     }
   },

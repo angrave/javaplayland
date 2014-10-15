@@ -1,0 +1,17 @@
+web/scripts/gui/playerCodeEditor.js
+web/scripts/gui/codeland.js
+web/scripts/gui/gameVisual.js
+web/scripts/gui/gameManager.js
+web/scripts/gui/paintGameState.js
+web/scripts/gui/referenceUI.js
+web/scripts/gui/menuBar.js
+web/scripts/gui/gameSelection.js
+web/scripts/gui/cloud.js
+web/scripts/gui/ref.js
+web/scripts/model/gridGameState.js
+web/scripts/model/codeInterpreter.js
+web/scripts/setup/nodeSetup.js
+web/scripts/ace/src/ext-settings_menu.js
+web/scripts/ace/src/mode-java.js
+web/scripts/ace/src-noconflict/ext-settings_menu.js
+web/scripts/ace/src-noconflict/mode-java.js
