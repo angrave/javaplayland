@@ -3,6 +3,7 @@
 *.js
 *.map
 *.DS_Store
+*.coffee
 node_modules
 vendor/
 web/scripts/index.js
