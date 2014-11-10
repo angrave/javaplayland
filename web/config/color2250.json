@@ -1,0 +1,71 @@
+{
+  "title": "Conditionals Loops",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+		"y = 0;",
+		"y = 4;",
+		"end = 2;",
+		"end = 6;",
+        "if(color == \"g\"){",
+        "}else{",
+        "color = getPixel(x, SRC);",
+		"}"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int SRC = 3; // Source row",
+      "int x = 0, y = 0;",
+	  "int end = 0;",
+	  "String color=\"b\";",
+      "while(x<8)",
+      "{"
+    ],
+    "postfix": [ 
+	  "while(y <= end)",
+	  "{",
+	  "drawPixel(x, y, color);",
+	  "y++;",
+	  "}",
+	  "x++;",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 22 - 'Conditional Loops'",
+	"We have only one loop to use, but two different ranges ... what can we do?",
+	"Hint: Try to assign different values to variables inside the conditional statement",
+	"that the for loop can take advantage of"
+	]
+  },
+  "game": {
+    "map": [
+      "....GG..",
+      "....GG..",
+	  "....GG..",
+      "rruuggbr",
+	  "RRUU..BR",
+      "RRUU..BR",
+	  "RRUU..BR"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

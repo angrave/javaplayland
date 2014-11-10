@@ -1,0 +1,54 @@
+{
+  "title": "AND and OR",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "if(x > 2 && x < 6){",
+        "if(x < 3 || x > 5){",
+		"}",
+		"drawPixel(x, 1, \"blue\");"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 0;",
+      "while(x<8)",
+      "{"
+    ],
+    "postfix": [ 
+	  "x = x + 1;",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 21 - 'AND and OR'",
+	"We can test two different conditions in one if",
+	"&& represents AND. Both conditions must be true for it to evaluate to be true",
+	"|| represents OR. At least one of the conditions must be true for || to evaluate to be true",
+	"Try to figure out which one will work here"
+	]
+  },
+  "game": {
+    "map": [
+	  "UUU...UU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 1
+    }
+  },
+  "dyk": []
+}

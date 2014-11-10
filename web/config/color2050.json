@@ -1,0 +1,54 @@
+{
+  "title": "What's NOT to like!",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+	    "if(!(x < 4)){",
+        "if(!(x > 3)){",
+		"}",
+		"drawPixel(x, 1, \"blue\");"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int x = 0;",
+      "while(x<8)",
+      "{"
+    ],
+    "postfix": [ 
+	  "x++; //This is equal to x = x + 1",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 20 - 'What's NOT to like!'",
+	"If you want to flip a condition so that the statement attached to the if executes if it's false,",
+	"negate the condition by using an exclaimation point.",
+	"We are also introducing the increment operator, ++, which increases the variable by one",
+	"It has a less often used sibling, the decrement operator --"
+	]
+  },
+  "game": {
+    "map": [
+	  "UUUU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 1
+    }
+  },
+  "dyk": []
+}
