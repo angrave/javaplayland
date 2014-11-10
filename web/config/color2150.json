@@ -1,12 +1,12 @@
 {
-  "title": "Fill",
+  "title": "AND and OR",
   "description": "",
   "task": "",
   "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
-    "freeformEditting": true,
+    "freeformEditting": false,
     "buttons": [
       "switchUp",
       "switchDown",
@@ -15,34 +15,39 @@
     ],
     "commands": {
       "shorthand": [
-        
+        "if(x > 2 && x < 6){",
+        "if(x < 3 || x > 5){",
+		"}",
+		"drawPixel(x, 1, \"blue\");"
       ]
     }
   },
   "code": {
-    "prefix": 
-      "void fill(int x, int y, String colorToDraw) {",
-    "postfix": [
-      "}",
+    "prefix": [
       "void paint() {",
-      "fill(0,0,\"blue\");",
-      "}"
+      "int x = 0;",
+      "while(x<8)",
+      "{"
     ],
-    "comments": [
-      "Color Puzzle 14 - 'Fill'",
-"A function can call itself multiple times with different arguments, it's not limited to recurse once.",
-"In this level, you will have to recurse in the +x and +y direction.",
-"We've taken off the training wheels so you can write code with your keyboard",
-"You are limited to only one drawPixel(x,y,colorToDraw), so do not try to use iteration!"
-    ]
+    "postfix": [ 
+	  "x = x + 1;",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 21 - 'AND and OR'",
+	"We can test two different conditions in one if",
+	"&& represents AND. Both conditions must be true for it to evaluate to be true",
+	"|| represents OR. At least one of the conditions must be true for || to evaluate to be true",
+	"Try to figure out which one will work here"
+	]
   },
   "game": {
     "map": [
-      "UUU","UUU","UUU"
+	  "UUU...UU"
     ],
     "offset": {
       "x": 0,
-      "y": 0
+      "y": 1
     }
   },
   "dyk": []
