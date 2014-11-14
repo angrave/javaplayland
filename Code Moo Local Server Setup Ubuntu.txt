@@ -51,7 +51,7 @@ sudo make install
 
 6)	We need a server to be able to work on a local copy of javaplayland. If you have any preferences
     for which program to use, just go ahead and copy the project from
-    https://github.com/angrave/javaplayland to your programs relevant folder and access the project
+    https://github.com/milancookies93/javaplayland to your programs relevant folder and access the project
     through your programs localhost address.
 
 If you are fine with using apache2, just install it with 
@@ -60,7 +60,7 @@ sudo apt-get install apache2
 apache’s server folder is in “/var/www/” open a terminal and go to that folder with 
 cd /var/www
 copy the project by
-git clone http://github.com/angrave/javaplayland.git
+git clone http://github.com/milanocookies93/javaplayland.git
 you can access the local version by going to http://localhost/javaplayland/web/ in your browser
 
 You need to compile the coffeescript files before the project works. You can do this with typing the following
