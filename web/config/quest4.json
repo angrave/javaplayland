@@ -1,0 +1,10 @@
+{"key" : "color",
+"title":"Recursion",
+  "games": [
+"color2050"
+  ],
+  "commands": [
+    "drawPixel(I,I,Ljava/lang/String;)V",
+    "getColor(I,I)Ljava/lang/String;"
+  ]
+}
