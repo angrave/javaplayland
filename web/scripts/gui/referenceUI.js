@@ -6,6 +6,7 @@
 
   editorCount = 0;
 
+  /**   * Fades out the background to show a reference   * page for the user when they click the menu buttons.   */
   sandBoxInfo = (function() {
     var backFade, cssData, input, output, pageSize, refContainer;
 
@@ -20,7 +21,8 @@
     pageSize = 0;
 
     cssData = null;
-
+	
+	/**	 * Loads the CSS for the reference UI	 * from a json file.	 * @param pSize Represents the size of the window.	 */
     function sandBoxInfo(pSize) {
       var dData;
       pageSize = pSize;
@@ -28,9 +30,8 @@
       console.log("Starting");
       cssData = findConfig('scripts/config/referenceUI.json');
     }
-
-    'This sets up the IO area.\n@param pageSize Represents the size of the window.';
-
+	
+	/**	 * This sets up the IO area.	 * @param pageSize Represents the size of the window.	 */
     sandBoxInfo.prototype.setupInput = function() {
       var hSize, vSize;
       vSize = pageSize + "%";
@@ -56,9 +57,11 @@
         "overflow": "auto"
       });
     };
-
-    'This sets up the reference container.\n@param pageSize Represents the size of the reference container.';
-
+	
+	
+   /**
+    * This sets up the reference container.    * @param pageSize Represents the size of the reference container
+	*/
     sandBoxInfo.prototype.setupRefContainer = function() {
       var pSize;
       pSize = pageSize + "%";
@@ -80,13 +83,15 @@
       return $(refContainer).prepend(output);
     };
 
+	/**	 * Fades out the screen behind the reference 	 * page using CSS data loaded from JSON earlier.	 */
     sandBoxInfo.prototype.setupBackFade = function() {
       backFade = makeDiv({
         id: 'bF'
       }, cssData["backFadeCSS"]);
       return $("body").prepend(backFade);
     };
-
+	
+	/**	 * Adds icons to the corner of the reference page.	 * (results from clicking the keyboard icon)	 */
     sandBoxInfo.prototype.setupEnlarge = function() {
       var en1, en2;
       en1 = makeImgElem({
@@ -121,9 +126,8 @@
     return sandBoxInfo;
 
   })();
-
-  'This method adds a Java sandbox to the current page and returns information about it.\n@param pageSize Represents the size of the input and output areas on the display panel.';
-
+	
+  /**   * This method adds a Java sandbox to the current page and    * returns information about it.   * @param pageSize Represents the size of the input and    * 				 output areas on the display panel   */
   window.sandBoxPage = function() {
     var clClick, clHover, cllvHover, closeClick, enClick, enInHover, enOutHover, pageSize, sPanel, samplecode;
     pageSize = 90;
@@ -194,8 +198,8 @@
     return sPanel;
   };
 
-  'This method adds a panel containing an introduction to Java to the page.\n@param size Represents the size of the display panel.\nInnerHTML is set in this method because setting it in another file did not work, there were problems with runnable code';
 
+ /**  * This method adds a panel containing an introduction to Java to the page.  * @param size Represents the size of the display panel.  * InnerHTML is set in this method because setting it in   * another file did not work, there were problems with runnable code  */
   window.referencePage = function() {
     var backFade, closeClick, examples, ref, refContainer, sel, _i, _ref, _results;
     backFade = document.createElement("div");
@@ -247,7 +251,8 @@
     }
     return _results;
   };
-
+  
+  /**   * Sets up the up the example text in the   * reference code editor.   */
   setUpExample = function(dive) {
     var i, o, text;
     text = $(dive).text();
