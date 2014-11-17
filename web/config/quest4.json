@@ -1,10 +1,25 @@
 {"key" : "color",
 "title":"Recursion",
   "games": [
-"color2050"
+"color2050",
+"color2150"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
-    "getColor(I,I)Ljava/lang/String;"
+    "getColor(I,I)Ljava/lang/String;",
+    "go(I)V",
+    "turn(I)V",
+    "turn(Ljava/lang/String;)V",
+    "turnRight()V",
+    "turnLeft()V",
+    "turnAndGo(I,I)V",
+    "turnAndGo(Ljava/lang/String;,I)V",
+    "goNorth(I)V",
+    "goEast(I)V",
+    "goSouth(I)V",
+    "goWest(I)V",
+    "mysteryA()V",
+    "mysteryB()V",
+    "mysteryC()V"
   ]
 }
