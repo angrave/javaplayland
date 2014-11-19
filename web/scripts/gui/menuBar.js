@@ -2,6 +2,12 @@
 (function() {
   window.appendBar = function(d) {
     var cont, cssData, edge, ref, sand, select, toggleDrawerInOut;
+	
+	/**
+	* attaches the menu bar to the main screen
+	* @param d the element to attach the menu bar to
+	*/
+
     $("#acelne").remove();
     cssData = findConfig('scripts/config/menuBar.json');
     toggleDrawerInOut = function() {

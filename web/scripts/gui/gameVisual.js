@@ -290,6 +290,9 @@
 
     })();
 
+	/*
+	* gets the frame data from the config file
+	*/
     GameVisual.prototype.getFrame = function(config, outtick) {
       var tdist;
       this.ticker = outtick;
@@ -334,11 +337,17 @@
       }
     };
 
+	/*
+	* draws the game grid and places each object on it
+	*/
     GameVisual.prototype.drawFrame = function(frame, config) {
       this.drawGrid(frame, config.grid);
       this.drawChar(frame);
     };
 
+	/*
+	* draws each object on the given frame
+	*/
     GameVisual.prototype.drawChar = function(frame) {
       var obj, s, td, _i;
       td = frame.getContext('2d');
@@ -354,6 +363,9 @@
       }
     };
 
+	/*
+	* updates each object's position
+	*/
     GameVisual.prototype.chckMv = function(config) {
       var mr, obj, _i, _len;
       for (_i = 0, _len = objArray.length; _i < _len; _i++) {
@@ -389,7 +401,8 @@
 
 
     /*
-     */
+	* draws the game grid using the give frame tmp
+    */
 
     GameVisual.prototype.drawGrid = function(tmp, config) {
       var grid, index, ps, text, _i, _j, _k, _l, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7;

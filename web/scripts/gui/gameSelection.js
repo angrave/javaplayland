@@ -6,7 +6,12 @@
     cont = null;
 
     config = null;
-
+	
+	/**
+	* creates the outer container for the game selector at div
+	* @param div to place the game selector
+	* @param dis whether or not to display full data in text or image
+	*/
     function gameSelector(div, dis) {
       var tmp;
       this.div = div;
@@ -20,6 +25,15 @@
       return;
     }
 
+	/**
+	* builds the block representing each game
+	* @param count the number in the series the game is
+	* @param game the game to be played
+	* @param desc the title of the game
+	* @param player the current player
+	* @param canPlay not used?
+	* @param codeland the object representing all the games
+	*/
     gameSelector.prototype.buildDiv = function(count, game, desc, player, canPlay, codeland) {
       var img, span, src;
       span = document.createElement("span");
@@ -45,6 +59,11 @@
       }
     };
 
+	/**
+	* if canPlay is true, attaches animation of woman walking to con, otherwise, attaches static image
+	* @param con the container to attach the img
+	* @param canPlay whether or not game is playable
+	*/
     gameSelector.prototype.buildAn = function(con, canPlay) {
       var images, problem, tmp2;
       tmp2 = makeImgElem(null, config["tmp2CSS"]);
@@ -64,6 +83,11 @@
       }
     };
 
+	/**
+	* creates a div to hold the player's current score and attaches it to con
+	* @param con the container to attach the score to
+	* @param player the current player
+	*/
     gameSelector.prototype.buildScore = function(con, player) {
       var es, ns, tmp, tmp1, tmp2, tmp3, _i, _j, _ref, _ref1;
       tmp = makeDiv(null, config["tmpBuildScoreCSS"]);
@@ -91,7 +115,11 @@
         }
       }
     };
-
+	/**
+	* attaches a description to a given container
+	* @param con the container
+	* @param desc the description to attach
+	*/
     gameSelector.prototype.buildInfo = function(con, desc) {
       var tmp, tmp1, tmp2;
       tmp = makeDiv(null, cssData["tmpBuildInfoCSS"]);
@@ -103,7 +131,14 @@
       $(tmp1).text("Name:  " + desc.name);
       return $(tmp2).text("Description:  " + desc.description);
     };
-
+	
+	/**
+	* returns click handler to start the game if it can be played, otherwise returns empty div
+	* @param con container to attach handler
+	* @param cp whether or not game can be played
+	* @param codeland class that holds games
+	* @param game game to be played
+	*/
     gameSelector.prototype.canPlay = function(con, cp, codeland, game) {
       var over, ovr;
       if (cp) {
