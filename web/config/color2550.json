@@ -1,0 +1,49 @@
+{
+  "title": "Fill",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": true,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        
+      ]
+    }
+  },
+  "code": {
+    "prefix": 
+      "void fill(int x, int y, String colorToDraw) {",
+    "postfix": [
+      "}",
+      "void paint() {",
+      "fill(0,0,\"blue\");",
+      "}"
+    ],
+    "comments": [
+      "Color Puzzle 14 - 'Fill'",
+"A function can call itself multiple times with different arguments, it's not limited to recurse once.",
+"In this level, you will have to recurse in the +x and +y direction.",
+"We've taken off the training wheels so you can write code with your keyboard",
+"You are limited to only one drawPixel(x,y,colorToDraw), so do not try to use iteration!"
+    ]
+  },
+  "game": {
+    "map": [
+      "UUU","UUU","UUU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}
