@@ -33,7 +33,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #6 - 'Re-usable integers'",
+      "Color Puzzle #4 - 'Re-usable integers'",
 "Use an int variable to store, and later re-use an integer value.",
 "Once you've created a variable you can use the variable's current value, or store a new value."
     ]
