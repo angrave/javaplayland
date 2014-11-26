@@ -32,7 +32,7 @@
       "int SRC = 3; // Source row",
       "int x = 0, y = 0;",
 	  "int end = 0;",
-	  "String color=\"b\";",
+	  "String color=\"blue\";",
       "while(x<8)",
       "{"
     ],
