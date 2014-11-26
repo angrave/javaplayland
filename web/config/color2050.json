@@ -1,5 +1,5 @@
 {
-  "title": "Paintline",
+  "title": "What's NOT to like!",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -15,35 +15,39 @@
     ],
     "commands": {
       "shorthand": [
-        "if (x < 7) paintline(x+1,y,colorToDraw);",
-        "drawPixel(x, y, colorToDraw);"
+	    "if(!(x < 4)){",
+        "if(!(x > 3)){",
+		"}",
+		"drawPixel(x, 1, \"blue\");"
       ]
     }
   },
   "code": {
-    "prefix": 
-      "void paintline(int x, int y, String colorToDraw) {",
-    "postfix": [
-      "}",
+    "prefix": [
       "void paint() {",
-      "paintline(0,3,\"blue\");",
-      "}"
+      "int x = 0;",
+      "while(x<8)",
+      "{"
     ],
-    "comments": [
-      "Color Puzzle 13 - 'Paintline'",
-"Recursion works like loops. A function calls itself until it fufills some condition",
-"Without this condition you could end up with a situation similiar to an infinite loop",
-"paint() calls the recursive function paintline(int x, int y) to paint the line blue",
-"Use the provided code to complete paintline(int x, int y)"
-    ]
+    "postfix": [ 
+	  "x++; //This is equal to x = x + 1",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 20 - 'What's NOT to like!'",
+	"If you want to flip a condition so that the statement attached to the if executes if it's false,",
+	"negate the condition by using an exclaimation point.",
+	"We are also introducing the increment operator, ++, which increases the variable by one",
+	"It has a less often used sibling, the decrement operator --"
+	]
   },
   "game": {
     "map": [
-      "UUUUUUUU"
+	  "UUUU"
     ],
     "offset": {
       "x": 0,
-      "y": 3
+      "y": 1
     }
   },
   "dyk": []
