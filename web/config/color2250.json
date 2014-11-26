@@ -19,7 +19,7 @@
 		"y = 4;",
 		"end = 2;",
 		"end = 6;",
-        "if(color == \"g\"){",
+        "if(color.equals(\"green\")){",
         "}else{",
         "color = getPixel(x, SRC);",
 		"}"
