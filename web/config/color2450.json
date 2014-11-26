@@ -1,0 +1,50 @@
+{
+  "title": "Paintline",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "if (x < 7) paintline(x+1,y,colorToDraw);",
+        "drawPixel(x, y, colorToDraw);"
+      ]
+    }
+  },
+  "code": {
+    "prefix": 
+      "void paintline(int x, int y, String colorToDraw) {",
+    "postfix": [
+      "}",
+      "void paint() {",
+      "paintline(0,3,\"blue\");",
+      "}"
+    ],
+    "comments": [
+      "Color Puzzle 13 - 'Paintline'",
+"Recursion works like loops. A function calls itself until it fufills some condition",
+"Without this condition you could end up with a situation similiar to an infinite loop",
+"paint() calls the recursive function paintline(int x, int y) to paint the line blue",
+"Use the provided code to complete paintline(int x, int y)"
+    ]
+  },
+  "game": {
+    "map": [
+      "UUUUUUUU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 3
+    }
+  },
+  "dyk": []
+}
