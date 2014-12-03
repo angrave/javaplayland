@@ -13,15 +13,13 @@
 	* @param dis whether or not to display full data in text or image
 	*/
     function gameSelector(div, dis) {
-      var tmp;
+      var game_selection_div;
       this.div = div;
       this.dis = dis;
       $("#acelne").remove();
-      config = findConfig('scripts/config/gameSelection.json');
-      tmp = makeDiv(null, config["tmpCSS"]);
-      cont = $(tmp);
-      $(tmp).attr("id", "gameSelection");
-      this.div.append(tmp);
+      game_selection_div = document.createElement("div");
+      $(game_selection_div).attr("id", "gameSelection");
+      this.div.append(game_selection_div);
       return;
     }
 
@@ -34,13 +32,12 @@
 	* @param canPlay not used?
 	* @param codeland the object representing all the games
 	*/
-    gameSelector.prototype.buildDiv = function(count, game, desc, player, canPlay, codeland) {
+    gameSelector.prototype.buildDiv = function(accordionTab, count, game, desc, player, canPlay, codeland) {
       var img, span, src;
       span = document.createElement("span");
-      $(span).css(config["spanCSS"]);
       $(span).attr("id", "select" + game);
-      $(span).attr("class", "select" + count);
-      cont.append(span);
+      $(span).attr("class", "select" + count + " level-item");
+      $(accordionTab).append(span);
       $(span).click(function() {
         return codeland.startGame(game);
       });

@@ -143,17 +143,17 @@
         @param player
             The player whose games to display.
      */
-    var addGameToMap, arrayOfIdx, arrayOfSpans, arrayOfStrings, count, currGameIdx, descriptions, gameKey, gameSequence, games, mapDiv, qcount, quest, sel, selectCount, span, spanCounter, spanCounterThree, spanCounterTwo, tmp1, whileCounter, _i, _j, _len, _len1, _ref, _ref1;
+    var addGameToMap, arrayOfIdx, arrayOfSpans, arrayOfStrings, count, currGameIdx, descriptions, gameKey, gameSequence, games, mapDiv, qcount, quest, sel, selectCount, span, gameSelection, whileCounter, _i, _j, _len, _len1, _ref, _ref1;
     descriptions = root.getGameDescriptions();
     mapDiv = $(root.UIcont);
     mapDiv.empty();
     gameSequence = root.getGameSequence();
     sel = new gameSelector(mapDiv, false);
-    tmp1 = document.getElementById("gameSelection");
+    gameSelection = document.getElementById("gameSelection");
     count = 0;
-    addGameToMap = function(game) {
+    addGameToMap = function(accordionTab, game) {
       count = count + 1;
-      sel.buildDiv(count, game, descriptions[game], player.games[game], root.canPlay(game), codeland);
+      sel.buildDiv(accordionTab, count, game, descriptions[game], player.games[game], root.canPlay(game), codeland);
     };
     qcount = 0;
     currGameIdx = 0;
@@ -161,41 +161,44 @@
     _ref = root.quests;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       quest = _ref[_i];
-      span = document.createElement("span");
+      span = document.createElement("div");
       $(span).attr({
-        "class": "span" + (++qcount),
+        "class": "div" + (++qcount) + " game-selection",
         alt: "Click here to hide/show all levels in this quest.",
         title: "Click here to hide/show all levels in this quest."
       });
-      $(span).css({
-        "min-width": "450px",
-        "min-height": "32px",
-        "padding": "5px",
-        "display": "inline-block",
-        "white-space": "nowrap",
-        "border": "1px dashed orange",
-        "background-color": "#ffa500",
-        "text-align": "center",
-        "font-family": "Monospace",
-        "cursor": "pointer"
-      });
-      $(tmp1).append(span);
-      $(span).append("<b>QUEST " + qcount + ": " + quest.title + "</b>");
+      $(gameSelection).append(span);
+      $(span).append("<h3>QUEST " + qcount + ": " + quest.title + "</h3>");
       span.click(function(clickEvent) {
-        jQuery("span[id='" + clickEvent.currentTarget.id + " Container']").children().toggle();
+        jQuery("div[id='" + clickEvent.currentTarget.id + " Container']").children().toggle();
       });
-      games = jQuery('<span>', {
+      games = jQuery('<div>', {
         id: "" + quest.title + " Container"
       });
       _ref1 = quest.games;
+
+      var span_div = document.createElement("div");
+      $(span_div).attr({"class": "span-div span-div" + qcount}); 
+      jQuery(span).append(span_div);
+
+
+      var span_counter = 3;
+
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+        if(span_counter <= 0){
+          span_div = document.createElement("div");
+          $(span_div).attr({"class": "span-div span-div" + qcount});
+          jQuery(span).append(span_div);
+          span_counter = 3;
+        }
         gameKey = _ref1[_j];
-        addGameToMap(gameKey, games);
+        addGameToMap(span_div, gameKey, games);
+        span_counter --;
       }
-      jQuery(tmp1).append(games);
+
       currGameIdx = currGameIdx + quest.games.length;
       arrayOfIdx[qcount - 1] = currGameIdx;
-      $("<br><br>").appendTo(tmp1);
+      $("<br><br>").appendTo(gameSelection);
     }
     selectCount = 1;
     whileCounter = 0;
@@ -209,25 +212,39 @@
       }
       arrayOfStrings[whileCounter] = "" + arrayOfStrings[whileCounter] + ".select" + arrayOfIdx[whileCounter];
       console.log(arrayOfStrings[whileCounter]);
-      arrayOfSpans[whileCounter] = ".span" + (whileCounter + 1);
+      arrayOfSpans[whileCounter] = ".div" + (whileCounter + 1);
       console.log(arrayOfSpans[whileCounter]);
       selectCount = arrayOfIdx[whileCounter] + 1;
       whileCounter = whileCounter + 1;
     }
-    spanCounter = 0;
+
+    var spanCounter = 0;
+    var spanCounterTwo = 1;
+    var spanCounterThree = 2;
+    var spanCounterFour = 3;
+
     $(arrayOfSpans[spanCounter]).click(function() {
-      return $(arrayOfStrings[spanCounter]).toggle();
+      $(".span-div1").toggleClass("span-div-toggle",1000);
+      $(arrayOfStrings[spanCounter]).toggleClass("level-item-toggle",1000);
+      return;
     });
-    spanCounterTwo = spanCounter + 1;
     $(arrayOfSpans[spanCounterTwo]).click(function() {
-      return $(arrayOfStrings[spanCounterTwo]).toggle();
+      $(".span-div2").toggleClass("span-div-toggle",1000);
+      $(arrayOfStrings[spanCounterTwo]).toggleClass("level-item-toggle",1000);
+      return;
     });
-    spanCounterThree = spanCounterTwo + 1;
     $(arrayOfSpans[spanCounterThree]).click(function() {
-      return $(arrayOfStrings[spanCounterThree]).toggle();
+      $(".span-div3").toggleClass("span-div-toggle",1000);
+      $(arrayOfStrings[spanCounterThree]).toggleClass("level-item-toggle",1000);
+      return;
     });
-    $('<span style="font-size:100%" class="cursiveHeadline">Choose a level below.</span><br><br>').prependTo(tmp1);
-    $('<span style="font-size:200%" class="cursiveHeadline">CodeMoo Java Game</span><br>').prependTo(tmp1);
+    $(arrayOfSpans[spanCounterFour]).click(function() {
+      $(".span-div4").toggleClass("span-div-toggle",1000);
+      $(arrayOfStrings[spanCounterFour]).toggleClass("level-item-toggle",1000);
+      return;
+    });
+    $('<span style="font-size:100%" class="cursiveHeadline">Choose a level below.</span><br><br>').prependTo(gameSelection);
+    $('<span style="font-size:200%" class="cursiveHeadline">CodeMoo Java Game</span><br>').prependTo(gameSelection);
     $('#gameSelection').animate({
       scrollTop: root.gameSelectionScrollPosition
     }, 0);
@@ -244,7 +261,7 @@
         @param game
             The game to start.
      */
-    var description, env, found, gamediv, index, quest, stats, tmp1, _i, _len, _ref;
+    var description, env, found, gamediv, index, quest, stats, gameSelection, _i, _len, _ref;
     $('#select').show();
     console.log("Starting " + game);
     _ref = root.quests;
@@ -261,10 +278,10 @@
     }
     root.currentGame = null;
     gamediv = $(root.UIcont);
-    tmp1 = document.getElementById("gameSelection");
-    if (tmp1 !== null) {
-      root.gameSelectionScrollPosition = tmp1.scrollTop;
-      root.UIcont.removeChild(tmp1);
+    gameSelection = document.getElementById("gameSelection");
+    if (gameSelection !== null) {
+      root.gameSelectionScrollPosition = gameSelection.scrollTop;
+      root.UIcont.removeChild(gameSelection);
     }
     description = root.getGameDescriptions()[game];
     stats = root.loadGameStats(game);
