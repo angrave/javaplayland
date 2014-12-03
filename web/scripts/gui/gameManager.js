@@ -253,6 +253,22 @@
       window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
       return this.gameRunFinished();
     };
+	
+	GameManager.prototype.compileError = function() {
+
+      /*
+          External Function (used by something outside of this file)
+      
+          Updates the game statistics on the loss, plays the losing sound,
+          and summons the game lost cloud.
+       */
+      var messages;
+      this.updateGameLostStats();
+      playAudio('defeat.ogg');
+      messages = ["Compile Error!<br>Check your code!"];
+      window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
+      return this.gameRunFinished();
+    };
 
     GameManager.prototype.gameWon = function(score, stars) {
 
@@ -528,7 +544,6 @@
       this.environment.stats.tipsCount += 1;
       this.storeStats();
       ma = (_ref = this.config) != null ? (_ref1 = _ref.code) != null ? _ref1.comments : void 0 : void 0;
-      console.log("Help");
       if (ma) {
         if (ma.length > 1) {
           title = ma[0];
