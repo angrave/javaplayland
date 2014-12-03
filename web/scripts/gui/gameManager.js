@@ -528,7 +528,6 @@
       this.environment.stats.tipsCount += 1;
       this.storeStats();
       ma = (_ref = this.config) != null ? (_ref1 = _ref.code) != null ? _ref1.comments : void 0 : void 0;
-      console.log("Help");
       if (ma) {
         if (ma.length > 1) {
           title = ma[0];
