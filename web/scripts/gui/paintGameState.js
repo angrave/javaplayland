@@ -265,6 +265,15 @@
       this.stopGame();
       this.gameManager.gameLost();
     };
+	
+	PaintGameState.prototype.compileError = function() {
+      /*
+          Internal Function (used only by the code in this file)
+      
+          Stops the game and reports the loss to the game Manager.
+       */
+      this.gameManager.compileError();
+    };
 
     PaintGameState.prototype.stopGame = function() {
 
@@ -303,6 +312,15 @@
           Starts the game.
        */
       this.gameState.start();
+    };
+	
+	PaintGameCommands.prototype.compileError = function() {
+      /*
+          External Function (used by something outside of this file)
+      
+          Stops the game and reports the loss to the game Manager.
+       */
+      this.gameState.compileError();
     };
 
     PaintGameCommands.prototype.drawPixel = function(x, y, color) {
