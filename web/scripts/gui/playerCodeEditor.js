@@ -624,6 +624,8 @@
           shortcuts ignore prefix / suffix length and we effectively
           have to over-write them with our own.
        */
+      this.editor.commands.commands.movelinesup['readOnly'] = true;
+      this.editor.commands.commands.movelinesdown['readOnly'] = true;
     };
 
     PlayerCodeEditor.prototype.disableKeyboardShorcuts = function() {
