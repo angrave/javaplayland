@@ -19,8 +19,7 @@ public class RunGame {
 			classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.finishedParsingStartGame()");
         }
         catch (bsh.EvalError e) {
-            System.out.print("Threw " + e);
-			classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.compileError()");
+			classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.compileError(" + String.valueOf(e.getErrorLineNumber()) + ")");
         }
 
         return;
