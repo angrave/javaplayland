@@ -266,13 +266,13 @@
       this.gameManager.gameLost();
     };
 	
-	PaintGameState.prototype.compileError = function() {
+	PaintGameState.prototype.compileError = function(error_num) {
       /*
           Internal Function (used only by the code in this file)
       
           Stops the game and reports the loss to the game Manager.
        */
-      this.gameManager.compileError();
+      this.gameManager.compileError(error_num);
     };
 
     PaintGameState.prototype.stopGame = function() {
@@ -314,13 +314,13 @@
       this.gameState.start();
     };
 	
-	PaintGameCommands.prototype.compileError = function() {
+	PaintGameCommands.prototype.compileError = function(error_num) {
       /*
           External Function (used by something outside of this file)
       
           Stops the game and reports the loss to the game Manager.
        */
-      this.gameState.compileError();
+      this.gameState.compileError(error_num);
     };
 
     PaintGameCommands.prototype.drawPixel = function(x, y, color) {

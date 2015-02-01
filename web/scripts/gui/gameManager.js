@@ -254,7 +254,7 @@
       return this.gameRunFinished();
     };
 	
-	GameManager.prototype.compileError = function() {
+	GameManager.prototype.compileError = function(error_num) {
 
       /*
           External Function (used by something outside of this file)
@@ -265,7 +265,7 @@
       var messages;
       this.updateGameLostStats();
       playAudio('defeat.ogg');
-      messages = ["Compile Error!<br>Check your code!"];
+      messages = ["Compile Error!<br>Check your code at line " + error_num + "!"];
       window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
       return this.gameRunFinished();
     };
