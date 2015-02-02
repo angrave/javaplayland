@@ -233,7 +233,8 @@ button.pop-up-inside {
     background-color:#177CB0;
     font-family:Monospace;
     cursor:pointer;
-    overflow: hidden;  
+    overflow: hidden; 
+    text-overflow: ellipsis; 
     word-wrap: normal;  
 }
 
@@ -317,3 +318,4 @@ a.tooltip span
     box-shadow: 0px 0px 8px 4px #666;
     /*opacity: 0.8;*/
 }
+
