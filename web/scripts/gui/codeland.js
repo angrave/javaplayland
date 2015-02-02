@@ -203,7 +203,10 @@
     selectCount = 1;
     whileCounter = 0;
     arrayOfStrings = [];
+
+    //each arrayOfSpans[i] is a section for each QUEST
     arrayOfSpans = [];
+
     while (whileCounter < arrayOfIdx.length) {
       arrayOfStrings[whileCounter] = "";
       while (selectCount < arrayOfIdx[whileCounter]) {
@@ -222,6 +225,8 @@
     var spanCounterTwo = 1;
     var spanCounterThree = 2;
     var spanCounterFour = 3;
+
+    //add toggle onclick functions to each of the QUEST sections
 
     $(arrayOfSpans[spanCounter]).click(function() {
       $(".span-div1").toggleClass("span-div-toggle",1000);
