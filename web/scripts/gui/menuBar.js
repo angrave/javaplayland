@@ -46,7 +46,7 @@
     $(ref).click(referencePage);
     $(select).click(codeland.showMap);
     $(sand).click(sandBoxPage);
-    $(toggleDrawerInOut);
+    $(edge).click(toggleDrawerInOut);
     return $(d).append(cont);
   };
 
