@@ -255,7 +255,7 @@
       return this.gameRunFinished();
     };
 	
-	GameManager.prototype.compileError = function(error_num) {
+	GameManager.prototype.compileError = function(error_msg) {
 
       /*
           External Function (used by something outside of this file)
@@ -266,7 +266,7 @@
       var messages;
       this.updateGameLostStats();
       playAudio('defeat.ogg');
-      messages = ["Compile Error!<br>Check your code at line " + error_num + "!"];
+      messages = ["Compile Error!<br>" + error_msg + "!"];
       window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
       return this.gameRunFinished();
     };
@@ -459,7 +459,12 @@
       $('#stopRun').show();
       this.environment.stats.runCount += 1;
       this.storeStats();
-      var braces = this.checkBraces(code)
+      var braces = this.checkBraces(code);
+      if(braces != 0)
+      {
+        this.compileError(braces)
+        return;
+      }
       if (this.environment.backEnd === 'interpreter') {
         this.codeEditor.scan();
         if (!this.canRun) {
@@ -562,26 +567,27 @@
           //Otherwise scan again after the comment ends
           else
           {
-            code = code.substr(rcom+2, code.length);
+            code = code.slice(rcom+2, code.length);
             offset += rcom+2;
             continue;
           }
         else if(bcom != -1 && bcom < lbrace)
         {
             //Line comment. Find where it ends, eliminate anything before that
-            code = code.substr(bcom+2, code.length);
+            code = code.slice(bcom+2, code.length);
             endOfLine = code.indexOf("\n");
             //If no newline, then we run into the end of the program. We are done with checking matching
             if(endOfLine == -1)
               return 0;
-            code = code.substr(endOfLine+2, temp.length);
+            code = code.slice(endOfLine+2, temp.length);
             offset += bcom + endOfLine + 4;
         }
-        else if(lbrace * rbrace < 0); //One of the two is -1
+        else if(lbrace * rbrace < 0) //One of the two is -1
           return offset + lbrace * rbrace * -1; //This will give the mismatched position
         else
           //recurse into an inner brace (or next set of braces)
-          code = code.substr(lbrace+1, rbrace);
+          code = code.slice(lbrace+1, rbrace);
+          offset += lbrace+1;
        }
 
      }
