@@ -96,7 +96,6 @@
     window.codeland.calculateProgress();
 
     return;
-
   };
 
 }).call(this);
