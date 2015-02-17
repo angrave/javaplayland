@@ -40,6 +40,7 @@
       this.commandsValid = __bind(this.commandsValid, this);
       this.startGame = __bind(this.startGame, this);
       this.gameName = __bind(this.gameName, this);
+      this.checkBraces = __bind(this.checkBraces, this);
 
       /*
           External Function (used by something outside of this file)
@@ -254,7 +255,7 @@
       return this.gameRunFinished();
     };
 	
-	GameManager.prototype.compileError = function() {
+	GameManager.prototype.compileError = function(error_msg) {
 
       /*
           External Function (used by something outside of this file)
@@ -265,7 +266,7 @@
       var messages;
       this.updateGameLostStats();
       playAudio('defeat.ogg');
-      messages = ["Compile Error!<br>Check your code!"];
+      messages = ["Compile Error!<br>" + error_msg + "!"];
       window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
       return this.gameRunFinished();
     };
@@ -458,6 +459,12 @@
       $('#stopRun').show();
       this.environment.stats.runCount += 1;
       this.storeStats();
+      var braces = this.checkBraces(code);
+      if(braces != 0)
+      {
+        this.compileError(braces)
+        return;
+      }
       if (this.environment.backEnd === 'interpreter') {
         this.codeEditor.scan();
         if (!this.canRun) {
@@ -531,6 +538,59 @@
        */
       this.showRun();
     };
+
+    GameManager.prototype.checkBraces = function(code) {
+      /*
+          Internal Function (used only by the code in this file)
+      
+          Used to check for matching braces.
+       */
+       //Since the code string is pass by value, we can mess with it
+       var offset = 0;
+       while(code.length > 0)
+       {
+        var lcom = code.indexOf("\\*");
+        var rcom = code.indexOf("*\\");
+        var bcom = code.indexOf("\\\\");
+        var lbrace = code.indexOf("{");
+        var rbrace = code.lastIndexOf("}");
+
+        //We need to determine if the braces are an issue
+        //If no braces, then we have a valid program
+        if(lbrace == -1 && rbrace == -1)
+          return 0;
+        //Otherwise, if we have a comment begin before a brace
+        else if(lcom != -1 && lcom < lbrace)
+          //If no matching right comment, then we have a comment mismatch
+          if(rcom == -1)
+            return offset + lcom;
+          //Otherwise scan again after the comment ends
+          else
+          {
+            code = code.slice(rcom+2, code.length);
+            offset += rcom+2;
+            continue;
+          }
+        else if(bcom != -1 && bcom < lbrace)
+        {
+            //Line comment. Find where it ends, eliminate anything before that
+            code = code.slice(bcom+2, code.length);
+            endOfLine = code.indexOf("\n");
+            //If no newline, then we run into the end of the program. We are done with checking matching
+            if(endOfLine == -1)
+              return 0;
+            code = code.slice(endOfLine+2, temp.length);
+            offset += bcom + endOfLine + 4;
+        }
+        else if(lbrace * rbrace < 0) //One of the two is -1
+          return offset + lbrace * rbrace * -1; //This will give the mismatched position
+        else
+          //recurse into an inner brace (or next set of braces)
+          code = code.slice(lbrace+1, rbrace);
+          offset += lbrace+1;
+       }
+
+     }
 
     GameManager.prototype.helpTips = function() {
 
