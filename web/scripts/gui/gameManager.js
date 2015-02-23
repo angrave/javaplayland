@@ -41,6 +41,7 @@
       this.startGame = __bind(this.startGame, this);
       this.gameName = __bind(this.gameName, this);
       this.checkBraces = __bind(this.checkBraces, this);
+      this.findLineNum = __bind(this.findLineNum, this);
 
       /*
           External Function (used by something outside of this file)
@@ -462,7 +463,7 @@
       var braces = this.checkBraces(code);
       if(braces != 0)
       {
-        this.compileError(braces)
+        this.compileError(braces);
         return;
       }
       if (this.environment.backEnd === 'interpreter') {
@@ -547,50 +548,71 @@
        */
        //Since the code string is pass by value, we can mess with it
        var offset = 0;
-       while(code.length > 0)
+       var temp = code;
+       while(temp.length > 0)
        {
-        var lcom = code.indexOf("\\*");
-        var rcom = code.indexOf("*\\");
-        var bcom = code.indexOf("\\\\");
-        var lbrace = code.indexOf("{");
-        var rbrace = code.lastIndexOf("}");
+        var lcom = temp.indexOf("\\*");
+        var rcom = temp.indexOf("*\\");
+        var bcom = temp.indexOf("\\\\");
+        var lbrace = temp.indexOf("{");
+        var rbrace = temp.lastIndexOf("}");
 
         //We need to determine if the braces are an issue
-        //If no braces, then we have a valid program
-        if(lbrace == -1 && rbrace == -1)
-          return 0;
-        //Otherwise, if we have a comment begin before a brace
-        else if(lcom != -1 && lcom < lbrace)
+        //if we have a comment begin before a brace
+        if(lcom != -1 && (lbrace == -1 || lcom < lbrace))
+        {
           //If no matching right comment, then we have a comment mismatch
           if(rcom == -1)
-            return offset + lcom;
+            return "Mismatched starting comment at line " + String(this.findLineNum(code, offset + lcom));
           //Otherwise scan again after the comment ends
           else
           {
-            code = code.slice(rcom+2, code.length);
+            temp = temp.slice(rcom+2, temp.length);
             offset += rcom+2;
             continue;
           }
-        else if(bcom != -1 && bcom < lbrace)
+        }
+        else if(rcom != -1 && lcom == -1)
+          return "Mismatched ending comment at line " + String(this.findLineNum(code, offset + lcom));
+        else if(bcom != -1 && (lbrace == -1 || bcom < lbrace))
         {
             //Line comment. Find where it ends, eliminate anything before that
-            code = code.slice(bcom+2, code.length);
-            endOfLine = code.indexOf("\n");
+            temp = temp.slice(bcom+2, temp.length);
+            endOfLine = temp.indexOf("\n");
             //If no newline, then we run into the end of the program. We are done with checking matching
             if(endOfLine == -1)
               return 0;
-            code = code.slice(endOfLine+2, temp.length);
-            offset += bcom + endOfLine + 4;
+            temp = temp.slice(endOfLine+1, temp.length);
+            offset += bcom + endOfLine + 3;
         }
         else if(lbrace * rbrace < 0) //One of the two is -1
-          return offset + lbrace * rbrace * -1; //This will give the mismatched position
+          return "Mismatched brace at line " + String(this.findLineNum(code, offset + lbrace * rbrace * -1)); //This will give the mismatched position
+        //If no braces/comments, then we have a valid program
+        else if(lbrace == -1 && rbrace == -1)
+          return 0;
         else
-          //recurse into an inner brace (or next set of braces)
-          code = code.slice(lbrace+1, rbrace);
+        {
+          //recurse into an inner braces
+          temp = temp.slice(lbrace+1, rbrace);
           offset += lbrace+1;
+        }
        }
 
      }
+
+    GameManager.prototype.findLineNum = function(code, position) {
+      var lineNum = 1;
+      console.log(code);
+      while(position >= 0)
+      {
+        lineNum++;
+        var lineLength = code.indexOf("\n")+1;
+        code = code.slice(lineLength, code.length);
+        position -= lineLength;
+        console.log(code);
+      }
+      return lineNum-1;
+    }
 
     GameManager.prototype.helpTips = function() {
 
