@@ -68,7 +68,9 @@ h3{
 }
 
 span{
+
     word-wrap: normal;
+
 }
 
 .cursiveHeadline {
@@ -303,7 +305,6 @@ button.pop-up-inside {
     width:100%;
     position:relative;
     font-size:20px;
-
 }
 
 span.ui-inline-check{
@@ -368,6 +369,7 @@ span.ui-inline-check{
     margin-left: 25px;
     margin-right: 25px;
 }
+
 
 li span{
     color: black;
