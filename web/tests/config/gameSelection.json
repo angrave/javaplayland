@@ -1,0 +1,64 @@
+{
+    "images":{
+        "womanFrontA":"img/game/characters/wmn1_fr1.gif",
+        "womanFrontB":"img/game/characters/wmn_fr2.gif"
+    },
+    "tmpCSS":{
+        "height":"100%",
+        "overflow-y":"scroll",
+        "width":"95%",
+        "position":"relative",
+        "font-size":"20px"
+    },
+    "tmpAttr":{
+        "id":"gameSelection"
+    },
+    "spanCSS":{
+        "min-width":"450px",
+        "min-height":"32px",
+        "padding":"5px",
+        "display":"block",
+        "white-space":"nowrap",
+        "border":"1px dashed blue",
+        "background-color":"#003366",
+        "font-family":"Monospace",
+        "cursor":"pointer"
+    },
+    "tmp2CSS":{
+        "width":"25%",
+        "height":"80%",
+        "position":"absolute",
+        "left":"5%",
+        "top":"10%",
+        "margin":"0",
+        "padding":"0"
+    },
+    "tmpBuildScoreCSS":{
+       " width":"25%",
+        "height":"80%",
+        "position":"absolute",
+        "left":"35%",
+        "top":"10%",
+        "margin":"0",
+        "padding":"0"
+    },
+    "tmpBuildInfoCSS":{
+        "width":"30%",
+        "height":"80%",
+        "position":"absolute",
+        "left":"65%",
+        "top":"10%",
+        "margin":"0",
+        "padding":"0"
+    },
+    "tmpOverCSS":{
+        "opacity":".5",
+        "width":"100%",
+        "min-height":"250px",
+        "height":"100%",
+        "position":"inherit",
+        "z-index":"1",
+        "background-color":"#000000"
+
+    }
+}
