@@ -1,4 +1,4 @@
-describe("Utils",function() {
+describe("utils",function() {
 
 	describe("findConfig",function() {
 		it("The utility function is in place from previous JavaScript", function() {
