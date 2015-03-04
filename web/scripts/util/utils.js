@@ -15,7 +15,7 @@
     cssData = null;
     $.ajax({
       url: loc,
-      dataType: 'json',
+      dataType: "json",
       async: false,
       success: function(data) {
         return cssData = data;
