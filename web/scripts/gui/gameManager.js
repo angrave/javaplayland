@@ -267,7 +267,7 @@
       var messages;
       this.updateGameLostStats();
       playAudio('defeat.ogg');
-      messages = ["Compile Error!<br>" + error_msg + "!"];
+      messages = ["Compile Error!<br>" + error_msg];
       window.objCloud(400, messages, "body", "30%", "30%", 3, "none", this.gameManager);
       return this.gameRunFinished();
     };
@@ -540,14 +540,15 @@
       this.showRun();
     };
 
-    GameManager.prototype.checkBraces = function(code) {
+    GameManager.prototype.checkBraces = function(code, offset) {
       /*
           Internal Function (used only by the code in this file)
       
           Used to check for matching braces.
        */
        //Since the code string is pass by value, we can mess with it
-       var offset = 0;
+       if (typeof offset === 'undefined') 
+        offset = 0;
        var temp = code;
        while(temp.length > 0)
        {
@@ -563,7 +564,7 @@
         {
           //If no matching right comment, then we have a comment mismatch
           if(rcom == -1)
-            return "Mismatched starting comment at line " + String(this.findLineNum(code, offset + lcom));
+            return "Mismatched starting comment at line " + String(this.findLineNum(code, offset + lcom) + "!");
           //Otherwise scan again after the comment ends
           else
           {
@@ -573,7 +574,7 @@
           }
         }
         else if(rcom != -1 && lcom == -1)
-          return "Mismatched ending comment at line " + String(this.findLineNum(code, offset + lcom));
+          return "Mismatched ending comment at line " + String(this.findLineNum(code, offset + lcom) + "!");
         else if(bcom != -1 && (lbrace == -1 || bcom < lbrace))
         {
             //Line comment. Find where it ends, eliminate anything before that
@@ -586,32 +587,34 @@
             offset += bcom + endOfLine + 3;
         }
         else if(lbrace * rbrace < 0) //One of the two is -1
-          return "Mismatched brace at line " + String(this.findLineNum(code, offset + lbrace * rbrace * -1)); //This will give the mismatched position
+          return "Mismatched brace at line " + String(this.findLineNum(code, offset + lbrace * rbrace * -1) + "!"); //This will give the mismatched position
         //If no braces/comments, then we have a valid program
         else if(lbrace == -1 && rbrace == -1)
           return 0;
         else
         {
           //recurse into an inner braces
+          var afterwards = this.checkBraces(temp.slice(rbrace+1, temp.length), offset + rbrace + 1);
+          if(afterwards != 0)
+            return afterwards;
           temp = temp.slice(lbrace+1, rbrace);
           offset += lbrace+1;
+
         }
        }
 
      }
 
     GameManager.prototype.findLineNum = function(code, position) {
-      var lineNum = 1;
-      console.log(code);
-      while(position >= 0)
+      var lineNum = 0;
+      while(position+1 >= 0)
       {
         lineNum++;
         var lineLength = code.indexOf("\n")+1;
         code = code.slice(lineLength, code.length);
         position -= lineLength;
-        console.log(code);
       }
-      return lineNum-1;
+      return lineNum-0;
     }
 
     GameManager.prototype.helpTips = function() {
