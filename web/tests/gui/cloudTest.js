@@ -1,7 +1,9 @@
 describe("cloudTest",function() {
 	
-	it("",function() {
-		//TODO your code here
+	it("Cloud object can be initialized",function() {
+		expect(window.objCloud(400, ["test", "test2"], "body", "30%", "30%", 1.5, "none", this.gameManager)).not.toBeNull();
 	});
+	
+	
 	
 });
