@@ -60,13 +60,13 @@
     }
 
     $('#pb1').find('div').css('width', (quest_progress[0]*100)+'%').attr('aria-valuenow', (quest_progress[0]*100));
-    $('#pb1').find('span').text("Quest 1 Progress:"+(quest_progress[0]*100)+"%");
+    $('#pb1').find('span').text("Quest 1 Progress:"+(quest_progress[0]*100).toPrecision(3)+"%");
     $('#pb2').find('div').css('width', (quest_progress[1]*100)+'%').attr('aria-valuenow', (quest_progress[0]*100));
-    $('#pb2').find('span').text("Quest 2 Progress:"+(quest_progress[1]*100)+"%");
+    $('#pb2').find('span').text("Quest 2 Progress:"+(quest_progress[1]*100).toPrecision(3)+"%");
     $('#pb3').find('div').css('width', (quest_progress[2]*100)+'%').attr('aria-valuenow', (quest_progress[0]*100));
-    $('#pb3').find('span').text("Quest 3 Progress:"+(quest_progress[2]*100)+"%");
+    $('#pb3').find('span').text("Quest 3 Progress:"+(quest_progress[2]*100).toPrecision(3)+"%");
     $('#pb4').find('div').css('width', (quest_progress[3]*100)+'%').attr('aria-valuenow', (quest_progress[0]*100));
-    $('#pb4').find('span').text("Quest 4 Progress:"+(quest_progress[3]*100)+"%");
+    $('#pb4').find('span').text("Quest 4 Progress:"+(quest_progress[3]*100).toPrecision(3)+"%");
 
   };
 
@@ -187,7 +187,7 @@
 
     //gameSelection is the main section for all QUEST selections
     gameSelection = document.getElementById("gameSelection");
-    $("<br><br>").appendTo(gameSelection);
+    $("<br>").appendTo(gameSelection);
     count = 0;
     addGameToMap = function(accordionTab, game) {
       count = count + 1;
@@ -202,8 +202,8 @@
       span = document.createElement("div");
       $(span).attr({
         "class": "div" + (++qcount) + " game-selection",
-        alt: "Click here to hide/show all levels in this quest.",
-        title: "Click here to hide/show all levels in this quest."
+        "alt": "Click here to hide/show all levels in this quest.",
+        "title": "Click here to hide/show all levels in this quest."
       });
       $(gameSelection).append(span);
       $(span).append("<h3>QUEST " + qcount + ": " + quest.title + "</h3>");
@@ -237,7 +237,7 @@
 
       currGameIdx = currGameIdx + quest.games.length;
       arrayOfIdx[qcount - 1] = currGameIdx;
-      $("<br><br>").appendTo(gameSelection);
+      $("<br>").appendTo(gameSelection);
     }
     selectCount = 1;
     whileCounter = 0;
@@ -265,26 +265,33 @@
     var spanCounterThree = 2;
     var spanCounterFour = 3;
 
-    //add toggle onclick functions to each of the QUEST sections
+    //toggle open QUEST 1
+      $(".span-div1").toggleClass("span-div-toggle",1000);
+      $(arrayOfStrings[spanCounter]).toggleClass("level-item-toggle",1000);   
 
+    //add toggle onclick functions to each of the QUEST sections
     $(arrayOfSpans[spanCounter]).click(function() {
       $(".span-div1").toggleClass("span-div-toggle",1000);
       $(arrayOfStrings[spanCounter]).toggleClass("level-item-toggle",1000);
+      $("#progress_carousel").carousel(0);
       return;
     });
     $(arrayOfSpans[spanCounterTwo]).click(function() {
       $(".span-div2").toggleClass("span-div-toggle",1000);
       $(arrayOfStrings[spanCounterTwo]).toggleClass("level-item-toggle",1000);
+      $("#progress_carousel").carousel(1);
       return;
     });
     $(arrayOfSpans[spanCounterThree]).click(function() {
       $(".span-div3").toggleClass("span-div-toggle",1000);
       $(arrayOfStrings[spanCounterThree]).toggleClass("level-item-toggle",1000);
+      $("#progress_carousel").carousel(2);
       return;
     });
     $(arrayOfSpans[spanCounterFour]).click(function() {
       $(".span-div4").toggleClass("span-div-toggle",1000);
       $(arrayOfStrings[spanCounterFour]).toggleClass("level-item-toggle",1000);
+      $("#progress_carousel").carousel(3);
       return;
     });
     $('#gameSelection').animate({
