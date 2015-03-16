@@ -19,6 +19,7 @@
     title = document.createElement("li");
     $(title).attr({
         "class":"menu_title menu_item",
+        "title":"Selection Menu",
     });
     $(title).append("<img src='img/menubar/list1.png' height='80%' padding-top: 10%;></png>")
     $(title).click(codeland.showMap);
@@ -26,7 +27,8 @@
     // reference book button
     text_book = document.createElement("li");
     $(text_book).attr({
-        "class":"menu_text_book menu_item"
+        "class":"menu_text_book menu_item",
+        "title":"Reference Book",
     });
     $(text_book).append("<img src='img/menubar/books19.png' height='80%' padding-top: 10%;></png>")
     $(text_book).click(referencePage);
@@ -34,7 +36,8 @@
     // sand box button
     sand_box = document.createElement("li");
     $(sand_box).attr({
-        "class":"menu_text_book menu_item"
+        "class":"menu_sand_box menu_item",
+        "title":"Code Sand Box"
     });
     $(sand_box).append("<img src='img/menubar/beach11.png' height='80%' padding-top: 10%;></png>")
     $(sand_box).click(sandBoxPage);
@@ -44,7 +47,8 @@
     $(carousel).attr({
         "id":"progress_carousel",
         "class": "carousel slide",
-        "data-ride":"carousel",        
+        "data-ride":"carousel",
+        "data-interval":"false",        
     });
 
     carousel_inner = document.createElement("div");
@@ -53,12 +57,10 @@
         "role":"listbox",
     });
 
-    $(carousel_inner).append("<div id = 'pb1' class='item active progress'><span></span><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ></div></div>");
-    $(carousel_inner).append("<div id = 'pb2' class='item progress'><span></span><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ></div></div>");
-    $(carousel_inner).append("<div id = 'pb3' class='item progress'><span></span><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ></div></div>");
-    $(carousel_inner).append("<div id = 'pb4' class='item progress'><span></span><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ></div></div>");
-
-
+    $(carousel_inner).append("<div id = 'pb1' class='item active progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ><span></span></div></div>");
+    $(carousel_inner).append("<div id = 'pb2' class='item progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ><span></span></div></div>");
+    $(carousel_inner).append("<div id = 'pb3' class='item progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ><span></span></div></div>");
+    $(carousel_inner).append("<div id = 'pb4' class='item progress'><div class='progress-bar progress-bar-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' ><span></span></div></div>");
 
     left_control = document.createElement("a");
     $(left_control).attr({
@@ -74,7 +76,7 @@
         "class":"right carousel-control",
         "href":"#progress_carousel",
         "role":"button",
-        "data-slide":"next"       
+        "data-slide":"next" 
     });
     $(right_control).append("<span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>");
 

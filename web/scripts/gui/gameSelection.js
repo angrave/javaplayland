@@ -43,9 +43,7 @@
       if ((player != null ? player.passed : void 0) === true) {
         $(level_span).prepend("<span class='ui-icon ui-icon-check ui-inline-check'></span>");
       }
-
-      return $(level_span).append("<font color=\"white\">" + count + ": " + desc.title + "</font>");
-      
+      return $(level_span).append("<font color=\"white\">" + count + ": " + desc.title + "</font>");      
     };
 
 	/**
