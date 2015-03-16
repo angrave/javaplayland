@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Language" content="en">
     
     
-    <title>javaplayland/paintGameState.js at e9276ee3b3a52dad4d61e743d3a6750fc0b22563 · milanocookies93/javaplayland</title>
+    <title>javaplayland/cloud.js at e9276ee3b3a52dad4d61e743d3a6750fc0b22563 · milanocookies93/javaplayland</title>
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
     <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png">
@@ -32,7 +32,7 @@
     <meta name="selected-link" value="repo_source" data-pjax-transient>
       <meta name="google-analytics" content="UA-3769691-2">
 
-    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="827EF62C:0969:7702BC0:55062871" name="octolytics-dimension-request_id" /><meta content="9099074" name="octolytics-actor-id" /><meta content="willhempy" name="octolytics-actor-login" /><meta content="f46dc46b5726491686a5f84e5969fe4808fc2460021a95c2d90d2217de375b6d" name="octolytics-actor-hash" />
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="827EF62C:0967:58DD323:550627F1" name="octolytics-dimension-request_id" /><meta content="9099074" name="octolytics-actor-id" /><meta content="willhempy" name="octolytics-actor-login" /><meta content="f46dc46b5726491686a5f84e5969fe4808fc2460021a95c2d90d2217de375b6d" name="octolytics-actor-hash" />
     
     <meta content="Rails, view, blob#show" name="analytics-event" />
 
@@ -41,7 +41,7 @@
 
 
     <meta content="authenticity_token" name="csrf-param" />
-<meta content="WI+NMfZzKFo3iiffjzQXKxOB687+F3z39Kb5PN8Q/tcem6n0KJ2ANH3L8L9XZHA1T7yplh56S84+SjIm+URzJw==" name="csrf-token" />
+<meta content="SdEYU1jg1DKE983GIygs1BWeNLs92fB6IuesrJSSaGS4zAhic4NN1Sij9Vk/B/hnTXeaGEFitCzXmXwVCN3q/g==" name="csrf-token" />
 
     <link href="https://assets-cdn.github.com/assets/github-85e4ac99403eefa73664d9b122f27095fee8b7333e67f34fa34480ae497f7555.css" media="all" rel="stylesheet" />
     <link href="https://assets-cdn.github.com/assets/github2-901780fdaaa6b0f56b2004899a7a24194bf4217cc7864291a9f68fa3a9264fdf.css" media="all" rel="stylesheet" />
@@ -153,7 +153,7 @@
   </li>
 
   <li class="header-nav-item">
-    <form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="G6egH+H9xSl3z4XgxmXL6l1fM3Fc8cPOoOvrHYR7r1f0I0og4NYT8bBOizz1LpdVdPF5tfIdFYgQRyUzHOjCvw==" /></div>
+    <form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="jecLP4NpTrBu0B+k6I28wL8DPBqRwQlmuDN21/p6hP9EqLAw7n2SO4mbfZuL2Ydvws+1/1eyj5Jsi3Ns9mYzMA==" /></div>
       <button class="header-nav-link sign-out-button tooltipped tooltipped-s" aria-label="Sign out" data-ga-click="Header, sign out, icon:logout">
         <span class="octicon octicon-sign-out"></span>
       </button>
@@ -182,7 +182,7 @@
 <ul class="pagehead-actions">
 
   <li>
-      <form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="XcENtzFHpUIbuHP7AiHN83MDR1bxgEy0ZKpAXScgtWw4FB6oMSlq8YA0HZ0dcsHy/xhnJvgUG54w8B0jteCutg==" /></div>    <input id="repository_id" name="repository_id" type="hidden" value="25270353" />
+      <form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="F2WOK3ZtXwRtjnmkCUJtXW7343CMNAi9Jm79c0TIy1k3o3M+7SuONhx17r2JSX+5FSlNOom6X1GQaZEl/FXv4g==" /></div>    <input id="repository_id" name="repository_id" type="hidden" value="25270353" />
 
       <div class="select-menu js-menu-container js-select-menu">
         <a href="/milanocookies93/javaplayland/subscription"
@@ -257,7 +257,7 @@
     
   <div class="js-toggler-container js-social-container starring-container ">
 
-    <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="ERTTvCy57AVAWNYLqKJ7WYlGUwKiorrv2pzu/lkN1vwIwE2E2EFvm5sjN+afhrzdbvAelQgiGsnz/wonAq+PWQ==" /></div>
+    <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="t7so0NhfE4MCY5zJqf4SLfXw/ifs/RG+/aSInJtj4tmGYhUSvyQPBPzRxF/ew/0vF2NUKSEdQxZBzy3txMH5MA==" /></div>
       <button
         class="minibutton with-count js-toggler-target"
         aria-label="Unstar this repository" title="Unstar milanocookies93/javaplayland"
@@ -269,7 +269,7 @@
           1
         </a>
 </form>
-    <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="SdU7SR7daqxrxx6w3K6zWh2r06X8iHj9ielzJR1blL7ApiC0x/CXaR7by+F5JYT2PFze3etqY/9BQFb3MvwHPw==" /></div>
+    <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="zQfh6vpfmbr1Jk/9Jj8Gh6GUUVRVR7aCjHIWdXksT462cH27CWSV0ecPRbPCVkPbcogzAcFeAxNJUnsqJg9Z6A==" /></div>
       <button
         class="minibutton with-count js-toggler-target"
         aria-label="Star this repository" title="Star milanocookies93/javaplayland"
@@ -285,7 +285,7 @@
   </li>
 
         <li>
-          <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/fork" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Q7IK5w5gF6U+yAHY1pW8hXKx3L7lUwApwQA43LDr0hTEquDgqH2u7ZHQka97ENVCMcp0fhkdKvR8h6ljbaOYWw==" /></div>
+          <form accept-charset="UTF-8" action="/milanocookies93/javaplayland/fork" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="HHWY04ytJR9OA80YZbyZQqC7peh7HgPqo9gaY/bBqj3/0vLvtOIC+GDk22VgbaRsx1BGaYPy/za28IapOhqYUg==" /></div>
             <button
                 type="submit"
                 class="minibutton with-count"
@@ -434,9 +434,9 @@
         <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
           
 
-<a href="/milanocookies93/javaplayland/blob/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/paintGameState.js" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
+<a href="/milanocookies93/javaplayland/blob/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/cloud.js" class="hidden js-permalink-shortcut" data-hotkey="y">Permalink</a>
 
-<!-- blob contrib key: blob_contributors:v21:fa46a2523cdb5d32356268abeccb47fb -->
+<!-- blob contrib key: blob_contributors:v21:9c7c1a3b9b0218cfb4ef904807af73e2 -->
 
 <div class="file-navigation js-zeroclipboard-container">
   
@@ -481,7 +481,7 @@
 
 
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/add_keyboard_shortcuts/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/add_keyboard_shortcuts/web/scripts/gui/cloud.js"
                data-name="add_keyboard_shortcuts"
                data-skip-pjax="true"
                rel="nofollow">
@@ -491,7 +491,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/coursera-integration/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/coursera-integration/web/scripts/gui/cloud.js"
                data-name="coursera-integration"
                data-skip-pjax="true"
                rel="nofollow">
@@ -501,7 +501,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/master/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/master/web/scripts/gui/cloud.js"
                data-name="master"
                data-skip-pjax="true"
                rel="nofollow">
@@ -511,7 +511,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/screenreader/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/screenreader/web/scripts/gui/cloud.js"
                data-name="screenreader"
                data-skip-pjax="true"
                rel="nofollow">
@@ -521,7 +521,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/seniorUpdates/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/seniorUpdates/web/scripts/gui/cloud.js"
                data-name="seniorUpdates"
                data-skip-pjax="true"
                rel="nofollow">
@@ -531,7 +531,7 @@
               </span>
             </a>
             <a class="select-menu-item js-navigation-item js-navigation-open "
-               href="/milanocookies93/javaplayland/blob/slow-down-doppio/web/scripts/gui/paintGameState.js"
+               href="/milanocookies93/javaplayland/blob/slow-down-doppio/web/scripts/gui/cloud.js"
                data-name="slow-down-doppio"
                data-skip-pjax="true"
                rel="nofollow">
@@ -570,27 +570,48 @@
   </div>
 
   <div class="breadcrumb js-zeroclipboard-target">
-    <span class='repo-root js-repo-root'><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">javaplayland</span></a></span></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">web</span></a></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">scripts</span></a></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">gui</span></a></span><span class="separator">/</span><strong class="final-path">paintGameState.js</strong>
+    <span class='repo-root js-repo-root'><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">javaplayland</span></a></span></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">web</span></a></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">scripts</span></a></span><span class="separator">/</span><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/milanocookies93/javaplayland/tree/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui" class="" data-branch="e9276ee3b3a52dad4d61e743d3a6750fc0b22563" data-direction="back" data-pjax="true" itemscope="url" rel="nofollow"><span itemprop="title">gui</span></a></span><span class="separator">/</span><strong class="final-path">cloud.js</strong>
   </div>
 </div>
 
-<include-fragment class="commit commit-loader file-history-tease" src="/milanocookies93/javaplayland/contributors/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/paintGameState.js">
-  <div class="file-history-tease-header">
-    Fetching contributors&hellip;
+
+  <div class="commit file-history-tease">
+    <div class="file-history-tease-header">
+        <img alt="Will" class="avatar" data-user="9099074" height="24" src="https://avatars2.githubusercontent.com/u/9099074?v=3&amp;s=48" width="24" />
+        <span class="author"><a href="/willhempy" rel="contributor">willhempy</a></span>
+        <time datetime="2014-11-10T02:09:45Z" is="relative-time">Nov 9, 2014</time>
+        <div class="commit-title">
+            <a href="/milanocookies93/javaplayland/commit/a46107da5dd1941bf0b17748062508eab80cfe58" class="message" data-pjax="true" title="woops. i was ignoring javascript files">woops. i was ignoring javascript files</a>
+        </div>
+    </div>
+
+    <div class="participation">
+      <p class="quickstat">
+        <a href="#blob_contributors_box" rel="facebox">
+          <strong>1</strong>
+           contributor
+        </a>
+      </p>
+      
+    </div>
+    <div id="blob_contributors_box" style="display:none">
+      <h2 class="facebox-header">Users who have contributed to this file</h2>
+      <ul class="facebox-user-list">
+          <li class="facebox-user-list-item">
+            <img alt="Will" data-user="9099074" height="24" src="https://avatars2.githubusercontent.com/u/9099074?v=3&amp;s=48" width="24" />
+            <a href="/willhempy">willhempy</a>
+          </li>
+      </ul>
+    </div>
   </div>
 
-  <div class="participation">
-    <p class="loader-loading"><img alt="" height="16" src="https://assets-cdn.github.com/assets/spinners/octocat-spinner-32-EAF2F5-0bdc57d34b85c4a4de9d0d1db10cd70e8a95f33ff4f46c5a8c48b4bf4e5a9abe.gif" width="16" /></p>
-    <p class="loader-error">Cannot retrieve contributors at this time</p>
-  </div>
-</include-fragment>
 <div class="file">
   <div class="file-header">
     <div class="file-actions">
       <div class="button-group">
-        <a href="/milanocookies93/javaplayland/raw/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/paintGameState.js" class="minibutton " id="raw-url">Raw</a>
-          <a href="/milanocookies93/javaplayland/blame/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/paintGameState.js" class="minibutton js-update-url-with-hash">Blame</a>
-        <a href="/milanocookies93/javaplayland/commits/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/paintGameState.js" class="minibutton " rel="nofollow">History</a>
+        <a href="/milanocookies93/javaplayland/raw/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/cloud.js" class="minibutton " id="raw-url">Raw</a>
+          <a href="/milanocookies93/javaplayland/blame/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/cloud.js" class="minibutton js-update-url-with-hash">Blame</a>
+        <a href="/milanocookies93/javaplayland/commits/e9276ee3b3a52dad4d61e743d3a6750fc0b22563/web/scripts/gui/cloud.js" class="minibutton " rel="nofollow">History</a>
       </div><!-- /.button-group -->
 
 
@@ -602,9 +623,9 @@
       </a>
     </div><!-- /.actions -->
     <div class="file-info">
-        363 lines (297 sloc)
+        299 lines (273 sloc)
         <span class="file-info-divider"></span>
-      10.343 kb
+      8.507 kb
     </div>
   </div>
   
@@ -616,1044 +637,1037 @@
       </tr>
       <tr>
         <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
-        <td id="LC2" class="blob-code js-file-line">(<span class="pl-st">function</span>() {</td>
+        <td id="LC2" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L3" class="blob-num js-line-number" data-line-number="3"></td>
-        <td id="LC3" class="blob-code js-file-line">  <span class="pl-s">var</span> PaintGameCommands, deepcopy,</td>
+        <td id="LC3" class="blob-code js-file-line"><span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L4" class="blob-num js-line-number" data-line-number="4"></td>
-        <td id="LC4" class="blob-code js-file-line">    <span class="pl-en">__bind</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">fn</span>, <span class="pl-vpf">me</span>){ <span class="pl-k">return</span> <span class="pl-st">function</span>(){ <span class="pl-k">return</span> fn.<span class="pl-s3">apply</span>(me, arguments); }; };</td>
+        <td id="LC4" class="blob-code js-file-line"><span class="pl-c">    Constructor for cloud</span></td>
       </tr>
       <tr>
         <td id="L5" class="blob-num js-line-number" data-line-number="5"></td>
-        <td id="LC5" class="blob-code js-file-line">
-</td>
+        <td id="LC5" class="blob-code js-file-line"><span class="pl-c">	@param dim: window (page) dimensions for initializing the cloud&#39;s width and height</span></td>
       </tr>
       <tr>
         <td id="L6" class="blob-num js-line-number" data-line-number="6"></td>
-        <td id="LC6" class="blob-code js-file-line">  <span class="pl-k">if</span> (<span class="pl-k">typeof</span> deepcopy <span class="pl-k">===</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>undefined<span class="pl-pds">&quot;</span></span> <span class="pl-k">||</span> deepcopy <span class="pl-k">===</span> <span class="pl-c1">null</span>) {</td>
+        <td id="LC6" class="blob-code js-file-line"><span class="pl-c">	@param par: array of text to display in the cloud</span></td>
       </tr>
       <tr>
         <td id="L7" class="blob-num js-line-number" data-line-number="7"></td>
-        <td id="LC7" class="blob-code js-file-line">    <span class="pl-en">deepcopy</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">src</span>) {</td>
+        <td id="LC7" class="blob-code js-file-line"><span class="pl-c">    @param obj: container the cloud is in</span></td>
       </tr>
       <tr>
         <td id="L8" class="blob-num js-line-number" data-line-number="8"></td>
-        <td id="LC8" class="blob-code js-file-line">      <span class="pl-k">return</span> $.extend(<span class="pl-c1">true</span>, {}, src);</td>
+        <td id="LC8" class="blob-code js-file-line"><span class="pl-c">    @param x: x offset for placing cloud</span></td>
       </tr>
       <tr>
         <td id="L9" class="blob-num js-line-number" data-line-number="9"></td>
-        <td id="LC9" class="blob-code js-file-line">    };</td>
+        <td id="LC9" class="blob-code js-file-line"><span class="pl-c">    @param y: y offset for placing cloud</span></td>
       </tr>
       <tr>
         <td id="L10" class="blob-num js-line-number" data-line-number="10"></td>
-        <td id="LC10" class="blob-code js-file-line">  }</td>
+        <td id="LC10" class="blob-code js-file-line"><span class="pl-c">    @param tscale: sizing the text</span></td>
       </tr>
       <tr>
         <td id="L11" class="blob-num js-line-number" data-line-number="11"></td>
-        <td id="LC11" class="blob-code js-file-line">
-</td>
+        <td id="LC11" class="blob-code js-file-line"><span class="pl-c">    @param ng: string used to go to the next game if it is not &quot;none&quot; - sets up the next game button, etc.</span></td>
       </tr>
       <tr>
         <td id="L12" class="blob-num js-line-number" data-line-number="12"></td>
-        <td id="LC12" class="blob-code js-file-line">  <span class="pl-s3">window</span>.PaintGameState <span class="pl-k">=</span> (<span class="pl-st">function</span>() {</td>
+        <td id="LC12" class="blob-code js-file-line"><span class="pl-c">	@param man: gameManager instance</span></td>
       </tr>
       <tr>
         <td id="L13" class="blob-num js-line-number" data-line-number="13"></td>
-        <td id="LC13" class="blob-code js-file-line">
-</td>
+        <td id="LC13" class="blob-code js-file-line"><span class="pl-c"> */</span></td>
       </tr>
       <tr>
         <td id="L14" class="blob-num js-line-number" data-line-number="14"></td>
-        <td id="LC14" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
+        <td id="LC14" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L15" class="blob-num js-line-number" data-line-number="15"></td>
-        <td id="LC15" class="blob-code js-file-line"><span class="pl-c">        A class to contain the game logic for paint games.</span></td>
+        <td id="LC15" class="blob-code js-file-line">(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L16" class="blob-num js-line-number" data-line-number="16"></td>
-        <td id="LC16" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
+        <td id="LC16" class="blob-code js-file-line">  <span class="pl-s3">window</span>.<span class="pl-en">objCloud</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">dim</span>, <span class="pl-vpf">par</span>, <span class="pl-vpf">obj</span>, <span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>, <span class="pl-vpf">tscale</span>, <span class="pl-vpf">ng</span>, <span class="pl-vpf">man</span>) {</td>
       </tr>
       <tr>
         <td id="L17" class="blob-num js-line-number" data-line-number="17"></td>
-        <td id="LC17" class="blob-code js-file-line">    <span class="pl-s">var</span> clockHandle;</td>
+        <td id="LC17" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L18" class="blob-num js-line-number" data-line-number="18"></td>
-        <td id="LC18" class="blob-code js-file-line">
-</td>
+        <td id="LC18" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L19" class="blob-num js-line-number" data-line-number="19"></td>
-        <td id="LC19" class="blob-code js-file-line">    clockHandle <span class="pl-k">=</span> <span class="pl-c1">null</span>;</td>
+        <td id="LC19" class="blob-code js-file-line"><span class="pl-c">      JSON file that contains the attribute and CSS properties for each</span></td>
       </tr>
       <tr>
         <td id="L20" class="blob-num js-line-number" data-line-number="20"></td>
-        <td id="LC20" class="blob-code js-file-line">
-</td>
+        <td id="LC20" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L21" class="blob-num js-line-number" data-line-number="21"></td>
-        <td id="LC21" class="blob-code js-file-line">    <span class="pl-st">function</span> <span class="pl-en">PaintGameState</span>(<span class="pl-vpf">gameManager</span>, <span class="pl-vpf">waitForCode</span>) {</td>
+        <td id="LC21" class="blob-code js-file-line">    <span class="pl-s">var</span> backdrop, cloud, cont, cssData, lb, left, ngco, ngi, ngt, ntc, nti, ntl, ntr, rb, resizeCloud, subbd, text, tipnum, xb, xbcloud;</td>
       </tr>
       <tr>
         <td id="L22" class="blob-num js-line-number" data-line-number="22"></td>
-        <td id="LC22" class="blob-code js-file-line">      <span class="pl-s">var</span> character, i, name, temp, _i, _j, _ref, _ref1, _ref2;</td>
+        <td id="LC22" class="blob-code js-file-line">    cssData <span class="pl-k">=</span> findConfig(<span class="pl-s1"><span class="pl-pds">&#39;</span>scripts/config/cloud.json<span class="pl-pds">&#39;</span></span>);</td>
       </tr>
       <tr>
         <td id="L23" class="blob-num js-line-number" data-line-number="23"></td>
-        <td id="LC23" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameManager <span class="pl-k">=</span> gameManager;</td>
+        <td id="LC23" class="blob-code js-file-line">    tipnum <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
       </tr>
       <tr>
         <td id="L24" class="blob-num js-line-number" data-line-number="24"></td>
-        <td id="LC24" class="blob-code js-file-line">      <span class="pl-v">this</span>.stopGame <span class="pl-k">=</span> __bind(<span class="pl-v">this</span>.stopGame, <span class="pl-v">this</span>);</td>
+        <td id="LC24" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L25" class="blob-num js-line-number" data-line-number="25"></td>
-        <td id="LC25" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameLost <span class="pl-k">=</span> __bind(<span class="pl-v">this</span>.gameLost, <span class="pl-v">this</span>);</td>
+        <td id="LC25" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L26" class="blob-num js-line-number" data-line-number="26"></td>
-        <td id="LC26" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameWon <span class="pl-k">=</span> __bind(<span class="pl-v">this</span>.gameWon, <span class="pl-v">this</span>);</td>
+        <td id="LC26" class="blob-code js-file-line"><span class="pl-c">      Function to resize the cloud object</span></td>
       </tr>
       <tr>
         <td id="L27" class="blob-num js-line-number" data-line-number="27"></td>
-        <td id="LC27" class="blob-code js-file-line">      <span class="pl-v">this</span>.clock <span class="pl-k">=</span> __bind(<span class="pl-v">this</span>.clock, <span class="pl-v">this</span>);</td>
+        <td id="LC27" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L28" class="blob-num js-line-number" data-line-number="28"></td>
-        <td id="LC28" class="blob-code js-file-line">
-</td>
+        <td id="LC28" class="blob-code js-file-line">    <span class="pl-en">resizeCloud</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L29" class="blob-num js-line-number" data-line-number="29"></td>
-        <td id="LC29" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC29" class="blob-code js-file-line">      <span class="pl-s">var</span> cloudHeight, cloudWidth, textHeight, textWidth;</td>
       </tr>
       <tr>
         <td id="L30" class="blob-num js-line-number" data-line-number="30"></td>
-        <td id="LC30" class="blob-code js-file-line"><span class="pl-c">          Sets up the game&#39;s constants and the visual display</span></td>
+        <td id="LC30" class="blob-code js-file-line">      cloudWidth <span class="pl-k">=</span> $(<span class="pl-s3">window</span>).<span class="pl-sc">width</span>() / <span class="pl-c1">2</span>;</td>
       </tr>
       <tr>
         <td id="L31" class="blob-num js-line-number" data-line-number="31"></td>
-        <td id="LC31" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC31" class="blob-code js-file-line">      cloudHeight <span class="pl-k">=</span> $(<span class="pl-s3">window</span>).<span class="pl-sc">height</span>() / <span class="pl-c1">2</span>;</td>
       </tr>
       <tr>
         <td id="L32" class="blob-num js-line-number" data-line-number="32"></td>
-        <td id="LC32" class="blob-code js-file-line"><span class="pl-c">          @param gameManager</span></td>
+        <td id="LC32" class="blob-code js-file-line">      textWidth <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>80%<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L33" class="blob-num js-line-number" data-line-number="33"></td>
-        <td id="LC33" class="blob-code js-file-line"><span class="pl-c">              The game manager running this game</span></td>
+        <td id="LC33" class="blob-code js-file-line">      textHeight <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>80%<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L34" class="blob-num js-line-number" data-line-number="34"></td>
-        <td id="LC34" class="blob-code js-file-line"><span class="pl-c">          @param waitForCode</span></td>
+        <td id="LC34" class="blob-code js-file-line">      $(cloud).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>align<span class="pl-pds">&quot;</span></span>, <span class="pl-s1"><span class="pl-pds">&quot;</span>middle<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L35" class="blob-num js-line-number" data-line-number="35"></td>
-        <td id="LC35" class="blob-code js-file-line"><span class="pl-c">              Whether or not to wait for the students code to exectute</span></td>
+        <td id="LC35" class="blob-code js-file-line">      $(cloud).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span>, cloudWidth);</td>
       </tr>
       <tr>
         <td id="L36" class="blob-num js-line-number" data-line-number="36"></td>
-        <td id="LC36" class="blob-code js-file-line"><span class="pl-c">              to start the game (and start checking for events).</span></td>
+        <td id="LC36" class="blob-code js-file-line">      $(cloud).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span>, cloudHeight);</td>
       </tr>
       <tr>
         <td id="L37" class="blob-num js-line-number" data-line-number="37"></td>
-        <td id="LC37" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC37" class="blob-code js-file-line">      $(text).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>text-align<span class="pl-pds">&quot;</span></span>, <span class="pl-s1"><span class="pl-pds">&quot;</span>center<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L38" class="blob-num js-line-number" data-line-number="38"></td>
-        <td id="LC38" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameConfig <span class="pl-k">=</span> deepcopy(<span class="pl-v">this</span>.gameManager.config.game);</td>
+        <td id="LC38" class="blob-code js-file-line">      $(text).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span>, textWidth);</td>
       </tr>
       <tr>
         <td id="L39" class="blob-num js-line-number" data-line-number="39"></td>
-        <td id="LC39" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameCommands <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">PaintGameCommands</span>(<span class="pl-v">this</span>);</td>
+        <td id="LC39" class="blob-code js-file-line">      $(text).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span>, textHeight);</td>
       </tr>
       <tr>
         <td id="L40" class="blob-num js-line-number" data-line-number="40"></td>
-        <td id="LC40" class="blob-code js-file-line">      <span class="pl-v">this</span>.visual <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.visual;</td>
+        <td id="LC40" class="blob-code js-file-line">      $(text).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>top<span class="pl-pds">&quot;</span></span>, <span class="pl-s1"><span class="pl-pds">&quot;</span>30%<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L41" class="blob-num js-line-number" data-line-number="41"></td>
-        <td id="LC41" class="blob-code js-file-line">      <span class="pl-v">this</span>.score <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
+        <td id="LC41" class="blob-code js-file-line">      <span class="pl-k">return</span> $(text).css(<span class="pl-s1"><span class="pl-pds">&quot;</span>left<span class="pl-pds">&quot;</span></span>, <span class="pl-s1"><span class="pl-pds">&quot;</span>10%<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L42" class="blob-num js-line-number" data-line-number="42"></td>
-        <td id="LC42" class="blob-code js-file-line">      <span class="pl-v">this</span>.stars <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
+        <td id="LC42" class="blob-code js-file-line">    };</td>
       </tr>
       <tr>
         <td id="L43" class="blob-num js-line-number" data-line-number="43"></td>
-        <td id="LC43" class="blob-code js-file-line">      <span class="pl-v">this</span>.tick <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
+        <td id="LC43" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L44" class="blob-num js-line-number" data-line-number="44"></td>
-        <td id="LC44" class="blob-code js-file-line">      <span class="pl-v">this</span>.finishedExecuting <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC44" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L45" class="blob-num js-line-number" data-line-number="45"></td>
-        <td id="LC45" class="blob-code js-file-line">      <span class="pl-v">this</span>.startedExecuting <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC45" class="blob-code js-file-line"><span class="pl-c">      Sets up the right and left buttons to move to the next and previous instructions</span></td>
       </tr>
       <tr>
         <td id="L46" class="blob-num js-line-number" data-line-number="46"></td>
-        <td id="LC46" class="blob-code js-file-line">      <span class="pl-v">this</span>.commands <span class="pl-k">=</span> [];</td>
+        <td id="LC46" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L47" class="blob-num js-line-number" data-line-number="47"></td>
-        <td id="LC47" class="blob-code js-file-line">      <span class="pl-v">this</span>.picture <span class="pl-k">=</span> [];</td>
+        <td id="LC47" class="blob-code js-file-line">    <span class="pl-en">rb</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L48" class="blob-num js-line-number" data-line-number="48"></td>
-        <td id="LC48" class="blob-code js-file-line">      <span class="pl-k">for</span> (i <span class="pl-k">=</span> _i <span class="pl-k">=</span> <span class="pl-c1">0</span>, _ref <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.config.visual.grid.gridY; _i <span class="pl-k">&lt;=</span> _ref; i <span class="pl-k">=</span> _i <span class="pl-k">+=</span> <span class="pl-c1">1</span>) {</td>
+        <td id="LC48" class="blob-code js-file-line">      <span class="pl-k">if</span> (tipnum <span class="pl-k">===</span> par.<span class="pl-sc">length</span> <span class="pl-k">-</span> <span class="pl-c1">1</span>) {</td>
       </tr>
       <tr>
         <td id="L49" class="blob-num js-line-number" data-line-number="49"></td>
-        <td id="LC49" class="blob-code js-file-line">        temp <span class="pl-k">=</span> [];</td>
+        <td id="LC49" class="blob-code js-file-line">        tipnum <span class="pl-k">=</span> <span class="pl-c1">0</span>;</td>
       </tr>
       <tr>
         <td id="L50" class="blob-num js-line-number" data-line-number="50"></td>
-        <td id="LC50" class="blob-code js-file-line">        <span class="pl-k">for</span> (i <span class="pl-k">=</span> _j <span class="pl-k">=</span> <span class="pl-c1">0</span>, _ref1 <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.config.visual.grid.gridX; _j <span class="pl-k">&lt;=</span> _ref1; i <span class="pl-k">=</span> _j <span class="pl-k">+=</span> <span class="pl-c1">1</span>) {</td>
+        <td id="LC50" class="blob-code js-file-line">      } <span class="pl-k">else</span> {</td>
       </tr>
       <tr>
         <td id="L51" class="blob-num js-line-number" data-line-number="51"></td>
-        <td id="LC51" class="blob-code js-file-line">          temp.<span class="pl-s3">push</span>(<span class="pl-c1">null</span>);</td>
+        <td id="LC51" class="blob-code js-file-line">        tipnum<span class="pl-k">++</span>;</td>
       </tr>
       <tr>
         <td id="L52" class="blob-num js-line-number" data-line-number="52"></td>
-        <td id="LC52" class="blob-code js-file-line">        }</td>
+        <td id="LC52" class="blob-code js-file-line">      }</td>
       </tr>
       <tr>
         <td id="L53" class="blob-num js-line-number" data-line-number="53"></td>
-        <td id="LC53" class="blob-code js-file-line">        <span class="pl-v">this</span>.picture.<span class="pl-s3">push</span>(temp);</td>
+        <td id="LC53" class="blob-code js-file-line">      <span class="pl-k">return</span> text.innerHTML <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;p style=&#39;margin-top:auto;margin-right:auto&#39;&gt;<span class="pl-pds">&quot;</span></span> <span class="pl-k">+</span> par[tipnum] <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;/p&gt;<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L54" class="blob-num js-line-number" data-line-number="54"></td>
-        <td id="LC54" class="blob-code js-file-line">      }</td>
+        <td id="LC54" class="blob-code js-file-line">    };</td>
       </tr>
       <tr>
         <td id="L55" class="blob-num js-line-number" data-line-number="55"></td>
-        <td id="LC55" class="blob-code js-file-line">      _ref2 <span class="pl-k">=</span> <span class="pl-v">this</span>.gameConfig.characters;</td>
+        <td id="LC55" class="blob-code js-file-line">    <span class="pl-en">lb</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L56" class="blob-num js-line-number" data-line-number="56"></td>
-        <td id="LC56" class="blob-code js-file-line">      <span class="pl-k">for</span> (name <span class="pl-k">in</span> _ref2) {</td>
+        <td id="LC56" class="blob-code js-file-line">      <span class="pl-k">if</span> (tipnum <span class="pl-k">===</span> <span class="pl-c1">0</span>) {</td>
       </tr>
       <tr>
         <td id="L57" class="blob-num js-line-number" data-line-number="57"></td>
-        <td id="LC57" class="blob-code js-file-line">        character <span class="pl-k">=</span> _ref2[name];</td>
+        <td id="LC57" class="blob-code js-file-line">        tipnum <span class="pl-k">=</span> par.<span class="pl-sc">length</span> <span class="pl-k">-</span> <span class="pl-c1">1</span>;</td>
       </tr>
       <tr>
         <td id="L58" class="blob-num js-line-number" data-line-number="58"></td>
-        <td id="LC58" class="blob-code js-file-line">        <span class="pl-k">if</span> (name.<span class="pl-s3">indexOf</span>(<span class="pl-s1"><span class="pl-pds">&#39;</span>Border<span class="pl-pds">&#39;</span></span>) <span class="pl-k">===</span> <span class="pl-k">-</span><span class="pl-c1">1</span>) {</td>
+        <td id="LC58" class="blob-code js-file-line">      } <span class="pl-k">else</span> {</td>
       </tr>
       <tr>
         <td id="L59" class="blob-num js-line-number" data-line-number="59"></td>
-        <td id="LC59" class="blob-code js-file-line">          character.<span class="pl-sc">color</span> <span class="pl-k">=</span> character.sprite;</td>
+        <td id="LC59" class="blob-code js-file-line">        tipnum<span class="pl-k">--</span>;</td>
       </tr>
       <tr>
         <td id="L60" class="blob-num js-line-number" data-line-number="60"></td>
-        <td id="LC60" class="blob-code js-file-line">          <span class="pl-v">this</span>.picture[character.<span class="pl-sc">x</span>][character.<span class="pl-sc">y</span>] <span class="pl-k">=</span> character;</td>
+        <td id="LC60" class="blob-code js-file-line">      }</td>
       </tr>
       <tr>
         <td id="L61" class="blob-num js-line-number" data-line-number="61"></td>
-        <td id="LC61" class="blob-code js-file-line">        }</td>
+        <td id="LC61" class="blob-code js-file-line">      <span class="pl-k">return</span> text.innerHTML <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;p style=&#39;margin-top:auto;margin-right:auto&#39;&gt;<span class="pl-pds">&quot;</span></span> <span class="pl-k">+</span> par[tipnum] <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;/p&gt;<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L62" class="blob-num js-line-number" data-line-number="62"></td>
-        <td id="LC62" class="blob-code js-file-line">      }</td>
+        <td id="LC62" class="blob-code js-file-line">    };</td>
       </tr>
       <tr>
         <td id="L63" class="blob-num js-line-number" data-line-number="63"></td>
-        <td id="LC63" class="blob-code js-file-line">      <span class="pl-k">if</span> (clockHandle <span class="pl-k">!=</span> <span class="pl-c1">null</span>) {</td>
+        <td id="LC63" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L64" class="blob-num js-line-number" data-line-number="64"></td>
-        <td id="LC64" class="blob-code js-file-line">        <span class="pl-s3">clearInterval</span>(clockHandle);</td>
+        <td id="LC64" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L65" class="blob-num js-line-number" data-line-number="65"></td>
-        <td id="LC65" class="blob-code js-file-line">      }</td>
+        <td id="LC65" class="blob-code js-file-line"><span class="pl-c">      Setting up div elements</span></td>
       </tr>
       <tr>
         <td id="L66" class="blob-num js-line-number" data-line-number="66"></td>
-        <td id="LC66" class="blob-code js-file-line">      clockHandle <span class="pl-k">=</span> <span class="pl-s3">setInterval</span>(<span class="pl-v">this</span>.clock, <span class="pl-c1">17</span>);</td>
+        <td id="LC66" class="blob-code js-file-line"><span class="pl-c">      cont: the entire container</span></td>
       </tr>
       <tr>
         <td id="L67" class="blob-num js-line-number" data-line-number="67"></td>
-        <td id="LC67" class="blob-code js-file-line">      <span class="pl-v">this</span>.startedGame <span class="pl-k">=</span> waitForCode <span class="pl-k">?</span> false <span class="pl-k">:</span> <span class="pl-c1">true</span>;</td>
+        <td id="LC67" class="blob-code js-file-line"><span class="pl-c">      text: text in the cloud</span></td>
       </tr>
       <tr>
         <td id="L68" class="blob-num js-line-number" data-line-number="68"></td>
-        <td id="LC68" class="blob-code js-file-line">      <span class="pl-k">return</span>;</td>
+        <td id="LC68" class="blob-code js-file-line"><span class="pl-c">      cloud: the cloud object</span></td>
       </tr>
       <tr>
         <td id="L69" class="blob-num js-line-number" data-line-number="69"></td>
-        <td id="LC69" class="blob-code js-file-line">    }</td>
+        <td id="LC69" class="blob-code js-file-line"><span class="pl-c">      xb: controls the x button to close the cloud</span></td>
       </tr>
       <tr>
         <td id="L70" class="blob-num js-line-number" data-line-number="70"></td>
-        <td id="LC70" class="blob-code js-file-line">
-</td>
+        <td id="LC70" class="blob-code js-file-line"><span class="pl-c">      xbcloud: the small cloud that the x button is in</span></td>
       </tr>
       <tr>
         <td id="L71" class="blob-num js-line-number" data-line-number="71"></td>
-        <td id="LC71" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">getGameCommands</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC71" class="blob-code js-file-line"><span class="pl-c">      subbd: the container that xb and xbcloud is in</span></td>
       </tr>
       <tr>
         <td id="L72" class="blob-num js-line-number" data-line-number="72"></td>
-        <td id="LC72" class="blob-code js-file-line">
-</td>
+        <td id="LC72" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L73" class="blob-num js-line-number" data-line-number="73"></td>
-        <td id="LC73" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC73" class="blob-code js-file-line">    cont <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L74" class="blob-num js-line-number" data-line-number="74"></td>
-        <td id="LC74" class="blob-code js-file-line"><span class="pl-c">          External Function (used by something outside of this file)</span></td>
+        <td id="LC74" class="blob-code js-file-line">    text <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L75" class="blob-num js-line-number" data-line-number="75"></td>
-        <td id="LC75" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC75" class="blob-code js-file-line">    cloud <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>img<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L76" class="blob-num js-line-number" data-line-number="76"></td>
-        <td id="LC76" class="blob-code js-file-line"><span class="pl-c">          Returns a handle to this games commands (a class).</span></td>
+        <td id="LC76" class="blob-code js-file-line">    xb <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>img<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L77" class="blob-num js-line-number" data-line-number="77"></td>
-        <td id="LC77" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC77" class="blob-code js-file-line">    xbcloud <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>img<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L78" class="blob-num js-line-number" data-line-number="78"></td>
-        <td id="LC78" class="blob-code js-file-line">      <span class="pl-k">return</span> <span class="pl-v">this</span>.gameCommands;</td>
+        <td id="LC78" class="blob-code js-file-line">    subbd <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L79" class="blob-num js-line-number" data-line-number="79"></td>
-        <td id="LC79" class="blob-code js-file-line">    };</td>
+        <td id="LC79" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L80" class="blob-num js-line-number" data-line-number="80"></td>
-        <td id="LC80" class="blob-code js-file-line">
-</td>
+        <td id="LC80" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L81" class="blob-num js-line-number" data-line-number="81"></td>
-        <td id="LC81" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">clock</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC81" class="blob-code js-file-line"><span class="pl-c">      If there is text in the par array:</span></td>
       </tr>
       <tr>
         <td id="L82" class="blob-num js-line-number" data-line-number="82"></td>
-        <td id="LC82" class="blob-code js-file-line">
-</td>
+        <td id="LC82" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L83" class="blob-num js-line-number" data-line-number="83"></td>
-        <td id="LC83" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC83" class="blob-code js-file-line">    <span class="pl-k">if</span> (par.<span class="pl-sc">length</span> <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>) {</td>
       </tr>
       <tr>
         <td id="L84" class="blob-num js-line-number" data-line-number="84"></td>
-        <td id="LC84" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC84" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L85" class="blob-num js-line-number" data-line-number="85"></td>
-        <td id="LC85" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC85" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L86" class="blob-num js-line-number" data-line-number="86"></td>
-        <td id="LC86" class="blob-code js-file-line"><span class="pl-c">          The main engine behind the game.</span></td>
+        <td id="LC86" class="blob-code js-file-line"><span class="pl-c">        ntc: the overall container that the cloud containing left and right arrows in the cloud</span></td>
       </tr>
       <tr>
         <td id="L87" class="blob-num js-line-number" data-line-number="87"></td>
-        <td id="LC87" class="blob-code js-file-line"><span class="pl-c">          This function is called every X milliseconds via setInterval.</span></td>
+        <td id="LC87" class="blob-code js-file-line"><span class="pl-c">        nti: the cloud image</span></td>
       </tr>
       <tr>
         <td id="L88" class="blob-num js-line-number" data-line-number="88"></td>
-        <td id="LC88" class="blob-code js-file-line"><span class="pl-c">          Each time it is called it updates the visual and every Y times</span></td>
+        <td id="LC88" class="blob-code js-file-line"><span class="pl-c">        ntl: the left arrow image</span></td>
       </tr>
       <tr>
         <td id="L89" class="blob-num js-line-number" data-line-number="89"></td>
-        <td id="LC89" class="blob-code js-file-line"><span class="pl-c">          it is called it checks for events and executes the next command</span></td>
+        <td id="LC89" class="blob-code js-file-line"><span class="pl-c">        ntr: the right arrow image</span></td>
       </tr>
       <tr>
         <td id="L90" class="blob-num js-line-number" data-line-number="90"></td>
-        <td id="LC90" class="blob-code js-file-line"><span class="pl-c">          in the queue.</span></td>
+        <td id="LC90" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L91" class="blob-num js-line-number" data-line-number="91"></td>
-        <td id="LC91" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC91" class="blob-code js-file-line">      ntc <span class="pl-k">=</span> $(<span class="pl-s1"><span class="pl-pds">&#39;</span>&lt;div&gt;&lt;/div&gt;<span class="pl-pds">&#39;</span></span>);</td>
       </tr>
       <tr>
         <td id="L92" class="blob-num js-line-number" data-line-number="92"></td>
-        <td id="LC92" class="blob-code js-file-line">      <span class="pl-s">var</span> command;</td>
+        <td id="LC92" class="blob-code js-file-line">      nti <span class="pl-k">=</span> $(<span class="pl-s1"><span class="pl-pds">&#39;</span>&lt;img&gt;&lt;/img&gt;<span class="pl-pds">&#39;</span></span>);</td>
       </tr>
       <tr>
         <td id="L93" class="blob-num js-line-number" data-line-number="93"></td>
-        <td id="LC93" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-v">this</span>.startedGame <span class="pl-k">===</span> <span class="pl-c1">true</span>) {</td>
+        <td id="LC93" class="blob-code js-file-line">      ntl <span class="pl-k">=</span> $(<span class="pl-s1"><span class="pl-pds">&#39;</span>&lt;img&gt;&lt;/img&gt;<span class="pl-pds">&#39;</span></span>);</td>
       </tr>
       <tr>
         <td id="L94" class="blob-num js-line-number" data-line-number="94"></td>
-        <td id="LC94" class="blob-code js-file-line">        <span class="pl-k">if</span> (<span class="pl-v">this</span>.tick <span class="pl-k">%</span> <span class="pl-c1">30</span> <span class="pl-k">===</span> <span class="pl-c1">0</span>) {</td>
+        <td id="LC94" class="blob-code js-file-line">      ntr <span class="pl-k">=</span> $(<span class="pl-s1"><span class="pl-pds">&#39;</span>&lt;img&gt;&lt;/img&gt;<span class="pl-pds">&#39;</span></span>);</td>
       </tr>
       <tr>
         <td id="L95" class="blob-num js-line-number" data-line-number="95"></td>
-        <td id="LC95" class="blob-code js-file-line">          <span class="pl-v">this</span>.checkEvents();</td>
+        <td id="LC95" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L96" class="blob-num js-line-number" data-line-number="96"></td>
-        <td id="LC96" class="blob-code js-file-line">          <span class="pl-k">if</span> (<span class="pl-v">this</span>.commands.<span class="pl-sc">length</span> <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {</td>
+        <td id="LC96" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L97" class="blob-num js-line-number" data-line-number="97"></td>
-        <td id="LC97" class="blob-code js-file-line">            command <span class="pl-k">=</span> <span class="pl-v">this</span>.commands.<span class="pl-s3">splice</span>(<span class="pl-c1">0</span>, <span class="pl-c1">1</span>)[<span class="pl-c1">0</span>];</td>
+        <td id="LC97" class="blob-code js-file-line"><span class="pl-c">        Attribute and css settings for the four objects above</span></td>
       </tr>
       <tr>
         <td id="L98" class="blob-num js-line-number" data-line-number="98"></td>
-        <td id="LC98" class="blob-code js-file-line">            command.<span class="pl-s3">exec</span>();</td>
+        <td id="LC98" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L99" class="blob-num js-line-number" data-line-number="99"></td>
-        <td id="LC99" class="blob-code js-file-line">          } <span class="pl-k">else</span> {</td>
+        <td id="LC99" class="blob-code js-file-line">      $(ntc).css({</td>
       </tr>
       <tr>
         <td id="L100" class="blob-num js-line-number" data-line-number="100"></td>
-        <td id="LC100" class="blob-code js-file-line">            <span class="pl-v">this</span>.finishedExecuting <span class="pl-k">=</span> <span class="pl-v">this</span>.startedExecuting;</td>
+        <td id="LC100" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L101" class="blob-num js-line-number" data-line-number="101"></td>
-        <td id="LC101" class="blob-code js-file-line">          }</td>
+        <td id="LC101" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>z-index<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>310<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L102" class="blob-num js-line-number" data-line-number="102"></td>
-        <td id="LC102" class="blob-code js-file-line">        }</td>
+        <td id="LC102" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>bottom<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>-10%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L103" class="blob-num js-line-number" data-line-number="103"></td>
-        <td id="LC103" class="blob-code js-file-line">      }</td>
+        <td id="LC103" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>right<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>-5%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L104" class="blob-num js-line-number" data-line-number="104"></td>
-        <td id="LC104" class="blob-code js-file-line">      <span class="pl-v">this</span>.visual.getFrame(<span class="pl-v">this</span>.gameManager.config.visual, <span class="pl-v">this</span>.tick);</td>
+        <td id="LC104" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">2</span>,</td>
       </tr>
       <tr>
         <td id="L105" class="blob-num js-line-number" data-line-number="105"></td>
-        <td id="LC105" class="blob-code js-file-line">      <span class="pl-v">this</span>.tick<span class="pl-k">++</span>;</td>
+        <td id="LC105" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">7</span></td>
       </tr>
       <tr>
         <td id="L106" class="blob-num js-line-number" data-line-number="106"></td>
-        <td id="LC106" class="blob-code js-file-line">    };</td>
+        <td id="LC106" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L107" class="blob-num js-line-number" data-line-number="107"></td>
-        <td id="LC107" class="blob-code js-file-line">
-</td>
+        <td id="LC107" class="blob-code js-file-line">      $(nti).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntiAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L108" class="blob-num js-line-number" data-line-number="108"></td>
-        <td id="LC108" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">checkPainting</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC108" class="blob-code js-file-line">      $(nti).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntiCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L109" class="blob-num js-line-number" data-line-number="109"></td>
-        <td id="LC109" class="blob-code js-file-line">
-</td>
+        <td id="LC109" class="blob-code js-file-line">      $(ntl).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntlAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L110" class="blob-num js-line-number" data-line-number="110"></td>
-        <td id="LC110" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC110" class="blob-code js-file-line">      $(ntl).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntlCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L111" class="blob-num js-line-number" data-line-number="111"></td>
-        <td id="LC111" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC111" class="blob-code js-file-line">      $(ntr).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntrAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L112" class="blob-num js-line-number" data-line-number="112"></td>
-        <td id="LC112" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC112" class="blob-code js-file-line">      $(ntr).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ntrCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L113" class="blob-num js-line-number" data-line-number="113"></td>
-        <td id="LC113" class="blob-code js-file-line"><span class="pl-c">          Returns whether or not the painting has been filled</span></td>
+        <td id="LC113" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L114" class="blob-num js-line-number" data-line-number="114"></td>
-        <td id="LC114" class="blob-code js-file-line"><span class="pl-c">          out correctly.</span></td>
+        <td id="LC114" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L115" class="blob-num js-line-number" data-line-number="115"></td>
-        <td id="LC115" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC115" class="blob-code js-file-line"><span class="pl-c">        Appends the left and right arrow cloud to the overall ntc container</span></td>
       </tr>
       <tr>
         <td id="L116" class="blob-num js-line-number" data-line-number="116"></td>
-        <td id="LC116" class="blob-code js-file-line">      <span class="pl-s">var</span> correct, expected, name, pixel, x, y, _i, _j, _ref, _ref1, _ref2, _ref3;</td>
+        <td id="LC116" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L117" class="blob-num js-line-number" data-line-number="117"></td>
-        <td id="LC117" class="blob-code js-file-line">      correct <span class="pl-k">=</span> <span class="pl-c1">true</span>;</td>
+        <td id="LC117" class="blob-code js-file-line">      $(ntc).append(nti);</td>
       </tr>
       <tr>
         <td id="L118" class="blob-num js-line-number" data-line-number="118"></td>
-        <td id="LC118" class="blob-code js-file-line">      _ref <span class="pl-k">=</span> <span class="pl-v">this</span>.gameConfig.characters;</td>
+        <td id="LC118" class="blob-code js-file-line">      $(ntc).append(ntl);</td>
       </tr>
       <tr>
         <td id="L119" class="blob-num js-line-number" data-line-number="119"></td>
-        <td id="LC119" class="blob-code js-file-line">      <span class="pl-k">for</span> (name <span class="pl-k">in</span> _ref) {</td>
+        <td id="LC119" class="blob-code js-file-line">      $(ntc).append(ntr);</td>
       </tr>
       <tr>
         <td id="L120" class="blob-num js-line-number" data-line-number="120"></td>
-        <td id="LC120" class="blob-code js-file-line">        pixel <span class="pl-k">=</span> _ref[name];</td>
+        <td id="LC120" class="blob-code js-file-line">      $(cont).append(ntc);</td>
       </tr>
       <tr>
         <td id="L121" class="blob-num js-line-number" data-line-number="121"></td>
-        <td id="LC121" class="blob-code js-file-line">        expected <span class="pl-k">=</span> pixel.match;</td>
+        <td id="LC121" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L122" class="blob-num js-line-number" data-line-number="122"></td>
-        <td id="LC122" class="blob-code js-file-line">        <span class="pl-k">if</span> (expected <span class="pl-k">==</span> <span class="pl-c1">null</span>) {</td>
+        <td id="LC122" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L123" class="blob-num js-line-number" data-line-number="123"></td>
-        <td id="LC123" class="blob-code js-file-line">          expected <span class="pl-k">=</span> pixel.<span class="pl-sc">color</span>;</td>
+        <td id="LC123" class="blob-code js-file-line"><span class="pl-c">        Calls the rb and lb functions when you click the left and right buttons respectfully</span></td>
       </tr>
       <tr>
         <td id="L124" class="blob-num js-line-number" data-line-number="124"></td>
-        <td id="LC124" class="blob-code js-file-line">        }</td>
+        <td id="LC124" class="blob-code js-file-line"><span class="pl-c">        The hover function highlights the buttons to show they are clickable until you reach the last tip.</span></td>
       </tr>
       <tr>
         <td id="L125" class="blob-num js-line-number" data-line-number="125"></td>
-        <td id="LC125" class="blob-code js-file-line">        <span class="pl-k">if</span> (expected <span class="pl-k">===</span> ((_ref1 <span class="pl-k">=</span> <span class="pl-v">this</span>.picture[pixel.<span class="pl-sc">x</span>][pixel.<span class="pl-sc">y</span>]) <span class="pl-k">!=</span> <span class="pl-c1">null</span> <span class="pl-k">?</span> _ref1.<span class="pl-sc">color</span> <span class="pl-k">:</span> <span class="pl-k">void</span> <span class="pl-c1">0</span>)) {</td>
+        <td id="LC125" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L126" class="blob-num js-line-number" data-line-number="126"></td>
-        <td id="LC126" class="blob-code js-file-line">          <span class="pl-v">this</span>.picture[pixel.<span class="pl-sc">x</span>][pixel.<span class="pl-sc">y</span>].matched <span class="pl-k">=</span> <span class="pl-c1">true</span>;</td>
+        <td id="LC126" class="blob-code js-file-line">      $(ntr).<span class="pl-s3">click</span>(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L127" class="blob-num js-line-number" data-line-number="127"></td>
-        <td id="LC127" class="blob-code js-file-line">        } <span class="pl-k">else</span> {</td>
+        <td id="LC127" class="blob-code js-file-line">        <span class="pl-k">return</span> rb();</td>
       </tr>
       <tr>
         <td id="L128" class="blob-num js-line-number" data-line-number="128"></td>
-        <td id="LC128" class="blob-code js-file-line">          correct <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC128" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L129" class="blob-num js-line-number" data-line-number="129"></td>
-        <td id="LC129" class="blob-code js-file-line">        }</td>
+        <td id="LC129" class="blob-code js-file-line">      $(ntr).hover(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L130" class="blob-num js-line-number" data-line-number="130"></td>
-        <td id="LC130" class="blob-code js-file-line">      }</td>
+        <td id="LC130" class="blob-code js-file-line">        <span class="pl-k">if</span> (tipnum <span class="pl-k">!==</span> par.<span class="pl-sc">length</span> <span class="pl-k">-</span> <span class="pl-c1">1</span>) {</td>
       </tr>
       <tr>
         <td id="L131" class="blob-num js-line-number" data-line-number="131"></td>
-        <td id="LC131" class="blob-code js-file-line">      <span class="pl-k">for</span> (x <span class="pl-k">=</span> _i <span class="pl-k">=</span> <span class="pl-c1">0</span>, _ref2 <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.config.visual.grid.gridX; <span class="pl-c1">0</span> <span class="pl-k">&lt;=</span> _ref2 <span class="pl-k">?</span> _i <span class="pl-k">&lt;=</span> _ref2 <span class="pl-k">:</span> _i <span class="pl-k">&gt;=</span> _ref2; x <span class="pl-k">=</span> <span class="pl-c1">0</span> <span class="pl-k">&lt;=</span> _ref2 <span class="pl-k">?</span> <span class="pl-k">++</span>_i <span class="pl-k">:</span> <span class="pl-k">--</span>_i) {</td>
+        <td id="LC131" class="blob-code js-file-line">          <span class="pl-k">return</span> $(ntr).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>rArrowHighAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L132" class="blob-num js-line-number" data-line-number="132"></td>
-        <td id="LC132" class="blob-code js-file-line">        <span class="pl-k">for</span> (y <span class="pl-k">=</span> _j <span class="pl-k">=</span> <span class="pl-c1">0</span>, _ref3 <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.config.visual.grid.gridY; <span class="pl-c1">0</span> <span class="pl-k">&lt;=</span> _ref3 <span class="pl-k">?</span> _j <span class="pl-k">&lt;=</span> _ref3 <span class="pl-k">:</span> _j <span class="pl-k">&gt;=</span> _ref3; y <span class="pl-k">=</span> <span class="pl-c1">0</span> <span class="pl-k">&lt;=</span> _ref3 <span class="pl-k">?</span> <span class="pl-k">++</span>_j <span class="pl-k">:</span> <span class="pl-k">--</span>_j) {</td>
+        <td id="LC132" class="blob-code js-file-line">        }</td>
       </tr>
       <tr>
         <td id="L133" class="blob-num js-line-number" data-line-number="133"></td>
-        <td id="LC133" class="blob-code js-file-line">          pixel <span class="pl-k">=</span> <span class="pl-v">this</span>.picture[x][y];</td>
+        <td id="LC133" class="blob-code js-file-line">      }, <span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L134" class="blob-num js-line-number" data-line-number="134"></td>
-        <td id="LC134" class="blob-code js-file-line">          <span class="pl-k">if</span> (pixel) {</td>
+        <td id="LC134" class="blob-code js-file-line">        <span class="pl-k">return</span> $(ntr).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>rArrowAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L135" class="blob-num js-line-number" data-line-number="135"></td>
-        <td id="LC135" class="blob-code js-file-line">            <span class="pl-k">if</span> (<span class="pl-k">!</span>pixel.matched) {</td>
+        <td id="LC135" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L136" class="blob-num js-line-number" data-line-number="136"></td>
-        <td id="LC136" class="blob-code js-file-line">              correct <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC136" class="blob-code js-file-line">      $(ntl).<span class="pl-s3">click</span>(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L137" class="blob-num js-line-number" data-line-number="137"></td>
-        <td id="LC137" class="blob-code js-file-line">            }</td>
+        <td id="LC137" class="blob-code js-file-line">        <span class="pl-k">return</span> lb();</td>
       </tr>
       <tr>
         <td id="L138" class="blob-num js-line-number" data-line-number="138"></td>
-        <td id="LC138" class="blob-code js-file-line">            pixel.matched <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC138" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L139" class="blob-num js-line-number" data-line-number="139"></td>
-        <td id="LC139" class="blob-code js-file-line">          }</td>
+        <td id="LC139" class="blob-code js-file-line">      $(ntl).hover(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L140" class="blob-num js-line-number" data-line-number="140"></td>
-        <td id="LC140" class="blob-code js-file-line">        }</td>
+        <td id="LC140" class="blob-code js-file-line">        <span class="pl-k">if</span> (tipnum <span class="pl-k">!==</span> <span class="pl-c1">0</span>) {</td>
       </tr>
       <tr>
         <td id="L141" class="blob-num js-line-number" data-line-number="141"></td>
-        <td id="LC141" class="blob-code js-file-line">      }</td>
+        <td id="LC141" class="blob-code js-file-line">          <span class="pl-k">return</span> $(ntl).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>lArrowHighAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L142" class="blob-num js-line-number" data-line-number="142"></td>
-        <td id="LC142" class="blob-code js-file-line">      <span class="pl-k">return</span> correct;</td>
+        <td id="LC142" class="blob-code js-file-line">        }</td>
       </tr>
       <tr>
         <td id="L143" class="blob-num js-line-number" data-line-number="143"></td>
-        <td id="LC143" class="blob-code js-file-line">    };</td>
+        <td id="LC143" class="blob-code js-file-line">      }, <span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L144" class="blob-num js-line-number" data-line-number="144"></td>
-        <td id="LC144" class="blob-code js-file-line">
-</td>
+        <td id="LC144" class="blob-code js-file-line">        <span class="pl-k">return</span> $(ntl).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>lArrowAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L145" class="blob-num js-line-number" data-line-number="145"></td>
-        <td id="LC145" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">checkEvents</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC145" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L146" class="blob-num js-line-number" data-line-number="146"></td>
-        <td id="LC146" class="blob-code js-file-line">
-</td>
+        <td id="LC146" class="blob-code js-file-line">    }</td>
       </tr>
       <tr>
         <td id="L147" class="blob-num js-line-number" data-line-number="147"></td>
-        <td id="LC147" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC147" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L148" class="blob-num js-line-number" data-line-number="148"></td>
-        <td id="LC148" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC148" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L149" class="blob-num js-line-number" data-line-number="149"></td>
-        <td id="LC149" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC149" class="blob-code js-file-line"><span class="pl-c">      Blackens the background when you open the cloud</span></td>
       </tr>
       <tr>
         <td id="L150" class="blob-num js-line-number" data-line-number="150"></td>
-        <td id="LC150" class="blob-code js-file-line"><span class="pl-c">          Checks if the gamestate necessitates triggering any event.</span></td>
+        <td id="LC150" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L151" class="blob-num js-line-number" data-line-number="151"></td>
-        <td id="LC151" class="blob-code js-file-line"><span class="pl-c">          For paint games it is only necessary if the game finished to</span></td>
+        <td id="LC151" class="blob-code js-file-line">    <span class="pl-k">if</span> (obj <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>body<span class="pl-pds">&quot;</span></span>) {</td>
       </tr>
       <tr>
         <td id="L152" class="blob-num js-line-number" data-line-number="152"></td>
-        <td id="LC152" class="blob-code js-file-line"><span class="pl-c">          check if it was done correctly.</span></td>
+        <td id="LC152" class="blob-code js-file-line">      backdrop <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L153" class="blob-num js-line-number" data-line-number="153"></td>
-        <td id="LC153" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC153" class="blob-code js-file-line">      $(backdrop).css({</td>
       </tr>
       <tr>
         <td id="L154" class="blob-num js-line-number" data-line-number="154"></td>
-        <td id="LC154" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-v">this</span>.finishedExecuting) {</td>
+        <td id="LC154" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L155" class="blob-num js-line-number" data-line-number="155"></td>
-        <td id="LC155" class="blob-code js-file-line">        <span class="pl-k">if</span> (<span class="pl-v">this</span>.checkPainting()) {</td>
+        <td id="LC155" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>z-index<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>290<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L156" class="blob-num js-line-number" data-line-number="156"></td>
-        <td id="LC156" class="blob-code js-file-line">          <span class="pl-v">this</span>.gameWon();</td>
+        <td id="LC156" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>100%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L157" class="blob-num js-line-number" data-line-number="157"></td>
-        <td id="LC157" class="blob-code js-file-line">        } <span class="pl-k">else</span> {</td>
+        <td id="LC157" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>100%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L158" class="blob-num js-line-number" data-line-number="158"></td>
-        <td id="LC158" class="blob-code js-file-line">          <span class="pl-v">this</span>.gameLost();</td>
+        <td id="LC158" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>background-color<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>black<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L159" class="blob-num js-line-number" data-line-number="159"></td>
-        <td id="LC159" class="blob-code js-file-line">        }</td>
+        <td id="LC159" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>opacity<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>.5<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L160" class="blob-num js-line-number" data-line-number="160"></td>
-        <td id="LC160" class="blob-code js-file-line">      }</td>
+        <td id="LC160" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>top<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L161" class="blob-num js-line-number" data-line-number="161"></td>
-        <td id="LC161" class="blob-code js-file-line">    };</td>
+        <td id="LC161" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>left<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L162" class="blob-num js-line-number" data-line-number="162"></td>
-        <td id="LC162" class="blob-code js-file-line">
-</td>
+        <td id="LC162" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L163" class="blob-num js-line-number" data-line-number="163"></td>
-        <td id="LC163" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">start</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC163" class="blob-code js-file-line">      $(obj).append(backdrop);</td>
       </tr>
       <tr>
         <td id="L164" class="blob-num js-line-number" data-line-number="164"></td>
-        <td id="LC164" class="blob-code js-file-line">
-</td>
+        <td id="LC164" class="blob-code js-file-line">      $(backdrop).<span class="pl-s3">click</span>(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L165" class="blob-num js-line-number" data-line-number="165"></td>
-        <td id="LC165" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC165" class="blob-code js-file-line">        $(cont).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L166" class="blob-num js-line-number" data-line-number="166"></td>
-        <td id="LC166" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC166" class="blob-code js-file-line">        <span class="pl-k">return</span> $(backdrop).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L167" class="blob-num js-line-number" data-line-number="167"></td>
-        <td id="LC167" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC167" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L168" class="blob-num js-line-number" data-line-number="168"></td>
-        <td id="LC168" class="blob-code js-file-line"><span class="pl-c">          Starts the game</span></td>
+        <td id="LC168" class="blob-code js-file-line">    }</td>
       </tr>
       <tr>
         <td id="L169" class="blob-num js-line-number" data-line-number="169"></td>
-        <td id="LC169" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC169" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L170" class="blob-num js-line-number" data-line-number="170"></td>
-        <td id="LC170" class="blob-code js-file-line">      <span class="pl-v">this</span>.startedExecuting <span class="pl-k">=</span> <span class="pl-c1">true</span>;</td>
+        <td id="LC170" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L171" class="blob-num js-line-number" data-line-number="171"></td>
-        <td id="LC171" class="blob-code js-file-line">      <span class="pl-v">this</span>.startedGame <span class="pl-k">=</span> <span class="pl-c1">true</span>;</td>
+        <td id="LC171" class="blob-code js-file-line"><span class="pl-c">      If there is a next game, creates a button to go to it with the text &quot;Next Game&quot;.</span></td>
       </tr>
       <tr>
         <td id="L172" class="blob-num js-line-number" data-line-number="172"></td>
-        <td id="LC172" class="blob-code js-file-line">    };</td>
+        <td id="LC172" class="blob-code js-file-line"><span class="pl-c">      ngco: Container to store the &quot;next game&quot; cloud</span></td>
       </tr>
       <tr>
         <td id="L173" class="blob-num js-line-number" data-line-number="173"></td>
-        <td id="LC173" class="blob-code js-file-line">
-</td>
+        <td id="LC173" class="blob-code js-file-line"><span class="pl-c">      ngi: Cloud to display &quot;next game&quot;</span></td>
       </tr>
       <tr>
         <td id="L174" class="blob-num js-line-number" data-line-number="174"></td>
-        <td id="LC174" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">drawPixel</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>, <span class="pl-vpf">color</span>) {</td>
+        <td id="LC174" class="blob-code js-file-line"><span class="pl-c">      ngt: Container to display the text &quot;next game&quot;</span></td>
       </tr>
       <tr>
         <td id="L175" class="blob-num js-line-number" data-line-number="175"></td>
-        <td id="LC175" class="blob-code js-file-line">
-</td>
+        <td id="LC175" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L176" class="blob-num js-line-number" data-line-number="176"></td>
-        <td id="LC176" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC176" class="blob-code js-file-line">    <span class="pl-k">if</span> (ng <span class="pl-k">!==</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>none<span class="pl-pds">&quot;</span></span>) {</td>
       </tr>
       <tr>
         <td id="L177" class="blob-num js-line-number" data-line-number="177"></td>
-        <td id="LC177" class="blob-code js-file-line"><span class="pl-c">          External Function (used by something outside of this file)</span></td>
+        <td id="LC177" class="blob-code js-file-line">      ngco <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L178" class="blob-num js-line-number" data-line-number="178"></td>
-        <td id="LC178" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC178" class="blob-code js-file-line">      ngi <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>img<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L179" class="blob-num js-line-number" data-line-number="179"></td>
-        <td id="LC179" class="blob-code js-file-line"><span class="pl-c">          Places a draw pixel command on the commands queue.</span></td>
+        <td id="LC179" class="blob-code js-file-line">      ngt <span class="pl-k">=</span> <span class="pl-s3">document</span>.<span class="pl-s3">createElement</span>(<span class="pl-s1"><span class="pl-pds">&quot;</span>div<span class="pl-pds">&quot;</span></span>);</td>
       </tr>
       <tr>
         <td id="L180" class="blob-num js-line-number" data-line-number="180"></td>
-        <td id="LC180" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC180" class="blob-code js-file-line">      $(ngco).css({</td>
       </tr>
       <tr>
         <td id="L181" class="blob-num js-line-number" data-line-number="181"></td>
-        <td id="LC181" class="blob-code js-file-line"><span class="pl-c">          @param x</span></td>
+        <td id="LC181" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L182" class="blob-num js-line-number" data-line-number="182"></td>
-        <td id="LC182" class="blob-code js-file-line"><span class="pl-c">              The x position of the pixel</span></td>
+        <td id="LC182" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>z-index<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>310<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L183" class="blob-num js-line-number" data-line-number="183"></td>
-        <td id="LC183" class="blob-code js-file-line"><span class="pl-c">          @param y</span></td>
+        <td id="LC183" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>bottom<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L184" class="blob-num js-line-number" data-line-number="184"></td>
-        <td id="LC184" class="blob-code js-file-line"><span class="pl-c">              The y position of the pixel</span></td>
+        <td id="LC184" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>right<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L185" class="blob-num js-line-number" data-line-number="185"></td>
-        <td id="LC185" class="blob-code js-file-line"><span class="pl-c">          @param color</span></td>
+        <td id="LC185" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">2</span>,</td>
       </tr>
       <tr>
         <td id="L186" class="blob-num js-line-number" data-line-number="186"></td>
-        <td id="LC186" class="blob-code js-file-line"><span class="pl-c">              The color of the pixel</span></td>
+        <td id="LC186" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">7</span></td>
       </tr>
       <tr>
         <td id="L187" class="blob-num js-line-number" data-line-number="187"></td>
-        <td id="LC187" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC187" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L188" class="blob-num js-line-number" data-line-number="188"></td>
-        <td id="LC188" class="blob-code js-file-line">      <span class="pl-s">var</span> char;</td>
+        <td id="LC188" class="blob-code js-file-line">      $(ngi).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ngiAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L189" class="blob-num js-line-number" data-line-number="189"></td>
-        <td id="LC189" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-v">this</span>.gameManager.config.game.characterBase.hasOwnProperty(color)) {</td>
+        <td id="LC189" class="blob-code js-file-line">      $(ngi).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>ngiCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L190" class="blob-num js-line-number" data-line-number="190"></td>
-        <td id="LC190" class="blob-code js-file-line">        <span class="pl-k">return</span>;</td>
+        <td id="LC190" class="blob-code js-file-line">      $(ngt).css({</td>
       </tr>
       <tr>
         <td id="L191" class="blob-num js-line-number" data-line-number="191"></td>
-        <td id="LC191" class="blob-code js-file-line">      }</td>
+        <td id="LC191" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L192" class="blob-num js-line-number" data-line-number="192"></td>
-        <td id="LC192" class="blob-code js-file-line">      char <span class="pl-k">=</span> <span class="pl-v">this</span>.gameManager.generateCharacter(color, x, y, <span class="pl-c1">false</span>);</td>
+        <td id="LC192" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>z-index<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>302<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L193" class="blob-num js-line-number" data-line-number="193"></td>
-        <td id="LC193" class="blob-code js-file-line">      char.<span class="pl-sc">color</span> <span class="pl-k">=</span> color;</td>
+        <td id="LC193" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>top<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>35%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L194" class="blob-num js-line-number" data-line-number="194"></td>
-        <td id="LC194" class="blob-code js-file-line">      <span class="pl-v">this</span>.picture[x][y] <span class="pl-k">=</span> char;</td>
+        <td id="LC194" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>text-align<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>center<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L195" class="blob-num js-line-number" data-line-number="195"></td>
-        <td id="LC195" class="blob-code js-file-line">      <span class="pl-v">this</span>.commands.<span class="pl-s3">push</span>({</td>
+        <td id="LC195" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">10</span>,</td>
       </tr>
       <tr>
         <td id="L196" class="blob-num js-line-number" data-line-number="196"></td>
-        <td id="LC196" class="blob-code js-file-line">        key<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&#39;</span>drawPixel<span class="pl-pds">&#39;</span></span>,</td>
+        <td id="LC196" class="blob-code js-file-line">        <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>100%<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L197" class="blob-num js-line-number" data-line-number="197"></td>
-        <td id="LC197" class="blob-code js-file-line">        exec<span class="pl-k">:</span> <span class="pl-v">this</span>._drawPixel.bind(<span class="pl-v">this</span>, x, y, char)</td>
+        <td id="LC197" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L198" class="blob-num js-line-number" data-line-number="198"></td>
-        <td id="LC198" class="blob-code js-file-line">      });</td>
+        <td id="LC198" class="blob-code js-file-line">      ngt.innerHTML <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>Next Game!<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L199" class="blob-num js-line-number" data-line-number="199"></td>
-        <td id="LC199" class="blob-code js-file-line">    };</td>
+        <td id="LC199" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L200" class="blob-num js-line-number" data-line-number="200"></td>
-        <td id="LC200" class="blob-code js-file-line">
-</td>
+        <td id="LC200" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L201" class="blob-num js-line-number" data-line-number="201"></td>
-        <td id="LC201" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">_drawPixel</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>, <span class="pl-vpf">char</span>) {</td>
+        <td id="LC201" class="blob-code js-file-line"><span class="pl-c">        Appends the cloud and &quot;next game&quot; text</span></td>
       </tr>
       <tr>
         <td id="L202" class="blob-num js-line-number" data-line-number="202"></td>
-        <td id="LC202" class="blob-code js-file-line">
-</td>
+        <td id="LC202" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L203" class="blob-num js-line-number" data-line-number="203"></td>
-        <td id="LC203" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC203" class="blob-code js-file-line">      $(ngco).append(ngi);</td>
       </tr>
       <tr>
         <td id="L204" class="blob-num js-line-number" data-line-number="204"></td>
-        <td id="LC204" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC204" class="blob-code js-file-line">      $(ngco).append(ngt);</td>
       </tr>
       <tr>
         <td id="L205" class="blob-num js-line-number" data-line-number="205"></td>
-        <td id="LC205" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC205" class="blob-code js-file-line">      $(cont).append(ngco);</td>
       </tr>
       <tr>
         <td id="L206" class="blob-num js-line-number" data-line-number="206"></td>
-        <td id="LC206" class="blob-code js-file-line"><span class="pl-c">          Draws the given pixel at the x and y locations with color color.</span></td>
+        <td id="LC206" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L207" class="blob-num js-line-number" data-line-number="207"></td>
-        <td id="LC207" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC207" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L208" class="blob-num js-line-number" data-line-number="208"></td>
-        <td id="LC208" class="blob-code js-file-line"><span class="pl-c">          @param x</span></td>
+        <td id="LC208" class="blob-code js-file-line"><span class="pl-c">        Finishes the current game and starts the next game when you click on the &quot;next game&quot; cloud</span></td>
       </tr>
       <tr>
         <td id="L209" class="blob-num js-line-number" data-line-number="209"></td>
-        <td id="LC209" class="blob-code js-file-line"><span class="pl-c">              The x position of the pixel</span></td>
+        <td id="LC209" class="blob-code js-file-line"><span class="pl-c">        TODO: Debug this method</span></td>
       </tr>
       <tr>
         <td id="L210" class="blob-num js-line-number" data-line-number="210"></td>
-        <td id="LC210" class="blob-code js-file-line"><span class="pl-c">          @param y</span></td>
+        <td id="LC210" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
       </tr>
       <tr>
         <td id="L211" class="blob-num js-line-number" data-line-number="211"></td>
-        <td id="LC211" class="blob-code js-file-line"><span class="pl-c">              The y position of the pixel</span></td>
+        <td id="LC211" class="blob-code js-file-line">      $(ngco).<span class="pl-s3">click</span>(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L212" class="blob-num js-line-number" data-line-number="212"></td>
-        <td id="LC212" class="blob-code js-file-line"><span class="pl-c">          @param char</span></td>
+        <td id="LC212" class="blob-code js-file-line">        man.finishGame();</td>
       </tr>
       <tr>
         <td id="L213" class="blob-num js-line-number" data-line-number="213"></td>
-        <td id="LC213" class="blob-code js-file-line"><span class="pl-c">              The pixel to draw</span></td>
+        <td id="LC213" class="blob-code js-file-line">        codeland.startGame(ng);</td>
       </tr>
       <tr>
         <td id="L214" class="blob-num js-line-number" data-line-number="214"></td>
-        <td id="LC214" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC214" class="blob-code js-file-line">        $(cont).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L215" class="blob-num js-line-number" data-line-number="215"></td>
-        <td id="LC215" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-v">this</span>.picture[x][y] <span class="pl-k">!=</span> <span class="pl-c1">null</span>) {</td>
+        <td id="LC215" class="blob-code js-file-line">        <span class="pl-k">return</span> $(backdrop).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L216" class="blob-num js-line-number" data-line-number="216"></td>
-        <td id="LC216" class="blob-code js-file-line">        <span class="pl-v">this</span>.visual.removeCharacter(<span class="pl-v">this</span>.gameManager.config.visual, <span class="pl-v">this</span>.picture[x][y].visual);</td>
+        <td id="LC216" class="blob-code js-file-line">      });</td>
       </tr>
       <tr>
         <td id="L217" class="blob-num js-line-number" data-line-number="217"></td>
-        <td id="LC217" class="blob-code js-file-line">      }</td>
+        <td id="LC217" class="blob-code js-file-line">    }</td>
       </tr>
       <tr>
         <td id="L218" class="blob-num js-line-number" data-line-number="218"></td>
-        <td id="LC218" class="blob-code js-file-line">      <span class="pl-v">this</span>.visual.pushCharacter(<span class="pl-v">this</span>.gameManager.config.visual, char.visual);</td>
+        <td id="LC218" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L219" class="blob-num js-line-number" data-line-number="219"></td>
-        <td id="LC219" class="blob-code js-file-line">      <span class="pl-v">this</span>.picture[x][y] <span class="pl-k">=</span> char;</td>
+        <td id="LC219" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L220" class="blob-num js-line-number" data-line-number="220"></td>
-        <td id="LC220" class="blob-code js-file-line">    };</td>
+        <td id="LC220" class="blob-code js-file-line"><span class="pl-c">      Sets the attribute and CSS properties for subbd, xbcloud, and xb (descriptions of these objects in an above comment)</span></td>
       </tr>
       <tr>
         <td id="L221" class="blob-num js-line-number" data-line-number="221"></td>
-        <td id="LC221" class="blob-code js-file-line">
-</td>
+        <td id="LC221" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L222" class="blob-num js-line-number" data-line-number="222"></td>
-        <td id="LC222" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">getPixel</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>) {</td>
+        <td id="LC222" class="blob-code js-file-line">    $(subbd).css({</td>
       </tr>
       <tr>
         <td id="L223" class="blob-num js-line-number" data-line-number="223"></td>
-        <td id="LC223" class="blob-code js-file-line">
-</td>
+        <td id="LC223" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L224" class="blob-num js-line-number" data-line-number="224"></td>
-        <td id="LC224" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC224" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>top<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L225" class="blob-num js-line-number" data-line-number="225"></td>
-        <td id="LC225" class="blob-code js-file-line"><span class="pl-c">          External Function (used by something outside of this file)</span></td>
+        <td id="LC225" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>right<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>0%<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L226" class="blob-num js-line-number" data-line-number="226"></td>
-        <td id="LC226" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC226" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">8</span>,</td>
       </tr>
       <tr>
         <td id="L227" class="blob-num js-line-number" data-line-number="227"></td>
-        <td id="LC227" class="blob-code js-file-line"><span class="pl-c">          Returns the pixel color at position (x, y)</span></td>
+        <td id="LC227" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> dim / <span class="pl-c1">8</span></td>
       </tr>
       <tr>
         <td id="L228" class="blob-num js-line-number" data-line-number="228"></td>
-        <td id="LC228" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC228" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L229" class="blob-num js-line-number" data-line-number="229"></td>
-        <td id="LC229" class="blob-code js-file-line"><span class="pl-c">          @param x</span></td>
+        <td id="LC229" class="blob-code js-file-line">    $(xbcloud).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>xbcloudAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L230" class="blob-num js-line-number" data-line-number="230"></td>
-        <td id="LC230" class="blob-code js-file-line"><span class="pl-c">              The x position of the pixel to query</span></td>
+        <td id="LC230" class="blob-code js-file-line">    $(xbcloud).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>xbcloudCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L231" class="blob-num js-line-number" data-line-number="231"></td>
-        <td id="LC231" class="blob-code js-file-line"><span class="pl-c">          @param y</span></td>
+        <td id="LC231" class="blob-code js-file-line">    $(xb).attr(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>xbAttr<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L232" class="blob-num js-line-number" data-line-number="232"></td>
-        <td id="LC232" class="blob-code js-file-line"><span class="pl-c">              The y position of the pixel to query</span></td>
+        <td id="LC232" class="blob-code js-file-line">    $(xb).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>xbCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L233" class="blob-num js-line-number" data-line-number="233"></td>
-        <td id="LC233" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC233" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L234" class="blob-num js-line-number" data-line-number="234"></td>
-        <td id="LC234" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-v">this</span>.picture[x][y]) {</td>
+        <td id="LC234" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L235" class="blob-num js-line-number" data-line-number="235"></td>
-        <td id="LC235" class="blob-code js-file-line">        <span class="pl-k">return</span> <span class="pl-v">this</span>.picture[x][y].<span class="pl-sc">color</span>;</td>
+        <td id="LC235" class="blob-code js-file-line"><span class="pl-c">      Sets the attribute and CSS properties for cloud, cont, and text (descriptions of these objects in an above comment)</span></td>
       </tr>
       <tr>
         <td id="L236" class="blob-num js-line-number" data-line-number="236"></td>
-        <td id="LC236" class="blob-code js-file-line">      } <span class="pl-k">else</span> {</td>
+        <td id="LC236" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L237" class="blob-num js-line-number" data-line-number="237"></td>
-        <td id="LC237" class="blob-code js-file-line">        <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>white<span class="pl-pds">&quot;</span></span>;</td>
+        <td id="LC237" class="blob-code js-file-line">    $(cloud).attr({</td>
       </tr>
       <tr>
         <td id="L238" class="blob-num js-line-number" data-line-number="238"></td>
-        <td id="LC238" class="blob-code js-file-line">      }</td>
+        <td id="LC238" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>src<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>img/interface/cloud.png<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L239" class="blob-num js-line-number" data-line-number="239"></td>
-        <td id="LC239" class="blob-code js-file-line">    };</td>
+        <td id="LC239" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>align<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>middle<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L240" class="blob-num js-line-number" data-line-number="240"></td>
-        <td id="LC240" class="blob-code js-file-line">
-</td>
+        <td id="LC240" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>width<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> $(<span class="pl-s3">window</span>).<span class="pl-sc">width</span>() / <span class="pl-c1">2</span>,</td>
       </tr>
       <tr>
         <td id="L241" class="blob-num js-line-number" data-line-number="241"></td>
-        <td id="LC241" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">gameWon</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC241" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>height<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> $(<span class="pl-s3">window</span>).<span class="pl-sc">height</span>() / <span class="pl-c1">2</span></td>
       </tr>
       <tr>
         <td id="L242" class="blob-num js-line-number" data-line-number="242"></td>
-        <td id="LC242" class="blob-code js-file-line">
-</td>
+        <td id="LC242" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L243" class="blob-num js-line-number" data-line-number="243"></td>
-        <td id="LC243" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC243" class="blob-code js-file-line">    $(cont).css({</td>
       </tr>
       <tr>
         <td id="L244" class="blob-num js-line-number" data-line-number="244"></td>
-        <td id="LC244" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC244" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>position<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>absolute<span class="pl-pds">&quot;</span></span>,</td>
       </tr>
       <tr>
         <td id="L245" class="blob-num js-line-number" data-line-number="245"></td>
-        <td id="LC245" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC245" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>top<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> x,</td>
       </tr>
       <tr>
         <td id="L246" class="blob-num js-line-number" data-line-number="246"></td>
-        <td id="LC246" class="blob-code js-file-line"><span class="pl-c">          Stops the game and reports the win to the game Manager.</span></td>
+        <td id="LC246" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>left<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> y,</td>
       </tr>
       <tr>
         <td id="L247" class="blob-num js-line-number" data-line-number="247"></td>
-        <td id="LC247" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC247" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>z-index<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>297<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L248" class="blob-num js-line-number" data-line-number="248"></td>
-        <td id="LC248" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-v">this</span>.startedGame) {</td>
+        <td id="LC248" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L249" class="blob-num js-line-number" data-line-number="249"></td>
-        <td id="LC249" class="blob-code js-file-line">        <span class="pl-k">return</span>;</td>
+        <td id="LC249" class="blob-code js-file-line">    $(text).css(cssData[<span class="pl-s1"><span class="pl-pds">&quot;</span>textCSS<span class="pl-pds">&quot;</span></span>]);</td>
       </tr>
       <tr>
         <td id="L250" class="blob-num js-line-number" data-line-number="250"></td>
-        <td id="LC250" class="blob-code js-file-line">      }</td>
-      </tr>
-      <tr>
-        <td id="L251" class="blob-num js-line-number" data-line-number="251"></td>
-        <td id="LC251" class="blob-code js-file-line">      <span class="pl-v">this</span>.stopGame();</td>
-      </tr>
-      <tr>
-        <td id="L252" class="blob-num js-line-number" data-line-number="252"></td>
-        <td id="LC252" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameManager.gameWon();</td>
-      </tr>
-      <tr>
-        <td id="L253" class="blob-num js-line-number" data-line-number="253"></td>
-        <td id="LC253" class="blob-code js-file-line">    };</td>
-      </tr>
-      <tr>
-        <td id="L254" class="blob-num js-line-number" data-line-number="254"></td>
-        <td id="LC254" class="blob-code js-file-line">
+        <td id="LC250" class="blob-code js-file-line">
 </td>
       </tr>
       <tr>
+        <td id="L251" class="blob-num js-line-number" data-line-number="251"></td>
+        <td id="LC251" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
+      </tr>
+      <tr>
+        <td id="L252" class="blob-num js-line-number" data-line-number="252"></td>
+        <td id="LC252" class="blob-code js-file-line"><span class="pl-c">      Adds the cloud and text objects to the cont overall object</span></td>
+      </tr>
+      <tr>
+        <td id="L253" class="blob-num js-line-number" data-line-number="253"></td>
+        <td id="LC253" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
+      </tr>
+      <tr>
+        <td id="L254" class="blob-num js-line-number" data-line-number="254"></td>
+        <td id="LC254" class="blob-code js-file-line">    $(cont).append(cloud);</td>
+      </tr>
+      <tr>
         <td id="L255" class="blob-num js-line-number" data-line-number="255"></td>
-        <td id="LC255" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">gameLost</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC255" class="blob-code js-file-line">    $(cont).append(text);</td>
       </tr>
       <tr>
         <td id="L256" class="blob-num js-line-number" data-line-number="256"></td>
@@ -1662,83 +1676,86 @@
       </tr>
       <tr>
         <td id="L257" class="blob-num js-line-number" data-line-number="257"></td>
-        <td id="LC257" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC257" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L258" class="blob-num js-line-number" data-line-number="258"></td>
-        <td id="LC258" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC258" class="blob-code js-file-line"><span class="pl-c">      Adds the subbd object to the cont overall object (descriptions of these objects in an above comment)</span></td>
       </tr>
       <tr>
         <td id="L259" class="blob-num js-line-number" data-line-number="259"></td>
-        <td id="LC259" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC259" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L260" class="blob-num js-line-number" data-line-number="260"></td>
-        <td id="LC260" class="blob-code js-file-line"><span class="pl-c">          Stops the game and reports the loss to the game Manager.</span></td>
+        <td id="LC260" class="blob-code js-file-line">    $(cont).append(subbd);</td>
       </tr>
       <tr>
         <td id="L261" class="blob-num js-line-number" data-line-number="261"></td>
-        <td id="LC261" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC261" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L262" class="blob-num js-line-number" data-line-number="262"></td>
-        <td id="LC262" class="blob-code js-file-line">      <span class="pl-k">if</span> (<span class="pl-k">!</span><span class="pl-v">this</span>.startedGame) {</td>
+        <td id="LC262" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L263" class="blob-num js-line-number" data-line-number="263"></td>
-        <td id="LC263" class="blob-code js-file-line">        <span class="pl-k">return</span>;</td>
+        <td id="LC263" class="blob-code js-file-line"><span class="pl-c">      Adds the xbcloud and xb objects to the subbd object (descriptions of these objects in an above comment)</span></td>
       </tr>
       <tr>
         <td id="L264" class="blob-num js-line-number" data-line-number="264"></td>
-        <td id="LC264" class="blob-code js-file-line">      }</td>
+        <td id="LC264" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L265" class="blob-num js-line-number" data-line-number="265"></td>
-        <td id="LC265" class="blob-code js-file-line">      <span class="pl-v">this</span>.stopGame();</td>
+        <td id="LC265" class="blob-code js-file-line">    $(subbd).append(xbcloud);</td>
       </tr>
       <tr>
         <td id="L266" class="blob-num js-line-number" data-line-number="266"></td>
-        <td id="LC266" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameManager.gameLost();</td>
+        <td id="LC266" class="blob-code js-file-line">    $(subbd).append(xb);</td>
       </tr>
       <tr>
         <td id="L267" class="blob-num js-line-number" data-line-number="267"></td>
-        <td id="LC267" class="blob-code js-file-line">    };</td>
+        <td id="LC267" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L268" class="blob-num js-line-number" data-line-number="268"></td>
-        <td id="LC268" class="blob-code js-file-line">	</td>
+        <td id="LC268" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L269" class="blob-num js-line-number" data-line-number="269"></td>
-        <td id="LC269" class="blob-code js-file-line">	<span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">compileError</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">error_num</span>) {</td>
+        <td id="LC269" class="blob-code js-file-line"><span class="pl-c">      Adds the cont object to the obj object (descriptions of these objects in an above comment)</span></td>
       </tr>
       <tr>
         <td id="L270" class="blob-num js-line-number" data-line-number="270"></td>
-        <td id="LC270" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC270" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L271" class="blob-num js-line-number" data-line-number="271"></td>
-        <td id="LC271" class="blob-code js-file-line"><span class="pl-c">          Internal Function (used only by the code in this file)</span></td>
+        <td id="LC271" class="blob-code js-file-line">    $(obj).append(cont);</td>
       </tr>
       <tr>
         <td id="L272" class="blob-num js-line-number" data-line-number="272"></td>
-        <td id="LC272" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC272" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L273" class="blob-num js-line-number" data-line-number="273"></td>
-        <td id="LC273" class="blob-code js-file-line"><span class="pl-c">          Stops the game and reports the loss to the game Manager.</span></td>
+        <td id="LC273" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L274" class="blob-num js-line-number" data-line-number="274"></td>
-        <td id="LC274" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC274" class="blob-code js-file-line"><span class="pl-c">      Specifies the text to be displayed in the cloud</span></td>
       </tr>
       <tr>
         <td id="L275" class="blob-num js-line-number" data-line-number="275"></td>
-        <td id="LC275" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameManager.compileError(error_num);</td>
+        <td id="LC275" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L276" class="blob-num js-line-number" data-line-number="276"></td>
-        <td id="LC276" class="blob-code js-file-line">    };</td>
+        <td id="LC276" class="blob-code js-file-line">    text.innerHTML <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;p style=&#39;margin-top:auto;margin-right:auto&#39;&gt;<span class="pl-pds">&quot;</span></span> <span class="pl-k">+</span> par[<span class="pl-c1">0</span>] <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>&lt;/p&gt;<span class="pl-pds">&quot;</span></span>;</td>
       </tr>
       <tr>
         <td id="L277" class="blob-num js-line-number" data-line-number="277"></td>
@@ -1747,83 +1764,80 @@
       </tr>
       <tr>
         <td id="L278" class="blob-num js-line-number" data-line-number="278"></td>
-        <td id="LC278" class="blob-code js-file-line">    <span class="pl-s3">PaintGameState</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">stopGame</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
+        <td id="LC278" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L279" class="blob-num js-line-number" data-line-number="279"></td>
-        <td id="LC279" class="blob-code js-file-line">
-</td>
+        <td id="LC279" class="blob-code js-file-line"><span class="pl-c">      Specifies the CSS properties for the text</span></td>
       </tr>
       <tr>
         <td id="L280" class="blob-num js-line-number" data-line-number="280"></td>
-        <td id="LC280" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
+        <td id="LC280" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L281" class="blob-num js-line-number" data-line-number="281"></td>
-        <td id="LC281" class="blob-code js-file-line"><span class="pl-c">          External Function (used by something outside of this file)</span></td>
+        <td id="LC281" class="blob-code js-file-line">    $(text).css({</td>
       </tr>
       <tr>
         <td id="L282" class="blob-num js-line-number" data-line-number="282"></td>
-        <td id="LC282" class="blob-code js-file-line"><span class="pl-c">      </span></td>
+        <td id="LC282" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&#39;</span>font-size<span class="pl-pds">&#39;</span></span><span class="pl-k">:</span> (dim <span class="pl-k">*</span> .<span class="pl-c1">05</span> <span class="pl-k">*</span> tscale) <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">&#39;</span>px<span class="pl-pds">&#39;</span></span></td>
       </tr>
       <tr>
         <td id="L283" class="blob-num js-line-number" data-line-number="283"></td>
-        <td id="LC283" class="blob-code js-file-line"><span class="pl-c">          Stops the game.</span></td>
+        <td id="LC283" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L284" class="blob-num js-line-number" data-line-number="284"></td>
-        <td id="LC284" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
+        <td id="LC284" class="blob-code js-file-line">    left <span class="pl-k">=</span> <span class="pl-c1">0.125</span> <span class="pl-k">*</span> dim;</td>
       </tr>
       <tr>
         <td id="L285" class="blob-num js-line-number" data-line-number="285"></td>
-        <td id="LC285" class="blob-code js-file-line">      <span class="pl-k">if</span> (clockHandle <span class="pl-k">!=</span> <span class="pl-c1">null</span>) {</td>
+        <td id="LC285" class="blob-code js-file-line">    $(text).css({</td>
       </tr>
       <tr>
         <td id="L286" class="blob-num js-line-number" data-line-number="286"></td>
-        <td id="LC286" class="blob-code js-file-line">        <span class="pl-s3">clearInterval</span>(clockHandle);</td>
+        <td id="LC286" class="blob-code js-file-line">      <span class="pl-s1"><span class="pl-pds">&quot;</span>left<span class="pl-pds">&quot;</span></span><span class="pl-k">:</span> left <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">&quot;</span>px<span class="pl-pds">&quot;</span></span></td>
       </tr>
       <tr>
         <td id="L287" class="blob-num js-line-number" data-line-number="287"></td>
-        <td id="LC287" class="blob-code js-file-line">      }</td>
+        <td id="LC287" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L288" class="blob-num js-line-number" data-line-number="288"></td>
-        <td id="LC288" class="blob-code js-file-line">      clockHandle <span class="pl-k">=</span> <span class="pl-c1">null</span>;</td>
+        <td id="LC288" class="blob-code js-file-line">
+</td>
       </tr>
       <tr>
         <td id="L289" class="blob-num js-line-number" data-line-number="289"></td>
-        <td id="LC289" class="blob-code js-file-line">      <span class="pl-v">this</span>.startedGame <span class="pl-k">=</span> <span class="pl-c1">false</span>;</td>
+        <td id="LC289" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
       </tr>
       <tr>
         <td id="L290" class="blob-num js-line-number" data-line-number="290"></td>
-        <td id="LC290" class="blob-code js-file-line">    };</td>
+        <td id="LC290" class="blob-code js-file-line"><span class="pl-c">      When closing the x button, the cloud goes away and the black backdrop is removed.</span></td>
       </tr>
       <tr>
         <td id="L291" class="blob-num js-line-number" data-line-number="291"></td>
-        <td id="LC291" class="blob-code js-file-line">
-</td>
+        <td id="LC291" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
       </tr>
       <tr>
         <td id="L292" class="blob-num js-line-number" data-line-number="292"></td>
-        <td id="LC292" class="blob-code js-file-line">    <span class="pl-k">return</span> PaintGameState;</td>
+        <td id="LC292" class="blob-code js-file-line">    $(xb).<span class="pl-s3">click</span>(<span class="pl-st">function</span>() {</td>
       </tr>
       <tr>
         <td id="L293" class="blob-num js-line-number" data-line-number="293"></td>
-        <td id="LC293" class="blob-code js-file-line">
-</td>
+        <td id="LC293" class="blob-code js-file-line">      $(cont).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L294" class="blob-num js-line-number" data-line-number="294"></td>
-        <td id="LC294" class="blob-code js-file-line">  })();</td>
+        <td id="LC294" class="blob-code js-file-line">      <span class="pl-k">return</span> $(backdrop).<span class="pl-s3">remove</span>();</td>
       </tr>
       <tr>
         <td id="L295" class="blob-num js-line-number" data-line-number="295"></td>
-        <td id="LC295" class="blob-code js-file-line">
-</td>
+        <td id="LC295" class="blob-code js-file-line">    });</td>
       </tr>
       <tr>
         <td id="L296" class="blob-num js-line-number" data-line-number="296"></td>
-        <td id="LC296" class="blob-code js-file-line">  PaintGameCommands <span class="pl-k">=</span> (<span class="pl-st">function</span>() {</td>
+        <td id="LC296" class="blob-code js-file-line">  };</td>
       </tr>
       <tr>
         <td id="L297" class="blob-num js-line-number" data-line-number="297"></td>
@@ -1832,272 +1846,7 @@
       </tr>
       <tr>
         <td id="L298" class="blob-num js-line-number" data-line-number="298"></td>
-        <td id="LC298" class="blob-code js-file-line">    <span class="pl-c">/*</span></td>
-      </tr>
-      <tr>
-        <td id="L299" class="blob-num js-line-number" data-line-number="299"></td>
-        <td id="LC299" class="blob-code js-file-line"><span class="pl-c">        A class to contain the functions called by the student&#39;s</span></td>
-      </tr>
-      <tr>
-        <td id="L300" class="blob-num js-line-number" data-line-number="300"></td>
-        <td id="LC300" class="blob-code js-file-line"><span class="pl-c">        Java code for paint games.</span></td>
-      </tr>
-      <tr>
-        <td id="L301" class="blob-num js-line-number" data-line-number="301"></td>
-        <td id="LC301" class="blob-code js-file-line"><span class="pl-c">     */</span></td>
-      </tr>
-      <tr>
-        <td id="L302" class="blob-num js-line-number" data-line-number="302"></td>
-        <td id="LC302" class="blob-code js-file-line">    <span class="pl-st">function</span> <span class="pl-en">PaintGameCommands</span>(<span class="pl-vpf">gameState</span>) {</td>
-      </tr>
-      <tr>
-        <td id="L303" class="blob-num js-line-number" data-line-number="303"></td>
-        <td id="LC303" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameState <span class="pl-k">=</span> gameState;</td>
-      </tr>
-      <tr>
-        <td id="L304" class="blob-num js-line-number" data-line-number="304"></td>
-        <td id="LC304" class="blob-code js-file-line">      <span class="pl-k">return</span>;</td>
-      </tr>
-      <tr>
-        <td id="L305" class="blob-num js-line-number" data-line-number="305"></td>
-        <td id="LC305" class="blob-code js-file-line">    }</td>
-      </tr>
-      <tr>
-        <td id="L306" class="blob-num js-line-number" data-line-number="306"></td>
-        <td id="LC306" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L307" class="blob-num js-line-number" data-line-number="307"></td>
-        <td id="LC307" class="blob-code js-file-line">    <span class="pl-s3">PaintGameCommands</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">finishedParsingStartGame</span> <span class="pl-k">=</span> <span class="pl-st">function</span>() {</td>
-      </tr>
-      <tr>
-        <td id="L308" class="blob-num js-line-number" data-line-number="308"></td>
-        <td id="LC308" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L309" class="blob-num js-line-number" data-line-number="309"></td>
-        <td id="LC309" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
-      </tr>
-      <tr>
-        <td id="L310" class="blob-num js-line-number" data-line-number="310"></td>
-        <td id="LC310" class="blob-code js-file-line"><span class="pl-c">          Java Function (called by the Java code)</span></td>
-      </tr>
-      <tr>
-        <td id="L311" class="blob-num js-line-number" data-line-number="311"></td>
-        <td id="LC311" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L312" class="blob-num js-line-number" data-line-number="312"></td>
-        <td id="LC312" class="blob-code js-file-line"><span class="pl-c">          Starts the game.</span></td>
-      </tr>
-      <tr>
-        <td id="L313" class="blob-num js-line-number" data-line-number="313"></td>
-        <td id="LC313" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
-      </tr>
-      <tr>
-        <td id="L314" class="blob-num js-line-number" data-line-number="314"></td>
-        <td id="LC314" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameState.<span class="pl-sc">start</span>();</td>
-      </tr>
-      <tr>
-        <td id="L315" class="blob-num js-line-number" data-line-number="315"></td>
-        <td id="LC315" class="blob-code js-file-line">    };</td>
-      </tr>
-      <tr>
-        <td id="L316" class="blob-num js-line-number" data-line-number="316"></td>
-        <td id="LC316" class="blob-code js-file-line">	</td>
-      </tr>
-      <tr>
-        <td id="L317" class="blob-num js-line-number" data-line-number="317"></td>
-        <td id="LC317" class="blob-code js-file-line">	<span class="pl-s3">PaintGameCommands</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">compileError</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">error_num</span>) {</td>
-      </tr>
-      <tr>
-        <td id="L318" class="blob-num js-line-number" data-line-number="318"></td>
-        <td id="LC318" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
-      </tr>
-      <tr>
-        <td id="L319" class="blob-num js-line-number" data-line-number="319"></td>
-        <td id="LC319" class="blob-code js-file-line"><span class="pl-c">          External Function (used by something outside of this file)</span></td>
-      </tr>
-      <tr>
-        <td id="L320" class="blob-num js-line-number" data-line-number="320"></td>
-        <td id="LC320" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L321" class="blob-num js-line-number" data-line-number="321"></td>
-        <td id="LC321" class="blob-code js-file-line"><span class="pl-c">          Stops the game and reports the loss to the game Manager.</span></td>
-      </tr>
-      <tr>
-        <td id="L322" class="blob-num js-line-number" data-line-number="322"></td>
-        <td id="LC322" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
-      </tr>
-      <tr>
-        <td id="L323" class="blob-num js-line-number" data-line-number="323"></td>
-        <td id="LC323" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameState.compileError(error_num);</td>
-      </tr>
-      <tr>
-        <td id="L324" class="blob-num js-line-number" data-line-number="324"></td>
-        <td id="LC324" class="blob-code js-file-line">    };</td>
-      </tr>
-      <tr>
-        <td id="L325" class="blob-num js-line-number" data-line-number="325"></td>
-        <td id="LC325" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L326" class="blob-num js-line-number" data-line-number="326"></td>
-        <td id="LC326" class="blob-code js-file-line">    <span class="pl-s3">PaintGameCommands</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">drawPixel</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>, <span class="pl-vpf">color</span>) {</td>
-      </tr>
-      <tr>
-        <td id="L327" class="blob-num js-line-number" data-line-number="327"></td>
-        <td id="LC327" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L328" class="blob-num js-line-number" data-line-number="328"></td>
-        <td id="LC328" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
-      </tr>
-      <tr>
-        <td id="L329" class="blob-num js-line-number" data-line-number="329"></td>
-        <td id="LC329" class="blob-code js-file-line"><span class="pl-c">          Java Function (called by the Java code)</span></td>
-      </tr>
-      <tr>
-        <td id="L330" class="blob-num js-line-number" data-line-number="330"></td>
-        <td id="LC330" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L331" class="blob-num js-line-number" data-line-number="331"></td>
-        <td id="LC331" class="blob-code js-file-line"><span class="pl-c">          Draws a pixel at position (x, y) of color color.</span></td>
-      </tr>
-      <tr>
-        <td id="L332" class="blob-num js-line-number" data-line-number="332"></td>
-        <td id="LC332" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L333" class="blob-num js-line-number" data-line-number="333"></td>
-        <td id="LC333" class="blob-code js-file-line"><span class="pl-c">          @param x</span></td>
-      </tr>
-      <tr>
-        <td id="L334" class="blob-num js-line-number" data-line-number="334"></td>
-        <td id="LC334" class="blob-code js-file-line"><span class="pl-c">              The x position of the pixel</span></td>
-      </tr>
-      <tr>
-        <td id="L335" class="blob-num js-line-number" data-line-number="335"></td>
-        <td id="LC335" class="blob-code js-file-line"><span class="pl-c">          @param y</span></td>
-      </tr>
-      <tr>
-        <td id="L336" class="blob-num js-line-number" data-line-number="336"></td>
-        <td id="LC336" class="blob-code js-file-line"><span class="pl-c">              The y position of the pixel</span></td>
-      </tr>
-      <tr>
-        <td id="L337" class="blob-num js-line-number" data-line-number="337"></td>
-        <td id="LC337" class="blob-code js-file-line"><span class="pl-c">          @param color</span></td>
-      </tr>
-      <tr>
-        <td id="L338" class="blob-num js-line-number" data-line-number="338"></td>
-        <td id="LC338" class="blob-code js-file-line"><span class="pl-c">              The color of the pixel</span></td>
-      </tr>
-      <tr>
-        <td id="L339" class="blob-num js-line-number" data-line-number="339"></td>
-        <td id="LC339" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
-      </tr>
-      <tr>
-        <td id="L340" class="blob-num js-line-number" data-line-number="340"></td>
-        <td id="LC340" class="blob-code js-file-line">      <span class="pl-v">this</span>.gameState.drawPixel(x, y, color);</td>
-      </tr>
-      <tr>
-        <td id="L341" class="blob-num js-line-number" data-line-number="341"></td>
-        <td id="LC341" class="blob-code js-file-line">    };</td>
-      </tr>
-      <tr>
-        <td id="L342" class="blob-num js-line-number" data-line-number="342"></td>
-        <td id="LC342" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L343" class="blob-num js-line-number" data-line-number="343"></td>
-        <td id="LC343" class="blob-code js-file-line">    <span class="pl-s3">PaintGameCommands</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">getPixel</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">x</span>, <span class="pl-vpf">y</span>) {</td>
-      </tr>
-      <tr>
-        <td id="L344" class="blob-num js-line-number" data-line-number="344"></td>
-        <td id="LC344" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L345" class="blob-num js-line-number" data-line-number="345"></td>
-        <td id="LC345" class="blob-code js-file-line">      <span class="pl-c">/*</span></td>
-      </tr>
-      <tr>
-        <td id="L346" class="blob-num js-line-number" data-line-number="346"></td>
-        <td id="LC346" class="blob-code js-file-line"><span class="pl-c">          Java Function (called by the Java code)</span></td>
-      </tr>
-      <tr>
-        <td id="L347" class="blob-num js-line-number" data-line-number="347"></td>
-        <td id="LC347" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L348" class="blob-num js-line-number" data-line-number="348"></td>
-        <td id="LC348" class="blob-code js-file-line"><span class="pl-c">          Returns the color of the pixel at (x, y)</span></td>
-      </tr>
-      <tr>
-        <td id="L349" class="blob-num js-line-number" data-line-number="349"></td>
-        <td id="LC349" class="blob-code js-file-line"><span class="pl-c">      </span></td>
-      </tr>
-      <tr>
-        <td id="L350" class="blob-num js-line-number" data-line-number="350"></td>
-        <td id="LC350" class="blob-code js-file-line"><span class="pl-c">          @param x</span></td>
-      </tr>
-      <tr>
-        <td id="L351" class="blob-num js-line-number" data-line-number="351"></td>
-        <td id="LC351" class="blob-code js-file-line"><span class="pl-c">              The x position of the pixel to query</span></td>
-      </tr>
-      <tr>
-        <td id="L352" class="blob-num js-line-number" data-line-number="352"></td>
-        <td id="LC352" class="blob-code js-file-line"><span class="pl-c">          @param y</span></td>
-      </tr>
-      <tr>
-        <td id="L353" class="blob-num js-line-number" data-line-number="353"></td>
-        <td id="LC353" class="blob-code js-file-line"><span class="pl-c">              The y position of the pixel to query</span></td>
-      </tr>
-      <tr>
-        <td id="L354" class="blob-num js-line-number" data-line-number="354"></td>
-        <td id="LC354" class="blob-code js-file-line"><span class="pl-c">       */</span></td>
-      </tr>
-      <tr>
-        <td id="L355" class="blob-num js-line-number" data-line-number="355"></td>
-        <td id="LC355" class="blob-code js-file-line">      <span class="pl-k">return</span> <span class="pl-v">this</span>.gameState.getPixel(x, y);</td>
-      </tr>
-      <tr>
-        <td id="L356" class="blob-num js-line-number" data-line-number="356"></td>
-        <td id="LC356" class="blob-code js-file-line">    };</td>
-      </tr>
-      <tr>
-        <td id="L357" class="blob-num js-line-number" data-line-number="357"></td>
-        <td id="LC357" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L358" class="blob-num js-line-number" data-line-number="358"></td>
-        <td id="LC358" class="blob-code js-file-line">    <span class="pl-k">return</span> PaintGameCommands;</td>
-      </tr>
-      <tr>
-        <td id="L359" class="blob-num js-line-number" data-line-number="359"></td>
-        <td id="LC359" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L360" class="blob-num js-line-number" data-line-number="360"></td>
-        <td id="LC360" class="blob-code js-file-line">  })();</td>
-      </tr>
-      <tr>
-        <td id="L361" class="blob-num js-line-number" data-line-number="361"></td>
-        <td id="LC361" class="blob-code js-file-line">
-</td>
-      </tr>
-      <tr>
-        <td id="L362" class="blob-num js-line-number" data-line-number="362"></td>
-        <td id="LC362" class="blob-code js-file-line">}).<span class="pl-s3">call</span>(<span class="pl-v">this</span>);</td>
+        <td id="LC298" class="blob-code js-file-line">}).<span class="pl-s3">call</span>(<span class="pl-v">this</span>);</td>
       </tr>
 </table>
 
@@ -2139,7 +1888,7 @@
       <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
 </a>
     <ul class="site-footer-links">
-      <li>&copy; 2015 <span title="0.09655s from github-fe142-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+      <li>&copy; 2015 <span title="0.13644s from github-fe133-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
         <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
         <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
         <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
