@@ -45,6 +45,7 @@
       this.startedExecuting = false;
       this.commands = [];
       this.picture = [];
+      this.highlightid = null;
       for (i = _i = 0, _ref = this.gameManager.config.visual.grid.gridY; _i <= _ref; i = _i += 1) {
         temp = [];
         for (i = _j = 0, _ref1 = this.gameManager.config.visual.grid.gridX; _j <= _ref1; i = _j += 1) {
@@ -90,8 +91,8 @@
           in the queue.
        */
       var command;
-      if (this.startedGame === true) {
-        if (this.tick % 30 === 0) {
+      //if (this.startedGame === true) {
+        if (this.tick % 5 === 0) {
           this.checkEvents();
           if (this.commands.length > 0) {
             command = this.commands.splice(0, 1)[0];
@@ -100,7 +101,7 @@
             this.finishedExecuting = this.startedExecuting;
           }
         }
-      }
+      //}
       this.visual.getFrame(this.gameManager.config.visual, this.tick);
       this.tick++;
     };
@@ -152,6 +153,10 @@
           check if it was done correctly.
        */
       if (this.finishedExecuting) {
+        //Clean up the last highlighted line
+        if(this.highlightid) {
+          this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
+        }
         if (this.checkPainting()) {
           this.gameWon();
         } else {
@@ -170,6 +175,27 @@
       this.startedExecuting = true;
       this.startedGame = true;
     };
+
+    PaintGameState.prototype.highlightCommand = function(startLine, endLine)
+    {
+      //Don't highlight regions or past end of the code (indicates library code)
+      if(startLine != endLine)
+        return;
+      /*if(endline > this.gameManager.codeEditor.editor.editSession.getLength())
+        return;*/
+      this.commands.push({
+        key: 'highlightCommand',
+        exec: this._highlightLine.bind(this, startLine, endLine)
+      });
+    }
+
+    PaintGameState.prototype._highlightLine = function(startLine, endLine)
+    {
+      if(this.highlightid) {
+        this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
+      }
+      this.highlightid = this.gameManager.codeEditor.editor.editSession.highlightLines(startLine, endLine);
+    }
 
     PaintGameState.prototype.drawPixel = function(x, y, color) {
 
@@ -314,7 +340,7 @@
       this.gameState.start();
     };
 	
-	PaintGameCommands.prototype.compileError = function(error_num) {
+	 PaintGameCommands.prototype.compileError = function(error_num) {
       /*
           External Function (used by something outside of this file)
       

@@ -14,13 +14,8 @@
         --> Where is this function called?
      */
     console.log("Start line:" + startLine, "Start col:" + startCol, "End line:" + endLine, "End col:" + endCol);
-    if(root.currentGame.codeEditor.editor.editSession) {
-      //console.log(root.currentGame.codeEditor.editor.editSession)
-      if(highlightid) {
-        //console.log(highlightid)
-        root.currentGame.codeEditor.editor.editSession.removeMarker(highlightid.id)
-      }
-      highlightid = root.currentGame.codeEditor.editor.editSession.highlightLines(startLine, endLine)
+    if(root.currentGame) {
+        root.currentGame.gameState.highlightCommand(startLine, endLine);
     }
   };
 
