@@ -25,6 +25,7 @@
       this.gameLost = __bind(this.gameLost, this);
       this.gameWon = __bind(this.gameWon, this);
       this.clock = __bind(this.clock, this);
+      this.cleanPrevHighlight = __bind(this.cleanPrevHighlight, this);
 
       /*
           Sets up the game's constants and the visual display
@@ -41,6 +42,7 @@
       this.score = 0;
       this.stars = 0;
       this.tick = 0;
+      this.speed = 10;
       this.finishedExecuting = false;
       this.startedExecuting = false;
       this.commands = [];
@@ -91,8 +93,7 @@
           in the queue.
        */
       var command;
-      //if (this.startedGame === true) {
-        if (this.tick % 5 === 0) {
+       if (this.tick % this.speed === 0) {
           this.checkEvents();
           if (this.commands.length > 0) {
             command = this.commands.splice(0, 1)[0];
@@ -101,7 +102,6 @@
             this.finishedExecuting = this.startedExecuting;
           }
         }
-      //}
       this.visual.getFrame(this.gameManager.config.visual, this.tick);
       this.tick++;
     };
@@ -154,8 +154,9 @@
        */
       if (this.finishedExecuting) {
         //Clean up the last highlighted line
-        if(this.highlightid) {
-          this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
+        this.cleanPrevHighlight();
+        if (clockHandle != null) {
+          clearInterval(clockHandle);
         }
         if (this.checkPainting()) {
           this.gameWon();
@@ -180,9 +181,13 @@
     {
       //Don't highlight regions or past end of the code (indicates library code)
       if(startLine != endLine)
+      {
         return;
-      /*if(endline > this.gameManager.codeEditor.editor.editSession.getLength())
-        return;*/
+      }
+      if(endLine > this.gameManager.codeEditor.editor.editSession.getLength())
+      {
+        return;
+      }
       this.commands.push({
         key: 'highlightCommand',
         exec: this._highlightLine.bind(this, startLine, endLine)
@@ -191,10 +196,16 @@
 
     PaintGameState.prototype._highlightLine = function(startLine, endLine)
     {
+      this.cleanPrevHighlight()
+      this.highlightid = this.gameManager.codeEditor.editor.editSession.highlightLines(startLine, endLine);
+    }
+
+    PaintGameState.prototype.cleanPrevHighlight = function()
+    {
       if(this.highlightid) {
         this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
+        this.highlightid = null;
       }
-      this.highlightid = this.gameManager.codeEditor.editor.editSession.highlightLines(startLine, endLine);
     }
 
     PaintGameState.prototype.drawPixel = function(x, y, color) {
