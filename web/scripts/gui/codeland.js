@@ -10,7 +10,7 @@
         Shows the user the currently executing line.
         --> Where is this function called?
      */
-    console.log("Start line:" + startLine, "Start col:" + startCol, "End line:" + endLine, "End col:" + endCol);
+    //console.log("Start line:" + startLine, "Start col:" + startCol, "End line:" + endLine, "End col:" + endCol);
     if(root.currentGame) {
         root.currentGame.gameState.highlightCommand(startLine, endLine);
     }

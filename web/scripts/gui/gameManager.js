@@ -514,6 +514,9 @@
       } else {
         this.showRun();
       }
+      if (this.gameState != null) {
+        this.gameState.cleanPrevHighlight();
+      }
       return false;
     };
 
@@ -614,7 +617,7 @@
         code = code.slice(lineLength, code.length);
         position -= lineLength;
       }
-      return lineNum-0;
+      return lineNum;
     }
 
     GameManager.prototype.helpTips = function() {
