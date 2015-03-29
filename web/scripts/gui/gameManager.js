@@ -103,7 +103,7 @@
       }
       else{
         editdiv.fadeIn(800);
-        vis.fadeIn(800);  
+        vis.fadeIn(800);
       }
 
 
@@ -378,6 +378,13 @@
       if ((_ref = this.gameState) != null) {
         _ref.stopGame();
       }
+
+      //set editor renderer resize function to a dummy function to prevent
+      //null error caused at playerCodeEditor.js line
+      var tempResizeFunction = function() {
+        // dummy function to swap original onResize function
+      };
+      this.codeEditor.editor.editor.renderer.onResize = tempResizeFunction;
       this.codeEditor = null;
       this.interpreter = null;
       this.visual = null;
