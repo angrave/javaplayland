@@ -6,7 +6,6 @@
   var QUEST_COUNT = 4;
   var highlightid;
 
-
   window.notifyEvalSourcePosition = function(startLine, startCol, endLine, endCol) {
 
     /*
