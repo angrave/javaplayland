@@ -348,12 +348,19 @@
       /*
           Fixing the "top" property by only setting it when highlighted_line_position is not null - temporary HACK HACK HACK!!!
           TODO: Why the top property is null and why we need this hack
+          
+          Update: Issue Fixed! error caused by remnant window resize eventlistener set in 
+          playerCodeEditor.js line 213 function "AddEventListeners".
+          The resize function will still be called when game finishes and highlighted_line_position variable
+          no longer exists.
+          Fixed at gameManager.js "GameManager.prototype.finishGame" function.
+          Swapped in a dummy function for resize when game finishes.
        */
-      if (highlighted_line_position !== null) {
-        $(this.acelne).css({
-          "top": highlighted_line_position.top - aglh * 1.5 + "px"
-        });
-      }
+
+      $(this.acelne).css({
+        "top": highlighted_line_position.top - aglh * 2 + "px"
+      });
+
       this.poffset = $(".ace_scrollbar").scrollTop();
     };
 

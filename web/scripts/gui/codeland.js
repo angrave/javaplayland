@@ -537,6 +537,7 @@
     root.currentGame = null;
     root.drawGameMap(root.getPlayer());
     $('#select').hide();
+
   };
 
   root.getGame = function() {

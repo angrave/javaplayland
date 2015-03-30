@@ -83,17 +83,30 @@
       butdiv = makeDiv();
       editdiv = makeDiv({
         'id': this.editorDiv,
-        'class': 'code_editor'
+        'class': 'code_editor',
+        'style':'display:none'
       }, this.cssCfg["editDivCSS"]);
       this.gameDiv.append(editdiv);
       vis = makeDiv({
-        'id': this.visualDiv
+        'id': this.visualDiv,
+        'style':'display:none'
       }, this.cssCfg["visCSS"]);
       this.gameDiv.append(vis);
       eDiv = this.cssCfg["editDiv"];
       for (i = _i = 0; _i <= 3; i = ++_i) {
         $(editdiv).append(eDiv[i]);
       }
+
+      if(!(this.environment.stats.runCount > 0)){
+        editdiv.fadeIn('fast');
+        vis.fadeIn('fast');      
+      }
+      else{
+        editdiv.fadeIn(800);
+        vis.fadeIn(800);
+      }
+
+
       $('#stopRun').hide();
       this.codeEditor = new EditorManager(this.editorDiv, this.config.editor, this.config.code);
       this.interpreter = new CodeInterpreter(this.config.editor.commands);
@@ -365,6 +378,13 @@
       if ((_ref = this.gameState) != null) {
         _ref.stopGame();
       }
+
+      //set editor renderer resize function to a dummy function to prevent
+      //null error caused at playerCodeEditor.js line
+      var tempResizeFunction = function() {
+        // dummy function to swap original onResize function
+      };
+      this.codeEditor.editor.editor.renderer.onResize = tempResizeFunction;
       this.codeEditor = null;
       this.interpreter = null;
       this.visual = null;
