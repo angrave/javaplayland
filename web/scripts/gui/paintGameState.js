@@ -42,7 +42,7 @@
       this.score = 0;
       this.stars = 0;
       this.tick = 0;
-      this.speed = 10;
+      this.speed = 30;
       this.finishedExecuting = false;
       this.startedExecuting = false;
       this.commands = [];
@@ -188,10 +188,15 @@
       {
         return;
       }
-      this.commands.push({
-        key: 'highlightCommand',
-        exec: this._highlightLine.bind(this, startLine, endLine)
-      });
+      keystring = 'highlightCommand' + String(startLine);
+      console.log(keystring);
+      if(this.commands.length === 0 || this.commands[this.commands.length-1].key != keystring)
+      {
+        this.commands.push({
+          key: keystring,
+          exec: this._highlightLine.bind(this, startLine, endLine)
+        });
+      }
     }
 
     PaintGameState.prototype._highlightLine = function(startLine, endLine)
@@ -229,7 +234,9 @@
       char = this.gameManager.generateCharacter(color, x, y, false);
       char.color = color;
       this.picture[x][y] = char;
-      this.commands.push({
+      console.log('drawPixel');
+      //This is a HACK. Should just be a push onto the back, not the second last element
+      this.commands.splice(this.commands.length-1, 0, {
         key: 'drawPixel',
         exec: this._drawPixel.bind(this, x, y, char)
       });
