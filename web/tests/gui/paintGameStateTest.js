@@ -13,9 +13,10 @@ describe("paintGameStateTest",function() {
 	});
 	/**
 	it("getPixel works correctly",function() {
-		paintGameStateTester = PaintGameState(gameManager, waitForCode);
+		paintGameStateTester = PaintGameState(window.gameManager, window.waitForCode);
 		alert(paintGameStateTester);
 		expect(window.PaintGameState.prototype.getPixel(0,0)).toEqual(window.PaintGameState.gameState.getPixel(0,0));
 	});
-	**/
+**/
+	
 });
