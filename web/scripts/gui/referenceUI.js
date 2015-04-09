@@ -6,7 +6,10 @@
 
   editorCount = 0;
 
-  /**   * Fades out the background to show a reference   * page for the user when they click the menu buttons.   */
+  /**
+   * Fades out the background to show a reference
+   * page for the user when they click the menu buttons.
+   */
   sandBoxInfo = (function() {
     var backFade, cssData, input, output, pageSize, refContainer;
 
@@ -22,7 +25,11 @@
 
     cssData = null;
 	
-	/**	 * Loads the CSS for the reference UI	 * from a json file.	 * @param pSize Represents the size of the window.	 */
+	/**
+	 * Loads the CSS for the reference UI
+	 * from a json file.
+	 * @param pSize Represents the size of the window.
+	 */
     function sandBoxInfo(pSize) {
       var dData;
       pageSize = pSize;
@@ -31,7 +38,10 @@
       cssData = findConfig('scripts/config/referenceUI.json');
     }
 	
-	/**	 * This sets up the IO area.	 * @param pageSize Represents the size of the window.	 */
+	/**
+	 * This sets up the IO area.
+	 * @param pageSize Represents the size of the window.
+	 */
     sandBoxInfo.prototype.setupInput = function() {
       var hSize, vSize;
       vSize = pageSize + "%";
@@ -60,7 +70,8 @@
 	
 	
    /**
-    * This sets up the reference container.    * @param pageSize Represents the size of the reference container
+    * This sets up the reference container.
+    * @param pageSize Represents the size of the reference container
 	*/
     sandBoxInfo.prototype.setupRefContainer = function() {
       var pSize;
@@ -83,7 +94,10 @@
       return $(refContainer).prepend(output);
     };
 
-	/**	 * Fades out the screen behind the reference 	 * page using CSS data loaded from JSON earlier.	 */
+	/**
+	 * Fades out the screen behind the reference 
+	 * page using CSS data loaded from JSON earlier.
+	 */
     sandBoxInfo.prototype.setupBackFade = function() {
       backFade = makeDiv({
         id: 'bF'
@@ -91,7 +105,10 @@
       return $("body").prepend(backFade);
     };
 	
-	/**	 * Adds icons to the corner of the reference page.	 * (results from clicking the keyboard icon)	 */
+	/**
+	 * Adds icons to the corner of the reference page.
+	 * (results from clicking the keyboard icon)
+	 */
     sandBoxInfo.prototype.setupEnlarge = function() {
       var en1, en2;
       en1 = makeImgElem({
@@ -127,7 +144,12 @@
 
   })();
 	
-  /**   * This method adds a Java sandbox to the current page and    * returns information about it.   * @param pageSize Represents the size of the input and    * 				 output areas on the display panel   */
+  /**
+   * This method adds a Java sandbox to the current page and 
+   * returns information about it.
+   * @param pageSize Represents the size of the input and 
+   * 				 output areas on the display panel
+   */
   window.sandBoxPage = function() {
     var clClick, clHover, cllvHover, closeClick, enClick, enInHover, enOutHover, pageSize, sPanel, samplecode;
     pageSize = 90;
@@ -199,7 +221,12 @@
   };
 
 
- /**  * This method adds a panel containing an introduction to Java to the page.  * @param size Represents the size of the display panel.  * InnerHTML is set in this method because setting it in   * another file did not work, there were problems with runnable code  */
+ /**
+  * This method adds a panel containing an introduction to Java to the page.
+  * @param size Represents the size of the display panel.
+  * InnerHTML is set in this method because setting it in 
+  * another file did not work, there were problems with runnable code
+  */
   window.referencePage = function() {
     var backFade, closeClick, examples, ref, refContainer, sel, _i, _ref, _results;
     backFade = document.createElement("div");
@@ -252,7 +279,10 @@
     return _results;
   };
   
-  /**   * Sets up the up the example text in the   * reference code editor.   */
+  /**
+   * Sets up the up the example text in the
+   * reference code editor.
+   */
   setUpExample = function(dive) {
     var i, o, text;
     text = $(dive).text();
@@ -405,7 +435,7 @@
       "position": "static"
     });
     header.innerHTML = "Legal Terms and Attributions";
-    para.innerHTML = "Copyright (C) 2013 The Board of Trustees at the University of Illinois <br/> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: <br/> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. <br/> THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. <hr> <em>Third-party open-source content</em><br/> Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a> ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br /> The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.<br/> Last Guardian Sprites by Philipp Lenssen are licensed under the Creative Commons <a href='http://creativecommons.org/licenses/by/3.0/'> attribution license</a>.<br/> The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a> <hr> <em>Acknowledgements</em><br> We wish to thank Holly, Maggie and Abby and the other participants at the 2013 University of Illinois Computer Science Summer G.A.M.E.S Camp for their game ideas, feedback and testing. <br> We wish to thank CJ Carey, John Vilk and the other developers of Doppio-JVM (a project by the <a href='http://plasma.cs.umass.edu/'>Plasma research group at UMass</a>)</a> and BrowserFS for use of their software and their support of this project.<br> <em>Software development and bug contribution</em><br> Original software created by University of Illinois students and faculty, Chris Liu, Fabian Junge, James Kelly and Lawrence Angrave.<br>Additional Development done by Bharat Ponnaluri,Yi Gao, Julia Syi, Lavanya Iyer, and Noyan Baykal <br/>";
+    para.innerHTML = "Copyright (C) 2015 The Board of Trustees at the University of Illinois <br/> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: <br/> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. <br/> THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. <hr> <em>Third-party open-source content</em><br/> Sounds from freesound and images from openclipart.org are licensed under <a href='http://creativecommons.org/publicdomain/zero/1.0/''>the creative commons 0 license</a> ('game over','level completed' sounds; 'book', 'star' and treasure map icons)<br /> The Doppio jvm license is available <a href='https://github.com/int3/doppio/blob/master/LICENSE'>here</a>.<br/> Last Guardian Sprites by Philipp Lenssen are licensed under the Creative Commons <a href='http://creativecommons.org/licenses/by/3.0/'> attribution license</a>.<br/> The yellow arrow icon by Jack Cai and the grey keyboard icon by The Working Group downloaded from findicons.com is licensed under <a href='http://creativecommons.org/licenses/by-nd/2.5/'>Creative Commons Attributions no Derivatives</a> <hr> <em>Acknowledgements</em><br> We wish to thank Holly, Maggie and Abby and the other participants at the 2013 University of Illinois Computer Science Summer G.A.M.E.S Camp for their game ideas, feedback and testing. <br> We wish to thank CJ Carey, John Vilk and the other developers of Doppio-JVM (a project by the <a href='http://plasma.cs.umass.edu/'>Plasma research group at UMass</a>)</a> and BrowserFS for use of their software and their support of this project.<br> <em>Software development and bug contribution</em><br> Original software created by University of Illinois students and faculty, Chris Liu, Fabian Junge, James Kelly and Lawrence Angrave.<br>Additional Development done by Bharat Ponnaluri,Yi Gao, Julia Syi, Lavanya Iyer, and Noyan Baykal. Further development in 2015 was undertaken by Colton Cannon, Chen Du, Will Hempy, Sida Li, and Hongyi Michael Wu. <br/>";
     $(refContainer).append(header);
     $(refContainer).append(para);
     return $("#bF").click(closeClick);

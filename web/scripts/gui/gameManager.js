@@ -615,7 +615,7 @@
         else if(lbrace === -1) //Missing left brace
           return "Mismatched } (closing brace) at line " + String(this.findLineNum(code, offset + rbrace ) + "!\nEach closing brace must have a matching opening brace and vice versa."); 
         else if(rbrace === -1) //Missing right brace
-          return "Mismatched { (opening brace) at line " + String(this.findLineNum(code, offset + lbrace) + "!\nEach opening brace must have a matching closing brace and vice versa."); /
+          return "Mismatched { (opening brace) at line " + String(this.findLineNum(code, offset + lbrace) + "!\nEach opening brace must have a matching closing brace and vice versa.");
         //If no braces/comments, then we have a valid program
         else
         {
