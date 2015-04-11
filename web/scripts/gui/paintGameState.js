@@ -191,10 +191,6 @@
         return;
       }
       keystring = 'highlightCommand' + String(startLine);
-<<<<<<< HEAD
-=======
-      console.log(keystring);
->>>>>>> db135ae6c72a051250118fb3afc40a87ec50ce2d
       if(this.commands.length === 0 || this.commands[this.commands.length-1].key != keystring)
       {
         this.commands.push({
@@ -202,11 +198,8 @@
           exec: this._highlightLine.bind(this, startLine, endLine)
         });
       }
-<<<<<<< HEAD
     };
-=======
-    }
->>>>>>> db135ae6c72a051250118fb3afc40a87ec50ce2d
+
 
     PaintGameState.prototype._highlightLine = function(startLine, endLine)
     {
