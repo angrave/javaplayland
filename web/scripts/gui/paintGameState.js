@@ -42,9 +42,8 @@
       this.score = 0;
       this.stars = 0;
       this.tick = 0;
-      this.speed = 30;
+      this.speed = 10;
       this.finishedExecuting = false;
-      this.startedExecuting = false;
       this.commands = [];
       this.picture = [];
       this.highlightid = null;
@@ -94,12 +93,13 @@
        */
       var command;
        if (this.tick % this.speed === 0) {
-          this.checkEvents();
           if (this.commands.length > 0) {
             command = this.commands.splice(0, 1)[0];
             command.exec();
-          } else {
-            this.finishedExecuting = this.startedExecuting;
+          }
+          else
+          {
+            this.checkEvents();
           }
         }
       this.visual.getFrame(this.gameManager.config.visual, this.tick);
@@ -173,7 +173,7 @@
       
           Starts the game
        */
-      this.startedExecuting = true;
+      this.finishedExecuting = true;
       this.startedGame = true;
     };
 
@@ -184,12 +184,13 @@
       {
         return;
       }
+      //HACK - ignore line numbers past the maximum line number in user code to
+      //hopefully ignore most references to library code
       if(endLine > this.gameManager.codeEditor.editor.editSession.getLength())
       {
         return;
       }
       keystring = 'highlightCommand' + String(startLine);
-      console.log(keystring);
       if(this.commands.length === 0 || this.commands[this.commands.length-1].key != keystring)
       {
         this.commands.push({
@@ -197,13 +198,13 @@
           exec: this._highlightLine.bind(this, startLine, endLine)
         });
       }
-    }
+    };
 
     PaintGameState.prototype._highlightLine = function(startLine, endLine)
     {
       this.cleanPrevHighlight()
       this.highlightid = this.gameManager.codeEditor.editor.editSession.highlightLines(startLine, endLine);
-    }
+    };
 
     PaintGameState.prototype.cleanPrevHighlight = function()
     {
@@ -211,7 +212,7 @@
         this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
         this.highlightid = null;
       }
-    }
+    };
 
     PaintGameState.prototype.drawPixel = function(x, y, color) {
 
