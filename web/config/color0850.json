@@ -38,7 +38,9 @@
     "comments": [
       "Color Puzzle #8 - '+1 order?'","x = x + 1, means calculate the value of 'x', add one' and \nsave the vaue in variable named 'x'",
 "y = x + 2 means take the current value of variable 'y', add two and save the value in 'y' ",
-"Hint: Not working as expected? Check the order of your statements!"
+"Hint: Not working as expected? Check the order of your statements!",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

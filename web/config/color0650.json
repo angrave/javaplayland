@@ -38,7 +38,9 @@
     "postfix": "return;\n}",
     "comments": [
       "Color Puzzle #6 - 'Variable = Assignment'"," = means 'assign' not 'equals'!\n",
-" abc = 1+2+3+ (more expression stuff here);\n"," = means... calculate the right hand side and then...","  store the result in the existing variable named 'abc'"
+" abc = 1+2+3+ (more expression stuff here);\n"," = means... calculate the right hand side and then...","  store the result in the existing variable named 'abc'",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

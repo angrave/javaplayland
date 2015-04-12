@@ -32,7 +32,11 @@
     "shorthand": "g(4)",
 	"comments" : [ "Java Puzzle #9 - 'Use the parameter, Luke'",
 	"The new 'go' method will be useful here.",
-	"*** Click on the value 4 and type a new value."
+	"*** Click on the value 4 and type a new value.",
+   "Functions available in this level:",
+   "go(number): moves the avatar forward a given number of spaces",
+   "turnLeft(): turns the avatar to the left.",
+   "jump(): jumps over the space directly in front of the avatar and lands on the space two in front of the avatar"
 	]
   },
   "game": {

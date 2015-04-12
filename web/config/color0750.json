@@ -35,7 +35,9 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #7 - 'Assignment: Plus One'","y = y + 1, calculates the value of 'y plus one' and then saves it in variable named 'y'"
+      "Color Puzzle #7 - 'Assignment: Plus One'","y = y + 1, calculates the value of 'y plus one' and then saves it in variable named 'y'",
+      "Functions available in this level:",
+      "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

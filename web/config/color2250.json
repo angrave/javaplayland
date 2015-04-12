@@ -49,7 +49,10 @@
     "comments": ["Color Puzzle 22 - 'Conditional Loops'",
 	"We have only one loop to use, but two different ranges ... what can we do?",
 	"Hint: Try to assign different values to variables inside the conditional statement",
-	"that the while loop can take advantage of"
+	"that the while loop can take advantage of",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color",
+"getPixel(x, y): gives you the color of the pixel at coordinate (x,y)"
 	]
   },
   "game": {

@@ -1,7 +1,7 @@
 describe("menuBarTest",function() {
 	
-	it("",function() {
-		//TODO your code here
+	it("menuBar can be created",function() {
+		expect(appendBar($("<div></div>"))).not.toBeNull;
 	});
 	
 });

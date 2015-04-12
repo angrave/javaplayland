@@ -24,7 +24,10 @@
     "postfix": "\n\t}\nreturn;\n}",
     "comments": [
       "Color Puzzle #15 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
-      "Hint: One of these statements does not belong inside the inner loop,", "and one statement does not belong outside the loops"
+      "Hint: One of these statements does not belong inside the inner loop,", "and one statement does not belong outside the loops",
+      "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
+
     ]
   },
   "game": {

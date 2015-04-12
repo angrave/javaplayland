@@ -38,7 +38,9 @@
 	"We can test two different conditions in one if",
 	"&& represents AND. Both conditions must be true for it to evaluate to be true",
 	"|| represents OR. At least one of the conditions must be true for || to evaluate to be true",
-	"Try to figure out which one will work here"
+	"Try to figure out which one will work here",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
 	]
   },
   "game": {

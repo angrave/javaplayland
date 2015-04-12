@@ -37,7 +37,9 @@
     "comments": ["Color Puzzle 23 - 'For one and for all!'",
 	"You may have noticed that you frequently do three things when you use a while loop:",
 	"Declare and initialize a counter variable, declare the while loop, and increment the counter",
-  "For loops allow you to do all three tasks in a single line"
+  "For loops allow you to do all three tasks in a single line",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
 	]
   },
   "game": {

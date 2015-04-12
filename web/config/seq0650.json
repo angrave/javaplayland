@@ -28,7 +28,11 @@
   "code": {
     "shorthand": "LRRggRgLgggLRgg",
     "comments" : [ "Puzzle #6 - 'Code reader'","Programmers must think carefully so their programs work correctly" ,
-"Often you need to check each and every step of your program."]
+"Often you need to check each and every step of your program.",
+ "Functions available in this level:",
+  "go(): moves the avatar 1 space forward.",
+  "turnRight(): turns the avatar to the right.",    
+  "turnLeft(): turns the avatar to the left."]
   },
   "game": {
     "characterBase": {
