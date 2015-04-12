@@ -38,7 +38,9 @@
 	"If you want to flip a condition so that the statement attached to the if executes if it's false,",
 	"negate the condition by using an exclaimation point.",
 	"We are also introducing the increment operator, ++, which increases the variable by one",
-	"It has a less often used sibling, the decrement operator --"
+	"It has a less often used sibling, the decrement operator --",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
 	]
   },
   "game": {

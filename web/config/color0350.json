@@ -27,7 +27,9 @@
     "comments": [
       "Color Puzzle #3 - 'Paint upon paint'",
 "Hint: No delete? You'll just need to repaint it!",
-"Use the up-down buttons to swap the order of the lines."
+"Use the up-down buttons to swap the order of the lines.",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

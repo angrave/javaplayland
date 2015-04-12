@@ -32,7 +32,9 @@
 "Color Puzzle #1 - '(0,7) or (7,0)?'",
 "Each button below calls drawPixel but with different parameter values.",
 "Choose which statements are useful - you won't need all of them -"," and insert them into your paint method.",
-"Confused? To restart use the reset button."
+"Confused? To restart use the reset button.",
+"Functions available in this level:",
+    "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

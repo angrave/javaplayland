@@ -38,7 +38,9 @@
     "postfix": "return;\n}",
     "comments": [
       "Color Puzzle #11 - '1-4-1-4...'",
-      "x = 5 - x, what will be the new value of x if x is currently 1?"
+      "x = 5 - x, what will be the new value of x if x is currently 1?",
+      "Functions available in this level:",
+      "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

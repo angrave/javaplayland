@@ -30,7 +30,9 @@
     "postfix": "\t}\nreturn;\n}",
     "comments": [
       "Color Puzzle #13 - 'Loop around a while'","Use a while loop to repeat yourself!",
-"Hint: Not working as expected? Check the order of your statements!"
+"Hint: Not working as expected? Check the order of your statements!",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {
