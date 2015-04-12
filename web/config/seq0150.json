@@ -28,7 +28,6 @@
        "Fix this Java code so that your avatar\nreaches the flag",
        "To fix this program select a line of code, \nClick the small up and down arrows that appear near the line numbers to swap their order.",
        "To run the entire Java program, click the green play button \n(Your avatar always starts from the same spot).",
-       "Change the order of the go() and turnRight() statements: Click on \na line of code. Move it up and down, then test your program!" ]
   },
   "game": {
     "characterBase": {
