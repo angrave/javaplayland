@@ -30,7 +30,7 @@
       "We write comments in programs to help other programmers\nor ourselves understand our code and ideas and choices we made.",
        "Comments are ignored when the program runs.\nFor programmers though, good comments provide insight\n",
        "Time to play... \nSwap the code lines up and down \nand find the correct sequence of statements to win!\nYes - It is possible!",
-      "Methods available in this level:",
+      "Functions available in this level:",
       "go(): moves the avatar 1 space forward.",
       "turnRight(): turns the avatar to the right." ]
   },

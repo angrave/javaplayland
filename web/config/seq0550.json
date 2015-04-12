@@ -30,7 +30,7 @@
 		"Hint #1 There's more than one program that solves this puzzle.\nCan you see three solutions? Which one is fastest? Which one is Slowest?",
         "Hint #2 I wonder what happens if you go too far...",
         "Hint #3 What will you do with each line? Up,Down,Delete?",
-        "Methods available in this level:",
+        "Functions available in this level:",
         "go(): moves the avatar 1 space forward.",
         "turnLeft(): turns the avatar to the left." ]
   },

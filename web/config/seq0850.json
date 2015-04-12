@@ -32,7 +32,11 @@
     "shorthand": "",
     "initial": "",
 	"comments" : [ "Puzzle #8 - 'Blank slate'","To solve this puzzle use the code buttons to create your own program.",
-	"Hint #1 You can use a maximum of two turnRight() statements and one turnLeft()!"]
+	"Hint #1 You can use a maximum of two turnRight() statements and one turnLeft()!",
+  "Functions available in this level:",
+  "go(): moves the avatar 1 space forward.",
+  "turnRight(): turns the avatar to the right.",    
+  "turnLeft(): turns the avatar to the left."]
   },
   "game": {
     "characterBase": {
