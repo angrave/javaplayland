@@ -610,11 +610,13 @@
             temp = temp.slice(endOfLine+1, temp.length);
             offset += bcom + endOfLine + 3;
         }
-        else if(lbrace * rbrace < 0) //One of the two is -1
-          return "Mismatched brace at line " + String(this.findLineNum(code, offset + lbrace * rbrace * -1) + "!"); //This will give the mismatched position
-        //If no braces/comments, then we have a valid program
-        else if(lbrace == -1 && rbrace == -1)
+        else if(lbrace === -1 && rbrace === -1) //No more blocks, this is fine
           return 0;
+        else if(lbrace === -1) //Missing left brace
+          return "Mismatched } (closing brace) at line " + String(this.findLineNum(code, offset + rbrace ) + "!\nEach closing brace must have a matching opening brace and vice versa."); 
+        else if(rbrace === -1) //Missing right brace
+          return "Mismatched { (opening brace) at line " + String(this.findLineNum(code, offset + lbrace) + "!\nEach opening brace must have a matching closing brace and vice versa.");
+        //If no braces/comments, then we have a valid program
         else
         {
           //recurse into an inner braces

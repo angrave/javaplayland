@@ -12,7 +12,8 @@
 "color2050",
 "color2150",
 "color2250",
-"color2350"
+"color2350",
+"color2450"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
