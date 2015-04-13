@@ -387,7 +387,8 @@
       var tempResizeFunction = function() {
         // dummy function to swap original onResize function
       };
-      this.codeEditor.editor.editor.renderer.onResize = tempResizeFunction;
+      if(this.codeEditor != null)
+        this.codeEditor.editor.editor.renderer.onResize = tempResizeFunction;
       this.codeEditor = null;
       this.interpreter = null;
       this.visual = null;
@@ -589,13 +590,13 @@
        while(index < maxLen)
        {
         if(rcoms[index] < lcoms[index])
-          return "Mismatched closing comment at " + findLineNum(rcoms[index], newLines);
+          return "Mismatched closing comment at " + this.findLineNum(rcoms[index], newLines);
         index += 1;
        }
        if(lcoms.length > rcoms.length)
-        return "Mismatched opening comment at " + findLineNum(lcoms[rcoms.length+1], newLines);
+        return "Mismatched opening comment at " + this.findLineNum(lcoms[rcoms.length+1], newLines);
        if(rcoms.length > lcoms.length)
-        return "Mismatched closing comment at " + findLineNum(rcoms[lcoms.length+1], newLines);
+        return "Mismatched closing comment at " + this.findLineNum(rcoms[lcoms.length+1], newLines);
 
        //New to check braces. Same as before, but now must ignore braces in comments
        var lindex = 0, rindex = 0;
@@ -608,15 +609,15 @@
         else
         {
           if(rbraces[rindex] < lbraces[lindex])
-            return "Mismatched right brace at " + findLineNum(rbraces[rindex], newLines);
+            return "Mismatched right brace at " + this.findLineNum(rbraces[rindex], newLines);
           lindex += 1;
           rindex += 1;
         }
        }
        if(lindex != lbraces.length)
-        return "Mismatched left brace at " + findLineNum(lbraces[lindex], newLines);
+        return "Mismatched left brace at " + this.findLineNum(lbraces[lindex], newLines);
        if(rindex != rbraces.length)
-        return "Mismatched right brace at " + findLineNum(rbraces[rindex], newLines);
+        return "Mismatched right brace at " + this.findLineNum(rbraces[rindex], newLines);
 
        return 0;
      }
