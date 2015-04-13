@@ -2,9 +2,11 @@
 "title":"Recursion",
   "games": [
 "color2550",
-"color3650",
-"color3700",
-"color3750"
+"color2650",
+"color2750",
+"color2850",
+"color2950",
+"color3050"
   ],
   "commands": [
     "drawPixel(I,I,Ljava/lang/String;)V",
