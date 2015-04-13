@@ -9,7 +9,9 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown"
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
     ],
     "commands": {
       "shorthand" : [
