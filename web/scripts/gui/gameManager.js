@@ -40,7 +40,9 @@
       this.startGame = __bind(this.startGame, this);
       this.gameName = __bind(this.gameName, this);
       this.checkBraces = __bind(this.checkBraces, this);
+      this.findSubstrs = __bind(this.findSubstrs, this);
       this.findLineNum = __bind(this.findLineNum, this);
+      this.betweenIndices + __bind(this.betweenIndices, this);
 
       /*
           External Function (used by something outside of this file)
@@ -564,84 +566,118 @@
       this.showRun();
     };
 
-    GameManager.prototype.checkBraces = function(code, offset) {
+    GameManager.prototype.checkBraces = function(code) {
       /*
           Internal Function (used only by the code in this file)
       
-          Used to check for matching braces.
+          Used to check for matching braces. Main function
        */
-       //Since the code string is pass by value, we can mess with it
-       if (typeof offset === 'undefined') 
-        offset = 0;
-       var temp = code;
-       while(temp.length > 0)
-       {
-        var lcom = temp.indexOf("\\*");
-        var rcom = temp.indexOf("*\\");
-        var bcom = temp.indexOf("\\\\");
-        var lbrace = temp.indexOf("{");
-        var rbrace = temp.lastIndexOf("}");
+       var lbraces = this.findSubstrs(code, "{");
+       var rbraces = this.findSubstrs(code, "}");
+       var lcoms = this.findSubstrs(code, "/*");
+       var rcoms = this.findSubstrs(code, "*/");
+       var bcoms = this.findSubstrs(code, "//");
+       var newLines = this.findSubstrs(code, "\n");
 
-        //We need to determine if the braces are an issue
-        //if we have a comment begin before a brace
-        if(lcom != -1 && (lbrace == -1 || lcom < lbrace))
-        {
-          //If no matching right comment, then we have a comment mismatch
-          if(rcom == -1)
-            return "Mismatched starting comment at line " + String(this.findLineNum(code, offset + lcom) + "!");
-          //Otherwise scan again after the comment ends
-          else
-          {
-            temp = temp.slice(rcom+2, temp.length);
-            offset += rcom+2;
-            continue;
-          }
-        }
-        else if(rcom != -1 && lcom == -1)
-          return "Mismatched ending comment at line " + String(this.findLineNum(code, offset + lcom) + "!");
-        else if(bcom != -1 && (lbrace == -1 || bcom < lbrace))
-        {
-            //Line comment. Find where it ends, eliminate anything before that
-            temp = temp.slice(bcom+2, temp.length);
-            endOfLine = temp.indexOf("\n");
-            //If no newline, then we run into the end of the program. We are done with checking matching
-            if(endOfLine == -1)
-              return 0;
-            temp = temp.slice(endOfLine+1, temp.length);
-            offset += bcom + endOfLine + 3;
-        }
-        else if(lbrace === -1 && rbrace === -1) //No more blocks, this is fine
-          return 0;
-        else if(lbrace === -1) //Missing left brace
-          return "Mismatched } (closing brace) at line " + String(this.findLineNum(code, offset + rbrace ) + "!\nEach closing brace must have a matching opening brace and vice versa."); 
-        else if(rbrace === -1) //Missing right brace
-          return "Mismatched { (opening brace) at line " + String(this.findLineNum(code, offset + lbrace) + "!\nEach opening brace must have a matching closing brace and vice versa.");
-        //If no braces/comments, then we have a valid program
+       //First check if comments are matching
+       var index = 0;
+
+       //If different numbers of opening+closing comments, then mismatch already, but figure out which.
+       //I believe this will incorrectly report a problem if there is an opening comment inside
+       //another commented out block, but this should be avoided anyhow
+       var maxLen = Math.min(lcoms.length, rcoms.length)
+       while(index < maxLen)
+       {
+        if(rcoms[index] < lcoms[index])
+          return "Mismatched closing comment at " + findLineNum(rcoms[index], newLines);
+        index += 1;
+       }
+       if(lcoms.length > rcoms.length)
+        return "Mismatched opening comment at " + findLineNum(lcoms[rcoms.length+1], newLines);
+       if(rcoms.length > lcoms.length)
+        return "Mismatched closing comment at " + findLineNum(rcoms[lcoms.length+1], newLines);
+
+       //New to check braces. Same as before, but now must ignore braces in comments
+       var lindex = 0, rindex = 0;
+       while(lindex < lbraces.length && rindex < rbraces.length)
+       {
+        if(this.betweenIndices(lbraces[lindex], lcoms, rcoms) || this.betweenIndices(lbraces[lindex], bcoms, newLines))
+          lindex += 1;
+        else if(this.betweenIndices(rbraces[rindex], lcoms, rcoms) || this.betweenIndices(rbraces[rindex], bcoms, newLines))
+          rindex += 1;
         else
         {
-          //recurse into an inner braces
-          var afterwards = this.checkBraces(temp.slice(rbrace+1, temp.length), offset + rbrace + 1);
-          if(afterwards != 0)
-            return afterwards;
-          temp = temp.slice(lbrace+1, rbrace);
-          offset += lbrace+1;
-
+          if(rbraces[rindex] < lbraces[lindex])
+            return "Mismatched right brace at " + findLineNum(rbraces[rindex], newLines);
+          lindex += 1;
+          rindex += 1;
         }
        }
+       if(lindex != lbraces.length)
+        return "Mismatched left brace at " + findLineNum(lbraces[lindex], newLines);
+       if(rindex != rbraces.length)
+        return "Mismatched right brace at " + findLineNum(rbraces[rindex], newLines);
 
+       return 0;
      }
 
-    GameManager.prototype.findLineNum = function(code, position) {
-      var lineNum = 0;
-      while(position+1 >= 0)
-      {
-        lineNum++;
-        var lineLength = code.indexOf("\n")+1;
-        code = code.slice(lineLength, code.length);
-        position -= lineLength;
-      }
-      return lineNum;
-    }
+    GameManager.prototype.findSubstrs = function(code, substring) {
+      /*
+          Internal Function (used only by the code in this file)
+      
+          Used to check for matching braces. Finds all the positions of the substring given.
+       */
+       var startIndex = 0, indices = [];
+       var foundIndex = code.indexOf(substring, startIndex);
+       while(foundIndex > -1)
+       {
+        indices.push(foundIndex);
+        startIndex = foundIndex + substring.length;
+        foundIndex = code.indexOf(substring, startIndex);
+       }
+       return indices;
+     }
+
+     GameManager.prototype.findLineNum = function(position, lines) {
+      /*
+          Internal Function (used only by the code in this file)
+      
+          Used to check for matching braces. Finds the line number
+       */
+       var index = 0;
+       while(lines[startIndex] < position)
+       {
+        index += 1;
+       }
+       return index+1;
+     }
+
+     GameManager.prototype.betweenIndices = function(position, fIndices, sIndices) {
+      /*
+          Internal Function (used only by the code in this file)
+      
+          Used to check for matching braces. Finds the line number
+       */
+       var fIndex = 0;
+       while(fIndex < fIndices.length)
+       {
+        if(position > fIndices[fIndex])
+        {
+          sIndex = fIndex;
+          //sIndex should never run out of bounds here because we verify it's correct
+          //not clear how to handle this anyhow
+          while(fIndices[fIndex] > sIndices[sIndex])
+            sIndex += 1;
+          if(position < sIndices[sIndex])
+            return true;
+          else
+            return false;
+        }
+        else
+          fIndex += 1;
+       }
+       return false;
+     }
 
     GameManager.prototype.helpTips = function() {
 
