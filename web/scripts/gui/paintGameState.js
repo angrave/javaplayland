@@ -195,7 +195,7 @@
       {
         this.commands.push({
           key: keystring,
-          exec: this._highlightLine.bind(this, startLine, endLine)
+          exec: this._highlightLine.bind(this, startLine-1, startLine-1)
         });
       }
     };

@@ -77,6 +77,8 @@
       _ref = this.commandStack;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         commandCard = _ref[_i];
+        //highlight the line first, then display results
+        commandMap.highlightCommand(commandCard.line);
         commandCard.parameters.push(commandCard.line);
         commandMap[commandCard.command].apply(commandMap, commandCard.parameters);
       }
