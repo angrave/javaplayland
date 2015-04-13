@@ -195,7 +195,7 @@
       {
         this.commands.push({
           key: keystring,
-          exec: this._highlightLine.bind(this, startLine, endLine)
+          exec: this._highlightLine.bind(this, startLine-1, startLine-1)
         });
       }
     };
@@ -236,9 +236,7 @@
       char = this.gameManager.generateCharacter(color, x, y, false);
       char.color = color;
       this.picture[x][y] = char;
-      console.log('drawPixel');
-      //This is a HACK. Should just be a push onto the back, not the second last element
-      this.commands.splice(this.commands.length-1, 0, {
+      this.commands.push({
         key: 'drawPixel',
         exec: this._drawPixel.bind(this, x, y, char)
       });
