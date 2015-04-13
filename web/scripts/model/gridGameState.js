@@ -35,6 +35,8 @@
       this.gameLost = __bind(this.gameLost, this);
       this.gameWon = __bind(this.gameWon, this);
       this.clock = __bind(this.clock, this);
+      this.cleanPrevHighlight = __bind(this.cleanPrevHighlight, this);
+      this.highlightCommand = __bind(this.highlightCommand, this);
       this.gameConfig = deepcopy(this.gameManager.config.game);
       this.gameCommands = new GridGameCommands(this);
       this.visual = this.gameManager.visual;
@@ -45,6 +47,8 @@
       this.tick = 0;
       this.tock = 0;
       this.waitTime = 8;
+      this.speed = 30;
+      this.highlightid = 0;
       _ref = this.gameConfig.characters;
       for (name in _ref) {
         character = _ref[name];
@@ -100,7 +104,7 @@
     GridGameState.prototype.clock = function() {
       var character, e, name, _ref, _ref1;
       if (this.startedGame === true) {
-        if (this.tick % 30 === 0) {
+        if (this.tick % this.speed  === 0) {
           this.checkEvents();
           if (!this.waiting) {
             _ref = this.gameConfig.characters;
@@ -123,7 +127,7 @@
             this.waiting = false;
           }
         }
-        if (!this.waiting && (this.tick - this.waitTime) % 30 === 0) {
+        if (!this.waiting && (this.tick - this.waitTime) % this.speed  === 0) {
           this.tick -= this.waitTime + 1;
         }
       }
@@ -211,6 +215,7 @@
         if (this.protagonist.x === character.x && this.protagonist.y === character.y) {
           if (character.trigger != null) {
             if (character.trigger !== "victory" || (character.trigger === "victory" && this.protagonistDoneMoving)) {
+              this.cleanPrevHighlight();
               triggers[character.trigger]();
             }
           }
@@ -219,6 +224,7 @@
       if (this.protagonistDoneMoving && this.protagonist.moving) {
         this.visual.charAnimate(this.protagonist.index);
         this.protagonist.moving = false;
+        this.cleanPrevHighlight();
         this.gameLost();
       }
     };
@@ -625,6 +631,44 @@
       return [newx, newy];
     };
 
+    GridGameState.prototype.highlightCommand = function(startLine, endLine)
+    {
+      //Don't highlight regions or past end of the code (indicates library code)
+      if(startLine != endLine)
+      {
+        return;
+      }
+      //HACK - ignore line numbers past the maximum line number in user code to
+      //hopefully ignore most references to library code
+      if(endLine > this.gameManager.codeEditor.editor.editSession.getLength())
+      {
+        return;
+      }
+      keystring = 'highlightCommand' + String(startLine);
+      if(this.protagonist.moves.length === 0 || this.protagonist.moves[this.protagonist.moves.length-1].key != keystring)
+      {
+        this.protagonist.moves.push({
+          key: keystring,
+          exec: this._highlightLine.bind(this, startLine-1, startLine-1)
+        });
+      }
+    };
+
+    GridGameState.prototype._highlightLine = function(startLine, endLine)
+    {
+      this.cleanPrevHighlight()
+      this.highlightid = this.gameManager.codeEditor.editor.editSession.highlightLines(startLine, endLine);
+    };
+
+    GridGameState.prototype.cleanPrevHighlight = function()
+    {
+      if(this.highlightid) {
+        this.gameManager.codeEditor.editor.editSession.removeMarker(this.highlightid.id);
+        this.highlightid = null;
+      }
+    };
+
+
     return GridGameState;
 
   })();
@@ -650,6 +694,11 @@
     GridGameCommands.prototype.finishedParsingStartGame = function() {
       this.gameState.start();
     };
+
+    GridGameCommands.prototype.highlightCommand = function(linenum) {
+      //Subtract 1 because of different starting convenions
+      this.gameState.highlightCommand(linenum, linenum);
+    }
 
     GridGameCommands.prototype.go = function(steps, line) {
       if (steps === void 0) {
