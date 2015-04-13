@@ -1,5 +1,5 @@
 {
-  "title": "Paintline",
+  "title": "DIY",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -9,41 +9,41 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown",
-      "deleteLine",
-      "insertButtons"
+      "switchDown"
     ],
-    "commands": {
-      "shorthand": [
-        "if (x < 7) paintline(x+1,y,colorToDraw);",
-        "drawPixel(x, y, colorToDraw);"
-      ]
-    }
+    "commands": {}
   },
   "code": {
-    "prefix": 
-      "void paintline(int x, int y, String colorToDraw) {",
+    "prefix": [
+      "void recurse(int x) {"
+    ],
+    "initial" : [
+      "return;",
+      "drawPixel(x, 2, 'r');",
+      "if(x == 8)",
+      "recurse(x+1);"
+    ],
     "postfix": [
       "}",
       "void paint() {",
-      "paintline(0,3,\"blue\");",
+      "recurse(0);",
       "}"
     ],
-    "comments": [
-      "Color Puzzle 13 - 'Paintline'",
-"Recursion works like loops. A function calls itself until it fufills some condition",
-"Without this condition you could end up with a situation similiar to an infinite loop",
-"paint() calls the recursive function paintline(int x, int y) to paint the line blue",
-"Use the provided code to complete paintline(int x, int y)"
-    ]
+    "comments": ["Color Puzzle 24 - 'Hello again'",
+	"Recursion is when a function repeatedly calls itself until it reaches a base case",
+  "Here, we've provided the recursive function along with its initial call",
+  "But the function is out of order. Fix it!"
+	]
   },
   "game": {
     "map": [
-      "UUUUUUUU"
+	  "",
+    "",
+	  "RRRRRRRRR"
     ],
     "offset": {
       "x": 0,
-      "y": 3
+      "y": 0
     }
   },
   "dyk": []
