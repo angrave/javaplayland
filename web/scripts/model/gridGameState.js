@@ -200,6 +200,7 @@
       var character, name, triggers, _ref;
       if (this.protagonist.x < 0 || this.protagonist.x >= this.gameManager.config.visual.grid.gridX || this.protagonist.y < 0 || this.protagonist.y >= this.gameManager.config.visual.grid.gridY) {
         this.protagonistFalls();
+        this.cleanPrevHighlight();
       }
       triggers = {
         "victory": this.gameWon,

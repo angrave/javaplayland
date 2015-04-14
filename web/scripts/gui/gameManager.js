@@ -590,13 +590,13 @@
        while(index < maxLen)
        {
         if(rcoms[index] < lcoms[index])
-          return "Mismatched closing comment at line " + this.findLineNum(rcoms[index], newLines) + ". Fix this be either removing it or adding a matching opening comment.";
+          return "Mismatched closing comment at line " + this.findLineNum(rcoms[index], newLines) + ". Fix this by either removing it or adding a matching opening comment.";
         index += 1;
        }
        if(lcoms.length > rcoms.length)
-        return "Mismatched opening comment at line " + this.findLineNum(lcoms[rcoms.length+1], newLines) + ". Fix this be either removing it or adding a matching closing comment.";
+        return "Mismatched opening comment at line " + this.findLineNum(lcoms[rcoms.length+1], newLines) + ". Fix this by either removing it or adding a matching closing comment.";
        if(rcoms.length > lcoms.length)
-        return "Mismatched closing comment at line " + this.findLineNum(rcoms[lcoms.length+1], newLines) + ". Fix this be either removing it or adding a matching opening comment.";
+        return "Mismatched closing comment at line " + this.findLineNum(rcoms[lcoms.length+1], newLines) + ". Fix this by either removing it or adding a matching opening comment.";
 
        //New to check braces. Same as before, but now must ignore braces in comments
        var lindex = 0, rindex = 0;
@@ -609,15 +609,15 @@
         else
         {
           if(rbraces[rindex] < lbraces[lindex])
-            return "Mismatched right brace at line " + this.findLineNum(rbraces[rindex], newLines) + ". Fix this be either removing it or adding a matching left brace.";
+            return "Mismatched right brace at line " + this.findLineNum(rbraces[rindex], newLines) + ". Fix this by either removing it or adding a matching left brace.";
           lindex += 1;
           rindex += 1;
         }
        }
        if(lindex != lbraces.length)
-        return "Mismatched left brace at line " + this.findLineNum(lbraces[lindex], newLines) + ". Fix this be either removing it or adding a matching right brace";
+        return "Mismatched left brace at line " + this.findLineNum(lbraces[lindex], newLines) + ". Fix this by either removing it or adding a matching right brace.";
        if(rindex != rbraces.length)
-        return "Mismatched right brace at line " + this.findLineNum(rbraces[rindex], newLines) + ". Fix this be either removing it or adding a matching left brace";
+        return "Mismatched right brace at line " + this.findLineNum(rbraces[rindex], newLines) + ". Fix this by either removing it or adding a matching left brace.";
 
        return 0;
      }
