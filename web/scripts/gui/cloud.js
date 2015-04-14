@@ -51,16 +51,11 @@
         "data-dismiss":"modal",
 	});
 
-  var closeButton = document.createElement("input");
+  var closeButton = document.createElement("button");
   $(closeButton).attr({
-		"id":"closeButton",
-        "type":"image",
-        "class":"btn btn-default",
-        "data-dismiss":"modal",
-		"src":"img/check30.png",
-		"width":"60",
-		"height":"48",
-
+	"type":"button",
+	"class":"btn btn-default",
+	"data-dismiss":"modal",
   });
   $(closeButton).append("Close");
   $(closeButton).click(function(){
