@@ -73,8 +73,8 @@
     $(nextGameButton).append("Next Game!");
     $(nextGameButton).click(function(){
         man.finishGame();
+        $("#cloudModal").remove();
         codeland.startGame(ng);
-        return $("#cloudModal").remove();
     });
   }
 

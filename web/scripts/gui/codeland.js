@@ -355,7 +355,7 @@
     };
     root.currentGame = new GameManager(env);
     root.currentGame.startGame();
-    if (!(env.stats.runCount > 0)) {
+    if (env.stats != null) {
       root.currentGame.helpTips();
     }
   };
