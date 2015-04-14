@@ -43,11 +43,24 @@
   });
 
   //adds the close button to the footer
+
   var closeButton = document.createElement("button");
   $(closeButton).attr({
         "type":"button",
         "class":"btn btn-default",
         "data-dismiss":"modal",
+	});
+
+  var closeButton = document.createElement("input");
+  $(closeButton).attr({
+		"id":"closeButton",
+        "type":"image",
+        "class":"btn btn-default",
+        "data-dismiss":"modal",
+		"src":"img/check30.png",
+		"width":"60",
+		"height":"48",
+
   });
   $(closeButton).append("Close");
   $(closeButton).click(function(){
