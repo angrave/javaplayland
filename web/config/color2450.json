@@ -38,6 +38,7 @@
 	"You may have noticed that you frequently do three things when you use a while loop:",
 	"Declare and initialize a counter variable, declare the while loop, and increment the counter",
   "For loops allow you to do all three tasks in a single line",
+  "Note the shorthand of x++ is equal to x = x + 1",
   "Functions available in this level:",
 "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
 	]
