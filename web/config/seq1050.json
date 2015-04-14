@@ -32,7 +32,12 @@
     "shorthand": "g(6)",
 	"comments" : [ "Java Puzzle #10 - 'Amazing parameter'","go,turnRight and turnLeft are called \"methods\".",
 	"The new 'go' method will be useful here",
-	"*** Click on the value to change it"
+	"*** Click on the value to change it",
+   "Functions available in this level:",
+   "go(number): moves the avatar forward a given number of spaces",
+   "turnRight(): turns the avatar to the right.",
+   "turnLeft(): turns the avatar to the left."
+
 	]
   },
   "game": {

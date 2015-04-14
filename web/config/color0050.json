@@ -25,7 +25,9 @@
       "I wrote a method named drawPixel for you. Call it to set the color of one pixel.",
 	  "Now you get to write a method named \"paint\"",
       "The pixel at (0,0) is at the top left corner,","but where is (0,7)? ",
-      "To win this game, the corner pixels must be filled with the correct color."
+      "To win this game, the corner pixels must be filled with the correct color.",
+      "Functions available in this level:",
+      "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

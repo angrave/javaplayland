@@ -27,7 +27,9 @@
       "Color Puzzle #2 - 'Hidden masterpiece'",
 "My drawPixel method is powerful because you use parameters to pass where to paint and a color name",
 "Delete the unwanted drawPixel calls inside your paint method",
-      "Use the reset button if you deleted something useful."
+      "Use the reset button if you deleted something useful.",
+      "Functions available in this level:",
+      "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

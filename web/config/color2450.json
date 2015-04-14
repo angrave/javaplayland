@@ -1,0 +1,61 @@
+{
+  "title": "For one and for all!",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+      "drawPixel(x, y, \"green\");",
+      "for(int x = 5; x < 8; x++){",
+      "for(int x = 2; x < 7; x++){",
+      "for(int y = 3; y < 6; y++){",
+      "for(int y = 0; y < 3; y++){",
+      {
+        "line" : "}",
+        "maxUses" : 2
+      }
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {"
+    ],
+    "postfix": [
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 23 - 'For one and for all!'",
+	"You may have noticed that you frequently do three things when you use a while loop:",
+	"Declare and initialize a counter variable, declare the while loop, and increment the counter",
+  "For loops allow you to do all three tasks in a single line",
+  "Note the shorthand of x++ is equal to x = x + 1",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
+	]
+  },
+  "game": {
+    "map": [
+	  "",
+    "",
+	  "",
+	  "..GGGGG",
+	  "..GGGGG",
+    "..GGGGG"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

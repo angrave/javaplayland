@@ -1,0 +1,59 @@
+{
+  "title": "A new perspective",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand" : [
+        "drawPixel(x, y, \"black\");",
+        "drawPixel(x+1, 3, \"red\");",
+        "drawPixel(x-1, y, \"black\");",
+        "for(int y = 1; y < 5; y++){",
+        "for(int y = 4; y < 7; y++){",
+        "}"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void doTheThing(int x) {"
+    ],
+    "postfix": [
+      "}",
+      "void paint() {",
+      "doTheThing(2);",
+      "doTheThing(6);",
+      "}"
+    ],
+    "comments": ["Color Puzzle 24 - 'A new perspective'",
+	   "We've allowed you to use functions that we have made for you",
+     "But now we're freeing you to define your own functions",
+     "When you run the program, paint(); will run, but you can't modify it",    
+     "See if you can figure out how to solve the puzzle inside doTheThing();!"
+	]
+  },
+  "game": {
+    "map": [
+	  "",
+    "..B...B",
+	  "..B...B",
+    "..BR..BR",
+    "..B...B"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

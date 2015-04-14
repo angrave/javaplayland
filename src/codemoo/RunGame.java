@@ -13,13 +13,16 @@ public class RunGame {
             System.out.println("Interpreter Not Set Up!");
             return;
         }
+		
         try {
             Preload.interpret.eval(args[0]);
-            classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.finishedParsingStartGame()");
+			classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.finishedParsingStartGame()");
         }
         catch (bsh.EvalError e) {
-            System.out.print("Threw " + e);
+            //classes.doppio.JavaScript.eval("console.log(\"" + e +"\")");
+			classes.doppio.JavaScript.eval("codeland.currentGame.commandMap.compileError(\"Check your code at " + String.valueOf(e.getErrorLineNumber()) + "!\")");
         }
+
         return;
     }
 }

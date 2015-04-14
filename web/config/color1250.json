@@ -34,7 +34,10 @@
       "Color Puzzle 12 - '1 Pixel copier'",
 "I made a method named 'getPixel' that takes two int parameters and returns a String.",
 "Your 'paint' method however returns nothing because it says 'void' before its name.",
-"Can you find out how to use getPixel?"
+"Can you find out how to use getPixel?",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color",
+"getPixel(x, y): gives you the color of the pixel at coordinate (x,y)"
     ]
   },
   "game": {

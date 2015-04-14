@@ -1,0 +1,54 @@
+{
+  "title": "Paintline pt 1",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+        "if (x > 7)",
+        "return;",
+        "drawPixel(x, y, colorToDraw);",
+        "while(true) {",
+        "}",
+        "x += 1;",
+        "int x = 0;"
+      ]
+    }
+  },
+  "code": {
+    "prefix": 
+      "void paintline(int y, String colorToDraw) {",
+    "postfix": [
+      "}",
+      "void paint() {",
+      "paintline(3,\"blue\");",
+      "}"
+    ],
+    "comments": [
+      "Color Puzzle 13 - 'Paintline v1'",
+"Make a loop inside paintline to fill the game board correctly",
+"Hint: Remember that return; will exit the function immediately",
+"We shall see in the next exercise how to do this in a more compact manner"
+    ]
+  },
+  "game": {
+    "map": [
+      "UUUUUUUU"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 3
+    }
+  },
+  "dyk": []
+}

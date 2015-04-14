@@ -33,9 +33,11 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #4 - 'Re-usable integers'",
+      "Color Puzzle #6 - 'Re-usable integers'",
 "Use an int variable to store, and later re-use an integer value.",
-"Once you've created a variable you can use the variable's current value, or store a new value."
+"Once you've created a variable you can use the variable's current value, or store a new value.",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

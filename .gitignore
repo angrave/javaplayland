@@ -1,11 +1,9 @@
 *.db
 *.fw.png
-*.js
 *.map
 *.DS_Store
+*.coffee
 node_modules
 vendor/
-web/scripts/index.js
 web/scripts/*.map
-web/scripts/playerCodeEditor.js
 

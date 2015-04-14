@@ -21,8 +21,17 @@
 </WebTrafficAnalyticsHere></span>
 
     <!-- Loads JQuery from Google's CDN if possible -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script >!window.jQuery && document.write(unescape('%3Cscript src="doppio-jvm/scripts/demo/jquery-1.7.1.min.js"%3E%3C/script%3E'))</script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+
+
+  <!-- Latest compiled and minified CSS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+
 
     <script src="scripts/gui/guiUtil.js"></script>
 
@@ -35,7 +44,6 @@
     <script src="doppio-jvm/scripts/jvm/compressed.js" ></script>
     <script src="doppio-jvm/scripts/demo/doppio-api.js" ></script>
 
-    <script src="scripts/gui/ref.js"></script>
     <script src="scripts/gui/referenceUI.js"></script>
     <script src="scripts/gui/codeland.js" ></script>
     <script src="scripts/ace/src/ace.js" ></script>
@@ -53,28 +61,30 @@
 
 </head>
 
-<body style="height:100%;width:100%;overflow:hidden;margin:0;padding:0;background-color:#FFFFEE">
-<div id='mainbody' style="height:95%;width:100%;border-top:2px solid #CC9933;position:relative;top:-1%">
-    <div id='UI' style="height:95%;width:100%;max-height:750px;position:relative;top:7.5%;border-top:2px solid #366CA3;border-bottom:2px solid #366CA3">
+<body id="body">
+
+
+<div id='mainbody'>
+
+    <div id='UI'>
         <!-- right:40%-->
         <div style="font-size:64px;position:absolute;left:40%;right:40%;top:40%;background-color:orange">Loading...</div>
         <div id='progress' style="font-size:14px;position:absolute;left:40%;right:40%;top:80%;background-color:orange">Loading game definitions...</div>
     </div>
 </div>
-<div style='text-align: center;min-width: 100%; display: inline-block; background-color: white;position:absolute;height:13px;width:100%;bottom:0%;font-size:8pt'>
+<div class='bottom-footer'>
     <img width=10 height=10 src='img/university-of-illinois/imark_bold.gif' alt='University of Illinois icon'/>
-    &nbsp;Copyright (C) 2013 The Board of Trustees at the University of Illinois.
+    &nbsp;Copyright (C) 2015 The Board of Trustees at the University of Illinois.
     <a id='copyrightinfo' href='#'>Attribution and legal information</a>
     ...
 </div>
+
 
 <script type = "text/javascript">
 
 
     $(function() {
         $("html").css({height:'100%',width:'100%','margin':'0','padding':'0','overflow':'hidden'})
-
-
 
 //http://colorschemedesigner.com/#3La1Yw0w0w0w0
 

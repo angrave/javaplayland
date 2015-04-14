@@ -1,7 +1,7 @@
 
 
 {
-  "title": "Returned early from work",
+  "title": "Returning early",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -27,7 +27,10 @@
 
     "postfix": "\t}\ndrawPixel(0,0,\"red\");\nreturn;\n}",
     "comments": [
-      "Color Puzzle #17 - 'Returned early from work'","I returned early; I didn't want to eat the red candy."
+      "Color Puzzle #17 - 'Return early'",
+	  "\"return\" tells us to exit the function. Useful if we want to stop midway through a function.",
+    "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

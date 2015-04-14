@@ -33,7 +33,9 @@
       "Use a String variable to store and later re-use the color name",
       "Variables are stored in memory -", " you can tell them to forget their current value and remember a new value instead.",
       "Use String variables to store and later re-use a sequence of characters like \"Hi World! RU Happy?\"",
-"Hint: You'll need to draw some pixels before and after changing the color variable."
+"Hint: You'll need to draw some pixels before and after changing the color variable.",
+"Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]
   },
   "game": {

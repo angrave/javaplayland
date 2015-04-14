@@ -1,0 +1,65 @@
+{
+  "title": "Plan B",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand": [
+	    "else if(y == 4)",
+	  	"else if(y == 3)",
+      "else if(y == 6)",
+	  	"if(y == 1)",
+  		"drawPixel(2, y, \"red\");",
+  		"drawPixel(6, y, \"green\");",
+      "drawPixel(4, y, \"blue\");",
+      "drawPixel(6, y, \"blue\");"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void paint() {",
+      "int y = 0;",
+      "while(y < 8)",
+      "{"
+    ],
+    "postfix": [
+	  "y = y + 1;",
+      "}",
+	  "return;\n}"
+    ],
+    "comments": ["Color Puzzle 22 - 'Plan B'",
+	"Not only can you have else statements after if's, you can have else if statements if you want to have multiple cases",
+	"This is especially useful if you want to have exclusive cases",
+  "Functions available in this level:",
+"drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
+	]
+  },
+  "game": {
+    "map": [
+	  "",
+    "......G",
+	  "",
+	  "..R",
+	  "....U",
+	  "",
+	  "......U",
+	  ""
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}
