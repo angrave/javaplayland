@@ -1,5 +1,5 @@
 {
-  "title": "Paintline",
+  "title": "A new perspective",
   "description": "",
   "task": "",
   "tags": "intro",
@@ -14,36 +14,45 @@
       "insertButtons"
     ],
     "commands": {
-      "shorthand": [
-        "if (x < 7) paintline(x+1,y,colorToDraw);",
-        "drawPixel(x, y, colorToDraw);"
+      "shorthand" : [
+        "drawPixel(x, y, \"black\");",
+        "drawPixel(x+1, 3, \"red\");",
+        "drawPixel(x-1, y, \"black\");",
+        "for(int y = 1; y < 5; y++){",
+        "for(int y = 4; y < 7; y++){",
+        "}"
       ]
     }
   },
   "code": {
-    "prefix": 
-      "void paintline(int x, int y, String colorToDraw) {",
+    "prefix": [
+      "void doTheThing(int x) {"
+    ],
     "postfix": [
       "}",
       "void paint() {",
-      "paintline(0,3,\"blue\");",
+      "doTheThing(2);",
+      "doTheThing(6);",
       "}"
     ],
-    "comments": [
-      "Color Puzzle 13 - 'Paintline'",
-"Recursion works like loops. A function calls itself until it fufills some condition",
-"Without this condition you could end up with a situation similiar to an infinite loop",
-"paint() calls the recursive function paintline(int x, int y) to paint the line blue",
-"Use the provided code to complete paintline(int x, int y)"
-    ]
+    "comments": ["Color Puzzle 24 - 'A new perspective'",
+	   "We've allowed you to use functions that we have made for you",
+     "But now we're freeing you to define your own functions",
+     "When you run the program, paint(); will run, but you can't modify it",    
+     "See if you can figure out how to solve the puzzle inside doTheThing();!"
+	]
   },
   "game": {
     "map": [
-      "UUUUUUUU"
+	  "",
+    "..B...B",
+	  "..B...B",
+    "..BR..BR",
+    "..B...B"
     ],
     "offset": {
       "x": 0,
-      "y": 3
+      "y": 0
     }
   },
   "dyk": []

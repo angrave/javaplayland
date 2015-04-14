@@ -1,0 +1,58 @@
+{
+  "title": "Tree",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand" : [
+        "drawPixel(x, y, \"green\");",
+        "for(int x = 4-y; x < 5+y; x++){",
+        "}",
+        "return;",
+        "drawTree(y+1);",
+        "if(y > 3)"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void drawTree(int y) {"
+    ],
+    "postfix": [
+      "}",
+      "void paint() {",
+      "drawPixel(4, 4, \"black\");",
+      "drawPixel(4, 5, \"black\");",
+      "drawTree(0);",
+      "}"
+    ],
+    "comments": ["Color Puzzle 24 - 'Tree'",
+	"You can do recursive layer calls in multiple dimensions too!"
+	]
+  },
+  "game": {
+    "map": [
+	  "....G",
+    "...GGG",
+	  "..GGGGG",
+    ".GGGGGGG",
+    "....B",
+    "....B"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

@@ -11,7 +11,8 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown","deleteLine",
+      "switchDown",
+      "deleteLine",
       "insertButtons"
     ],
     "commands": {

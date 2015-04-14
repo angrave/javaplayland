@@ -1,0 +1,51 @@
+{
+  "title": "Switcharoo",
+  "description": "",
+  "task": "",
+  "tags": "intro",
+  "gameType": "paint",
+  "backEnd": "doppio",
+  "editor": {
+    "freeformEditting": false,
+    "buttons": [
+      "switchUp",
+      "switchDown",
+      "deleteLine",
+      "insertButtons"
+    ],
+    "commands": {
+      "shorthand" : [
+        "if(y == 7)",
+        "return;"
+      ]
+    }
+  },
+  "code": {
+    "prefix": [
+      "void recurse(int x) {"
+    ],
+    "postfix": [
+      "}",
+      "void paint() {",
+      "recurse(0);",
+      "}"
+    ],
+    "comments": ["Color Puzzle 24 - 'Switcharoo'",
+	"Recursion is when a function repeatedly calls itself until it reaches a base case",
+  "Here, we've provided the recursive function along with its initial call",
+  "But the function is out of order. Fix it!"
+	]
+  },
+  "game": {
+    "map": [
+	  "",
+    "",
+	  "RRRRRRRR"
+    ],
+    "offset": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "dyk": []
+}

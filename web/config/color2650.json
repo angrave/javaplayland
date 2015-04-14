@@ -1,12 +1,12 @@
 {
-  "title": "Fill",
+  "title": "Paintline pt 1",
   "description": "",
   "task": "",
   "tags": "intro",
   "gameType": "paint",
   "backEnd": "doppio",
   "editor": {
-    "freeformEditting": true,
+    "freeformEditting": false,
     "buttons": [
       "switchUp",
       "switchDown",
@@ -15,34 +15,39 @@
     ],
     "commands": {
       "shorthand": [
-        
+        "if (x > 7)",
+        "return;",
+        "drawPixel(x, y, colorToDraw);",
+        "while(true) {",
+        "}",
+        "x += 1;",
+        "int x = 0;"
       ]
     }
   },
   "code": {
     "prefix": 
-      "void fill(int x, int y, String colorToDraw) {",
+      "void paintline(int y, String colorToDraw) {",
     "postfix": [
       "}",
       "void paint() {",
-      "fill(0,0,\"blue\");",
+      "paintline(3,\"blue\");",
       "}"
     ],
     "comments": [
-      "Color Puzzle 14 - 'Fill'",
-"A function can call itself multiple times with different arguments, it's not limited to recurse once.",
-"In this level, you will have to recurse in the +x and +y direction.",
-"We've taken off the training wheels so you can write code with your keyboard",
-"You are limited to only one drawPixel(x,y,colorToDraw), so do not try to use iteration!"
+      "Color Puzzle 13 - 'Paintline v1'",
+"Make a loop inside paintline to fill the game board correctly",
+"Hint: Remember that return; will exit the function immediately",
+"We shall see in the next exercise how to do this in a more compact manner"
     ]
   },
   "game": {
     "map": [
-      "UUU","UUU","UUU"
+      "UUUUUUUU"
     ],
     "offset": {
       "x": 0,
-      "y": 0
+      "y": 3
     }
   },
   "dyk": []
