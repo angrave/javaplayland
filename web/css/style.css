@@ -298,7 +298,7 @@ button.pop-up-inside {
 
 
 #mainbody{
-    height:97%;
+    height:100%;
     width:100%;
     position:relative;
 }
@@ -332,7 +332,7 @@ span.ui-inline-check{
     margin-left: -10px;
     margin-right: -10px;
     margin-bottom: 0px;
-    margin-top: 0px;
+    margin-top: 4px;
     cursor: default;
     text-align: justify;
     padding-left: 1%;
@@ -380,6 +380,7 @@ span.ui-inline-check{
     margin-top: 4px;
     margin-left: 25px;
     margin-right: 25px;
+    width:150px;
 }
 
 li span{
