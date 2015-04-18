@@ -358,7 +358,7 @@
        */
 
       $(this.acelne).css({
-        "top": highlighted_line_position.top - aglh * 2 + "px"
+        "top": highlighted_line_position.top - aglh * 1.5 + "px"
       });
 
       this.poffset = $(".ace_scrollbar").scrollTop();
