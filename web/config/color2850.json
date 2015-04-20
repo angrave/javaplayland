@@ -9,20 +9,19 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown",
-      "deleteLine",
-      "insertButtons"
+      "switchDown"
     ],
-    "commands": {
-      "shorthand" : [
-        "if(y == 7)",
-        "return;"
-      ]
-    }
+    "commands": {}
   },
   "code": {
     "prefix": [
       "void recurse(int x) {"
+    ],
+    "initial" : [
+      "if(x == 8)",
+      "recurse(x+1);",
+      "drawPixel(x, 2, \"red\");",
+      "return;"
     ],
     "postfix": [
       "}",
