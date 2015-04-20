@@ -24,7 +24,7 @@
       "drawPixel(3,3,\"yellow\");"
     ],
     "comments": [
-      "Color Puzzle #2 - 'Hidden masterpiece'",
+      "Color Puzzle #14 - 'Hidden masterpiece'",
 "My drawPixel method is powerful because you use parameters to pass where to paint and a color name",
 "Delete the unwanted drawPixel calls inside your paint method",
       "Use the reset button if you deleted something useful.",

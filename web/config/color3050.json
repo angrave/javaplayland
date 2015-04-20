@@ -29,7 +29,7 @@
       "}"
     ],
     "comments": [
-      "Color Puzzle 14 - 'Fill'",
+      "Color Puzzle #42 - 'Fill'",
 "A function can call itself multiple times with different arguments, it's not limited to recurse once.",
 "In this level, you will have to recurse in the +x and +y direction.",
 "We've taken off the training wheels so you can write code with your keyboard",

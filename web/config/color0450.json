@@ -29,7 +29,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #4 - 'String you along'",
+      "Color Puzzle #16 - 'String you along'",
       "Use a String variable to store and later re-use the color name",
       "Variables are stored in memory -", " you can tell them to forget their current value and remember a new value instead.",
       "Use String variables to store and later re-use a sequence of characters like \"Hi World! RU Happy?\"",

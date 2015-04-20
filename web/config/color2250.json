@@ -46,7 +46,7 @@
       "}",
 	  "return;\n}"
     ],
-    "comments": ["Color Puzzle 22 - 'Conditional Loops'",
+    "comments": ["Color Puzzle #34 - 'Conditional Loops'",
 	"We have only one loop to use, but two different ranges ... what can we do?",
 	"Hint: Try to assign different values to variables inside the conditional statement",
 	"that the while loop can take advantage of",

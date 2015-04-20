@@ -31,7 +31,7 @@
     ],
     "postfix": "}",
     "comments": [
-      "Color Puzzle 12 - '1 Pixel copier'",
+      "Color Puzzle #24 - '1 Pixel copier'",
 "I made a method named 'getPixel' that takes two int parameters and returns a String.",
 "Your 'paint' method however returns nothing because it says 'void' before its name.",
 "Can you find out how to use getPixel?",

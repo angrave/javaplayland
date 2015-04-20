@@ -36,7 +36,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #8 - '+1 order?'","x = x + 1, means calculate the value of 'x', add one' and \nsave the vaue in variable named 'x'",
+      "Color Puzzle #20 - '+1 order?'","x = x + 1, means calculate the value of 'x', add one' and \nsave the vaue in variable named 'x'",
 "y = x + 2 means take the current value of variable 'y', add two and save the value in 'y' ",
 "Hint: Not working as expected? Check the order of your statements!",
 "Functions available in this level:",

@@ -20,7 +20,7 @@
     "shorthand": "d(0,0,\"red\")d(7,0,\"blue\")",
 	"postfix": "return;// Insert your code before here.\n}",
     "comments": [
-      "Color puzzle #0 - 'Color by code'",
+      "Color Puzzle #12 - 'Color by code'",
       "Our tiny digital picture is made of 8 columns and 8 rows of picture elements or \"pixels\".",
       "I wrote a method named drawPixel for you. Call it to set the color of one pixel.",
 	  "Now you get to write a method named \"paint\"",

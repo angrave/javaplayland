@@ -23,7 +23,7 @@
 	"initial" : "\nx=1;while( y != 5 ) {\n\twhile( x != 5 ) {\n\t\tdrawPixel(x, y, \"black\");\n\t\t\tx = x + 1;\n\t\t\ty = y + 1;\n\t\t}",
     "postfix": "\n\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #15 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
+      "Color Puzzle #27 - 'Loop-in-a-loop'","So close! So nearly correct! Fix the order to win!",
       "Hint: One of these statements does not belong inside the inner loop,", "and one statement does not belong outside the loops",
       "Functions available in this level:",
 "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"

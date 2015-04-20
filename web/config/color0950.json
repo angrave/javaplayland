@@ -36,7 +36,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #9 - 'Parameter plus 2'",
+      "Color Puzzle #21 - 'Parameter plus 2'",
       "Parameter values can be mathematical expressions too. ",
       "Functions available in this level:",
       "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"

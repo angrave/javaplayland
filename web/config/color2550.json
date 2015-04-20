@@ -35,7 +35,7 @@
       "doTheThing(6);",
       "}"
     ],
-    "comments": ["Color Puzzle 24 - 'A new perspective'",
+    "comments": ["Color Puzzle #37 - 'A new perspective'",
 	   "We've allowed you to use functions that we have made for you",
      "But now we're freeing you to define your own functions",
      "When you run the program, paint(); will run, but you can't modify it",    

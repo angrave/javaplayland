@@ -30,7 +30,7 @@
       "recurse(0);",
       "}"
     ],
-    "comments": ["Color Puzzle 24 - 'Switcharoo'",
+    "comments": ["Color Puzzle #40 - 'Switcharoo'",
 	"Recursion is when a function repeatedly calls itself until it reaches a base case",
   "Here, we've provided the recursive function along with its initial call",
   "But the function is out of order. Fix it!"
