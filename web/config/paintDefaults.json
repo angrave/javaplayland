@@ -65,8 +65,7 @@
     "code": {
       "prefix": "void paint() {\n",
       "postfix": "}",
-      "hiddenPreFix": "setStrictJava(true);",
-      "hiddenPostFix": "paint();",
+      "hiddenPostFix": "setStrictJava(true);\npaint();",
       "show": true,
       "shorthandKey": [
         {
