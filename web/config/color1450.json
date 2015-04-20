@@ -25,7 +25,7 @@
     ],
     "postfix": "\t}\nreturn;\n}",
     "comments": [
-      "Color Puzzle #14 - 'Loopy thinking'","Insert the statements in the correct order",
+      "Color Puzzle #26 - 'Loopy thinking'","Insert the statements in the correct order",
       "Functions available in this level:",
 "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]

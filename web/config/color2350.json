@@ -38,7 +38,7 @@
       "}",
 	  "return;\n}"
     ],
-    "comments": ["Color Puzzle 22 - 'Plan B'",
+    "comments": ["Color Puzzle #35 - 'Plan B'",
 	"Not only can you have else statements after if's, you can have else if statements if you want to have multiple cases",
 	"This is especially useful if you want to have exclusive cases",
   "Functions available in this level:",

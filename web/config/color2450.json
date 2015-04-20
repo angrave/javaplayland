@@ -34,7 +34,7 @@
     "postfix": [
 	  "return;\n}"
     ],
-    "comments": ["Color Puzzle 23 - 'For one and for all!'",
+    "comments": ["Color Puzzle #36 - 'For one and for all!'",
 	"You may have noticed that you frequently do three things when you use a while loop:",
 	"Declare and initialize a counter variable, declare the while loop, and increment the counter",
   "For loops allow you to do all three tasks in a single line",

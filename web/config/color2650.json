@@ -35,7 +35,7 @@
       "}"
     ],
     "comments": [
-      "Color Puzzle 13 - 'Paintline v1'",
+      "Color Puzzle #38 - 'Paintline pt 1'",
 "Make a loop inside paintline to fill the game board correctly",
 "Hint: Remember that return; will exit the function immediately",
 "We shall see in the next exercise how to do this in a more compact manner"

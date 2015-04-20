@@ -30,7 +30,7 @@
     ],
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle 19 - '8 Pixel copier'",
+      "Color Puzzle #31 - '8 Pixel copier'",
 "Hint: For this recipe you'll need integer and string variables, a loop and a couple of method calls.",
 "Functions available in this level:",
 "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color",
