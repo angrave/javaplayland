@@ -9,20 +9,19 @@
     "freeformEditting": false,
     "buttons": [
       "switchUp",
-      "switchDown",
-      "deleteLine",
-      "insertButtons"
+      "switchDown"
     ],
-    "commands": {
-      "shorthand" : [
-        "if(y == 7)",
-        "return;"
-      ]
-    }
+    "commands": {}
   },
   "code": {
     "prefix": [
       "void recurse(int x) {"
+    ],
+    "initial" : [
+      "if(x == 8)",
+      "recurse(x+1);",
+      "drawPixel(x, 2, \"red\");",
+      "return;"
     ],
     "postfix": [
       "}",
@@ -30,7 +29,7 @@
       "recurse(0);",
       "}"
     ],
-    "comments": ["Color Puzzle 24 - 'Switcharoo'",
+    "comments": ["Color Puzzle #40 - 'Switcharoo'",
 	"Recursion is when a function repeatedly calls itself until it reaches a base case",
   "Here, we've provided the recursive function along with its initial call",
   "But the function is out of order. Fix it!"

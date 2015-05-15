@@ -25,7 +25,7 @@
       "drawPixel(3,3,\"red\");"
     ],
     "comments": [
-      "Color Puzzle #3 - 'Paint upon paint'",
+      "Color Puzzle #15 - 'Paint upon paint'",
 "Hint: No delete? You'll just need to repaint it!",
 "Use the up-down buttons to swap the order of the lines.",
 "Functions available in this level:",

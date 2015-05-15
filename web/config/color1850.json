@@ -26,7 +26,7 @@
 	"initial" : "",
     "postfix": "return;\n}",
     "comments": [
-      "Color Puzzle #18 - 'Don't spill the paint'",
+      "Color Puzzle #30 - 'Don't spill the paint'",
       "Functions available in this level:",
 "drawPixel(x, y, color): draws the pixel at the coordinate (x,y) the given color"
     ]

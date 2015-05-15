@@ -30,7 +30,7 @@
       "}"
     ],
     "comments": [
-      "Color Puzzle 13 - 'Paintline pt 2'",
+      "Color Puzzle #39 - 'Paintline pt 2'",
 "Recursion works like loops. A function calls itself until it fufills some condition",
 "Without this condition you could end up with a situation similiar to an infinite loop",
 "paint() calls the recursive function paintline(int x, int y) to paint the line blue",

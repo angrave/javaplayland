@@ -34,7 +34,7 @@
       "}",
 	  "return;\n}"
     ],
-    "comments": ["Color Puzzle 20 - 'What's NOT to like!'",
+    "comments": ["Color Puzzle #32 - 'What's NOT to like!'",
 	"If you want to flip a condition so that the statement attached to the if executes if it's false,",
 	"negate the condition by using an exclaimation point.",
 	"We are also introducing the increment operator, ++, which increases the variable by one",
