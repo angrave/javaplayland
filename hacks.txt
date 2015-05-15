@@ -1,1 +1,3 @@
 In PaintGameState.prototype.highlightCommand in paintGameState.js, there is a hack where we check the line number reported by Doppio to see if it exceeds the user code's line length. If this is true, then we ignore this line number as it comes from library code. This is a hack because we otherwise don't screen for line numbers coming from library code, so library code that does have low line numbers will get through.
+
+The Recursion:Fill puzzle says to only use one call to fill to make the user use a recursive solution, but we don't have any check to ensure that the user does this right now.
